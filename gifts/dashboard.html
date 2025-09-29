@@ -54,20 +54,32 @@ tr:last-child td {
 </style>
 </head>
 <body>
-<h1>Dashboard de Presentes</h1>
-<table id="dashboard-table">
-    <thead>
-        <tr>
-            <th>Nome do Convidado</th>
-            <th>Presente</th>
-            <th>Hora da Confirmação</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-<a href="lista_presentes.html" class="back-link">Voltar à Lista de Presentes</a>
+<div id="content" style="display: none;">
+    <h1>Dashboard de Presentes</h1>
+    <table id="dashboard-table">
+        <thead>
+            <tr>
+                <th>Nome do Convidado</th>
+                <th>Presente</th>
+                <th>Hora da Confirmação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <a href="lista_presentes.html" class="back-link">Voltar à Lista de Presentes</a>
+</div>
+
+<script>
+    const password = prompt('Digite a senha para acessar:');
+    if (password === 'Mg156810$') { // Substitua pela senha desejada
+        document.getElementById('content').style.display = 'block';
+    } else {
+        alert('Senha incorreta. Você será redirecionado.');
+        window.location.href = 'https://www.google.com'; // Ou qualquer página
+    }
+</script>
 
 <script>
 function excluirPresente(nome, presente) {
