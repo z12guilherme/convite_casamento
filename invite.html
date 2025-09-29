@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Casamento</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="inviteContent"></div>
+    <script>
+        // Get guest name from URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('name');
+
+        if (guestName) {
+            const invites = JSON.parse(localStorage.getItem('convites') || '{}');
+            const content = invites[guestName.toLowerCase().replace(/\s/g, '')];
+            if (content) {
+                document.getElementById('inviteContent').innerHTML = content;
+                // Fix the confirm button function
+                window.confirmarConvite = () => window.location.href = 'gifts/lista_presentes.html';
+            } else {
+                document.getElementById('inviteContent').innerHTML = '<h1>Convite não encontrado</h1><p>Este convite não existe ou foi removido.</p><a href="index.html">Voltar</a>';
+            }
+        } else {
+            document.getElementById('inviteContent').innerHTML = '<h1>Erro</h1><p>Nome do convidado não especificado.</p><a href="index.html">Voltar</a>';
+        }
+    </script>
+</body>
+</html>
