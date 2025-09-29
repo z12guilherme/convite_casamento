@@ -7,19 +7,31 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container">
-    <h1>Painel de Convidados</h1>
+<div id="content" style="display: none;">
+    <div class="container">
+        <h1>Painel de Convidados</h1>
 
-    <div class="form">
-        <input type="text" id="nome" placeholder="Nome do convidado">
-        <button onclick="adicionarConvidado()">Adicionar Convidado</button>
+        <div class="form">
+            <input type="text" id="nome" placeholder="Nome do convidado">
+            <button onclick="adicionarConvidado()">Adicionar Convidado</button>
+        </div>
+
+        <h2>Lista de Convidados</h2>
+        <ul id="listaConvidados"></ul>
+
+        <a href="gifts/dashboard.html" style="display: inline-block; margin-top: 2rem; padding: 10px 20px; background: #ec4899; color: white; text-decoration: none; border-radius: 10px;">Ver Dashboard de Presentes</a>
     </div>
-
-    <h2>Lista de Convidados</h2>
-    <ul id="listaConvidados"></ul>
-
-    <a href="gifts/dashboard.html" style="display: inline-block; margin-top: 2rem; padding: 10px 20px; background: #ec4899; color: white; text-decoration: none; border-radius: 10px;">Ver Dashboard de Presentes</a>
 </div>
+
+<script>
+    const password = prompt('Digite a senha para acessar:');
+    if (password === 'Mg156810') { // Substitua pela senha desejada
+        document.getElementById('content').style.display = 'block';
+    } else {
+        alert('Senha incorreta. Você será redirecionado.');
+        window.location.href = 'https://www.google.com'; // Ou qualquer página
+    }
+</script>
 
 <script src="js/main.js"></script>
 </body>
