@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Presentes - Marcos & Evellyn</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+    color: #374151;
+    padding: 2rem 1rem;
+}
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #ec4899;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+th {
+    background: #ec4899;
+    color: white;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 10px 20px;
+    background: #ec4899;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<h1>Dashboard de Presentes</h1>
+<table id="dashboard-table">
+    <thead>
+        <tr>
+            <th>Nome do Convidado</th>
+            <th>Presente</th>
+            <th>Hora da Confirmação</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<a href="lista_presentes.html" class="back-link">Voltar à Lista de Presentes</a>
+
+<script>
+function excluirPresente(nome, presente) {
+    if (!confirm(`Tem certeza que deseja excluir o presente "${presente}" de ${nome}?`)) {
+        return;
+    }
+
+    fetch('delete_present.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `nome=${encodeURIComponent(nome)}&presente=${encodeURIComponent(presente)}`
+    })
+    .then(res => res.text())
+    .then(message => {
+        console.log(message);
+        atualizarDashboard(); // Refresh the table
+    })
+    .catch(error => console.error('Error deleting gift:', error));
+}
+
+function atualizarDashboard() {
+    fetch('../data/presentes_confirmados.json')
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.querySelector('#dashboard-table tbody');
+            tbody.innerHTML = '';
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.nome}</td>
+                    <td>${item.presente}</td>
+                    <td>${item.hora}</td>
+                    <td><button onclick="excluirPresente('${item.nome}', '${item.presente}')" style="background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Excluir</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(error => console.error('Error loading data:', error));
+}
+
+// Atualiza a cada 5 segundos
+atualizarDashboard();
+setInterval(atualizarDashboard, 5000);
+</script>
+</body>
+</html>

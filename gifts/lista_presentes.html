@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Presentes - Marcos & Evellyn</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+        color: #374151;
+        padding: 2rem 1rem;
+    }
+    h1 {
+        font-family: 'Great Vibes', cursive;
+        font-size: 3rem;
+        color: #ec4899;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    p.subtitle {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        color: #6b7280;
+    }
+    .gifts-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .gift-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+    .gift-card:hover {
+        transform: translateY(-5px);
+    }
+    .gift-card canvas {
+        width: 100%;
+        max-width: 150px;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+    }
+    .gift-name {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #ec4899;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    .gift-description {
+        font-size: 0.95rem;
+        color: #374151;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .confirm-input {
+        width: 80%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        text-align: center;
+    }
+    .confirm-btn {
+        background: #ec4899;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .confirm-btn:hover {
+        background: #db2777;
+    }
+    .confirm-btn:disabled {
+        background: #22c55e;
+        cursor: not-allowed;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 10px 20px;
+        background: #ec4899;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1>Lista de Presentes</h1>
+<p class="subtitle">Obrigado por confirmar sua presença! Escolha o presente que deseja oferecer e registre seu nome para que possamos agradecer.</p>
+
+<div class="gifts-container">
+    <div class="gift-card">
+        <canvas id="talheres-canvas" width="150" height="150"></canvas>
+        <div class="gift-name">Jogo de Talheres</div>
+        <div class="gift-description">Conjunto completo para 6 pessoas, inox.</div>
+        <input type="text" class="confirm-input" placeholder="Digite seu nome">
+        <button class="confirm-btn" data-gift="Jogo de Talheres">Confirmar</button>
+    </div>
+    <div class="gift-card">
+        <canvas id="cama-canvas" width="150" height="150"></canvas>
+        <div class="gift-name">Jogo de Cama</div>
+        <div class="gift-description">Lençol, fronha e edredom para casal.</div>
+        <input type="text" class="confirm-input" placeholder="Digite seu nome">
+        <button class="confirm-btn" data-gift="Jogo de Cama">Confirmar</button>
+    </div>
+    <div class="gift-card">
+        <canvas id="liquidificador-canvas" width="150" height="150"></canvas>
+        <div class="gift-name">Liquidificador</div>
+        <div class="gift-description">Potente, com várias funções.</div>
+        <input type="text" class="confirm-input" placeholder="Digite seu nome">
+        <button class="confirm-btn" data-gift="Liquidificador">Confirmar</button>
+    </div>
+    <div class="gift-card">
+        <canvas id="panelas-canvas" width="150" height="150"></canvas>
+        <div class="gift-name">Jogo de Panelas</div>
+        <div class="gift-description">Conjunto antiaderente com 5 peças.</div>
+        <input type="text" class="confirm-input" placeholder="Digite seu nome">
+        <button class="confirm-btn" data-gift="Jogo de Panelas">Confirmar</button>
+    </div>
+    <div class="gift-card">
+        <canvas id="toalhas-canvas" width="150" height="150"></canvas>
+        <div class="gift-name">Jogo de Toalhas</div>
+        <div class="gift-description">Toalhas de banho e rosto, 100% algodão.</div>
+        <input type="text" class="confirm-input" placeholder="Digite seu nome">
+        <button class="confirm-btn" data-gift="Jogo de Toalhas">Confirmar</button>
+    </div>
+    <div class="gift-card">
+        <canvas id="cafeteira-canvas" width="150" height="150"></canvas>
+        <div class="gift-name">Cafeteira Elétrica</div>
+        <div class="gift-description">Para 12 xícaras, com timer programável.</div>
+        <input type="text" class="confirm-input" placeholder="Digite seu nome">
+        <button class="confirm-btn" data-gift="Cafeteira Elétrica">Confirmar</button>
+    </div>
+</div>
+
+<a href="dashboard.html" class="back-link">Ver Dashboard de Presentes</a>
+
+<script>
+// Canvas drawing functions (same as before)
+function drawTalheres() {
+    const canvas = document.getElementById('talheres-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0, '#f8fafc');
+    gradient.addColorStop(1, '#e2e8f0');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 150, 150);
+    
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(40, 30);
+    ctx.lineTo(40, 120);
+    ctx.stroke();
+    
+    for(let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.moveTo(35 + i * 3, 30);
+        ctx.lineTo(35 + i * 3, 45);
+        ctx.stroke();
+    }
+    
+    ctx.beginPath();
+    ctx.moveTo(75, 30);
+    ctx.lineTo(75, 120);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillRect(73, 30, 4, 60);
+    
+    ctx.beginPath();
+    ctx.moveTo(110, 45);
+    ctx.lineTo(110, 120);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc(110, 37, 8, 0, Math.PI * 2);
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fill();
+    ctx.stroke();
+}
+
+function drawCama() {
+    const canvas = document.getElementById('cama-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0, '#fef7ff');
+    gradient.addColorStop(1, '#f3e8ff');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 150, 150);
+    
+    ctx.fillStyle = '#8b5cf6';
+    ctx.fillRect(20, 80, 110, 50);
+    
+    ctx.fillStyle = '#a78bfa';
+    ctx.fillRect(25, 75, 100, 40);
+    
+    ctx.fillStyle = '#c4b5fd';
+    ctx.fillRect(30, 60, 35, 20);
+    ctx.fillRect(85, 60, 35, 20);
+    
+    ctx.strokeStyle = '#7c3aed';
+    ctx.lineWidth = 2;
+    for(let i = 0; i < 5; i++) {
+        ctx.beginPath();
+        ctx.moveTo(30 + i * 20, 85);
+        ctx.lineTo(35 + i * 20, 90);
+        ctx.stroke();
+    }
+}
+
+function drawLiquidificador() {
+    const canvas = document.getElementById('liquidificador-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0, '#f0fdf4');
+    gradient.addColorStop(1, '#dcfce7');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 150, 150);
+    
+    ctx.fillStyle = '#374151';
+    ctx.fillRect(50, 100, 50, 30);
+    
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.moveTo(45, 100);
+    ctx.lineTo(55, 40);
+    ctx.lineTo(95, 40);
+    ctx.lineTo(105, 100);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.fillStyle = '#6b7280';
+    ctx.fillRect(55, 35, 40, 8);
+    
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(65, 115, 4, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.arc(85, 115, 4, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function drawPanelas() {
+    const canvas = document.getElementById('panelas-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0, '#fffbeb');
+    gradient.addColorStop(1, '#fef3c7');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 150, 150);
+    
+    ctx.fillStyle = '#374151';
+    ctx.fillRect(30, 70, 60, 40);
+    ctx.fillRect(25, 65, 70, 10);
+    
+    ctx.strokeStyle = '#374151';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(95, 80);
+    ctx.lineTo(115, 75);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#4b5563';
+    ctx.fillRect(70, 45, 40, 30);
+    ctx.fillRect(67, 42, 46, 8);
+    
+    ctx.beginPath();
+    ctx.moveTo(113, 55);
+    ctx.lineTo(125, 52);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#6b7280';
+    ctx.beginPath();
+    ctx.arc(85, 35, 15, 0, Math.PI);
+    ctx.fill();
+}
+
+function drawToalhas() {
+    const canvas = document.getElementById('toalhas-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0, '#f0f9ff');
+    gradient.addColorStop(1, '#e0f2fe');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 150, 150);
+    
+    ctx.fillStyle = '#0ea5e9';
+    ctx.fillRect(25, 40, 70, 80);
+    
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(75, 30, 50, 60);
+    
+    ctx.strokeStyle = '#0284c7';
+    ctx.lineWidth = 2;
+    for(let i = 0; i < 8; i++) {
+        ctx.beginPath();
+        ctx.moveTo(30, 45 + i * 9);
+        ctx.lineTo(90, 45 + i * 9);
+        ctx.stroke();
+    }
+    
+    for(let i = 0; i < 6; i++) {
+        ctx.beginPath();
+        ctx.moveTo(80, 35 + i * 8);
+        ctx.lineTo(120, 35 + i * 8);
+        ctx.stroke();
+    }
+}
+
+function drawCafeteira() {
+    const canvas = document.getElementById('cafeteira-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
+    gradient.addColorStop(0, '#fefce8');
+    gradient.addColorStop(1, '#fef3c7');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 150, 150);
+    
+    ctx.fillStyle = '#374151';
+    ctx.fillRect(40, 90, 70, 40);
+    
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.moveTo(45, 90);
+    ctx.lineTo(50, 50);
+    ctx.lineTo(90, 50);
+    ctx.lineTo(95, 90);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.fillStyle = '#92400e';
+    ctx.fillRect(52, 70, 36, 18);
+    
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.moveTo(90, 60);
+    ctx.lineTo(105, 55);
+    ctx.lineTo(105, 65);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.strokeStyle = '#374151';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(100, 75, 8, -Math.PI/2, Math.PI/2);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(75, 110, 3, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Draw canvases on load
+window.onload = function() {
+    drawTalheres();
+    drawCama();
+    drawLiquidificador();
+    drawPanelas();
+    drawToalhas();
+    drawCafeteira();
+    
+    // Confirm button functionality with fetch
+    document.querySelectorAll('.confirm-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const nome = input.value.trim();
+            const presente = this.getAttribute('data-gift');
+            
+            if (!nome) {
+                alert('Por favor, digite seu nome.');
+                return;
+            }
+            
+            fetch('confirm_present.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({nome, presente})
+            })
+            .then(res => res.text())
+            .then(res => {
+                console.log(res);
+                input.value = '';
+                this.textContent = 'Confirmado ✓';
+                this.style.background = '#22c55e';
+                this.disabled = true;
+                alert('Obrigado, ' + nome + '! Você escolheu: ' + presente);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Erro ao confirmar o presente. Tente novamente.');
+            });
+        });
+    });
+};
+</script>
+</body>
+</html>
