@@ -1,119 +1,185 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard de Presentes - Marcos & Evellyn</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard de Presentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-    color: #0b1e4a;
-    padding: 2rem 1rem;
-}
-h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
-    color: #0b1e4a;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-table {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(11,30,74,0.1);
-}
-th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #e5e7eb;
-}
-th {
-    background: #3b82f6;
-    color: white;
-}
-tr:last-child td {
-    border-bottom: none;
-}
-.back-link {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 10px 20px;
-    background: #3b82f6;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    text-align: center;
-}
+  body { font-family: 'Poppins', sans-serif; background: #f0f4ff; padding: 2rem; color: #0b1e4a; }
+  h1 { font-family: 'Great Vibes', cursive; text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
+  h2 { margin-top: 2rem; text-align: center; }
+  .gifts-section { max-width: 900px; margin: 1rem auto; background: white; border-radius: 15px; padding: 1rem; box-shadow: 0 10px 30px rgba(11,30,74,0.1); }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: middle; }
+  th { background: #3b82f6; color: white; font-weight: 600; }
+  tr:hover { background: #e0e7ff; }
+  img.gift-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+  .btn { border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+  .delete-btn { background: #ef4444; color: white; }
+  .delete-btn:hover { background: #b91c1c; }
+  .release-btn { background: #fbbf24; color: white; }
+  .release-btn:hover { background: #b45309; }
+  #add-gift-form { max-width: 900px; margin: 2rem auto; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  #add-gift-form input, #add-gift-form button { padding: 0.5rem; border-radius: 6px; border: 1px solid #cbd5e1; }
+  #add-gift-form button { background: #3b82f6; color: white; border: none; cursor: pointer; font-weight: 600; }
+  #add-gift-form button:hover { background: #2563eb; }
 </style>
 </head>
 <body>
-<div id="content" style="display: none;">
-    <h1>Dashboard de Presentes</h1>
-    <table id="dashboard-table">
-        <thead>
-            <tr>
-                <th>Nome do Convidado</th>
-                <th>Presente</th>
-                <th>Hora da Confirmação</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <a href="lista_presentes.html" class="back-link">Voltar à Lista de Presentes</a>
+
+<h1>Dashboard de Presentes</h1>
+
+<script>
+  const password = prompt("Digite a senha do painel:");
+  if(password !== "Mg156810$") {
+    alert("Senha incorreta!");
+    document.body.innerHTML = "<h2 style='text-align:center;margin-top:3rem;'>Acesso negado</h2>";
+    throw new Error("Acesso negado");
+  }
+</script>
+
+<div class="gifts-section">
+  <h2>Presentes Disponíveis</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Imagem</th>
+        <th>Presente</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="available-gifts">
+      <tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>
+    </tbody>
+  </table>
 </div>
 
+<div class="gifts-section">
+  <h2>Presentes Confirmados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Imagem</th>
+        <th>Convidado</th>
+        <th>Presente</th>
+        <th>Hora</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="confirmed-gifts">
+      <tr><td colspan="5" style="text-align:center;">Carregando...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<form id="add-gift-form">
+  <input type="text" id="gift-name" placeholder="Nome do presente" required />
+  <input type="text" id="gift-link" placeholder="URL do produto (opcional)" />
+  <input type="file" id="gift-image" accept="image/*" required />
+  <button type="submit">Adicionar Presente</button>
+</form>
+
 <script>
-    const password = prompt('Digite a senha para acessar:');
-    if (password === 'Mg156810$') { // Substitua pela senha desejada
-        document.getElementById('content').style.display = 'block';
+const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const availableBody = document.getElementById('available-gifts');
+const confirmedBody = document.getElementById('confirmed-gifts');
+const addGiftForm = document.getElementById('add-gift-form');
+
+function createGiftRow(gift, isConfirmed=false){
+    const tr = document.createElement('tr');
+
+    // Imagem
+    const tdImg = document.createElement('td');
+    const img = document.createElement('img');
+    img.className = 'gift-img';
+    img.src = gift.image;
+    tdImg.appendChild(img);
+    tr.appendChild(tdImg);
+
+    // Nome com link
+    const nameHTML = gift.product_url 
+        ? `<a href="${gift.product_url}" target="_blank">${gift.name}</a>` 
+        : gift.name;
+
+    if(isConfirmed){
+        tr.innerHTML += `<td>${gift.taken_by}</td>
+                         <td>${nameHTML}</td>
+                         <td>${new Date(gift.confirmed_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</td>
+                         <td><button class="release-btn">Liberar</button></td>`;
+        tr.querySelector('.release-btn').onclick = async () => {
+            if(!confirm(`Deseja liberar "${gift.name}"?`)) return;
+            const { error } = await supabase.from('gifts').update({taken_by:null,confirmed_at:null}).eq('id',gift.id);
+            if(error) return alert('Erro: '+error.message);
+            loadAvailableGifts();
+            loadConfirmedGifts();
+        };
     } else {
-        alert('Senha incorreta. Você será redirecionado.');
-        window.location.href = 'https://www.google.com'; // Ou qualquer página
+        tr.innerHTML += `<td>${nameHTML}</td>
+                         <td><button class="delete-btn">Excluir</button></td>`;
+        tr.querySelector('.delete-btn').onclick = async () => {
+            if(!confirm(`Deseja excluir "${gift.name}"?`)) return;
+            const { error } = await supabase.from('gifts').delete().eq('id', gift.id);
+            if(error) return alert('Erro: ' + error.message);
+            loadAvailableGifts();
+        };
     }
-</script>
 
-<script>
-function excluirPresente(nome, presente) {
-    if (!confirm(`Tem certeza que deseja excluir o presente "${presente}" de ${nome}?`)) {
-        return;
-    }
-
-    const confirmados = JSON.parse(localStorage.getItem('presentes_confirmados') || '[]');
-    const updated = confirmados.filter(item => !(item.nome === nome && item.presente === presente));
-    localStorage.setItem('presentes_confirmados', JSON.stringify(updated));
-
-    console.log(`Presente excluído: ${nome} - ${presente}`);
-    atualizarDashboard(); // Refresh the table
+    return tr;
 }
 
-function atualizarDashboard() {
-    const data = JSON.parse(localStorage.getItem('presentes_confirmados') || '[]');
-    const tbody = document.querySelector('#dashboard-table tbody');
-    tbody.innerHTML = '';
-    data.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${item.nome}</td>
-            <td>${item.presente}</td>
-            <td>${item.hora}</td>
-            <td><button onclick="excluirPresente('${item.nome}', '${item.presente}')" style="background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Excluir</button></td>
-        `;
-        tbody.appendChild(tr);
-    });
+async function loadAvailableGifts(){
+    const { data, error } = await supabase.from('gifts').select('*').is('taken_by', null);
+    if(error){ console.error(error); availableBody.innerHTML='<tr><td colspan="3">Erro ao carregar</td></tr>'; return; }
+    availableBody.innerHTML='';
+    if(!data.length){ availableBody.innerHTML='<tr><td colspan="3">Nenhum presente disponível</td></tr>'; return; }
+    data.forEach(gift=>availableBody.appendChild(createGiftRow(gift)));
 }
 
-// Atualiza a cada 5 segundos
-atualizarDashboard();
-setInterval(atualizarDashboard, 5000);
+async function loadConfirmedGifts(){
+    const { data, error } = await supabase.from('gifts').select('*').not('taken_by','is',null).order('confirmed_at',{ascending:true});
+    if(error){ console.error(error); confirmedBody.innerHTML='<tr><td colspan="5">Erro ao carregar</td></tr>'; return; }
+    confirmedBody.innerHTML='';
+    if(!data.length){ confirmedBody.innerHTML='<tr><td colspan="5">Nenhum presente confirmado</td></tr>'; return; }
+    data.forEach(gift=>confirmedBody.appendChild(createGiftRow(gift,true)));
+}
+
+addGiftForm.onsubmit = async e => {
+    e.preventDefault();
+    const name = document.getElementById('gift-name').value.trim();
+    const productUrl = document.getElementById('gift-link').value.trim();
+    const file = document.getElementById('gift-image').files[0];
+    if(!name || !file) return;
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+        const base64Image = reader.result;
+        const { error } = await supabase.from('gifts').insert([{ name, image: base64Image, product_url: productUrl }]);
+        if(error) return alert('Erro: ' + error.message);
+        document.getElementById('gift-name').value = '';
+        document.getElementById('gift-link').value = '';
+        document.getElementById('gift-image').value = '';
+        loadAvailableGifts();
+    };
+    reader.readAsDataURL(file);
+};
+
+// Realtime
+supabase.channel('public:gifts')
+  .on('postgres_changes',{event:'*',schema:'public',table:'gifts'},()=> {
+    loadAvailableGifts();
+    loadConfirmedGifts();
+  }).subscribe();
+
+window.addEventListener('DOMContentLoaded',()=>{
+    loadAvailableGifts();
+    loadConfirmedGifts();
+});
 </script>
+
 </body>
 </html>

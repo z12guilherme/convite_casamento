@@ -158,7 +158,7 @@
 </div>
 
 <!-- Botão aceitar convite (se já estiver abaixo da timeline) -->
-<a href="gifts/lista_presentes.html" style="display: block; text-align: center; margin-top: 20px; padding: 12px 25px; background: #ec4899; color: white; text-decoration: none; border-radius: 25px; font-weight: 600;">
+<a id="accept-link" href="#" style="display: block; text-align: center; margin-top: 20px; padding: 12px 25px; background: #ec4899; color: white; text-decoration: none; border-radius: 25px; font-weight: 600;">
     Aceitar Convite
 </a>
 
@@ -168,6 +168,10 @@
             const urlParams = new URLSearchParams(window.location.search);
             const nome = urlParams.get('name') || 'Convidado';
             document.getElementById('convidado-nome').innerText = nome;
+
+            // Set link with name
+            const acceptLink = document.getElementById('accept-link');
+            acceptLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
 
             // Timeline animation
             const items = document.querySelectorAll('.timeline-item');
