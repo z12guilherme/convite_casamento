@@ -8,26 +8,144 @@ const templateContent = `<!DOCTYPE html>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        body { box-sizing: border-box; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f9fafb 100%); min-height: 100vh; color: #374151; text-align: center; padding: 0 1rem; }
-        * { margin:0; padding:0; box-sizing: inherit; }
-        .invitation-content { background: linear-gradient(135deg, #fdf2f8, #fce7f3); padding: 3rem; border-radius: 25px; max-width: 600px; width: 100%; text-align: center; border: 2px solid rgba(236,72,153,0.2); margin: 100px auto; }
-        .invitation-title { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #ec4899; margin-bottom: 2rem; }
-        .invitation-message { font-size: 1.1rem; line-height: 1.8; color: #374151; margin-bottom: 2rem; }
-        .invitation-names { font-family: 'Great Vibes', cursive; font-size: 2rem; color: #ec4899; margin: 1rem 0; }
-        .invitation-decorations { font-size: 2rem; margin: 1rem 0; opacity: 0.7; }
+        body {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #f0f5ff 100%);
+            min-height: 100vh;
+            color: #0b1e4a;
+            text-align: center;
+            padding: 0 1rem;
+            overflow-x: hidden;
+        }
+        * {
+            margin:0;
+            padding:0;
+            box-sizing: inherit;
+        }
+        .envelope {
+            position: relative;
+            width: 600px;
+            max-width: 90vw;
+            margin: 100px auto;
+            perspective: 1500px;
+        }
+        .envelope-front {
+            background-color: #0b1e4a;
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(11,30,74,0.5);
+            user-select: none;
+            position: relative;
+            z-index: 10;
+            transition: transform 1s ease;
+        }
+        .envelope-front::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            border-radius: 15px;
+            z-index: -1;
+        }
+        .invitation-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(11,30,74,0.2);
+            color: #0b1e4a;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .invitation-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #0b1e4a;
+            margin-bottom: 1rem;
+        }
+        .invitation-message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #374151;
+            margin-bottom: 2rem;
+        }
+        .invitation-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #0b1e4a;
+            margin: 1rem 0;
+        }
+        .invitation-decorations {
+            font-size: 2rem;
+            margin: 1rem 0;
+            opacity: 0.7;
+        }
+        .tear-animation {
+            animation: tearOpen 1.5s forwards;
+            transform-origin: top center;
+        }
+        @keyframes tearOpen {
+            0% {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: rotateX(-90deg);
+                opacity: 0;
+            }
+        }
+        button.confirm-btn {
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        button.confirm-btn:hover {
+            background-color: #2563eb;
+        }
     </style>
 </head>
 <body>
 
-    <div class="invitation-content">
-        <h2 class="invitation-title">Convite Especial</h2>
-        <div class="invitation-decorations">🌸 💕 🌸</div>
-        <p class="invitation-message">Querido(a) {{NOME_CONVIDADO}}, nós, Marcos e Evellyn, ficaríamos muito felizes em contar com sua presença neste momento tão especial. Sua presença tornará nosso dia ainda mais memorável e cheio de alegria.</p>
-        <div class="invitation-names">Marcos e Evellyn</div>
-        <div class="invitation-decorations">💍 ✨ 💍</div>
-        <button onclick="confirmarConvite()" style="padding: 10px 20px; background: #ec4899; color: white; border: none; border-radius: 10px; cursor: pointer; margin-top: 2rem;">Confirmar Convite</button>
+    <div class="envelope" id="envelope">
+        <div class="envelope-front" id="envelopeFront">Convite Especial</div>
+        <div class="invitation-content" id="invitationContent" style="display:none;">
+            <h2 class="invitation-title">Marcos & Evellyn</h2>
+            <div class="invitation-decorations">💐</div>
+            <p class="invitation-message">Querido(a) {{NOME_CONVIDADO}}, nós, Marcos e Evellyn, ficaríamos muito felizes em contar com sua presença neste momento tão especial. Sua presença tornará nosso dia ainda mais memorável e cheio de alegria.</p>
+            <div class="invitation-names">Marcos e Evellyn</div>
+            <div class="invitation-decorations">💍</div>
+            <button class="confirm-btn" onclick="confirmarConvite()">Confirmar Presença</button>
+        </div>
     </div>
+
     <script>
+        const envelopeFront = document.getElementById('envelopeFront');
+        const invitationContent = document.getElementById('invitationContent');
+        const envelope = document.getElementById('envelope');
+
+        envelopeFront.addEventListener('click', () => {
+            envelopeFront.classList.add('tear-animation');
+            setTimeout(() => {
+                envelopeFront.style.display = 'none';
+                invitationContent.style.display = 'block';
+            }, 1500);
+        });
+
         function confirmarConvite() {
             window.location.href = 'gifts/lista_presentes.html';
         }

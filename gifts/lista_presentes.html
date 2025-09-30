@@ -5,100 +5,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lista de Presentes - Marcos & Evellyn</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
-    body {
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #fdf2f8, #fce7f3);
-        color: #374151;
-        padding: 2rem 1rem;
-    }
-    h1 {
-        font-family: 'Great Vibes', cursive;
-        font-size: 3rem;
-        color: #ec4899;
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    p.subtitle {
-        text-align: center;
-        margin-bottom: 2rem;
-        font-size: 1.1rem;
-        color: #6b7280;
-    }
-    .gifts-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-    .gift-card {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: transform 0.2s;
-    }
-    .gift-card:hover {
-        transform: translateY(-5px);
-    }
-    .gift-card canvas {
-        width: 100%;
-        max-width: 150px;
-        border-radius: 12px;
-        margin-bottom: 1rem;
-    }
-    .gift-name {
-        font-weight: 600;
-        font-size: 1.2rem;
-        color: #ec4899;
-        margin-bottom: 0.5rem;
-        text-align: center;
-    }
-    .gift-description {
-        font-size: 0.95rem;
-        color: #374151;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-    .confirm-input {
-        width: 80%;
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
-        border-radius: 8px;
-        border: 1px solid #d1d5db;
-        text-align: center;
-    }
-    .confirm-btn {
-        background: #ec4899;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-    .confirm-btn:hover {
-        background: #db2777;
-    }
-    .confirm-btn:disabled {
-        background: #22c55e;
-        cursor: not-allowed;
-    }
-    .back-link {
-        display: inline-block;
-        margin-top: 2rem;
-        padding: 10px 20px;
-        background: #ec4899;
-        color: white;
-        text-decoration: none;
-        border-radius: 10px;
-        text-align: center;
-    }
+body {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe); /* Azul degradê */
+    color: #0b1e4a;
+    padding: 2rem 1rem;
+}
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #0b1e4a;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+p.subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #1e3a8a;
+}
+.gifts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.gift-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(11,30,74,0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s;
+    animation: pulse 2s infinite;
+}
+.gift-card:hover {
+    transform: translateY(-5px);
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+.gift-card canvas {
+    width: 100%;
+    max-width: 150px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: #f0f4ff; /* leve azul de fundo */
+}
+.gift-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.gift-description {
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.confirm-input {
+    width: 80%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #3b82f6;
+    text-align: center;
+}
+.confirm-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.confirm-btn:hover {
+    background: #2563eb;
+}
+.confirm-btn:disabled {
+    background: #22c55e;
+    cursor: not-allowed;
+}
+.back-link {
+    display: inline-block;
+    margin: 2rem auto 0 auto;
+    padding: 10px 20px;
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+}
 </style>
 </head>
 <body>
@@ -150,236 +158,176 @@
     </div>
 </div>
 
-
+<a href="invite.html" class="back-link">Voltar ao Convite</a>
 
 <script>
-// Canvas drawing functions (same as before)
+// === Funções de desenho aprimoradas para visualização ===
 function drawTalheres() {
-    const canvas = document.getElementById('talheres-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
-    gradient.addColorStop(0, '#f8fafc');
-    gradient.addColorStop(1, '#e2e8f0');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 150, 150);
-    
-    ctx.strokeStyle = '#64748b';
-    ctx.lineWidth = 3;
+    const ctx = document.getElementById('talheres-canvas').getContext('2d');
+    ctx.clearRect(0, 0, 150, 150);
+    ctx.fillStyle = '#3b82f6';
+
+    // Desenhar garfo
     ctx.beginPath();
-    ctx.moveTo(40, 30);
-    ctx.lineTo(40, 120);
-    ctx.stroke();
-    
-    for(let i = 0; i < 4; i++) {
-        ctx.beginPath();
-        ctx.moveTo(35 + i * 3, 30);
-        ctx.lineTo(35 + i * 3, 45);
-        ctx.stroke();
-    }
-    
-    ctx.beginPath();
-    ctx.moveTo(75, 30);
-    ctx.lineTo(75, 120);
-    ctx.stroke();
-    
-    ctx.fillStyle = '#94a3b8';
-    ctx.fillRect(73, 30, 4, 60);
-    
-    ctx.beginPath();
-    ctx.moveTo(110, 45);
-    ctx.lineTo(110, 120);
-    ctx.stroke();
-    
-    ctx.beginPath();
-    ctx.arc(110, 37, 8, 0, Math.PI * 2);
-    ctx.fillStyle = '#cbd5e1';
+    ctx.moveTo(45, 20);
+    ctx.lineTo(50, 20);
+    ctx.lineTo(50, 80);
+    ctx.lineTo(45, 80);
+    ctx.closePath();
     ctx.fill();
-    ctx.stroke();
+
+    // Dentes do garfo
+    ctx.fillRect(46, 20, 1, 15);
+    ctx.fillRect(48, 20, 1, 15);
+    ctx.fillRect(50, 20, 1, 15);
+
+    // Desenhar faca
+    ctx.beginPath();
+    ctx.moveTo(65, 20);
+    ctx.lineTo(70, 20);
+    ctx.lineTo(70, 80);
+    ctx.lineTo(65, 80);
+    ctx.closePath();
+    ctx.fill();
+
+    // Lâmina da faca
+    ctx.fillStyle = '#2563eb';
+    ctx.beginPath();
+    ctx.moveTo(67, 20);
+    ctx.lineTo(68, 20);
+    ctx.lineTo(68, 80);
+    ctx.lineTo(67, 80);
+    ctx.closePath();
+    ctx.fill();
 }
 
 function drawCama() {
-    const canvas = document.getElementById('cama-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
-    gradient.addColorStop(0, '#fef7ff');
-    gradient.addColorStop(1, '#f3e8ff');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 150, 150);
-    
-    ctx.fillStyle = '#8b5cf6';
-    ctx.fillRect(20, 80, 110, 50);
-    
-    ctx.fillStyle = '#a78bfa';
-    ctx.fillRect(25, 75, 100, 40);
-    
-    ctx.fillStyle = '#c4b5fd';
-    ctx.fillRect(30, 60, 35, 20);
-    ctx.fillRect(85, 60, 35, 20);
-    
-    ctx.strokeStyle = '#7c3aed';
+    const ctx = document.getElementById('cama-canvas').getContext('2d');
+    ctx.clearRect(0, 0, 150, 150);
+
+    // Base da cama
+    ctx.fillStyle = '#2563eb';
+    ctx.fillRect(20, 70, 110, 40);
+
+    // Travesseiros
+    ctx.fillStyle = '#3b82f6';
+    ctx.fillRect(25, 50, 40, 20);
+    ctx.fillRect(85, 50, 40, 20);
+
+    // Edredom com linhas
+    ctx.strokeStyle = '#1e40af';
     ctx.lineWidth = 2;
-    for(let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         ctx.beginPath();
-        ctx.moveTo(30 + i * 20, 85);
-        ctx.lineTo(35 + i * 20, 90);
+        ctx.moveTo(20 + i * 20, 70);
+        ctx.lineTo(20 + i * 20, 110);
         ctx.stroke();
     }
 }
 
 function drawLiquidificador() {
-    const canvas = document.getElementById('liquidificador-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
-    gradient.addColorStop(0, '#f0fdf4');
-    gradient.addColorStop(1, '#dcfce7');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 150, 150);
-    
-    ctx.fillStyle = '#374151';
-    ctx.fillRect(50, 100, 50, 30);
-    
-    ctx.fillStyle = '#e5e7eb';
+    const ctx = document.getElementById('liquidificador-canvas').getContext('2d');
+    ctx.clearRect(0, 0, 150, 150);
+
+    // Base
+    ctx.fillStyle = '#1d4ed8';
+    ctx.fillRect(50, 90, 50, 20);
+
+    // Corpo do liquidificador
+    ctx.fillStyle = '#3b82f6';
     ctx.beginPath();
-    ctx.moveTo(45, 100);
-    ctx.lineTo(55, 40);
-    ctx.lineTo(95, 40);
-    ctx.lineTo(105, 100);
+    ctx.moveTo(60, 90);
+    ctx.lineTo(40, 50);
+    ctx.lineTo(110, 50);
+    ctx.lineTo(90, 90);
     ctx.closePath();
     ctx.fill();
-    
-    ctx.fillStyle = '#6b7280';
-    ctx.fillRect(55, 35, 40, 8);
-    
-    ctx.fillStyle = '#ef4444';
-    ctx.beginPath();
-    ctx.arc(65, 115, 4, 0, Math.PI * 2);
-    ctx.fill();
-    
-    ctx.fillStyle = '#22c55e';
-    ctx.beginPath();
-    ctx.arc(85, 115, 4, 0, Math.PI * 2);
-    ctx.fill();
+
+    // Tampa
+    ctx.fillStyle = '#2563eb';
+    ctx.fillRect(60, 40, 30, 10);
+
+    // Botões
+    ctx.fillStyle = '#1e40af';
+    ctx.fillRect(70, 95, 10, 5);
+    ctx.fillRect(85, 95, 10, 5);
 }
 
 function drawPanelas() {
-    const canvas = document.getElementById('panelas-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
-    gradient.addColorStop(0, '#fffbeb');
-    gradient.addColorStop(1, '#fef3c7');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 150, 150);
-    
-    ctx.fillStyle = '#374151';
-    ctx.fillRect(30, 70, 60, 40);
-    ctx.fillRect(25, 65, 70, 10);
-    
-    ctx.strokeStyle = '#374151';
-    ctx.lineWidth = 4;
+    const ctx = document.getElementById('panelas-canvas').getContext('2d');
+    ctx.clearRect(0, 0, 150, 150);
+
+    // Panela grande
+    ctx.fillStyle = '#3b82f6';
     ctx.beginPath();
-    ctx.moveTo(95, 80);
-    ctx.lineTo(115, 75);
-    ctx.stroke();
-    
-    ctx.fillStyle = '#4b5563';
-    ctx.fillRect(70, 45, 40, 30);
-    ctx.fillRect(67, 42, 46, 8);
-    
-    ctx.beginPath();
-    ctx.moveTo(113, 55);
-    ctx.lineTo(125, 52);
-    ctx.stroke();
-    
-    ctx.fillStyle = '#6b7280';
-    ctx.beginPath();
-    ctx.arc(85, 35, 15, 0, Math.PI);
+    ctx.ellipse(75, 90, 40, 20, 0, 0, Math.PI * 2);
     ctx.fill();
+
+    // Tampa
+    ctx.fillStyle = '#2563eb';
+    ctx.beginPath();
+    ctx.ellipse(75, 70, 40, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Alças
+    ctx.fillStyle = '#1e40af';
+    ctx.fillRect(30, 80, 10, 5);
+    ctx.fillRect(120, 80, 10, 5);
 }
 
 function drawToalhas() {
-    const canvas = document.getElementById('toalhas-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
-    gradient.addColorStop(0, '#f0f9ff');
-    gradient.addColorStop(1, '#e0f2fe');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 150, 150);
-    
-    ctx.fillStyle = '#0ea5e9';
-    ctx.fillRect(25, 40, 70, 80);
-    
-    ctx.fillStyle = '#38bdf8';
-    ctx.fillRect(75, 30, 50, 60);
-    
-    ctx.strokeStyle = '#0284c7';
-    ctx.lineWidth = 2;
-    for(let i = 0; i < 8; i++) {
-        ctx.beginPath();
-        ctx.moveTo(30, 45 + i * 9);
-        ctx.lineTo(90, 45 + i * 9);
-        ctx.stroke();
-    }
-    
-    for(let i = 0; i < 6; i++) {
-        ctx.beginPath();
-        ctx.moveTo(80, 35 + i * 8);
-        ctx.lineTo(120, 35 + i * 8);
-        ctx.stroke();
-    }
+    const ctx = document.getElementById('toalhas-canvas').getContext('2d');
+    ctx.clearRect(0, 0, 150, 150);
+
+    // Toalha principal
+    ctx.fillStyle = '#60a5fa';
+    ctx.fillRect(40, 40, 70, 80);
+
+    // Linhas decorativas
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(40, 60);
+    ctx.lineTo(110, 60);
+    ctx.moveTo(40, 90);
+    ctx.lineTo(110, 90);
+    ctx.moveTo(40, 120);
+    ctx.lineTo(110, 120);
+    ctx.stroke();
 }
 
 function drawCafeteira() {
-    const canvas = document.getElementById('cafeteira-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    const gradient = ctx.createLinearGradient(0, 0, 150, 150);
-    gradient.addColorStop(0, '#fefce8');
-    gradient.addColorStop(1, '#fef3c7');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 150, 150);
-    
-    ctx.fillStyle = '#374151';
-    ctx.fillRect(40, 90, 70, 40);
-    
-    ctx.fillStyle = '#e5e7eb';
+    const ctx = document.getElementById('cafeteira-canvas').getContext('2d');
+    ctx.clearRect(0, 0, 150, 150);
+
+    // Corpo da cafeteira
+    ctx.fillStyle = '#3b82f6';
+    ctx.fillRect(50, 50, 50, 60);
+
+    // Tampa
+    ctx.fillStyle = '#2563eb';
+    ctx.fillRect(60, 40, 30, 15);
+
+    // Alça
+    ctx.strokeStyle = '#1e40af';
+    ctx.lineWidth = 5;
     ctx.beginPath();
-    ctx.moveTo(45, 90);
-    ctx.lineTo(50, 50);
-    ctx.lineTo(90, 50);
-    ctx.lineTo(95, 90);
-    ctx.closePath();
-    ctx.fill();
-    
-    ctx.fillStyle = '#92400e';
-    ctx.fillRect(52, 70, 36, 18);
-    
-    ctx.fillStyle = '#e5e7eb';
-    ctx.beginPath();
-    ctx.moveTo(90, 60);
-    ctx.lineTo(105, 55);
-    ctx.lineTo(105, 65);
-    ctx.closePath();
-    ctx.fill();
-    
-    ctx.strokeStyle = '#374151';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.arc(100, 75, 8, -Math.PI/2, Math.PI/2);
+    ctx.moveTo(100, 60);
+    ctx.lineTo(120, 80);
     ctx.stroke();
-    
-    ctx.fillStyle = '#ef4444';
-    ctx.beginPath();
-    ctx.arc(75, 110, 3, 0, Math.PI * 2);
-    ctx.fill();
+
+    // Base
+    ctx.fillStyle = '#1e40af';
+    ctx.fillRect(45, 110, 60, 10);
 }
 
-// Draw canvases on load
+// === Inicialização ===
 window.onload = function() {
+    // Confetti animation
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }), 500);
+    setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }), 1000);
+
     drawTalheres();
     drawCama();
     drawLiquidificador();
@@ -387,44 +335,30 @@ window.onload = function() {
     drawToalhas();
     drawCafeteira();
 
-    // Hide already confirmed gifts
     const confirmados = JSON.parse(localStorage.getItem('presentes_confirmados') || '[]');
     const confirmedGifts = new Set(confirmados.map(c => c.presente));
+
     document.querySelectorAll('.gift-card').forEach(card => {
         const giftName = card.querySelector('.gift-name').textContent;
-        if (confirmedGifts.has(giftName)) {
-            card.style.display = 'none';
-        }
+        if (confirmedGifts.has(giftName)) card.style.display = 'none';
     });
 
-    // Confirm button functionality with localStorage
     document.querySelectorAll('.confirm-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const input = this.previousElementSibling;
             const nome = input.value.trim();
             const presente = this.getAttribute('data-gift');
-
-            if (!nome) {
-                alert('Por favor, digite seu nome.');
-                return;
-            }
+            if (!nome) { alert('Digite seu nome'); return; }
 
             const confirmados = JSON.parse(localStorage.getItem('presentes_confirmados') || '[]');
-            confirmados.push({
-                nome,
-                presente,
-                hora: new Date().toISOString()
-            });
+            confirmados.push({ nome, presente, hora: new Date().toISOString() });
             localStorage.setItem('presentes_confirmados', JSON.stringify(confirmados));
 
-            console.log(`Presente confirmado: ${nome} - ${presente}`);
             input.value = '';
             this.textContent = 'Confirmado ✓';
             this.style.background = '#22c55e';
             this.disabled = true;
-            alert('Obrigado, ' + nome + '! Você escolheu: ' + presente);
-
-            // Hide the card after confirmation
+            alert(`Obrigado, ${nome}! Você escolheu: ${presente}`);
             this.closest('.gift-card').style.display = 'none';
         });
     });
