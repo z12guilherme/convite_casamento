@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Convidados</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Lato', sans-serif;
+        background: linear-gradient(135deg, #252440 0%, #3d4a73 50%, #5a6ba6 100%);
+        min-height: 100vh;
+        color: white;
+    }
+    .container {
+        max-width: 700px;
+        margin: 50px auto;
+        background: rgba(255,255,255,0.05);
+        padding: 30px 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        backdrop-filter: blur(10px);
+    }
+    h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    .form input {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: none;
+        font-size: 1rem;
+        outline: none;
+    }
+    .form button {
+        padding: 12px 15px;
+        border-radius: 30px;
+        border: none;
+        background: #ff6b6b;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .form button:hover {
+        background: #ff4757;
+        transform: translateY(-2px);
+    }
+    h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    #listaConvidados {
+        list-style: none;
+        padding: 0;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    #listaConvidados li {
+        background: rgba(255,255,255,0.1);
+        margin-bottom: 15px;
+        padding: 12px 15px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #listaConvidados li a {
+        background: #ec4899;
+        color: white;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        margin-left: 5px;
+    }
+    #listaConvidados li a:hover {
+        background: #db2777;
+        transform: translateY(-2px);
+    }
+    .delete-btn {
+        background: #ff3f3f;
+    }
+    .delete-btn:hover {
+        background: #e50000;
+    }
+    a.dashboard-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 25px;
+        background: #ec4899;
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    a.dashboard-link:hover {
+        background: #db2777;
+        transform: translateY(-2px);
+    }
+</style>
+</head>
+<body>
+<div id="content" style="display: none;">
+    <div class="container">
+        <h1>Painel de Convidados</h1>
+
+        <div class="form">
+            <input type="text" id="nome" placeholder="Nome do convidado">
+            <button onclick="adicionarConvidado()">Adicionar Convidado</button>
+        </div>
+
+        <h2>Lista de Convidados</h2>
+        <ul id="listaConvidados"></ul>
+
+        <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
+    </div>
+</div>
+
+<script>
+    const password = prompt('Digite a senha para acessar:');
+    if (password === 'Mg156810$') {
+        document.getElementById('content').style.display = 'block';
+    } else {
+        alert('Senha incorreta. Você será redirecionado.');
+        window.location.href = 'https://www.google.com';
+    }
+
+    const storageKey = 'convidados';
+
+    // --- Carregar convidados do LocalStorage ---
+    function carregarConvidados() {
+        const convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
+        convidados.forEach(nome => criarElementoConvidado(nome));
+    }
+
+    // --- Salvar convidado ---
+    function salvarConvidado(nome) {
+        const convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
+        convidados.push(nome);
+        localStorage.setItem(storageKey, JSON.stringify(convidados));
+    }
+
+    // --- Remover convidado ---
+    function removerConvidado(nome, li) {
+        let convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
+        convidados = convidados.filter(c => c !== nome);
+        localStorage.setItem(storageKey, JSON.stringify(convidados));
+        li.remove();
+    }
+
+    // --- Criar elemento de convidado ---
+    function criarElementoConvidado(nome) {
+        const li = document.createElement('li');
+        li.textContent = nome;
+
+        // Botão Ver Convite
+        const linkConvite = document.createElement('a');
+        linkConvite.href = `invite.html?name=${encodeURIComponent(nome)}`;
+        linkConvite.textContent = 'Ver Convite';
+        linkConvite.target = '_blank';
+        li.appendChild(linkConvite);
+
+        // Botão Excluir
+        const deleteBtn = document.createElement('a');
+        deleteBtn.href = '#';
+        deleteBtn.textContent = 'Excluir';
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.onclick = function(e) {
+            e.preventDefault();
+            if(confirm(`Deseja realmente excluir o convidado "${nome}"?`)) {
+                removerConvidado(nome, li);
+            }
+        }
+        li.appendChild(deleteBtn);
+
+        document.getElementById('listaConvidados').appendChild(li);
+    }
+
+    // --- Adicionar convidado ---
+    function adicionarConvidado() {
+        const nomeInput = document.getElementById('nome');
+        const nome = nomeInput.value.trim();
+        if(nome) {
+            criarElementoConvidado(nome);
+            salvarConvidado(nome);
+            nomeInput.value = '';
+        } else {
+            alert('Digite o nome do convidado!');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarConvidados);
+</script>
+</body>
+</html>

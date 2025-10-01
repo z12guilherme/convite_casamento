@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap');
+
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background-color: #f0f5ff;
+    text-align: center;
+    color: #0b1e4a;
+    margin: 0;
+    padding: 0;
+}
+
+.envelope-container {
+    background-color: #0b1e4a; /* Navy blue */
+    width: 700px;
+    max-width: 90vw;
+    margin: 50px auto;
+    padding: 40px 30px 80px 30px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(11, 30, 74, 0.5);
+}
+
+#inviteContent {
+    background-color: white;
+    color: #0b1e4a;
+    border-radius: 10px;
+    padding: 40px 30px;
+    box-shadow: 0 4px 15px rgba(11, 30, 74, 0.2);
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Floral decorations top and bottom corners using pseudo-elements */
+#inviteContent::before,
+#inviteContent::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+#inviteContent::before {
+    top: -20px;
+    left: -20px;
+    background-image: url('images/blue-flower-top-left.png');
+}
+
+#inviteContent::after {
+    bottom: -20px;
+    right: -20px;
+    background-image: url('images/blue-flower-bottom-right.png');
+}
+
+/* Envelope string decoration */
+.envelope-string {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background: repeating-linear-gradient(
+        45deg,
+        #d4af37,
+        #d4af37 4px,
+        transparent 4px,
+        transparent 8px
+    );
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+/* Guest tag decoration */
+.guest-tag {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    color: #0b1e4a;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    letter-spacing: 2px;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Invitation text styles */
+#inviteContent h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 0.5em;
+    color: #0b1e4a;
+}
+
+#inviteContent p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    color: #374151;
+    margin: 0.3em 0;
+}
