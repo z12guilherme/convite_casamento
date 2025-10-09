@@ -3,28 +3,156 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dashboard de Presentes</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<title>Dashboard de Presentes - Marcos & Evellyn</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-  body { font-family: 'Poppins', sans-serif; background: #f0f4ff; padding: 2rem; color: #0b1e4a; }
-  h1 { font-family: 'Great Vibes', cursive; text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
-  h2 { margin-top: 2rem; text-align: center; }
-  .gifts-section { max-width: 900px; margin: 1rem auto; background: white; border-radius: 15px; padding: 1rem; box-shadow: 0 10px 30px rgba(11,30,74,0.1); }
-  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-  th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: middle; }
-  th { background: #3b82f6; color: white; font-weight: 600; }
-  tr:hover { background: #e0e7ff; }
-  img.gift-img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
-  .btn { border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-  .delete-btn { background: #ef4444; color: white; }
-  .delete-btn:hover { background: #b91c1c; }
-  .release-btn { background: #fbbf24; color: white; }
-  .release-btn:hover { background: #b45309; }
-  #add-gift-form { max-width: 900px; margin: 2rem auto; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-  #add-gift-form input, #add-gift-form button { padding: 0.5rem; border-radius: 6px; border: 1px solid #cbd5e1; }
-  #add-gift-form button { background: #3b82f6; color: white; border: none; cursor: pointer; font-weight: 600; }
-  #add-gift-form button:hover { background: #2563eb; }
+  :root {
+    --background-color: #2b0000;
+    --text-color: #f5e6d3;
+    --primary-color: #c9b083;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+    --font-script: 'Dancing Script', cursive;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--background-color);
+    color: var(--text-color);
+    padding: 2rem;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-family: var(--font-script);
+    text-align: center;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .gifts-section {
+    max-width: 1000px;
+    margin: 1.5rem auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 15px rgba(201,176,131,0.15);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(201,176,131,0.3);
+    vertical-align: middle;
+    color: var(--text-color);
+  }
+
+  th {
+    background: rgba(201,176,131,0.2);
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background: rgba(201,176,131,0.05);
+  }
+
+  img.gift-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+  }
+
+  .btn {
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover {
+    background: var(--primary-color);
+    color: var(--background-color);
+  }
+
+  #add-gift-form {
+    max-width: 1000px;
+    margin: 3rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border-radius: 15px;
+    border: 1px solid var(--primary-color);
+  }
+
+  #add-gift-form input, #add-gift-form button {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(201,176,131,0.4);
+    background: transparent;
+    color: var(--text-color);
+  }
+
+  #add-gift-form input::placeholder {
+    color: rgba(245,230,211,0.7);
+  }
+
+  #add-gift-form button {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #add-gift-form button:hover {
+    background: var(--primary-color);
+    color: var(--background-color);
+  }
+
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  #access-denied {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
 </style>
 </head>
 <body>
@@ -34,14 +162,13 @@
 <script>
   const password = prompt("Digite a senha do painel:");
   if(password !== "Mg156810$") {
-    alert("Senha incorreta!");
-    document.body.innerHTML = "<h2 style='text-align:center;margin-top:3rem;'>Acesso negado</h2>";
+    document.body.innerHTML = "<div id='access-denied'>🔒 Acesso negado</div>";
     throw new Error("Acesso negado");
   }
 </script>
 
 <div class="gifts-section">
-  <h2>Presentes Disponíveis</h2>
+  <h2>🎁 Presentes Disponíveis</h2>
   <table>
     <thead>
       <tr>
@@ -57,7 +184,7 @@
 </div>
 
 <div class="gifts-section">
-  <h2>Presentes Confirmados</h2>
+  <h2>💝 Presentes Confirmados</h2>
   <table>
     <thead>
       <tr>
@@ -101,7 +228,6 @@ function createGiftRow(gift, isConfirmed=false){
     tdImg.appendChild(img);
     tr.appendChild(tdImg);
 
-    // Nome com link
     const nameHTML = gift.product_url 
         ? `<a href="${gift.product_url}" target="_blank">${gift.name}</a>` 
         : gift.name;
@@ -110,9 +236,9 @@ function createGiftRow(gift, isConfirmed=false){
         tr.innerHTML += `<td>${gift.taken_by}</td>
                          <td>${nameHTML}</td>
                          <td>${new Date(gift.confirmed_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</td>
-                         <td><button class="release-btn">Liberar</button></td>`;
-        tr.querySelector('.release-btn').onclick = async () => {
-            if(!confirm(`Deseja liberar "${gift.name}"?`)) return;
+                         <td><button class="btn">Liberar</button></td>`;
+        tr.querySelector('.btn').onclick = async () => {
+            if(!confirm(\`Deseja liberar "\${gift.name}"?\`)) return;
             const { error } = await supabase.from('gifts').update({taken_by:null,confirmed_at:null}).eq('id',gift.id);
             if(error) return alert('Erro: '+error.message);
             loadAvailableGifts();
@@ -120,9 +246,9 @@ function createGiftRow(gift, isConfirmed=false){
         };
     } else {
         tr.innerHTML += `<td>${nameHTML}</td>
-                         <td><button class="delete-btn">Excluir</button></td>`;
-        tr.querySelector('.delete-btn').onclick = async () => {
-            if(!confirm(`Deseja excluir "${gift.name}"?`)) return;
+                         <td><button class="btn">Excluir</button></td>`;
+        tr.querySelector('.btn').onclick = async () => {
+            if(!confirm(\`Deseja excluir "\${gift.name}"?\`)) return;
             const { error } = await supabase.from('gifts').delete().eq('id', gift.id);
             if(error) return alert('Erro: ' + error.message);
             loadAvailableGifts();
@@ -168,7 +294,6 @@ addGiftForm.onsubmit = async e => {
     reader.readAsDataURL(file);
 };
 
-// Realtime
 supabase.channel('public:gifts')
   .on('postgres_changes',{event:'*',schema:'public',table:'gifts'},()=> {
     loadAvailableGifts();

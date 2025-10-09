@@ -4,114 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel de Convidados</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
+    :root {
+        --main-color: #b71c1c; /* vermelho principal */
+        --hover-color: #8e1212;
+        --text-color: #333;
+        --font-title: 'Dancing Script', cursive;
+        --font-body: 'Open Sans', sans-serif;
+    }
+
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Lato', sans-serif;
-        background: linear-gradient(135deg, #252440 0%, #3d4a73 50%, #5a6ba6 100%);
+        font-family: var(--font-body);
+        background-color: #fff;
         min-height: 100vh;
-        color: white;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+
     .container {
+        width: 95%;
         max-width: 700px;
-        margin: 50px auto;
-        background: rgba(255,255,255,0.05);
-        padding: 30px 20px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        backdrop-filter: blur(10px);
-    }
-    h1 {
-        font-family: 'Dancing Script', cursive;
-        font-size: 3rem;
+        background: #fff;
+        border: 2px solid var(--main-color);
+        border-radius: 10px;
+        padding: 40px 30px;
+        box-shadow: 0 0 20px rgba(183, 28, 28, 0.15);
         text-align: center;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
+
+    h1 {
+        font-family: var(--font-title);
+        font-size: 3rem;
+        color: var(--main-color);
+        margin-bottom: 10px;
+    }
+
     .form {
         display: flex;
         flex-direction: column;
         gap: 15px;
         margin-bottom: 30px;
     }
+
     .form input {
         padding: 12px 15px;
-        border-radius: 10px;
-        border: none;
+        border: 1px solid #ddd;
+        border-radius: 6px;
         font-size: 1rem;
         outline: none;
+        transition: border 0.2s ease;
     }
+
+    .form input:focus {
+        border-color: var(--main-color);
+    }
+
     .form button {
-        padding: 12px 15px;
-        border-radius: 30px;
+        background: var(--main-color);
+        color: #fff;
         border: none;
-        background: #ff6b6b;
-        color: white;
+        border-radius: 6px;
+        padding: 12px 15px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
     }
+
     .form button:hover {
-        background: #ff4757;
+        background: var(--hover-color);
         transform: translateY(-2px);
     }
+
     h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2rem;
+        font-size: 1.6rem;
+        color: var(--main-color);
         margin-bottom: 15px;
-        text-align: center;
+        font-family: var(--font-body);
     }
+
     #listaConvidados {
         list-style: none;
         padding: 0;
+        margin: 0 auto 30px auto;
         max-height: 300px;
         overflow-y: auto;
+        width: 100%;
     }
+
     #listaConvidados li {
-        background: rgba(255,255,255,0.1);
-        margin-bottom: 15px;
+        background: #fdfdfd;
+        border: 1px solid #eee;
+        margin-bottom: 10px;
         padding: 12px 15px;
-        border-radius: 10px;
-        font-size: 1.1rem;
+        border-radius: 8px;
+        font-size: 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
+
     #listaConvidados li a {
-        background: #ec4899;
-        color: white;
         text-decoration: none;
         padding: 6px 12px;
         border-radius: 20px;
         font-size: 0.9rem;
+        font-weight: 500;
         transition: all 0.3s ease;
+        color: #fff;
         margin-left: 5px;
     }
-    #listaConvidados li a:hover {
-        background: #db2777;
-        transform: translateY(-2px);
+
+    #listaConvidados li a:first-child {
+        background: var(--main-color);
     }
+
+    #listaConvidados li a:first-child:hover {
+        background: var(--hover-color);
+    }
+
     .delete-btn {
-        background: #ff3f3f;
+        background: #e53935;
     }
+
     .delete-btn:hover {
-        background: #e50000;
+        background: #c62828;
     }
+
     a.dashboard-link {
         display: inline-block;
-        margin-top: 20px;
-        padding: 12px 25px;
-        background: #ec4899;
-        color: white;
+        background: var(--main-color);
+        color: #fff;
         text-decoration: none;
+        padding: 12px 25px;
         border-radius: 25px;
         font-weight: 600;
         transition: all 0.3s ease;
     }
+
     a.dashboard-link:hover {
-        background: #db2777;
+        background: var(--hover-color);
         transform: translateY(-2px);
     }
 </style>
@@ -144,20 +181,17 @@
 
     const storageKey = 'convidados';
 
-    // --- Carregar convidados do LocalStorage ---
     function carregarConvidados() {
         const convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
         convidados.forEach(nome => criarElementoConvidado(nome));
     }
 
-    // --- Salvar convidado ---
     function salvarConvidado(nome) {
         const convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
         convidados.push(nome);
         localStorage.setItem(storageKey, JSON.stringify(convidados));
     }
 
-    // --- Remover convidado ---
     function removerConvidado(nome, li) {
         let convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
         convidados = convidados.filter(c => c !== nome);
@@ -165,19 +199,16 @@
         li.remove();
     }
 
-    // --- Criar elemento de convidado ---
     function criarElementoConvidado(nome) {
         const li = document.createElement('li');
         li.textContent = nome;
 
-        // Botão Ver Convite
         const linkConvite = document.createElement('a');
         linkConvite.href = `invite.html?name=${encodeURIComponent(nome)}`;
         linkConvite.textContent = 'Ver Convite';
         linkConvite.target = '_blank';
         li.appendChild(linkConvite);
 
-        // Botão Excluir
         const deleteBtn = document.createElement('a');
         deleteBtn.href = '#';
         deleteBtn.textContent = 'Excluir';
@@ -193,7 +224,6 @@
         document.getElementById('listaConvidados').appendChild(li);
     }
 
-    // --- Adicionar convidado ---
     function adicionarConvidado() {
         const nomeInput = document.getElementById('nome');
         const nome = nomeInput.value.trim();
