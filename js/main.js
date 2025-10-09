@@ -4,12 +4,10 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ================== Convidados ==================
-
-// Adiciona convidado
 async function adicionarConvidado() {
   const nome = document.getElementById('nome')?.value.trim();
   if (!nome) return alert('Preencha o nome!');
-
+  
   const { data, error } = await supabase.from('guests').select('name').eq('name', nome);
   if (error) return alert('Erro: ' + error.message);
   if (data.length > 0) return alert('Convidado já existe!');
@@ -21,7 +19,6 @@ async function adicionarConvidado() {
   atualizarListaConvidados();
 }
 
-// Lista convidados
 async function atualizarListaConvidados() {
   const lista = document.getElementById('listaConvidados');
   if (!lista) return;
@@ -47,37 +44,122 @@ async function atualizarListaConvidados() {
   }
 }
 
-// Remove convidado
 async function removerConvidado(nome) {
   const { error } = await supabase.from('guests').delete().eq('name', nome);
   if (error) return alert('Erro: ' + error.message);
   atualizarListaConvidados();
 }
 
-// ================== Presentes ==================
+// ================== Dashboard de Presentes ==================
+const availableBody = document.getElementById('available-gifts');
+const confirmedBody = document.getElementById('confirmed-gifts');
 
-// Lista presentes
-async function listarPresentes(guestName) {
+function createGiftRow(gift, isConfirmed=false){
+  const tr = document.createElement('tr');
+
+  // Imagem
+  const tdImg = document.createElement('td');
+  const img = document.createElement('img');
+  img.className = 'gift-img';
+  img.src = gift.image;
+  tdImg.appendChild(img);
+  tr.appendChild(tdImg);
+
+  const nameHTML = gift.product_url ? `<a href="${gift.product_url}" target="_blank">${gift.name}</a>` : gift.name;
+
+  if (isConfirmed) {
+    tr.innerHTML += `<td>${gift.taken_by}</td>
+                     <td>${nameHTML}</td>
+                     <td>${new Date(gift.confirmed_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</td>
+                     <td><button class="release-btn">Liberar</button></td>`;
+    tr.querySelector('.release-btn').onclick = async () => {
+      if (!confirm(`Deseja liberar "${gift.name}"?`)) return;
+      const { error } = await supabase.from('gifts').update({ taken_by: null, confirmed_at: null }).eq('id', gift.id);
+      if (error) return alert('Erro: ' + error.message);
+      loadAvailableGifts();
+      loadConfirmedGifts();
+    };
+  } else {
+    tr.innerHTML += `<td>${nameHTML}</td>
+                     <td><button class="delete-btn">Excluir</button></td>`;
+    tr.querySelector('.delete-btn').onclick = async () => {
+      if (!confirm(`Deseja excluir "${gift.name}"?`)) return;
+      const { error } = await supabase.from('gifts').delete().eq('id', gift.id);
+      if (error) return alert('Erro: ' + error.message);
+      loadAvailableGifts();
+    };
+  }
+
+  return tr;
+}
+
+async function loadAvailableGifts(){
+  if (!availableBody) return;
+  const { data, error } = await supabase.from('gifts').select('*').is('taken_by', null);
+  if (error){ console.error(error); availableBody.innerHTML='<tr><td colspan="3">Erro ao carregar</td></tr>'; return; }
+  availableBody.innerHTML='';
+  if(!data.length){ availableBody.innerHTML='<tr><td colspan="3">Nenhum presente disponível</td></tr>'; return; }
+  data.forEach(gift => availableBody.appendChild(createGiftRow(gift)));
+}
+
+async function loadConfirmedGifts(){
+  if (!confirmedBody) return;
+  const { data, error } = await supabase.from('gifts').select('*').not('taken_by','is',null).order('confirmed_at',{ascending:true});
+  if (error){ console.error(error); confirmedBody.innerHTML='<tr><td colspan="5">Erro ao carregar</td></tr>'; return; }
+  confirmedBody.innerHTML='';
+  if(!data.length){ confirmedBody.innerHTML='<tr><td colspan="5">Nenhum presente confirmado</td></tr>'; return; }
+  data.forEach(gift => confirmedBody.appendChild(createGiftRow(gift,true)));
+}
+
+// Adicionar presente (dashboard)
+const addGiftForm = document.getElementById('add-gift-form');
+if(addGiftForm){
+  addGiftForm.onsubmit = async e => {
+    e.preventDefault();
+    const name = document.getElementById('gift-name').value.trim();
+    const productUrl = document.getElementById('gift-link').value.trim();
+    const file = document.getElementById('gift-image').files[0];
+    if (!name || !file) return;
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64Image = reader.result;
+      const { error } = await supabase.from('gifts').insert([{ name, image: base64Image, product_url: productUrl }]);
+      if (error) return alert('Erro: ' + error.message);
+      document.getElementById('gift-name').value = '';
+      document.getElementById('gift-link').value = '';
+      document.getElementById('gift-image').value = '';
+      loadAvailableGifts();
+    };
+    reader.readAsDataURL(file);
+  };
+}
+
+// Realtime Supabase
+if(supabase.channel){
+  supabase.channel('public:gifts')
+    .on('postgres_changes',{event:'*',schema:'public',table:'gifts'},()=> {
+      loadAvailableGifts();
+      loadConfirmedGifts();
+    }).subscribe();
+}
+
+// ================== Site Público ==================
+async function listarPresentesPublic(guestName){
   const container = document.getElementById('gifts-container');
   if (!container) return;
-
   container.innerHTML = 'Carregando presentes...';
 
   try {
-    const { data: gifts, error } = await supabase.from('gifts').select('*').order('name');
+    const { data, error } = await supabase.from('gifts').select('*').order('name');
     if (error) throw error;
-
     container.innerHTML = '';
-    if (!gifts.length) {
-      container.textContent = 'Nenhum presente disponível.';
-      return;
-    }
+    if (!data.length) { container.textContent = 'Nenhum presente disponível.'; return; }
 
-    gifts.forEach(gift => {
+    data.forEach(gift => {
       const card = document.createElement('div');
       card.className = 'gift-card';
 
-      // Imagem
       if (gift.image) {
         const img = document.createElement('img');
         img.src = gift.image;
@@ -85,24 +167,20 @@ async function listarPresentes(guestName) {
         card.appendChild(img);
       }
 
-      // Nome + link
       const nameDiv = document.createElement('div');
       nameDiv.className = 'gift-name';
-      if (gift.product_url) {
+      if (gift.product_url){
         const a = document.createElement('a');
         a.href = gift.product_url;
         a.target = '_blank';
         a.textContent = gift.name;
         nameDiv.appendChild(a);
-      } else {
-        nameDiv.textContent = gift.name;
-      }
+      } else { nameDiv.textContent = gift.name; }
       card.appendChild(nameDiv);
 
-      // Botão
       const btn = document.createElement('button');
       btn.className = 'confirm-btn';
-      if (gift.taken_by) {
+      if (gift.taken_by){
         btn.textContent = `Escolhido por ${gift.taken_by}`;
         btn.disabled = true;
       } else {
@@ -110,12 +188,12 @@ async function listarPresentes(guestName) {
         btn.onclick = async () => {
           btn.disabled = true;
           btn.textContent = 'Confirmando...';
-          const { error: updError } = await supabase.from('gifts').update({
+          const { error } = await supabase.from('gifts').update({
             taken_by: guestName,
             confirmed_at: new Date().toISOString()
           }).eq('id', gift.id);
-          if (updError) {
-            alert('Erro ao confirmar: ' + updError.message);
+          if (error){
+            alert('Erro: ' + error.message);
             btn.disabled = false;
             btn.textContent = 'Confirmar Presente';
           } else {
@@ -128,21 +206,21 @@ async function listarPresentes(guestName) {
 
       container.appendChild(card);
     });
-  } catch (err) {
+  } catch(err){
     container.textContent = 'Erro ao carregar presentes.';
     console.error(err);
   }
 }
 
 // ================== Inicialização ==================
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', ()=>{
   const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
 
-  // Saudação
   const greeting = document.getElementById('guest-greeting');
   if (greeting) greeting.textContent = `Olá, ${guestName}!`;
 
-  // Inicializa convidados e gifts
   atualizarListaConvidados();
-  listarPresentes(guestName);
-};
+  listarPresentesPublic(guestName);
+  loadAvailableGifts();
+  loadConfirmedGifts();
+});
