@@ -1,45 +1,18 @@
-// Inclua Supabase SDK no HTML antes do main.js
-// <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-// Configuração Supabase
-const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM'  // Anon public key
-const supabase = createClient(supabaseUrl, supabaseKey)
-
-// Template do convite
-const templateContent = `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nosso Casamento 💍 - Marcos e Evellyn</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); text-align: center; color:#0b1e4a; padding: 2rem; }
-h1,h2 { font-family: 'Great Vibes', cursive; }
-button { padding:10px 20px; background:#3b82f6; color:white; border:none; border-radius:10px; cursor:pointer; }
-</style>
-</head>
-<body>
-<h2>Marcos & Evellyn</h2>
-<p>Querido(a) {{NOME_CONVIDADO}}, nós, Marcos e Evellyn, ficaríamos muito felizes em contar com sua presença neste momento tão especial.</p>
-<button onclick="window.location.href='gifts/lista_presentes.html?name={{NOME_CONVIDADO}}'">Confirmar Presença</button>
-</body>
-</html>`;
+// ================== Supabase ==================
+const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ================== Convidados ==================
 
-// Adiciona convidado no Supabase
+// Adiciona convidado
 async function adicionarConvidado() {
-  const nome = document.getElementById('nome').value.trim();
+  const nome = document.getElementById('nome')?.value.trim();
   if (!nome) return alert('Preencha o nome!');
 
   const { data, error } = await supabase.from('guests').select('name').eq('name', nome);
   if (error) return alert('Erro: ' + error.message);
-  if (data.length > 0) {
-    alert('Convidado já existe!');
-    return;
-  }
+  if (data.length > 0) return alert('Convidado já existe!');
 
   const { error: insertError } = await supabase.from('guests').insert({ name: nome });
   if (insertError) return alert('Erro ao adicionar: ' + insertError.message);
@@ -48,27 +21,33 @@ async function adicionarConvidado() {
   atualizarListaConvidados();
 }
 
-// Lista convidados do Supabase
+// Lista convidados
 async function atualizarListaConvidados() {
   const lista = document.getElementById('listaConvidados');
   if (!lista) return;
 
-  lista.innerHTML = '';
-  const { data, error } = await supabase.from('guests').select('*');
-  if (error) return alert('Erro: ' + error.message);
+  lista.innerHTML = 'Carregando...';
+  try {
+    const { data, error } = await supabase.from('guests').select('*');
+    if (error) throw error;
 
-  data.forEach(c => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      ${c.name} 
-      <a href="invite.html?name=${encodeURIComponent(c.name)}" target="_blank">Ver Convite</a>
-      <button onclick="removerConvidado('${c.name}')">Excluir</button>
-    `;
-    lista.appendChild(li);
-  });
+    lista.innerHTML = '';
+    data.forEach(c => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        ${c.name} 
+        <a href="invite.html?name=${encodeURIComponent(c.name)}" target="_blank">Ver Convite</a>
+        <button onclick="removerConvidado('${c.name}')">Excluir</button>
+      `;
+      lista.appendChild(li);
+    });
+  } catch (err) {
+    lista.textContent = 'Erro ao carregar convidados.';
+    console.error(err);
+  }
 }
 
-// Remove convidado do Supabase
+// Remove convidado
 async function removerConvidado(nome) {
   const { error } = await supabase.from('guests').delete().eq('name', nome);
   if (error) return alert('Erro: ' + error.message);
@@ -77,62 +56,93 @@ async function removerConvidado(nome) {
 
 // ================== Presentes ==================
 
-// Lista presentes disponíveis e cria cartões
+// Lista presentes
 async function listarPresentes(guestName) {
   const container = document.getElementById('gifts-container');
   if (!container) return;
 
-  container.innerHTML = '';
+  container.innerHTML = 'Carregando presentes...';
 
-  const { data, error } = await supabase.from('gifts').select('*').is('taken_by', null);
-  if (error) return alert('Erro: ' + error.message);
-  if (!data || data.length === 0) {
-    container.textContent = 'Nenhum presente disponível.';
-    return;
-  }
+  try {
+    const { data: gifts, error } = await supabase.from('gifts').select('*').order('name');
+    if (error) throw error;
 
-  data.forEach(gift => {
-    const card = document.createElement('div');
-    card.className = 'gift-card';
-    card.innerHTML = `
-      <div class="gift-name">${gift.name}</div>
-      <button class="confirm-btn">Confirmar Presente</button>
-    `;
-    card.querySelector('button').onclick = () => confirmarPresente(gift.id, guestName);
-    container.appendChild(card);
-  });
-}
+    container.innerHTML = '';
+    if (!gifts.length) {
+      container.textContent = 'Nenhum presente disponível.';
+      return;
+    }
 
-// Confirma presente no Supabase
-async function confirmarPresente(giftId, guestName) {
-  const { data, error } = await supabase.from('gifts').select('*').eq('id', giftId);
-  if (error) return alert('Erro: ' + error.message);
-  if (!data || data.length === 0) return alert('Presente não encontrado!');
-  const gift = data[0];
-  if (gift.taken_by) return alert('Esse presente já foi confirmado por outra pessoa.');
+    gifts.forEach(gift => {
+      const card = document.createElement('div');
+      card.className = 'gift-card';
 
-  const { error: updateError } = await supabase.from('gifts').update({
-    taken_by: guestName,
-    confirmed_at: new Date().toISOString()
-  }).eq('id', giftId);
-  if (updateError) return alert('Erro ao confirmar: ' + updateError.message);
+      // Imagem
+      if (gift.image) {
+        const img = document.createElement('img');
+        img.src = gift.image;
+        img.className = 'gift-image';
+        card.appendChild(img);
+      }
 
-  const msg = document.getElementById('confirmation-message');
-  if (msg) {
-    msg.textContent = `Obrigado, ${guestName}! Seu presente foi confirmado 💝`;
-    msg.style.display = 'block';
+      // Nome + link
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'gift-name';
+      if (gift.product_url) {
+        const a = document.createElement('a');
+        a.href = gift.product_url;
+        a.target = '_blank';
+        a.textContent = gift.name;
+        nameDiv.appendChild(a);
+      } else {
+        nameDiv.textContent = gift.name;
+      }
+      card.appendChild(nameDiv);
+
+      // Botão
+      const btn = document.createElement('button');
+      btn.className = 'confirm-btn';
+      if (gift.taken_by) {
+        btn.textContent = `Escolhido por ${gift.taken_by}`;
+        btn.disabled = true;
+      } else {
+        btn.textContent = 'Confirmar Presente';
+        btn.onclick = async () => {
+          btn.disabled = true;
+          btn.textContent = 'Confirmando...';
+          const { error: updError } = await supabase.from('gifts').update({
+            taken_by: guestName,
+            confirmed_at: new Date().toISOString()
+          }).eq('id', gift.id);
+          if (updError) {
+            alert('Erro ao confirmar: ' + updError.message);
+            btn.disabled = false;
+            btn.textContent = 'Confirmar Presente';
+          } else {
+            alert(`Obrigado, ${guestName}! Presente confirmado 💝`);
+            window.location.reload();
+          }
+        };
+      }
+      card.appendChild(btn);
+
+      container.appendChild(card);
+    });
+  } catch (err) {
+    container.textContent = 'Erro ao carregar presentes.';
+    console.error(err);
   }
 }
 
 // ================== Inicialização ==================
-
 window.onload = () => {
-  atualizarListaConvidados();
+  const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const guestName = urlParams.get('name')?.trim() || 'Convidado';
+  // Saudação
   const greeting = document.getElementById('guest-greeting');
   if (greeting) greeting.textContent = `Olá, ${guestName}!`;
 
+  // Inicializa convidados e gifts
+  atualizarListaConvidados();
   listarPresentes(guestName);
 };
