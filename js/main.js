@@ -41,8 +41,11 @@ async function atualizarListaConvidados() {
       }
 
       // Constrói a URL completa do convite
-      // Constrói a URL de forma mais robusta, garantindo que sempre funcione.
-      const inviteUrl = 'invite.html?name=' + encodeURIComponent(c.name);
+      // Gera a URL absoluta, que funciona tanto localmente (file://) quanto online (https://)
+      const currentUrl = new URL(window.location.href);
+      currentUrl.pathname = currentUrl.pathname.replace(/[^/]*$/, 'invite.html'); // Substitui o nome do arquivo atual por 'invite.html'
+      currentUrl.search = `?name=${encodeURIComponent(c.name)}`;
+      const inviteUrl = currentUrl.href;
 
       li.innerHTML = `
         <span>${c.name} ${statusBadge}</span>
