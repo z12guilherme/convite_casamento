@@ -171,6 +171,7 @@
             <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.9rem; text-align: center; color: var(--main-color);">Baixar planilha de exemplo</a>
         </div>
 
+
         <h2>Lista de Convidados</h2>
         <ul id="listaConvidados"></ul>
 
@@ -292,7 +293,6 @@
         XLSX.utils.book_append_sheet(wb, ws, "Convidados");
         XLSX.writeFile(wb, "exemplo_convidados.xlsx");
     }
-
     document.addEventListener('DOMContentLoaded', carregarConvidados);
 </script>
 </body>
