@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Convite - Marcos & Evellyn</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/main.js" defer></script>
 <style>
 :root {
   --main-color: #b71c1c;
@@ -139,6 +141,42 @@ body {
   background: var(--main-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(183,28,28,0.4);
+}
+
+.rsvp-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px dashed var(--main-color);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.5s;
+}
+
+.rsvp-section h3 {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.rsvp-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.rsvp-btn {
+  border: 2px solid var(--main-color);
+  background: transparent;
+  color: var(--main-color);
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.rsvp-btn:hover {
+  background: var(--main-color);
+  color: #fff;
 }
 
 .pen {
@@ -292,13 +330,21 @@ body {
   <div class="invitation-text" id="invitation-text"></div>
   <div class="details" id="details"></div>
   <div class="separator" id="separator2">♥</div>
-  <a id="accept-link" href="#">Confirmar Presença</a>
+  
+  <div class="rsvp-section" id="rsvp-section">
+      <h3>Você poderá comparecer?</h3>
+      <div class="rsvp-buttons">
+          <button class="rsvp-btn" onclick="handleRsvp('Confirmado')">Sim, estarei lá!</button>
+          <button class="rsvp-btn" onclick="handleRsvp('Recusado')">Não poderei ir</button>
+      </div>
+  </div>
+
+  <a id="accept-link" href="#">Ver Lista de Presentes 🎁</a>
 </div>
 
 <div class="pen" id="pen"></div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const nome = urlParams.get('name') || 'Convidado Especial';
   const pen = document.getElementById('pen');
@@ -318,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const separator2 = document.getElementById('separator2');
   const countdownEl = document.getElementById('countdown');
   const acceptLink = document.getElementById('accept-link');
+  const rsvpSection = document.getElementById('rsvp-section');
   const container = document.getElementById('container');
 
   function typeWithPen(element, text, delay=50) {
@@ -360,6 +407,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
   }
 
+  async function handleRsvp(status) {
+      const { error } = await supabase
+          .from('guests')
+          .update({ status: status })
+          .eq('name', nome);
+
+      if (error) {
+          alert('Ocorreu um erro ao confirmar. Tente novamente.');
+          console.error(error);
+      } else {
+          rsvpSection.innerHTML = status === 'Confirmado'
+              ? `<h3>Obrigado por confirmar! ❤️</h3>`
+              : `<h3>Que pena! Sentiremos sua falta.</h3>`;
+      }
+  }
+
   async function runSequence() {
     deliveryScene.classList.add('enter');
     await new Promise(resolve => {
@@ -376,11 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
     await typeWithPen(inviteEl, invitationText);
     await typeWithPen(detailsEl, detailsText);
     separator2.style.opacity = 1;
+    rsvpSection.style.opacity = 1;
     acceptLink.style.opacity = 1;
     acceptLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
   }
-
-  runSequence();
 
   // corações leves
   for(let i=0;i<15;i++){
@@ -392,7 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
     heart.style.opacity = Math.random()*0.5 +0.4;
     document.body.appendChild(heart);
   }
-});
+
+  runSequence();
 </script>
 </body>
 </html>

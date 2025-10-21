@@ -31,10 +31,26 @@ async function atualizarListaConvidados() {
     lista.innerHTML = '';
     data.forEach(c => {
       const li = document.createElement('li');
+      let statusBadge = '';
+      if (c.status === 'Confirmado') {
+        statusBadge = '<span style="color: green; font-weight: bold; font-size: 0.8em;">✓ Confirmado</span>';
+      } else if (c.status === 'Recusado') {
+        statusBadge = '<span style="color: red; font-weight: bold; font-size: 0.8em;">✗ Recusado</span>';
+      } else {
+        statusBadge = '<span style="color: grey; font-size: 0.8em;">? Pendente</span>';
+      }
+
+      // Constrói a URL completa do convite
+      // Isso garante que a URL seja correta, mesmo se o arquivo estiver em um subdiretório
+      const inviteUrl = window.location.href.replace('index.html', 'invite.html') + '?name=' + encodeURIComponent(c.name);
+
       li.innerHTML = `
-        ${c.name} 
-        <a href="invite.html?name=${encodeURIComponent(c.name)}" target="_blank">Ver Convite</a>
-        <button onclick="removerConvidado('${c.name}')">Excluir</button>
+        <span>${c.name} ${statusBadge}</span>
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+            <a href="${inviteUrl}" target="_blank">Ver Convite</a>
+            <span style="font-size: 0.7em; color: #888; word-break: break-all;">${inviteUrl}</span>
+        </div>
+        <a href="#" class="delete-btn" onclick="removerConvidado('${c.name}')">Excluir</a>
       `;
       lista.appendChild(li);
     });
