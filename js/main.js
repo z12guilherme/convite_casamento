@@ -200,7 +200,7 @@ async function listarPresentesPublic(guestName){
       const btn = document.createElement('button');
       btn.className = 'confirm-btn';
       if (gift.taken_by){
-        btn.textContent = `Escolhido por ${gift.taken_by}`;
+        btn.textContent = 'Já escolhido';
         btn.disabled = true;
       } else {
         btn.textContent = 'Confirmar Presente';
