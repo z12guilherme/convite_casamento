@@ -35,7 +35,7 @@ async function atualizarListaConvidados() {
       if (c.status === 'Confirmado') {
         statusBadge = '<span style="color: green; font-weight: bold; font-size: 0.8em;">✓ Confirmado</span>';
       } else if (c.status === 'Recusado') {
-        statusBadge = '<span style="color: red; font-weight: bold; font-size: 0.8em;">✗ Recusado</span>';
+        statusBadge = '<span style="color: #555; font-weight: bold; font-size: 0.8em;">✗ Recusado</span>';
       } else {
         statusBadge = '<span style="color: grey; font-size: 0.8em;">? Pendente</span>';
       }
