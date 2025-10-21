@@ -41,8 +41,8 @@ async function atualizarListaConvidados() {
       }
 
       // Constrói a URL completa do convite
-      // Isso garante que a URL seja correta, mesmo se o arquivo estiver em um subdiretório
-      const inviteUrl = window.location.href.replace('index.html', 'invite.html') + '?name=' + encodeURIComponent(c.name);
+      // Constrói a URL de forma mais robusta, garantindo que sempre funcione.
+      const inviteUrl = 'invite.html?name=' + encodeURIComponent(c.name);
 
       li.innerHTML = `
         <span>${c.name} ${statusBadge}</span>
