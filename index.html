@@ -6,6 +6,8 @@
 <title>Painel de Convidados</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/main.js" defer></script>
 <style>
     :root {
         --main-color: #b71c1c; /* vermelho principal */
@@ -155,98 +157,25 @@
 </style>
 </head>
 <body>
-<div id="content" style="display: none;">
-    <div class="container">
-        <h1>Painel de Convidados</h1>
-
-        <div class="form">
-            <input type="text" id="nome" placeholder="Nome do convidado">
-            <button onclick="adicionarConvidado()">Adicionar Convidado</button>
-        </div>
-
-        <div class="form" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px;">
-            <label for="xlsx_file" style="text-align: left; font-weight: 500;">Ou importe de uma planilha:</label>
-            <input type="file" id="xlsx_file" accept=".xlsx, .xls" style="padding: 5px;">
-            <button onclick="importarConvidados()">Importar Planilha</button>
-            <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.9rem; text-align: center; color: var(--main-color);">Baixar planilha de exemplo</a>
-        </div>
-
-
-        <h2>Lista de Convidados</h2>
-        <ul id="listaConvidados"></ul>
-
-        <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
+<div class="container">
+    <h1>Painel de Convidados</h1>
+    <div class="form">
+        <input type="text" id="nome" placeholder="Nome do convidado">
+        <button onclick="adicionarConvidado()">Adicionar Convidado</button>
     </div>
+    <div class="form" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px;">
+        <label for="xlsx_file" style="text-align: left; font-weight: 500;">Ou importe de uma planilha:</label>
+        <input type="file" id="xlsx_file" accept=".xlsx, .xls" style="padding: 5px;">
+        <button onclick="importarConvidados()">Importar Planilha</button>
+        <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.9rem; text-align: center; color: var(--main-color);">Baixar planilha de exemplo</a>
+    </div>
+    <h2>Lista de Convidados</h2>
+    <ul id="listaConvidados"></ul>
+    <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
 </div>
-
 <script>
-    const password = prompt('Digite a senha para acessar:');
-    if (password === 'Mg156810$') {
-        document.getElementById('content').style.display = 'block';
-    } else {
-        alert('Senha incorreta. Você será redirecionado.');
-        window.location.href = 'https://www.google.com';
-    }
-
-    const storageKey = 'convidados';
-
-    function carregarConvidados() {
-        const convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
-        convidados.forEach(nome => criarElementoConvidado(nome));
-    }
-
-    function salvarConvidado(nome) {
-        const convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
-        convidados.push(nome);
-        localStorage.setItem(storageKey, JSON.stringify(convidados));
-    }
-
-    function removerConvidado(nome, li) {
-        let convidados = JSON.parse(localStorage.getItem(storageKey)) || [];
-        convidados = convidados.filter(c => c !== nome);
-        localStorage.setItem(storageKey, JSON.stringify(convidados));
-        li.remove();
-    }
-
-    function criarElementoConvidado(nome) {
-        const li = document.createElement('li');
-        li.textContent = nome;
-
-        const linkConvite = document.createElement('a');
-        linkConvite.href = `invite.html?name=${encodeURIComponent(nome)}`;
-        linkConvite.textContent = 'Ver Convite';
-        linkConvite.target = '_blank';
-        li.appendChild(linkConvite);
-
-        const deleteBtn = document.createElement('a');
-        deleteBtn.href = '#';
-        deleteBtn.textContent = 'Excluir';
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.onclick = function(e) {
-            e.preventDefault();
-            if(confirm(`Deseja realmente excluir o convidado "${nome}"?`)) {
-                removerConvidado(nome, li);
-            }
-        }
-        li.appendChild(deleteBtn);
-
-        document.getElementById('listaConvidados').appendChild(li);
-    }
-
-    function adicionarConvidado() {
-        const nomeInput = document.getElementById('nome');
-        const nome = nomeInput.value.trim();
-        if(nome) {
-            criarElementoConvidado(nome);
-            salvarConvidado(nome);
-            nomeInput.value = '';
-            return true;
-        } else {
-            alert('Digite o nome do convidado!');
-            return false;
-        }
-    }
-
+    // A lógica principal agora está em js/main.js
+    // As funções abaixo foram adaptadas para usar o Supabase
     function importarConvidados() {
         const fileInput = document.getElementById('xlsx_file');
         const file = fileInput.files[0];
@@ -275,7 +204,7 @@
                 const nome = row[0] ? String(row[0]).trim() : '';
                 if (nome) {
                     document.getElementById('nome').value = nome;
-                    adicionarConvidado();
+                    await adicionarConvidado(); // Usando a função de main.js
                     // Adiciona um pequeno delay para não sobrecarregar o browser/localStorage de uma vez
                     await new Promise(resolve => setTimeout(resolve, 100));
                 }
@@ -293,7 +222,6 @@
         XLSX.utils.book_append_sheet(wb, ws, "Convidados");
         XLSX.writeFile(wb, "exemplo_convidados.xlsx");
     }
-    document.addEventListener('DOMContentLoaded', carregarConvidados);
 </script>
 </body>
 </html>
