@@ -217,10 +217,31 @@
             perspective: 1200px; /* Adiciona perspectiva para a animação 3D */
         }
 
+        /* O cartão que desliza para fora do envelope */
+        .invitation-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            border-radius: 6px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-title);
+            color: var(--c-primary);
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.4s; /* Inicia após a aba abrir */
+        }
+
         .envelope-wrapper {
             position: relative;
-            width: 280px;
-            height: 180px;
+            width: 300px; /* Aumentei um pouco para acomodar o nome */
+            height: 190px;
         }
 
         .envelope-back {
@@ -231,7 +252,7 @@
             border-radius: 8px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Alinhado para o cartão sair de dentro */
             align-items: center;
         }
 
@@ -252,7 +273,7 @@
             width: 100.5%; /* Pequeno ajuste para cobrir bordas */
             height: 100.5%;
             transform-origin: top;
-            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Easing para efeito "elástico" */
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.2s; /* Atraso para iniciar após o selo */
             background: var(--c-envelope-flap);
             clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 50% 100%, 0% 50%);
             z-index: 15;
@@ -274,7 +295,7 @@
 
         .envelope-seal {
             position: absolute;
-            top: 70px;
+            top: 80px; /* Desci um pouco o selo */
             left: 50%;
             transform: translateX(-50%);
             width: 40px;
@@ -289,7 +310,7 @@
             color: white;
             z-index: 20;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 2px 2px rgba(255,255,255,0.3);
-            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
         #envelope-screen.opened .envelope-flap {
@@ -297,31 +318,29 @@
         }
 
         #envelope-guest-name {
-            position: absolute; /* Movido para dentro do back para ficar atrás da aba */
-            top: 55%;
+            position: absolute;
+            top: 40px; /* Posicionado acima do selo */
             left: 50%;
             transform: translateX(-50%);
-            font-family: var(--font-serif);
-            font-size: 1.3rem;
-            color: var(--c-envelope-bg);
-            z-index: 5;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out 0.5s; /* Aparece após a aba abrir */
-            padding: 5px 15px;
-            background: rgba(255,255,255,0.6);
-            width: 90%;
+            font-family: var(--font-title); /* Estilo caligráfico */
+            font-size: 1.5rem;
+            color: #ececea; /* Cor dourada para combinar */
+            z-index: 18; /* Acima da aba, abaixo do selo */
+            width: 100%;
             text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        #envelope-screen.opened #envelope-guest-name {
-            opacity: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            transition: opacity 0.3s ease-out;
         }
 
         #envelope-screen.opened .envelope-seal {
-            transform: translate(-50%, -80px) scale(0.8); /* Move o selo para cima ao abrir */
+            transform: translate(-50%, -110px) scale(0.9); /* Move o selo para cima ao abrir */
+        }
+
+        #envelope-screen.opened .invitation-card {
+            transform: translateY(-110%); /* Desliza o cartão para fora */
         }
 
     </style>
@@ -330,10 +349,13 @@
 
 <div id="envelope-screen">
     <div class="envelope-wrapper">
-        <div class="envelope-back">
+        <div class="invitation-card">
+            Marcos & Evellyn
+        </div>
+        <div class="envelope-back"></div>
+        <div class="envelope-flap">
             <div id="envelope-guest-name"></div>
         </div>
-        <div class="envelope-flap"></div>
         <div class="envelope-seal">M&E</div>
     </div>
 </div>
@@ -344,6 +366,7 @@
         <h1>Marcos</h1>
         <div class="ampersand">&</div>
         <h1>Evellyn</h1>
+        <h2 id="guest-name-display" style="font-family: var(--font-serif); font-size: 2rem; color: var(--c-secondary); margin-top: 2rem; font-weight: 600;"></h2>
         <div class="date-display">
             <div class="day">19</div>
             <div class="month-year">Novembro • 2026</div>
@@ -441,6 +464,7 @@
   }
 
   function initApp() {
+      document.getElementById('guest-name-display').innerText = nome;
       document.getElementById('invitation-text').innerText = invitationText;
       document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
       startCountdown();
@@ -453,12 +477,13 @@
 
       envelopeScreen.addEventListener('click', () => {
           envelopeScreen.classList.add('opened');
+          document.getElementById('envelope-guest-name').style.opacity = '0'; // Esconde o nome do convidado
           setTimeout(() => {
               envelopeScreen.style.opacity = '0';
               mainContent.style.display = 'block';
               initApp();
-              setTimeout(() => envelopeScreen.style.display = 'none', 800);
-          }, 600);
+              setTimeout(() => envelopeScreen.style.display = 'none', 1000); // Aumenta o tempo para a transição de opacidade
+          }, 1200); // Aumenta o tempo total para acomodar a nova animação
       }, { once: true });
   });
 </script>
