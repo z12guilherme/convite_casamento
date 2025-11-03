@@ -1,0 +1,456 @@
+        :root {
+            --c-primary: #00BCA1; /* Verde-água principal */
+            --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
+            --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
+            --c-text-dark: #333; /* Texto escuro */
+            --c-text-light: #555; /* Texto mais claro */
+            --font-title: 'Dancing Script', cursive;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            /* Novas cores para o envelope de luxo */
+            --c-envelope-bg: #00BCA1;
+            --c-envelope-flap: #009680;
+            --c-envelope-seal: #009680; /* Dourado para o selo */
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-sans);
+            background-color: var(--c-background);
+            color: var(--c-text-dark);
+            overflow-y: auto; /* Permite scroll vertical */
+        }
+
+        /* Estrutura das Seções */
+        .section {
+            width: 100%;
+            min-height: 90vh; /* Garante que cada seção ocupe uma boa parte da tela */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            position: relative;
+            text-align: center;
+        }
+
+        /* --- Seção 1: Capa --- */
+        #cover-section {
+            background: linear-gradient(to br, #fff1f2, #ffe4e6);
+        }
+        #cover-section h1 {
+            font-family: var(--font-title);
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            color: var(--c-primary);
+            font-weight: 700;
+            margin: 0;
+        }
+        #cover-section .ampersand {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--c-secondary);
+            margin: 1rem 0;
+        }
+        #cover-section .date-display {
+            margin-top: 2rem;
+            font-family: var(--font-sans);
+            color: var(--c-text-dark);
+        }
+        #cover-section .date-display .day {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--c-primary);
+            line-height: 1;
+        }
+        #cover-section .date-display .month-year {
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- Seção 2: Contagem Regressiva --- */
+        #countdown-section {
+            background-color: #fff;
+            background-image: url('https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        #countdown-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(3px);
+        }
+        #countdown-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        #countdown-container h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--c-primary);
+            margin-bottom: 1.5rem;
+        }
+        #countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        .time-unit {
+            background: rgba(192, 132, 151, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+        .time-unit .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--c-primary);
+        }
+        .time-unit .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--c-text-light);
+        }
+
+        /* --- Seção 3: Os Noivos --- */
+        #couple-section {
+            background: linear-gradient(to br, #fff1f2, #ffe4e6);
+        }
+        #couple-section .couple-container {
+            max-width: 700px;
+        }
+        #couple-section h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--c-primary);
+            margin-bottom: 2rem;
+        }
+        #couple-section .parents-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+            font-family: var(--font-serif);
+            color: var(--c-text-light);
+        }
+        #couple-section .invitation-text {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-top: 2rem;
+        }
+
+        /* --- Seção 4: Nossa História (Timeline) --- */
+        #story-section {
+            background: var(--c-background);
+            padding: 4rem 2rem;
+        }
+        .story-container h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--c-primary);
+            margin-bottom: 3rem;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--c-secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            padding: 1rem 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 70px;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 70px;
+            text-align: left;
+        }
+        .timeline-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--c-primary);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+        }
+        .timeline-item:nth-child(odd) .timeline-img {
+            right: -75px;
+        }
+        .timeline-item:nth-child(even) .timeline-img {
+            left: -75px;
+        }
+        .timeline-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+        }
+        .timeline-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--c-primary);
+            margin-bottom: 10px;
+        }
+        .timeline-content p {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--c-text-light);
+        }
+
+        /* --- Seção 5: Local --- */
+        #location-section {
+            background: #fff;
+        }
+        #location-section .location-container {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 500px;
+        }
+        #location-section h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--c-primary);
+            margin-bottom: 1rem;
+        }
+        #location-section .address {
+            color: var(--c-text-light);
+            margin-bottom: 2rem;
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .btn {
+            background: var(--c-primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: #d493a6;
+            transform: translateY(-2px);
+        }
+
+        /* --- Tela de Abertura com Envelope --- */
+        #envelope-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--c-background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 1.2s ease-out 1s;
+            perspective: 1500px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 210px;
+            transform-style: preserve-3d;
+            transition: transform 0.9s ease-in-out;
+        }
+
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #envelope-screen:hover .envelope-wrapper {
+            transform: rotateY(10deg) rotateX(-5deg);
+        }
+
+        .invitation-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            border-radius: 6px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-title);
+            color: var(--c-primary);
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1) 0.8s;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--c-envelope-bg);
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.35);
+        }
+
+        .envelope-back::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.3s;
+            background: var(--c-envelope-flap);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 50% 100%, 0% 55%);
+            z-index: 15;
+            transform-style: preserve-3d;
+        }
+
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            clip-path: inherit;
+            transform: rotateX(180deg);
+            transform-origin: top;
+            backface-visibility: hidden;
+        }
+
+        .envelope-seal {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 45px;
+            background: var(--c-envelope-seal);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            color: white;
+            z-index: 20;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 3px rgba(255,255,255,0.3);
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease-out 0.3s;
+        }
+
+        #envelope-guest-name {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            color: #ececea;
+            z-index: 18;
+            width: 100%;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+            transition: opacity 0.4s ease-out;
+        }
+
+        #envelope-screen.opened .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        #envelope-screen.opened .envelope-seal {
+            opacity: 0;
+            transform: translate(-50%, -120px) scale(0.8);
+        }
+
+        #envelope-screen.opened .invitation-card {
+            transform: translateY(-120%);
+        }
+
+        /* --- Confetti --- */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--c-primary);
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall 2s linear forwards;
+            top: 50%;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
