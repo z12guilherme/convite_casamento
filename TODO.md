@@ -1,0 +1,5 @@
+- [x] Migrar de Firebase para Supabase: atualizar js/main.js com cliente Supabase
+- [ ] Executar create_supabase_tables.sql no Supabase para criar tabelas (usar dashboard ou psql)
+- [ ] Atualizar HTML files (lista_presentes.html, dashboard.html) para usar Supabase ao invés de Firebase
+- [ ] Testar as páginas após migração
+- [ ] Verificar se há erros no console ou na página

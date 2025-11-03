@@ -1,0 +1,256 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;500&display=swap');
+
+:root {
+  --main-color: #90C2B3;
+  --gold-color: #D4AF37;
+  --text-dark: #333;
+  --font-title: 'Playfair Display', serif;
+  --font-body: 'Open Sans', sans-serif;
+  /* A subtle paper-like texture */
+  --bg-color: linear-gradient(to right, #fdfdfd, #f7f7f7);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-color);
+  /* 
+    For a more realistic paper texture, you can use a background image.
+    Example:
+    background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/paper-fibers.png');
+  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  overflow: hidden; /* Hide scrollbars from falling hearts */
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 60px 50px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 2px solid var(--gold-color);
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 1s ease-in-out;
+}
+
+.container.show { 
+  opacity: 1; 
+  transform: scale(1); 
+}
+
+.intro-text, .main-title, .invitation-text, .details {
+  font-family: var(--font-title);
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+.main-title { 
+  font-size: 4rem; 
+  color: var(--main-color); 
+  margin: 10px 0 20px 0; 
+}
+
+.intro-text, .invitation-text, .details { 
+  font-size: 1.5rem; 
+  white-space: pre-wrap;
+}
+
+.separator {
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--gold-color);
+  font-size: 1.5rem;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.separator::before, .separator::after {
+    content: ' ❦ ';
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.countdown {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: #555;
+  margin: 20px 0;
+  font-weight: 500;
+  background: #f9f9f9;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px dashed var(--main-color);
+}
+
+#accept-link {
+  display: inline-block;
+  margin-top: 25px;
+  background: var(--main-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 35px;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.4s ease;
+  font-size: 1.1rem;
+}
+
+#accept-link:hover {
+  background: var(--gold-color);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
+}
+
+.rsvp-section {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+}
+
+.rsvp-section h3 {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.rsvp-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.rsvp-btn {
+  border: 2px solid var(--main-color);
+  background: transparent;
+  color: var(--main-color);
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.rsvp-btn:hover {
+  background: var(--main-color);
+  color: #fff;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--main-color);
+  transform: rotate(45deg);
+  animation: fall 10s linear infinite;
+  opacity: 0.5;
+  top: -50px;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+}
+
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: -10px; top: 0; }
+
+@keyframes fall {
+  to { 
+    transform: translateY(105vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.pen {
+  display: none; /* Pen animation is removed for a more classic look */
+}
+
+.delivery-scene {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  height: 250px;
+  z-index: 15;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease-in-out;
+}
+
+.character {
+  position: absolute;
+  bottom: 0;
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  transition: transform 1s ease-in-out;
+}
+
+#marcos {
+  left: 10%;
+  background-image: url('../img/noivo.png');
+  width: 100px;
+  height: 300px;
+  transform: translateX(-200px);
+}
+
+#evellyn {
+  right: 10%;
+  background-image: url('../img/noiva.jpg');
+  width: 200px;
+  height: 320px;
+  transform: translateX(200px);
+}
+
+.delivery-scene.enter {
+  opacity: 1;
+}
+
+.delivery-scene.enter #marcos,
+.delivery-scene.enter #evellyn {
+  transform: translateX(0);
+}
+
+.click-indicator {
+  display: none; /* Removed for a cleaner look */
+}
+
+.envelope-interactive {
+  display: none; /* Removed for a cleaner look */
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 40px 20px;
+  }
+  .main-title {
+    font-size: 3rem;
+  }
+  .intro-text, .invitation-text, .details {
+    font-size: 1.2rem;
+  }
+}

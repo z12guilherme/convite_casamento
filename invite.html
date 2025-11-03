@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Casamento - Marcos & Evellyn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/main.js" defer></script>
+    <style>
+        :root {
+            --c-primary: #00BCA1; /* Verde-água principal */
+            --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
+            --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
+            --c-text-dark: #333; /* Texto escuro */
+            --c-text-light: #555; /* Texto mais claro */
+            --font-title: 'Dancing Script', cursive;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-sans);
+            background-color: var(--c-background);
+            color: var(--c-text-dark);
+            overflow-y: auto; /* Permite scroll vertical */
+        }
+
+        /* Estrutura das Seções */
+        .section {
+            width: 100%;
+            min-height: 90vh; /* Garante que cada seção ocupe uma boa parte da tela */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            position: relative;
+            text-align: center;
+        }
+
+        /* --- Seção 1: Capa --- */
+        #cover-section {
+            background: linear-gradient(to br, #fff1f2, #ffe4e6);
+        }
+        #cover-section h1 {
+            font-family: var(--font-title);
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            color: var(--c-primary);
+            font-weight: 700;
+            margin: 0;
+        }
+        #cover-section .ampersand {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--c-secondary);
+            margin: 1rem 0;
+        }
+        #cover-section .date-display {
+            margin-top: 2rem;
+            font-family: var(--font-sans);
+            color: var(--c-text-dark);
+        }
+        #cover-section .date-display .day {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--c-primary);
+            line-height: 1;
+        }
+        #cover-section .date-display .month-year {
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- Seção 2: Contagem Regressiva --- */
+        #countdown-section {
+            background-color: #fff;
+            background-image: url('https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        #countdown-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(3px);
+        }
+        #countdown-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        #countdown-container h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--c-primary);
+            margin-bottom: 1.5rem;
+        }
+        #countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        .time-unit {
+            background: rgba(192, 132, 151, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+        .time-unit .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--c-primary);
+        }
+        .time-unit .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--c-text-light);
+        }
+
+        /* --- Seção 3: Os Noivos --- */
+        #couple-section {
+            background: linear-gradient(to br, #fff1f2, #ffe4e6);
+        }
+        #couple-section .couple-container {
+            max-width: 700px;
+        }
+        #couple-section h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--c-primary);
+            margin-bottom: 2rem;
+        }
+        #couple-section .parents-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+            font-family: var(--font-serif);
+            color: var(--c-text-light);
+        }
+        #couple-section .invitation-text {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-top: 2rem;
+        }
+
+        /* --- Seção 4: Local --- */
+        #location-section {
+            background: #fff;
+        }
+        #location-section .location-container {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 500px;
+        }
+        #location-section h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--c-primary);
+            margin-bottom: 1rem;
+        }
+        #location-section .address {
+            color: var(--c-text-light);
+            margin-bottom: 2rem;
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .btn {
+            background: var(--c-primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: #d493a6;
+            transform: translateY(-2px);
+        }
+
+        /* --- Tela de Abertura com Envelope --- */
+        #envelope-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--c-background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 280px;
+            height: 180px;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 8px;
+            border: 2px solid var(--c-primary);
+            box-shadow: 0 5px 20px rgba(192, 132, 151, 0.2);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-top: 90px solid var(--c-secondary); /* Usando cor secundária para o flap */
+        }
+
+        .envelope-seal {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--c-primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-title);
+            font-size: 1rem;
+            color: white;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #envelope-screen.opened .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        #envelope-guest-name {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--c-text-light);
+            width: 90%;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="envelope-screen">
+    <div class="envelope-wrapper">
+        <div class="envelope-back"></div>
+        <div class="envelope-flap"></div>
+        <div id="envelope-guest-name"></div>
+        <div class="envelope-seal">M&E</div>
+    </div>
+</div>
+
+<main id="main-content" style="display: none;">
+    <!-- Seção 1: Capa -->
+    <section id="cover-section" class="section">
+        <h1>Marcos</h1>
+        <div class="ampersand">&</div>
+        <h1>Evellyn</h1>
+        <div class="date-display">
+            <div class="day">19</div>
+            <div class="month-year">Novembro • 2026</div>
+        </div>
+    </section>
+
+    <!-- Seção 2: Contagem Regressiva -->
+    <section id="countdown-section" class="section">
+        <div id="countdown-container">
+            <h2>Contagem Regressiva para o Grande Dia</h2>
+            <div id="countdown">
+                <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
+                <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
+                <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
+                <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3: Os Noivos -->
+    <section id="couple-section" class="section">
+        <div class="couple-container">
+            <h2>Marcos & Evellyn</h2>
+            <p>Com a bênção de seus pais:</p>
+            <div class="parents-grid">
+                <div>
+                    <p>Pai da Noiva</p>
+                    <p>Mãe da Noiva</p>
+                </div>
+                <div>
+                    <p>Pai do Noivo</p>
+                    <p>Mãe do Noivo</p>
+                </div>
+            </div>
+            <p class="invitation-text" id="invitation-text"></p>
+        </div>
+    </section>
+
+    <!-- Seção 4: Local & RSVP -->
+    <section id="location-section" class="section">
+        <div class="location-container">
+            <h2>Cerimônia e Recepção</h2>
+            <p class="address">Salão de Festas Jardim Encantado<br>Belo Jardim, PE</p>
+            <div class="btn-group" id="rsvp-section">
+                <button class="btn" onclick="handleRsvp('Confirmado')">Sim, estarei lá!</button>
+                <button class="btn" onclick="handleRsvp('Recusado')">Não poderei ir</button>
+                <a id="gift-list-link" href="#" class="btn">Ver Lista de Presentes 🎁</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const nome = urlParams.get('name') || 'Convidado Especial';
+  
+  const invitationText = `Sua presença é o presente mais precioso. Por isso, convidamos você, ${nome}, para testemunhar o início do nosso "felizes para sempre".`;
+
+  const rsvpSection = document.getElementById('rsvp-section');
+
+  function startCountdown() {
+    const weddingDate = new Date('2026-11-19T18:00:00').getTime();
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        document.getElementById('countdown-container').innerHTML = "<h2>O grande dia chegou!</h2>";
+        return;
+      }
+      document.getElementById('days').innerText = Math.floor(distance / (1000*60*60*24)).toString().padStart(2, '0');
+      document.getElementById('hours').innerText = Math.floor((distance%(1000*60*60*24))/(1000*60*60)).toString().padStart(2, '0');
+      document.getElementById('minutes').innerText = Math.floor((distance%(1000*60*60))/(1000*60)).toString().padStart(2, '0');
+      document.getElementById('seconds').innerText = Math.floor((distance%(1000*60))/1000).toString().padStart(2, '0');
+    }, 1000);
+  }
+
+  async function handleRsvp(status) {
+      if (!supabase) return alert('Erro de conexão. Tente novamente.');
+      const { error } = await supabase
+          .from('guests')
+          .update({ status: status })
+          .eq('name', nome);
+
+      if (error) {
+          alert('Ocorreu um erro ao confirmar. Tente novamente.');
+          console.error(error);
+      } else {
+          rsvpSection.innerHTML = status === 'Confirmado'
+              ? `<h3>Obrigado por confirmar! ❤️</h3><a id="gift-list-link" href="#" class="btn">Ver Lista de Presentes 🎁</a>`
+              : `<h3>Que pena! Sentiremos sua falta.</h3>`;
+          document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+      }
+  }
+
+  function initApp() {
+      document.getElementById('invitation-text').innerText = invitationText;
+      document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+      startCountdown();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('envelope-guest-name').innerText = `Para: ${nome}`;
+      const envelopeScreen = document.getElementById('envelope-screen');
+      const mainContent = document.getElementById('main-content');
+
+      envelopeScreen.addEventListener('click', () => {
+          envelopeScreen.classList.add('opened');
+          setTimeout(() => {
+              envelopeScreen.style.opacity = '0';
+              mainContent.style.display = 'block';
+              initApp();
+              setTimeout(() => envelopeScreen.style.display = 'none', 600);
+          }, 600);
+      }, { once: true });
+  });
+</script>
+</body>
+</html>
