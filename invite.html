@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Casamento - Evellyn & Guilherme</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Nosso Casamento - Evellyn & Guilherme</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
     <meta name="description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme. Aqui você encontrará todas as informações sobre a cerimônia, recepção, lista de presentes e muito mais.">
@@ -43,6 +43,10 @@
         <source src="video/video_introducao.mp4" type="video/mp4">
         Seu navegador não suporta vídeos.
     </video>
+    <div class="open-invite-container">
+        <p>Um convite especial para você</p>
+        <button id="open-invite-btn">Clique para Abrir</button>
+    </div>
 
 </div>
 
@@ -54,23 +58,14 @@
         <h1>Evellyn</h1>
         <div class="ampersand">&</div>
         <h1>Guilherme</h1>
-        <h2 id="guest-name-display" style="font-family: var(--font-serif); font-size: 2rem; color: #fff; margin-top: 2rem; font-weight: 600; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);"></h2>
+        <h2 id="guest-name-display" style="font-family: var(--font-serif); font-size: 2.2rem; color: #fff; margin-top: 2rem; font-weight: 700; text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px var(--c-primary), 0 0 30px var(--c-primary), 0 0 40px var(--c-primary);"></h2>
+        <div class="bible-verse">
+            <p>"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."</p>
+            <p class="reference">1 Coríntios 13:4</p>
+        </div>
         <div class="date-display">
             <div class="day"><span id="wedding-day"></span></div>
             <div class="month-year"><span id="wedding-month-year"></span></div>
-        </div>
-    </section>
-
-    <!-- Seção 2: Contagem Regressiva -->
-    <section id="countdown-section" class="section">
-        <div id="countdown-container">
-            <h2>Contagem Regressiva para o Grande Dia</h2>
-            <div id="countdown">
-                <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
-                <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
-                <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
-                <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
-            </div>
         </div>
     </section>
 
@@ -90,6 +85,19 @@
                 </div>
             </div>
             <p class="invitation-text" id="invitation-text"></p>
+        </div>
+    </section>
+
+    <!-- Seção 2: Contagem Regressiva -->
+    <section id="countdown-section" class="section">
+        <div id="countdown-container">
+            <h2>Contagem Regressiva para o Grande Dia</h2>
+            <div id="countdown">
+                <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
+                <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
+                <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
+                <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+            </div>
         </div>
     </section>
 
@@ -144,7 +152,7 @@
     </section>
 </main>
 
-<audio id="wedding-music" src="audio/musica.mp3" preload="auto"></audio>
+<audio id="wedding-music" src="audio/musica.mp4" preload="auto"></audio>
 
 <script src="js/main.js"></script>
 <script src="js/invite.js"></script>

@@ -1,14 +1,12 @@
 :root {
     --c-primary: #00BCA1; /* Verde-água principal */
     --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
-    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
+    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */ 
     --c-text-dark: #333; /* Texto escuro */
     --c-text-light: #555; /* Texto mais claro */
     --font-title: 'Dancing Script', cursive;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Montserrat', sans-serif;
-    /* Novas cores para o envelope de luxo */
-
 }
 
 /* --- Corpo e Estrutura --- */
@@ -68,6 +66,19 @@ body {
 #cover-section .date-display .day {
     color: #fff;
     text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+}
+
+.bible-verse {
+    color: #fff;
+    font-family: var(--font-sans);
+    margin-top: 3rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+.bible-verse p {
+    margin: 0.5rem 0;
+}
+.bible-verse .reference {
+    font-style: italic;
 }
 #cover-section h1 {
     font-family: var(--font-title);
@@ -333,5 +344,3 @@ body {
     background: #00a58a;
     transform: translateY(-2px);
 }
-
-
