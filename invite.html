@@ -25,7 +25,7 @@
     <meta property="twitter:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
 
     <!-- Cor do tema para navegadores móveis -->
-    <meta name="theme-color" content="#00BCA1">
+    <meta name="theme-color" content="#C0A080">
     <!-- Favicon (substitua pelo seu) -->
     <link rel="icon" href="https://via.placeholder.com/32x32" type="image/png">
 
@@ -36,6 +36,12 @@
 <button id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 101; background: #fff; border: 1px solid #ccc; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 20px;">▶️</button>
 
 <div id="envelope-screen">
+    <!-- Vídeo de fundo -->
+    <video id="intro-video" autoplay muted loop playsinline>
+        <!-- Certifique-se de que o caminho para o vídeo está correto -->
+        <source src="video/video_introducao.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
     <div class="envelope-wrapper">
         <div class="confetti-container"></div>
         <div class="invitation-card">

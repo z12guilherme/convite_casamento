@@ -77,15 +77,18 @@
 
   function createConfetti() {
       const confettiContainer = document.querySelector('.confetti-container');
+      if (!confettiContainer) return;
       for (let i = 0; i < 100; i++) {
           const confetti = document.createElement('div');
           confetti.className = 'confetti';
-          confetti.style.left = Math.random() * 100 + '%';
-          confetti.style.animationDelay = Math.random() * -2 + 's';
-          const size = Math.random() * 10 + 5;
-          confetti.style.width = size + 'px';
-          confetti.style.height = size + 'px';
-          confetti.style.backgroundColor = 'var(--c-primary)';
+          confetti.style.left = `${Math.random() * 100}%`;
+          confetti.style.animationDelay = `${Math.random() * -3}s`;
+          const size = Math.random() * 8 + 4;
+          confetti.style.width = `${size}px`;
+          confetti.style.height = `${size}px`;
+          const xEnd = Math.random() * 200 - 100;
+          confetti.style.setProperty('--x-end', `${xEnd}px`);
+          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
           confettiContainer.appendChild(confetti);
       }
   }
@@ -122,7 +125,7 @@
               mainContent.style.display = 'block';
               initApp();
               setTimeout(() => envelopeScreen.style.display = 'none', 1200); // Aumenta o tempo para a transição de opacidade
-          }, 1800); // Aumenta o tempo total para acomodar a nova animação
+          }, 2000); // Aumenta o tempo total para acomodar a nova animação
       }, { once: true });
 
       document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado'));
