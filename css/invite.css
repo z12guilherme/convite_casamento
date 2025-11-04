@@ -8,9 +8,7 @@
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Montserrat', sans-serif;
     /* Novas cores para o envelope de luxo */
-    --c-envelope-bg: #00BCA1;
-    --c-envelope-flap: #009680;
-    --c-envelope-seal: #009680;
+
 }
 
 /* --- Corpo e Estrutura --- */
@@ -302,11 +300,6 @@ body {
     transition: all 0.3s ease;
     text-decoration: none;
 }
-.btn:hover {
-    background: #00a58a;
-    transform: translateY(-2px);
-}
-
 /* --- Tela de Abertura com Envelope --- */
 #envelope-screen {
     position: fixed;
@@ -336,136 +329,9 @@ body {
     filter: brightness(0.7);
 }
 
-/* --- Envelope Luxo Simples --- */
-.envelope-wrapper {
-    position: relative;
-    width: 340px;
-    height: 230px;
-    background: var(--c-envelope-bg);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    transform-style: preserve-3d;
-    transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    overflow: hidden;
-    opacity: 0; /* Initially hidden */
-    pointer-events: none; /* Disable interactions when hidden */
+.btn:hover {
+    background: #00a58a;
+    transform: translateY(-2px);
 }
 
-.envelope-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(145deg, var(--c-envelope-bg), var(--c-envelope-flap));
-    border-radius: 12px;
-    box-shadow: inset 0 0 20px rgba(255,255,255,0.3);
-}
 
-.envelope-flap {
-    background: linear-gradient(to bottom, var(--c-envelope-flap), #007868);
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    height: 60%;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    box-shadow: inset 0 -2px 6px rgba(255, 255, 255, 0.3);
-    transform-origin: top;
-    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
-}
-
-.envelope-seal {
-    position: absolute;
-    top: 95px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 45px;
-    height: 45px;
-    background: radial-gradient(circle at 30% 30%, #ffffff88, var(--c-envelope-seal));
-    border-radius: 50%;
-    border: 2px solid #ffffff44;
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    z-index: 20;
-    transition: opacity 0.4s ease-out, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#envelope-guest-name {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-title);
-    font-size: 1.6rem;
-    color: #f3fdfc;
-    width: 100%;
-    text-align: center;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.25);
-    z-index: 18;
-}
-
-.invitation-card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ffffff, #f8fefc);
-    border: 1px solid #d8f3ed;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: var(--font-serif);
-    color: var(--c-secondary);
-    text-align: center;
-    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-}
-
-.invitation-card h2 {
-    font-family: var(--font-title);
-    color: var(--c-primary);
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-}
-.invitation-card p {
-    font-size: 1.1rem;
-    color: var(--c-text-light);
-}
-
-/* --- Abertura --- */
-#envelope-screen.opened .envelope-flap {
-    transform: rotateX(180deg);
-}
-#envelope-screen.opened .invitation-card {
-    transform: translateY(-140px);
-}
-#envelope-screen.opened .envelope-seal {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.5);
-}
-#envelope-screen.opened .envelope-wrapper {
-    transform: translateY(40px) scale(1.05);
-}
-
-/* --- Confetti --- */
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: var(--c-primary);
-    opacity: 0.7;
-    border-radius: 50%;
-    animation: fall 2s linear forwards;
-    top: 50%;
-}
-@keyframes fall {
-    from { transform: translateY(0) rotate(0); opacity: 1; }
-    to { transform: translateY(200px) rotate(360deg); opacity: 0; }
-}

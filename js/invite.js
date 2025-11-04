@@ -75,34 +75,37 @@
       startCountdown();
   }
 
-  function createConfetti() {
-      const confettiContainer = document.querySelector('.confetti-container');
-      if (!confettiContainer) return;
-      for (let i = 0; i < 100; i++) {
-          const confetti = document.createElement('div');
-          confetti.className = 'confetti';
-          confetti.style.left = `${Math.random() * 100}%`;
-          confetti.style.animationDelay = `${Math.random() * -3}s`;
-          const size = Math.random() * 8 + 4;
-          confetti.style.width = `${size}px`;
-          confetti.style.height = `${size}px`;
-          const xEnd = Math.random() * 200 - 100;
-          confetti.style.setProperty('--x-end', `${xEnd}px`);
-          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-          confettiContainer.appendChild(confetti);
-      }
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('envelope-guest-name').innerText = `Para: ${nome}`;
+
       const envelopeScreen = document.getElementById('envelope-screen');
       const mainContent = document.getElementById('main-content');
       const musicBtn = document.getElementById('music-btn');
       const weddingMusic = document.getElementById('wedding-music');
       const introVideo = document.getElementById('intro-video'); // Get video element
-      const envelopeWrapper = document.querySelector('.envelope-wrapper'); // Get envelope wrapper
 
       let isPlaying = false;
+
+      const playMusic = () => {
+        const playPromise = weddingMusic.play();
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            isPlaying = true;
+            musicBtn.innerHTML = '⏸️';
+          }).catch(error => {
+            isPlaying = false;
+            musicBtn.innerHTML = '▶️';
+          });
+        }
+      }
+
+      if (weddingMusic.readyState >= 4) { // HAVE_ENOUGH_DATA
+          playMusic();
+      } else {
+          weddingMusic.addEventListener('canplaythrough', () => {
+            playMusic();
+          });
+      }
+
 
       musicBtn.addEventListener('click', () => {
           if (isPlaying) {
@@ -117,23 +120,10 @@
 
       // Listen for video ended event
       introVideo.addEventListener('ended', () => {
-          // Show the envelope wrapper
-          envelopeWrapper.style.opacity = '1';
-          envelopeWrapper.style.pointerEvents = 'auto';
-
-          // Start the envelope opening animation
-          envelopeScreen.classList.add('opened');
-          document.getElementById('envelope-guest-name').style.opacity = '0'; // Esconde o nome do convidado
-          createConfetti();
-          weddingMusic.play();
-          isPlaying = true;
-          musicBtn.innerHTML = '⏸️';
-          setTimeout(() => {
-              envelopeScreen.style.opacity = '0';
-              mainContent.style.display = 'block';
-              initApp();
-              setTimeout(() => envelopeScreen.style.display = 'none', 1200); // Aumenta o tempo para a transição de opacidade
-          }, 2000); // Aumenta o tempo total para acomodar a nova animação
+          envelopeScreen.style.opacity = '0';
+          mainContent.style.display = 'block';
+          initApp();
+          setTimeout(() => envelopeScreen.style.display = 'none', 1200);
       });
 
       document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado'));
