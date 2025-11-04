@@ -8,7 +8,7 @@
 
   const nome = sanitizeHTML(urlParams.get('name')) || 'Convidado Especial';
   
-  const invitationText = `Sua presença é o presente mais precioso. Por isso, convidamos você, ${nome}, para testemunhar o início do nosso "felizes para sempre".`;
+  const invitationText = `Sua presença é o presente mais precioso. Por isso, convidamos você, <span class="highlighted-name">${nome}</span>, para testemunhar o início do nosso "felizes para sempre".`;
 
   const rsvpSection = document.getElementById('rsvp-section');
 
@@ -34,8 +34,7 @@
 
   
   function initApp() {
-      document.getElementById('guest-name-display').innerText = nome;
-      document.getElementById('invitation-text').innerText = invitationText;
+      document.getElementById('invitation-text').innerHTML = invitationText; // Alterado para innerHTML
       document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
 
       const brideFather = sanitizeHTML(urlParams.get('bride_father')) || 'Pai da Noiva';
