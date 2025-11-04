@@ -99,6 +99,8 @@
       const mainContent = document.getElementById('main-content');
       const musicBtn = document.getElementById('music-btn');
       const weddingMusic = document.getElementById('wedding-music');
+      const introVideo = document.getElementById('intro-video'); // Get video element
+      const envelopeWrapper = document.querySelector('.envelope-wrapper'); // Get envelope wrapper
 
       let isPlaying = false;
 
@@ -113,7 +115,13 @@
           isPlaying = !isPlaying;
       });
 
-      envelopeScreen.addEventListener('click', () => {
+      // Listen for video ended event
+      introVideo.addEventListener('ended', () => {
+          // Show the envelope wrapper
+          envelopeWrapper.style.opacity = '1';
+          envelopeWrapper.style.pointerEvents = 'auto';
+
+          // Start the envelope opening animation
           envelopeScreen.classList.add('opened');
           document.getElementById('envelope-guest-name').style.opacity = '0'; // Esconde o nome do convidado
           createConfetti();
@@ -126,7 +134,7 @@
               initApp();
               setTimeout(() => envelopeScreen.style.display = 'none', 1200); // Aumenta o tempo para a transição de opacidade
           }, 2000); // Aumenta o tempo total para acomodar a nova animação
-      }, { once: true });
+      });
 
       document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado'));
       document.getElementById('rsvp-decline-btn').addEventListener('click', () => handleRsvp('Recusado'));

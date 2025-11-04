@@ -37,30 +37,62 @@ body {
 
 /* --- Capa --- */
 #cover-section {
-    background: linear-gradient(to bottom right, #fff1f2, #ffe4e6);
+    background-image: url('../img/ceu.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+#cover-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Overlay escuro para legibilidade */
+    z-index: 1;
+}
+
+#cover-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+#cover-section h1, #cover-section .ampersand, #cover-section .date-display {
+    color: #fff; /* Cor do texto para branco para contrastar com o fundo */
+}
+
+#cover-section h1 {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+#cover-section .date-display .day {
+    color: #fff;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
 }
 #cover-section h1 {
     font-family: var(--font-title);
     font-size: clamp(3.5rem, 10vw, 6rem);
-    color: var(--c-primary);
+    color: #fff;
     font-weight: 700;
     margin: 0;
 }
 #cover-section .ampersand {
     font-family: var(--font-serif);
     font-size: 3rem;
-    color: var(--c-secondary);
+    color: #fff;
     margin: 1rem 0;
 }
 #cover-section .date-display {
     margin-top: 2rem;
     font-family: var(--font-sans);
-    color: var(--c-text-dark);
+    color: #fff;
 }
 #cover-section .date-display .day {
     font-size: 3rem;
     font-weight: 700;
-    color: var(--c-primary);
+    color: #fff;
     line-height: 1;
 }
 #cover-section .date-display .month-year {
@@ -71,7 +103,7 @@ body {
 /* --- Contagem Regressiva --- */
 #countdown-section {
     background-color: #fff;
-    background-image: url('https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg');
+    background-image: url('img/ceu.jpg'); /* <-- Altere esta linha */
     background-size: cover;
     background-position: center;
 }
@@ -103,7 +135,7 @@ body {
     gap: 1rem;
 }
 .time-unit {
-    background: rgba(192, 132, 151, 0.1);
+    background: rgba(0, 188, 161, 0.1);
     padding: 1rem;
     border-radius: 10px;
 }
@@ -121,7 +153,7 @@ body {
 
 /* --- Os Noivos --- */
 #couple-section {
-    background: linear-gradient(to bottom right, #fff1f2, #ffe4e6);
+    background: linear-gradient(to bottom right, #e0f2f1, #b2dfdb);
 }
 #couple-section .couple-container {
     max-width: 700px;
@@ -315,6 +347,8 @@ body {
     transform-style: preserve-3d;
     transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     overflow: hidden;
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Disable interactions when hidden */
 }
 
 .envelope-back {
