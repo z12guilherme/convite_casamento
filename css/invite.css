@@ -1,0 +1,337 @@
+:root {
+    --c-primary: #00BCA1; /* Verde-água principal */
+    --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
+    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
+    --c-text-dark: #333; /* Texto escuro */
+    --c-text-light: #555; /* Texto mais claro */
+    --font-title: 'Dancing Script', cursive;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Montserrat', sans-serif;
+    /* Novas cores para o envelope de luxo */
+
+}
+
+/* --- Corpo e Estrutura --- */
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background-color: var(--c-background);
+    color: var(--c-text-dark);
+    overflow-y: auto;
+}
+
+.section {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
+    text-align: center;
+}
+
+/* --- Capa --- */
+#cover-section {
+    background-image: url('../img/ceu.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+#cover-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Overlay escuro para legibilidade */
+    z-index: 1;
+}
+
+#cover-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+#cover-section h1, #cover-section .ampersand, #cover-section .date-display {
+    color: #fff; /* Cor do texto para branco para contrastar com o fundo */
+}
+
+#cover-section h1 {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+#cover-section .date-display .day {
+    color: #fff;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+}
+#cover-section h1 {
+    font-family: var(--font-title);
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    color: #fff;
+    font-weight: 700;
+    margin: 0;
+}
+#cover-section .ampersand {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: #fff;
+    margin: 1rem 0;
+}
+#cover-section .date-display {
+    margin-top: 2rem;
+    font-family: var(--font-sans);
+    color: #fff;
+}
+#cover-section .date-display .day {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+#cover-section .date-display .month-year {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+/* --- Contagem Regressiva --- */
+#countdown-section {
+    background-color: #fff;
+    background-image: url('img/ceu.jpg'); /* <-- Altere esta linha */
+    background-size: cover;
+    background-position: center;
+}
+#countdown-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(3px);
+}
+#countdown-container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
+}
+#countdown-container h2 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--c-primary);
+    margin-bottom: 1.5rem;
+}
+#countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+.time-unit {
+    background: rgba(0, 188, 161, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+}
+.time-unit .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--c-primary);
+}
+.time-unit .label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--c-text-light);
+}
+
+/* --- Os Noivos --- */
+#couple-section {
+    background: linear-gradient(to bottom right, #e0f2f1, #b2dfdb);
+}
+#couple-section .couple-container {
+    max-width: 700px;
+}
+#couple-section h2 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--c-primary);
+    margin-bottom: 2rem;
+}
+#couple-section .parents-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+    font-family: var(--font-serif);
+    color: var(--c-text-light);
+}
+#couple-section .invitation-text {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-top: 2rem;
+}
+
+/* --- Nossa História --- */
+#story-section {
+    background: var(--c-background);
+    padding: 4rem 2rem;
+}
+.story-container h2 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--c-primary);
+    margin-bottom: 3rem;
+}
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--c-secondary);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    border-radius: 2px;
+}
+.timeline-item {
+    padding: 1rem 40px;
+    position: relative;
+    width: 50%;
+}
+.timeline-item:nth-child(odd) {
+    left: 0;
+    padding-right: 70px;
+    text-align: right;
+}
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 70px;
+    text-align: left;
+}
+.timeline-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid var(--c-primary);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+.timeline-item:nth-child(odd) .timeline-img {
+    right: -75px;
+}
+.timeline-item:nth-child(even) .timeline-img {
+    left: -75px;
+}
+.timeline-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.timeline-content {
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+}
+.timeline-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--c-primary);
+    margin-bottom: 10px;
+}
+.timeline-content p {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--c-text-light);
+}
+
+/* --- Local --- */
+#location-section {
+    background: #fff;
+}
+#location-section .location-container {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 500px;
+}
+#location-section h2 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--c-primary);
+    margin-bottom: 1rem;
+}
+#location-section .address {
+    color: var(--c-text-light);
+    margin-bottom: 2rem;
+}
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.btn {
+    background: var(--c-primary);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+/* --- Tela de Abertura com Envelope --- */
+#envelope-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--c-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 1.2s ease-out 1s;
+    perspective: 1500px;
+}
+
+#intro-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: brightness(0.7);
+}
+
+.btn:hover {
+    background: #00a58a;
+    transform: translateY(-2px);
+}
+
+
