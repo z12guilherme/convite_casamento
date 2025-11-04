@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Convidados</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/main.js" defer></script>
+<style>
+    :root {
+        --main-color: #00BCA1; /* verde-água */
+        --hover-color: #009680; /* verde-água mais escuro */
+        --text-color: #333;
+        --font-title: 'Dancing Script', cursive;
+        --font-body: 'Open Sans', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-body);
+        background-color: #fff;
+        min-height: 100vh;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        width: 95%;
+        max-width: 700px;
+        background: #fff;
+        border: 1px solid var(--main-color);
+        border-radius: 10px;
+        padding: 40px 30px;
+        box-shadow: 0 0 20px rgba(144, 194, 179, 0.2);
+        text-align: center;
+    }
+
+    h1 {
+        font-family: var(--font-title);
+        font-size: 3rem;
+        color: var(--main-color);
+        margin-bottom: 10px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .form input {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        outline: none;
+        transition: border 0.2s ease;
+    }
+
+    .form input:focus {
+        border-color: var(--main-color);
+    }
+
+    .form button {
+        background: var(--main-color);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 12px 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .form button:hover {
+        background: var(--hover-color);
+        transform: translateY(-2px);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        color: var(--main-color);
+        margin-bottom: 15px;
+        font-family: var(--font-body);
+    }
+
+    #listaConvidados {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto 30px auto;
+        max-height: 300px;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    #listaConvidados li {
+        background: #fdfdfd;
+        border: 1px solid #eee;
+        margin-bottom: 10px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    #listaConvidados li a {
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        color: #fff;
+        margin-left: 5px;
+    }
+
+    #listaConvidados li a:first-child {
+        background: var(--main-color);
+    }
+
+    #listaConvidados li a:first-child:hover {
+        background: var(--hover-color);
+    }
+
+    .delete-btn {
+        background: #555;
+    }
+
+    .delete-btn:hover {
+        background: #333;
+    }
+
+    a.dashboard-link {
+        display: inline-block;
+        background: var(--main-color);
+        color: #fff;
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    a.dashboard-link:hover {
+        background: var(--hover-color);
+        transform: translateY(-2px);
+    }
+</style>
+</head>
+<body>
+<script>
+    const password = prompt("Digite a senha de acesso ao painel:");
+    if (password !== "Mg156810$") { // Lembre-se de trocar esta senha por uma mais segura em produção
+        document.body.innerHTML = '<div style="text-align: center; margin-top: 50px; font-size: 1.5rem; color: var(--main-color);">🔒 Acesso negado</div>';
+        throw new Error("Acesso negado ao painel de convidados.");
+    }
+</script>
+<div class="container">
+    <h1>Painel de Convidados</h1>
+    <div class="form">
+        <input type="text" id="nome" placeholder="Nome do convidado">
+        <button onclick="adicionarConvidado()">Adicionar Convidado</button>
+    </div>
+    <div class="form" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px;">
+        <label for="xlsx_file" style="text-align: left; font-weight: 500;">Ou importe de uma planilha:</label>
+        <input type="file" id="xlsx_file" accept=".xlsx, .xls" style="padding: 5px;">
+        <button onclick="importarConvidados()">Importar Planilha</button>
+        <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.9rem; text-align: center; color: var(--main-color);">Baixar planilha de exemplo</a>
+    </div>
+    <h2>Lista de Convidados</h2>
+    <ul id="listaConvidados"></ul>
+    <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
+</div>
+<script>
+    // A lógica principal agora está em js/main.js
+    // As funções abaixo foram adaptadas para usar o Supabase
+    function importarConvidados() {
+        const fileInput = document.getElementById('xlsx_file');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert('Por favor, selecione um arquivo .xlsx para importar.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, {type: 'array'});
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+            if (json.length <= 1) {
+                alert('A planilha parece estar vazia ou não contém convidados.');
+                return;
+            }
+
+            // Pula o cabeçalho (linha 0) e começa da linha 1
+            for (let i = 1; i < json.length; i++) {
+                const row = json[i];
+                const nome = row[0] ? String(row[0]).trim() : '';
+                if (nome) {
+                    document.getElementById('nome').value = nome;
+                    await adicionarConvidado(); // Usando a função de main.js
+                    // Adiciona um pequeno delay para não sobrecarregar o browser/localStorage de uma vez
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+            }
+            alert(`${json.length - 1} convidados foram processados para importação.`);
+            fileInput.value = ''; // Limpa o input
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function baixarExemploPlanilha(event) {
+        event.preventDefault();
+        const ws = XLSX.utils.aoa_to_sheet([["NomeConvidado"], ["Fulano de Tal"], ["Ciclana da Silva"], ["Beltrano Souza"]]);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Convidados");
+        XLSX.writeFile(wb, "exemplo_convidados.xlsx");
+    }
+</script>
+</body>
+</html>

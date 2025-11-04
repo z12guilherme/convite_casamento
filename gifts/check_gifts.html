@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Check Gifts - Debug</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+<style>
+  body { font-family: 'Poppins', sans-serif; padding: 2rem; background: #f0f4ff; color: #0b1e4a; }
+  h1 { font-family: 'Great Vibes', cursive; font-size: 2rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+  th { background: #3b82f6; color: white; }
+</style>
+</head>
+<body>
+<h1>Debug: Lista Completa de Presentes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Taken By</th>
+      <th>Confirmado Em</th>
+    </tr>
+  </thead>
+  <tbody id="gifts-table-body"></tbody>
+</table>
+
+<script>
+  const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function loadAllGifts() {
+    const { data, error } = await supabase.from('gifts').select('*');
+    if (error) {
+      alert('Erro ao carregar presentes: ' + error.message);
+      return;
+    }
+    const tbody = document.getElementById('gifts-table-body');
+    tbody.innerHTML = '';
+    data.forEach(gift => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${gift.id}</td>
+        <td>${gift.name}</td>
+        <td>${gift.description || ''}</td>
+        <td>${gift.taken_by || ''}</td>
+        <td>${gift.confirmed_at ? new Date(gift.confirmed_at).toLocaleString() : ''}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', loadAllGifts);
+</script>
+</body>
+</html>
