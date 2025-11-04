@@ -32,32 +32,7 @@
     }, 1000);
   }
 
-  async function handleRsvp(status) {
-      // A variável supabase é definida em main.js e está disponível globalmente.
-      // Se não estiver, pode ser necessário incluir o script de inicialização do Supabase aqui também.
-      const { error } = await supabase
-          .from('guests')
-          .update({ status: status })
-          .eq('name', nome);
-
-      if (error) {
-          alert('Ocorreu um erro ao registrar sua resposta. Por favor, tente novamente.');
-          console.error(error);
-      } else {
-          rsvpSection.innerHTML = status === 'Confirmado'
-              ? `<h3>Obrigado por confirmar! ❤️</h3>`
-              : `<h3>Que pena! Sentiremos sua falta.</h3>`;
-          if (status === 'Confirmado') {
-              const giftLink = document.createElement('a');
-              giftLink.id = 'gift-list-link';
-              giftLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
-              giftLink.className = 'btn';
-              giftLink.innerHTML = 'Ver Lista de Presentes 🎁';
-              rsvpSection.appendChild(giftLink);
-          }
-      }
-  }
-
+  
   function initApp() {
       document.getElementById('guest-name-display').innerText = nome;
       document.getElementById('invitation-text').innerText = invitationText;
@@ -146,6 +121,6 @@
         if (!videoEndedOrSkipped) showMainContent();
     }, 5000); // Tempo limite de 5 segundos
 
-      document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado'));
-      document.getElementById('rsvp-decline-btn').addEventListener('click', () => handleRsvp('Recusado'));
+      document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado', nome, rsvpSection));
+      document.getElementById('rsvp-decline-btn').addEventListener('click', () => handleRsvp('Recusado', nome, rsvpSection));
   });

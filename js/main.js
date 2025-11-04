@@ -1,7 +1,5 @@
 // ================== Supabase ==================
-const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+// A configuração do Supabase foi movida para js/config.js
 
 // ================== Convidados ==================
 async function adicionarConvidado() {
@@ -67,6 +65,30 @@ async function removerConvidado(nome) {
   const { error } = await supabase.from('guests').delete().eq('name', nome);
   if (error) return alert('Erro: ' + error.message);
   atualizarListaConvidados();
+}
+
+async function handleRsvp(status, nome, rsvpSection) {
+    const { error } = await supabase
+        .from('guests')
+        .update({ status: status })
+        .eq('name', nome);
+
+    if (error) {
+        alert('Ocorreu um erro ao registrar sua resposta. Por favor, tente novamente.');
+        console.error(error);
+    } else {
+        rsvpSection.innerHTML = status === 'Confirmado'
+            ? `<h3>Obrigado por confirmar! ❤️</h3>`
+            : `<h3>Que pena! Sentiremos sua falta.</h3>`;
+        if (status === 'Confirmado') {
+            const giftLink = document.createElement('a');
+            giftLink.id = 'gift-list-link';
+            giftLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+            giftLink.className = 'btn';
+            giftLink.innerHTML = 'Ver Lista de Presentes 🎁';
+            rsvpSection.appendChild(giftLink);
+        }
+    }
 }
 
 // ================== Dashboard de Presentes ==================
