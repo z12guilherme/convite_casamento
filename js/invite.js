@@ -1,13 +1,5 @@
   const urlParams = new URLSearchParams(window.location.search);
 
-<<<<<<< HEAD
-  const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
-  console.log('window.supabase before createClient:', window.supabase);
-  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-=======
->>>>>>> 1c775b0a3d6fc6792c9f1cd440789767c338ff17
   function sanitizeHTML(str) {
       const temp = document.createElement('div');
       temp.textContent = str;
@@ -51,20 +43,9 @@
           alert('Ocorreu um erro ao confirmar. Tente novamente.');
           console.error(error);
       } else {
-<<<<<<< HEAD
-          document.getElementById('rsvp-confirm-btn').style.display = 'none';
-          document.getElementById('rsvp-decline-btn').style.display = 'none';
-          if (status === 'Confirmado') {
-              rsvpSection.insertAdjacentHTML('afterbegin', '<h3>Obrigado por confirmar! ❤️</h3>');
-              document.getElementById('gift-list-container').style.display = 'block';
-          } else {
-              rsvpSection.insertAdjacentHTML('afterbegin', '<h3>Que pena! Sentiremos sua falta.</h3>');
-          }
-=======
           rsvpSection.innerHTML = status === 'Confirmado'
               ? `<h3>Obrigado por confirmar! ❤️</h3><a id="gift-list-link" href="#" class="btn">Ver Lista de Presentes 🎁</a>`
               : `<h3>Que pena! Sentiremos sua falta.</h3>`;
->>>>>>> 1c775b0a3d6fc6792c9f1cd440789767c338ff17
           document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
       }
   }
@@ -126,24 +107,36 @@
       }
 
 
-      musicBtn.addEventListener('click', () => {
-          if (isPlaying) {
-              weddingMusic.pause();
-              musicBtn.innerHTML = '▶️';
-          } else {
-              weddingMusic.play();
-              musicBtn.innerHTML = '⏸️';
-          }
-          isPlaying = !isPlaying;
-      });
+    musicBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            weddingMusic.pause();
+            musicBtn.innerHTML = '▶️';
+        } else {
+            weddingMusic.play();
+            musicBtn.innerHTML = '⏸️';
+        }
+        isPlaying = !isPlaying;
+    });
 
-      // Listen for video ended event
-      introVideo.addEventListener('ended', () => {
-          envelopeScreen.style.opacity = '0';
-          mainContent.style.display = 'block';
-          initApp();
-          setTimeout(() => envelopeScreen.style.display = 'none', 1200);
-      });
+    let videoEndedOrSkipped = false; // Flag para evitar execuções múltiplas
+
+    const showMainContent = () => {
+        if (videoEndedOrSkipped) return; // Impede chamadas múltiplas se já executado
+        videoEndedOrSkipped = true;
+
+        envelopeScreen.style.opacity = '0';
+        mainContent.style.display = 'block';
+        initApp();
+        setTimeout(() => envelopeScreen.style.display = 'none', 1200);
+    };
+
+    // Escuta o evento de término do vídeo
+    introVideo.addEventListener('ended', showMainContent);
+
+    // Fallback: Se o vídeo não tocar ou demorar muito, mostra o conteúdo de qualquer forma
+    setTimeout(() => {
+        if (!videoEndedOrSkipped) showMainContent();
+    }, 5000); // Tempo limite de 5 segundos
 
       document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado'));
       document.getElementById('rsvp-decline-btn').addEventListener('click', () => handleRsvp('Recusado'));
