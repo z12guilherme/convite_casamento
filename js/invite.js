@@ -33,20 +33,28 @@
   }
 
   async function handleRsvp(status) {
-      if (!supabase) return alert('Erro de conexão. Tente novamente.');
+      // A variável supabase é definida em main.js e está disponível globalmente.
+      // Se não estiver, pode ser necessário incluir o script de inicialização do Supabase aqui também.
       const { error } = await supabase
           .from('guests')
           .update({ status: status })
           .eq('name', nome);
 
       if (error) {
-          alert('Ocorreu um erro ao confirmar. Tente novamente.');
+          alert('Ocorreu um erro ao registrar sua resposta. Por favor, tente novamente.');
           console.error(error);
       } else {
           rsvpSection.innerHTML = status === 'Confirmado'
-              ? `<h3>Obrigado por confirmar! ❤️</h3><a id="gift-list-link" href="#" class="btn">Ver Lista de Presentes 🎁</a>`
+              ? `<h3>Obrigado por confirmar! ❤️</h3>`
               : `<h3>Que pena! Sentiremos sua falta.</h3>`;
-          document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+          if (status === 'Confirmado') {
+              const giftLink = document.createElement('a');
+              giftLink.id = 'gift-list-link';
+              giftLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+              giftLink.className = 'btn';
+              giftLink.innerHTML = 'Ver Lista de Presentes 🎁';
+              rsvpSection.appendChild(giftLink);
+          }
       }
   }
 
