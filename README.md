@@ -1,4 +1,4 @@
-# 💍 Convite de Casamento - Marcos & Evellyn
+# 💍 Convite de Casamento - Evellyn & Guilherme
 
 ![Wedding Invitation Banner](https://via.placeholder.com/800x200/fdf2f8/ec4899?text=Nosso+Casamento+%F0%9F%92%8D)
 
