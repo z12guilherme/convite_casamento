@@ -377,7 +377,7 @@ body {
     align-items: center;
     z-index: 100;
     cursor: pointer;
-    transition: opacity 1.2s ease-out 1s;
+    transition: opacity 1.2s ease-out 3s;
     perspective: 1500px;
 }
 
