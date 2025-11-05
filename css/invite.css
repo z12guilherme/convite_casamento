@@ -1,10 +1,10 @@
 :root {
     --c-primary: #00BCA1; /* Verde-água principal */
     --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
-    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */ 
+    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
     --c-text-dark: #333; /* Texto escuro */
     --c-text-light: #555; /* Texto mais claro */
-    --font-title: 'Dancing Script', cursive;
+    --font-title: 'Cormorant Garamond', serif;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Montserrat', sans-serif;
 }
