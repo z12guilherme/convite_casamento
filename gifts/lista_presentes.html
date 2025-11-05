@@ -128,81 +128,11 @@
   <div id="confirmation-message"></div>
 
 <script>
-  const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
-  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-  const giftsContainer = document.getElementById('gifts-container');
-  const confirmationMessage = document.getElementById('confirmation-message');
-
-  async function loadGifts() {
-    const { data, error } = await supabase.from('gifts').select('*').order('name');
-    if (error) return console.error(error);
-
-    giftsContainer.innerHTML = '';
-    if (!data || data.length === 0) {
-      giftsContainer.textContent = 'Nenhum presente disponível.';
-      return;
-    }
-
-    const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
-    document.getElementById('guest-greeting').textContent = `Olá, ${guestName}! Escolha um presente para celebrar conosco 💝`;
-
-    data.forEach(gift => {
-      const card = document.createElement('div');
-      card.className = 'gift-card';
-
-      if (gift.image) {
-        const imgEl = document.createElement('img');
-        imgEl.className = 'gift-image';
-        imgEl.src = gift.image;
-        card.appendChild(imgEl);
-      }
-
-      const nameEl = document.createElement('div');
-      nameEl.className = 'gift-name';
-      const link = document.createElement('a');
-      link.href = gift.product_url || "#";
-      link.target = "_blank";
-      link.textContent = gift.name;
-      nameEl.appendChild(link);
-      card.appendChild(nameEl);
-
-      const btn = document.createElement('button');
-      btn.className = 'confirm-btn';
-      if (gift.taken_by) {
-        btn.textContent = 'Já escolhido';
-        btn.disabled = true;
-      } else {
-        btn.textContent = 'Confirmar Presente';
-        btn.onclick = async () => {
-          btn.disabled = true;
-          btn.textContent = 'Confirmando...';
-          const { error } = await supabase.from('gifts').update({
-            taken_by: guestName,
-            confirmed_at: new Date().toISOString()
-          }).eq('id', gift.id);
-          if (error) {
-            alert('Erro ao confirmar: ' + error.message);
-            btn.disabled = false;
-            btn.textContent = 'Confirmar Presente';
-          } else {
-            confirmationMessage.textContent = `Obrigado, ${guestName}! Seu presente foi confirmado 💝`;
-            confirmationMessage.style.display = 'block';
-            loadGifts();
-          }
-        };
-      }
-      card.appendChild(btn);
-      giftsContainer.appendChild(card);
-    });
-  }
-
   supabase.channel('public:gifts')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, payload => loadGifts())
     .subscribe();
-
-  window.addEventListener('DOMContentLoaded', loadGifts);
 </script>
+<script src="../js/config.js"></script>
+<script src="../js/main.js"></script>
 </body>
 </html>
