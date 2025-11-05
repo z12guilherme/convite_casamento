@@ -50,9 +50,12 @@
       const day = weddingDate.getDate();
       const month = weddingDate.toLocaleString('default', { month: 'long' });
       const year = weddingDate.getFullYear();
+      const hours = weddingDate.getHours().toString().padStart(2, '0');
+      const minutes = weddingDate.getMinutes().toString().padStart(2, '0');
 
       document.getElementById('wedding-day').innerText = day;
       document.getElementById('wedding-month-year').innerText = `${month} • ${year}`;
+      document.getElementById('wedding-time').innerText = `${hours}:${minutes}`;
 
       startCountdown();
   }

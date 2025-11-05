@@ -111,29 +111,10 @@ body {
     font-size: 1.2rem;
     letter-spacing: 1px;
 }
-/* Estilo da data dentro da contagem regressiva */
-#countdown-section .date-display {
-    margin-bottom: 1.5rem;
-    font-family: var(--font-serif);
-    color: var(--c-secondary);
-}
-
-#countdown-section .date-display .day {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--c-primary);
-    line-height: 1;
-}
-
-#countdown-section .date-display .month-year {
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-}
 
 /* --- Contagem Regressiva --- */
 #countdown-section {
-    background-color: #fff;
-    background-image: url('img/ceu.jpg'); /* <-- Altere esta linha */
+    background-image: url('../img/ceu.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -141,38 +122,43 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.2); /* Overlay um pouco mais escuro */
     backdrop-filter: blur(3px);
 }
 #countdown-container {
     position: relative;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 #countdown-container h2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-title);
     font-size: 2rem;
-    color: var(--c-primary);
+    color: var(--c-secondary);
     margin-bottom: 1.5rem;
+    font-weight: 600;
 }
 #countdown {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+    margin-top: 2rem;
 }
 .time-unit {
-    background: rgba(0, 188, 161, 0.1);
+    background: transparent;
     padding: 1rem;
     border-radius: 10px;
+    border-top: 2px solid var(--c-primary);
 }
 .time-unit .number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--c-primary);
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--c-secondary);
 }
 .time-unit .label {
     font-size: 0.8rem;
@@ -331,6 +317,28 @@ body {
 #location-section .address {
     color: var(--c-text-light);
     margin-bottom: 2rem;
+}
+.location-container .date-display {
+    margin-bottom: 0.5rem;
+    font-family: var(--font-serif);
+    color: var(--c-secondary);
+}
+.location-container .date-display .day {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--c-primary);
+    line-height: 1;
+}
+.location-container .date-display .month-year {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+.location-container .time {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--c-secondary);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
 }
 .btn-group {
     display: flex;
