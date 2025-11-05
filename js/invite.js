@@ -1,66 +1,86 @@
-  const urlParams = new URLSearchParams(window.location.search);
+  document.addEventListener('DOMContentLoaded', async () => {
 
-  function sanitizeHTML(str) {
-      const temp = document.createElement('div');
-      temp.textContent = str;
-      return temp.innerHTML;
-  }
-
-  const nome = sanitizeHTML(urlParams.get('name')) || 'Convidado Especial';
-  
-  const invitationText = `Deus escreveu cada linha dessa história com amor, e sua presença, <span class="highlighted-name">${nome}</span>, é uma bênção nesse novo começo — o início do nosso “felizes para sempre”.`;
-
-  const rsvpSection = document.getElementById('rsvp-section');
-
-  const weddingDate = new Date('2026-11-19T18:00:00');
-
-  function startCountdown() {
-    const weddingTime = weddingDate.getTime();
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = weddingTime - now;
-
-      if (distance < 0) {
-        clearInterval(interval);
-        document.getElementById('countdown-container').innerHTML = "<h2>O grande dia chegou!</h2>";
-        return;
+      function sanitizeHTML(str) {
+          const temp = document.createElement('div');
+          temp.textContent = str;
+          return temp.innerHTML;
       }
-      document.getElementById('days').innerText = Math.floor(distance / (1000*60*60*24)).toString().padStart(2, '0');
-      document.getElementById('hours').innerText = Math.floor((distance%(1000*60*60*24))/(1000*60*60)).toString().padStart(2, '0');
-      document.getElementById('minutes').innerText = Math.floor((distance%(1000*60*60))/(1000*60)).toString().padStart(2, '0');
-      document.getElementById('seconds').innerText = Math.floor((distance%(1000*60))/1000).toString().padStart(2, '0');
-    }, 1000);
-  }
 
-  
-  function initApp() {
-      document.getElementById('invitation-text').innerHTML = invitationText; // Alterado para innerHTML
-      document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+      const urlParams = new URLSearchParams(window.location.search);
+      const nome = sanitizeHTML(urlParams.get('name')) || '';
 
-      const brideFather = sanitizeHTML(urlParams.get('bride_father')) || 'Pai da Noiva';
-      const brideMother = sanitizeHTML(urlParams.get('bride_mother')) || 'Mãe da Noiva';
-      const groomFather = sanitizeHTML(urlParams.get('groom_father')) || 'Pai do Noivo';
-      const groomMother = sanitizeHTML(urlParams.get('groom_mother')) || 'Mãe do Noivo';
+      // Função para verificar o convidado
+      async function checkGuest() {
+          if (!nome) {
+              window.location.href = 'blocked.html';
+              return;
+          }
 
-      document.getElementById('bride-father-name').innerText = brideFather;
-      document.getElementById('bride-mother-name').innerText = brideMother;
-      document.getElementById('groom-father-name').innerText = groomFather;
-      document.getElementById('groom-mother-name').innerText = groomMother;
+          const { data, error } = await supabase
+              .from('guests')
+              .select('name')
+              .eq('name', nome);
 
-      const day = weddingDate.getDate();
-      const month = weddingDate.toLocaleString('default', { month: 'long' });
-      const year = weddingDate.getFullYear();
-      const hours = weddingDate.getHours().toString().padStart(2, '0');
-      const minutes = weddingDate.getMinutes().toString().padStart(2, '0');
+          if (error || !data || data.length === 0) {
+              console.error('Erro ao verificar convidado ou convidado não encontrado:', error);
+              window.location.href = 'blocked.html';
+          }
+      }
 
-      document.getElementById('wedding-day').innerText = day;
-      document.getElementById('wedding-month-year').innerText = `${month} • ${year}`;
-      document.getElementById('wedding-time').innerText = `${hours}:${minutes}`;
+      await checkGuest(); // Executa a verificação
 
-      startCountdown();
-  }
+      const invitationText = `Deus escreveu cada linha dessa história com amor, e sua presença, <span class="highlighted-name">${nome}</span>, é uma bênção nesse novo começo — o início do nosso “felizes para sempre”.`;
 
-  document.addEventListener('DOMContentLoaded', () => {
+      const rsvpSection = document.getElementById('rsvp-section');
+
+      const weddingDate = new Date('2026-11-19T18:00:00');
+
+      function startCountdown() {
+        const weddingTime = weddingDate.getTime();
+        const interval = setInterval(() => {
+          const now = new Date().getTime();
+          const distance = weddingTime - now;
+
+          if (distance < 0) {
+            clearInterval(interval);
+            document.getElementById('countdown-container').innerHTML = "<h2>O grande dia chegou!</h2>";
+            return;
+          }
+          document.getElementById('days').innerText = Math.floor(distance / (1000*60*60*24)).toString().padStart(2, '0');
+          document.getElementById('hours').innerText = Math.floor((distance%(1000*60*60*24))/(1000*60*60)).toString().padStart(2, '0');
+          document.getElementById('minutes').innerText = Math.floor((distance%(1000*60*60))/(1000*60)).toString().padStart(2, '0');
+          document.getElementById('seconds').innerText = Math.floor((distance%(1000*60))/1000).toString().padStart(2, '0');
+        }, 1000);
+      }
+
+      
+      function initApp() {
+          document.getElementById('invitation-text').innerHTML = invitationText;
+          document.getElementById('gift-list-link').href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+
+          const brideFather = sanitizeHTML(urlParams.get('bride_father')) || 'Pai da Noiva';
+          const brideMother = sanitizeHTML(urlParams.get('bride_mother')) || 'Mãe da Noiva';
+          const groomFather = sanitizeHTML(urlParams.get('groom_father')) || 'Pai do Noivo';
+          const groomMother = sanitizeHTML(urlParams.get('groom_mother')) || 'Mãe do Noivo';
+
+          document.getElementById('bride-father-name').innerText = brideFather;
+          document.getElementById('bride-mother-name').innerText = brideMother;
+          document.getElementById('groom-father-name').innerText = groomFather;
+          document.getElementById('groom-mother-name').innerText = groomMother;
+
+          const day = weddingDate.getDate();
+          const month = weddingDate.toLocaleString('default', { month: 'long' });
+          const year = weddingDate.getFullYear();
+          const hours = weddingDate.getHours().toString().padStart(2, '0');
+          const minutes = weddingDate.getMinutes().toString().padStart(2, '0');
+
+          document.getElementById('wedding-day').innerText = day;
+          document.getElementById('wedding-month-year').innerText = `${month} • ${year}`;
+          document.getElementById('wedding-time').innerText = `${hours}:${minutes}`;
+
+          startCountdown();
+      }
+
 
       const envelopeScreen = document.getElementById('envelope-screen');
       const mainContent = document.getElementById('main-content');
