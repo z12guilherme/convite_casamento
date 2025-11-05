@@ -128,19 +128,31 @@
 
     <!-- Seção 5: Local & RSVP -->
     <section id="location-section" class="section">
-        <div class="location-container">
-            <h2>Cerimônia e Recepção</h2>
-            <div class="date-display">
-                <div class="day"><span id="wedding-day"></span></div>
-                <div class="month-year"><span id="wedding-month-year"></span></div>
+        <div class="location-card">
+            <div class="location-header">
+                <i class="location-icon"></i> <!-- Icon will be added via CSS -->
+                <h2>Cerimônia e Recepção</h2>
             </div>
-            <p class="time">às <span id="wedding-time"></span></p>
-            <p class="address">Salão de Festas Jardim Encantado<br>Belo Jardim, PE</p>
-            <div class="btn-group" id="rsvp-section">
-                <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
-                <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
-                <!-- O link da lista de presentes será adicionado aqui via JavaScript após a confirmação -->
-                <a id="gift-list-link" href="#" class="btn">Ver Lista de Presentes 🎁</a>
+            <div class="location-body">
+                <div class="date-info">
+                    <span class="day" id="wedding-day"></span>
+                    <span class="month-year" id="wedding-month-year"></span>
+                </div>
+                <div class="time-info">
+                    <span class="time-label">às</span>
+                    <span class="time" id="wedding-time"></span>
+                </div>
+                <div class="address-info">
+                    <p class="place">Salão de Festas Jardim Encantado</p>
+                    <p class="city">Belo Jardim, PE</p>
+                </div>
+            </div>
+            <div class="location-footer">
+                <div class="btn-group" id="rsvp-section">
+                    <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
+                    <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
+                    <a id="gift-list-link" href="#" class="btn">Ver Lista de Presentes 🎁</a>
+                </div>
             </div>
         </div>
     </section>
