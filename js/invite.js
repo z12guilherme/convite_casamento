@@ -8,7 +8,7 @@
 
   const nome = sanitizeHTML(urlParams.get('name')) || 'Convidado Especial';
   
-  const invitationText = `Sua presença é o presente mais precioso. Por isso, convidamos você, <span class="highlighted-name">${nome}</span>, para testemunhar o início do nosso "felizes para sempre".`;
+  const invitationText = `Deus escreveu cada linha dessa história com amor, e sua presença, <span class="highlighted-name">${nome}</span>, é uma bênção nesse novo começo — o início do nosso “felizes para sempre”.`;
 
   const rsvpSection = document.getElementById('rsvp-section');
 

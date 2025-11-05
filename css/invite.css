@@ -200,6 +200,10 @@ body {
     color: var(--c-primary);
     margin: 2.5rem 0;
 }
+.couple-names-highlight .ampersand-style {
+    font-family: var(--font-serif); /* Usa uma fonte com um '&' mais tradicional */
+    font-weight: 600;
+}
 #couple-section .parents-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
