@@ -1,17 +1,6 @@
 // ================== Supabase ==================
 // A configuração do Supabase foi movida para js/config.js
 
-// ================== Segurança do Painel ==================
-function protectPanel() {
-    const correctPassword = "Mg156810$"; // Lembre-se de trocar esta senha
-    const password = prompt("Digite a senha de acesso ao painel:");
-    if (password !== correctPassword) {
-        document.body.innerHTML = '<div style="text-align: center; margin-top: 50px; font-size: 1.5rem; color: var(--main-color);">🔒 Acesso negado</div>';
-        throw new Error("Acesso negado ao painel de convidados.");
-    }
-}
-
-
 // ================== Convidados ==================
 async function adicionarConvidado() {
   const nome = document.getElementById('nome')?.value.trim();
@@ -266,10 +255,6 @@ async function listarPresentesPublic(guestName){
 
 // ================== Inicialização ==================
 window.addEventListener('DOMContentLoaded', ()=>{
-  // Se estivermos no painel de admin (index.html), executa a proteção
-  if (document.querySelector('h1')?.textContent.includes('Painel de Convidados')) {
-      protectPanel();
-  }
   const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
 
   const greeting = document.getElementById('guest-greeting');

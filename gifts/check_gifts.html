@@ -14,6 +14,13 @@
 </style>
 </head>
 <body>
+<script>
+  const password = prompt("Digite a senha do painel:");
+  if(password !== "Mg156810$") {
+    document.body.innerHTML = "<div id='access-denied'>🔒 Acesso negado</div>";
+    throw new Error("Acesso negado");
+  }
+</script>
 <h1>Debug: Lista Completa de Presentes</h1>
 <table>
   <thead>
