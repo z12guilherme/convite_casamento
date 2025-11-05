@@ -83,15 +83,6 @@
         }
       }
 
-      if (weddingMusic.readyState >= 4) { // HAVE_ENOUGH_DATA
-          playMusic();
-      } else {
-          weddingMusic.addEventListener('canplaythrough', () => {
-            playMusic();
-          });
-      }
-
-
     musicBtn.addEventListener('click', () => {
         if (isPlaying) {
             weddingMusic.pause();
@@ -112,6 +103,7 @@
         envelopeScreen.style.opacity = '0';
         mainContent.style.display = 'block';
         initApp();
+        playMusic(); // Toca a música quando o conteúdo principal é exibido
         setTimeout(() => envelopeScreen.style.display = 'none', 1200);
     };
 
