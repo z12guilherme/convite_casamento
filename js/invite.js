@@ -1,16 +1,21 @@
-// Define a data do casamento. Substitua pela data e hora reais do seu evento.
-// Formato: new Date(ano, mês-1, dia, hora, minuto, segundo)
-// Exemplo: 15 de Maio de 2026 às 10:00:00
-const weddingDate = new Date('2026-05-15T10:00:00');
-
 // Função para sanitizar HTML e prevenir ataques XSS
 function sanitizeHTML(str) {
   const temp = document.createElement('div');
   temp.textContent = str;
   return temp.innerHTML;
 }
-
 document.addEventListener('DOMContentLoaded', async () => {
+  // Define a data do casamento. Substitua pela data e hora reais do seu evento.
+  // Formato: new Date(ano, mês-1, dia, hora, minuto, segundo)
+  // Exemplo: 15 de Maio de 2026 às 10:00:00
+  const weddingDate = new Date('2026-05-15T10:00:00');
+
+  // Verifica se o parâmetro 'name' está presente na URL
+  if (!window.location.search.includes('name=')) {
+    window.location.href = 'index.html'; // Redireciona para a página inicial
+    return;
+  }
+
   const urlParams = new URLSearchParams(window.location.search);
   const nome = urlParams.get('name') ? sanitizeHTML(urlParams.get('name')) : '';
 
@@ -97,6 +102,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const musicBtn = document.getElementById('music-btn');
   const weddingMusic = document.getElementById('wedding-music');
   const introVideo = document.getElementById('intro-video'); // Get video element
+  const openInviteBtn = document.getElementById('open-invite-btn');
+
+  if (introVideo) {
+    // Quando o vídeo terminar, mostra o conteúdo principal
+    introVideo.addEventListener('ended', () => {
+      showMainContent();
+    });
+
+    // Se o vídeo não puder ser reproduzido, mostra o botão como alternativa
+    introVideo.addEventListener('error', () => {
+      console.error("Erro ao carregar o vídeo. Exibindo botão de fallback.");
+      if (openInviteBtn) openInviteBtn.style.display = 'block';
+    });
+  }
 
   let isPlaying = false;
 
@@ -124,28 +143,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     isPlaying = !isPlaying;
   });
 
-  let videoEndedOrSkipped = false; // Flag para evitar execuções múltiplas
-
   const showMainContent = () => {
-    if (videoEndedOrSkipped) return; // Impede chamadas múltiplas se já executado
-    videoEndedOrSkipped = true;
+    if (mainContent.style.display === 'block') return; // Evita execuções múltiplas
+
+    if (introVideo) {
+        introVideo.pause();
+        introVideo.loop = false;
+    }
 
     envelopeScreen.style.opacity = '0';
     mainContent.style.display = 'block';
-    initApp();
+    try {
+      initApp();
+    } catch (error) {
+      console.error('Erro ao inicializar o aplicativo:', error);
+    }
     playMusic(); // Toca a música quando o conteúdo principal é exibido
     setTimeout(() => envelopeScreen.style.display = 'none', 1200);
   };
 
-  // Escuta o evento de término do vídeo
-  if (introVideo) {
-    introVideo.addEventListener('ended', showMainContent);
-  }
-
-  // Fallback: Se o vídeo não tocar ou demorar muito, mostra o conteúdo de qualquer forma
-  setTimeout(() => {
-    if (!videoEndedOrSkipped) showMainContent();
-  }, 5000); // Tempo limite de 5 segundos
+  // O gatilho principal agora é o clique no botão
+  openInviteBtn.addEventListener('click', showMainContent);
 
   if (rsvpConfirmBtn) {
     rsvpConfirmBtn.addEventListener('click', () => handleRsvp('Confirmado', nome));
