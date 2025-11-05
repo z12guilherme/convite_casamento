@@ -5,120 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lista de Presentes - Marcos & Evellyn</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --background-color: #1a1a2e; /* Tom escuro do convite */
-    --text-color: #f0fafa;
-    --primary-color: #00BCA1; /* Verde-água vibrante */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Lato', sans-serif;
-    --font-script: 'Dancing Script', cursive;
-  }
-
-  body {
-    margin: 0;
-    padding: 40px 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: var(--font-body);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-  }
-
-  h1 {
-    font-family: var(--font-script);
-    color: var(--primary-color);
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  #guest-greeting {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: var(--text-color);
-    text-align: center;
-  }
-
-  .gifts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 900px;
-  }
-
-  .gift-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(64, 224, 208, 0.3);
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-
-  .gift-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .gift-image {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-  }
-
-  .gift-name {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-  }
-
-  .gift-name a {
-    text-decoration: none;
-    color: var(--primary-color);
-  }
-
-  .gift-name a:hover {
-    text-decoration: underline;
-  }
-
-  .confirm-btn {
-    border: 1px solid var(--primary-color);
-    background: transparent;
-    color: var(--primary-color);
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .confirm-btn:hover:not(:disabled) {
-    background: var(--primary-color);
-    color: var(--background-color);
-  }
-
-  .confirm-btn:disabled {
-    opacity: 0.6;
-    cursor: default;
-  }
-
-  #confirmation-message {
-    text-align: center;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-top: 3rem;
-    display: none;
-  }
-</style>
+<link rel="stylesheet" href="lista_presentes.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -127,12 +14,7 @@
   <div class="gifts-container" id="gifts-container"></div>
   <div id="confirmation-message"></div>
 
-<script>
-  supabase.channel('public:gifts')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, payload => loadGifts())
-    .subscribe();
-</script>
 <script src="../js/config.js"></script>
-<script src="../js/main.js"></script>
+<script src="../js/gift-list.js"></script>
 </body>
 </html>
