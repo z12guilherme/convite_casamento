@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
+
 // Função para sanitizar HTML e prevenir ataques XSS
 function sanitizeHTML(str) {
   const temp = document.createElement('div');
@@ -13,8 +10,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Formato: new Date(ano, mês-1, dia, hora, minuto, segundo)
   // Exemplo: 15 de Maio de 2026 às 10:00:00
   const weddingDate = new Date('2026-05-15T10:00:00');
-<<<<<<< HEAD
-
   // Verifica se o parâmetro 'name' está presente na URL
   if (!window.location.search.includes('name=')) {
     window.location.href = 'index.html'; // Redireciona para a página inicial
@@ -51,10 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const rsvpDeclineBtn = document.getElementById('rsvp-decline-btn');
   const giftListLink = document.getElementById('gift-list-link');
   const rsvpMessageDiv = document.getElementById('rsvp-message'); // Adicionar este div no HTML
-=======
   const urlParams = new URLSearchParams(window.location.search);
-=======
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
 
   // Verifica se o parâmetro 'name' está presente na URL
   if (!window.location.search.includes('name=')) {
@@ -88,16 +80,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const invitationText = `Deus escreveu cada linha dessa história com amor, e sua presença, <span class="highlighted-name">${nome}</span>, é uma bênção nesse novo começo — o início do nosso “felizes para sempre”.`;
 
   const rsvpSection = document.getElementById('rsvp-section');
-<<<<<<< HEAD
 
   const weddingDate = new Date('2026-11-19T18:00:00');
->>>>>>> fc608867ffdcd3bbcbdea975ef80c4846d4a7895
-=======
   const rsvpConfirmBtn = document.getElementById('rsvp-confirm-btn');
   const rsvpDeclineBtn = document.getElementById('rsvp-decline-btn');
   const giftListLink = document.getElementById('gift-list-link');
   const rsvpMessageDiv = document.getElementById('rsvp-message'); // Adicionar este div no HTML
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
 
   function startCountdown() {
     const weddingTime = weddingDate.getTime();
@@ -107,15 +95,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (distance < 0) {
         clearInterval(interval);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
         const countdownContainer = document.getElementById('countdown-container');
         if (countdownContainer) {
           countdownContainer.innerHTML = "<h2>O grande dia chegou!</h2>";
         }
-<<<<<<< HEAD
         return;
       }
       document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
@@ -258,10 +241,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 });
-=======
         document.getElementById('countdown-container').innerHTML = "<h2>O grande dia chegou!</h2>";
-=======
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
         return;
       }
       document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
@@ -401,8 +381,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           giftListLink.style.display = 'none'; // Esconde o link se recusado
         }
       }
-<<<<<<< HEAD
-
       if (weddingMusic.readyState >= 4) { // HAVE_ENOUGH_DATA
           playMusic();
       } else {
@@ -434,9 +412,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('rsvp-confirm-btn').addEventListener('click', () => handleRsvp('Confirmado'));
       document.getElementById('rsvp-decline-btn').addEventListener('click', () => handleRsvp('Recusado'));
   });
->>>>>>> fc608867ffdcd3bbcbdea975ef80c4846d4a7895
-=======
     }
   }
 });
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
