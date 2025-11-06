@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Casamento - Evellyn & Guilherme</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <meta name="description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme. Aqui você encontrará todas as informações sobre a cerimônia, recepção, lista de presentes e muito mais.">
+    <meta name="keywords" content="casamento, Evellyn e Guilherme, convite de casamento, lista de presentes, Belo Jardim">
+    <meta name="author" content="Evellyn & Guilherme">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="URL_DO_SEU_SITE_AQUI">
+    <meta property="og:title" content="Nosso Casamento - Evellyn & Guilherme">
+    <meta property="og:description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme.">
+    <meta property="og:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="URL_DO_SEU_SITE_AQUI">
+    <meta property="twitter:title" content="Nosso Casamento - Evellyn & Guilherme">
+    <meta property="twitter:description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme.">
+    <meta property="twitter:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
+
+    <!-- Cor do tema para navegadores móveis -->
+    <meta name="theme-color" content="#C0A080">
+    <!-- Favicon (substitua pelo seu) -->
+    <link rel="icon" href="https://placehold.co/32x32" type="image/png">
+
+    <link rel="stylesheet" href="css/invite.css">
+</head>
+<body>
+ 
+<button id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 101; background: #fff; border: 1px solid #ccc; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 20px;">▶️</button>
+
+<div id="envelope-screen">
+    <!-- Vídeo de fundo -->
+    <video id="intro-video" autoplay muted playsinline>
+        <!-- Certifique-se de que o caminho para o vídeo está correto -->
+        <source src="video/video_introducao.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
+    <button id="open-invite-btn" class="btn" style="display: none;">💌 Abrir Convite</button>
+
+</div>
+
+
+<main id="main-content" style="display: none;">
+
+    <!-- Seção 1: Capa -->
+    <section id="cover-section" class="section">
+        <div class="bible-verse">
+            <p>"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."</p>
+            <p class="reference">1 Coríntios 13:4</p>
+        </div>
+    </section>
+
+    <!-- Seção 3: Os Noivos -->
+    <section id="couple-section" class="section">
+        <div class="couple-container">
+            <p>Com a bênção de seus pais:</p>
+            <div class="parents-grid">
+                <div>
+                    <p><span id="bride-father-name"></span></p>
+                    <p><span id="bride-mother-name"></span></p>
+                </div>
+                <div>
+                    <p><span id="groom-father-name"></span></p>
+                    <p><span id="groom-mother-name"></span></p>
+                </div>
+            </div>
+            <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
+            <p class="invitation-text" id="invitation-text"></p>
+        </div>
+    </section>
+
+    <!-- Seção 2: Contagem Regressiva -->
+    <section id="countdown-section" class="section">
+        <div id="countdown-container">
+            <h2>Contagem Regressiva para o Grande Dia</h2>
+            <div id="countdown">
+                <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
+                <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
+                <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
+                <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 4: Nossa História -->
+    <section id="story-section" class="section">
+        <div class="story-container">
+            <h2>Nossa História</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-img">
+                        <img src="https://placehold.co/300x300" alt="Onde tudo começou">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Onde tudo começou</h3>
+                        <p>Nossa história começou com um simples "oi" que se transformou em conversas sem fim. A cada dia, descobríamos mais um no outro, e a admiração crescia. Era o início de algo especial.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-img">
+                        <img src="https://placehold.co/300x300" alt="O primeiro encontro">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>O primeiro encontro</h3>
+                        <p>O primeiro encontro foi mágico. Entre risadas e olhares, a certeza de que éramos feitos um para o outro se tornou inegável. Um dia que ficará para sempre em nossas memórias.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-img">
+                        <img src="https://placehold.co/300x300" alt="O pedido">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>O pedido</h3>
+                        <p>E então, em um dia perfeito, o pedido de casamento. Um "sim" que selou nosso destino e deu início a um novo capítulo de nossas vidas, com a promessa de um futuro juntos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 5: Local & RSVP -->
+    <section id="location-section" class="section">
+        <div class="location-card">
+            <div class="location-header">
+                <i class="location-icon"></i> <!-- Icon will be added via CSS -->
+                <h2>Cerimônia e Recepção</h2>
+            </div>
+            <div class="location-body">
+                <div class="date-info">
+                    <span class="day" id="wedding-day"></span>
+                    <span class="month-year" id="wedding-month-year"></span>
+                </div>
+                <div class="time-info">
+                    <span class="time-label">às</span>
+                    <span class="time" id="wedding-time"></span>
+                </div>
+                <div class="address-info">
+                    <p class="place">Salão de Festas Jardim Encantado</p>
+                    <p class="city">Belo Jardim, PE</p>
+                </div>
+            </div>
+            <div class="location-footer">
+                <div class="btn-group" id="rsvp-section">
+                    <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
+                    <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
+                    <a id="gift-list-link" href="#" class="btn" style="display: none;">Ver Lista de Presentes 🎁</a>
+                    <div id="rsvp-message" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<audio id="wedding-music" src="audio/musica.mp4" preload="auto"></audio>
+
+<script src="js/invite.js"></script>
+</body>
+</html>

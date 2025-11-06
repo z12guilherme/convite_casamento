@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Check Gifts - Debug</title>
+<link rel="stylesheet" href="check_gifts.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+</head>
+<body>
+<h1>Debug: Lista Completa de Presentes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Taken By</th>
+      <th>Confirmado Em</th>
+    </tr>
+  </thead>
+  <tbody id="gifts-table-body"></tbody>
+</table>
+
+<script src="../js/config.js"></script>
+<script src="check_gifts.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard de Presentes - Marcos & Evellyn</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<h1>Dashboard de Presentes</h1>
+
+<script>
+  const password = prompt("Digite a senha do painel:");
+  if(password !== "Mg156810$") {
+    document.body.innerHTML = "<div id='access-denied'>🔒 Acesso negado</div>";
+    throw new Error("Acesso negado");
+  }
+</script>
+
+<div class="gifts-section">
+  <h2>🎁 Presentes Disponíveis</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Imagem</th>
+        <th>Presente</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="available-gifts">
+      <tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="gifts-section">
+  <h2>💝 Presentes Confirmados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Imagem</th>
+        <th>Convidado</th>
+        <th>Presente</th>
+        <th>Hora</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="confirmed-gifts">
+      <tr><td colspan="5" style="text-align:center;">Carregando...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<form id="add-gift-form">
+  <input type="text" id="gift-name" placeholder="Nome do presente" required />
+  <input type="text" id="gift-link" placeholder="URL do produto (opcional)" />
+  <input type="file" id="gift-image" accept="image/*" required />
+  <button type="submit">Adicionar Presente</button>
+</form>
+
+<script src="../js/config.js"></script>
+<script src="../js/gift-dashboard.js"></script>
+
+</body>
+</html>
