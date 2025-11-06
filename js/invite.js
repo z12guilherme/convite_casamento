@@ -107,7 +107,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       console.error('Erro ao inicializar o aplicativo:', error);
     }
-    playMusic(); // Toca a música quando o conteúdo principal é exibido
+    // A música agora começa automaticamente, então não precisamos chamar playMusic() aqui.
+    // Apenas garantimos que o som seja ativado se o usuário já interagiu.
+    if (weddingMusic.muted) weddingMusic.muted = false;
     setTimeout(() => envelopeScreen.style.display = 'none', 1200);
   };
 
@@ -128,30 +130,35 @@ document.addEventListener('DOMContentLoaded', async () => {
   // O gatilho principal agora é o clique no botão de fallback
   openInviteBtn.addEventListener('click', showMainContent);
 
-  let isPlaying = false;
-
-  const playMusic = () => {
+  // Função para tocar a música automaticamente (geralmente precisa ser mudo)
+  const startMusicAutomatically = () => {
+    weddingMusic.muted = true; // Começa mudo para autoplay funcionar
     const playPromise = weddingMusic.play();
     if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        isPlaying = true;
-        musicBtn.innerHTML = '⏸️';
-      }).catch(error => {
-        isPlaying = false;
+      playPromise.catch(error => {
+        console.log("Autoplay bloqueado, aguardando interação do usuário.");
+        // Se o autoplay falhar, o usuário precisará clicar no botão de música
         musicBtn.innerHTML = '▶️';
       });
     }
-  }
+  };
+
+  // Inicia a música assim que o script é carregado
+  startMusicAutomatically();
 
   musicBtn.addEventListener('click', () => {
-    if (isPlaying) {
-      weddingMusic.pause();
-      musicBtn.innerHTML = '▶️';
+    if (weddingMusic.muted) {
+      weddingMusic.muted = false;
+      musicBtn.innerHTML = '⏸️'; // Ícone de áudio ligado
     } else {
-      weddingMusic.play();
-      musicBtn.innerHTML = '⏸️';
+      weddingMusic.muted = true;
+      musicBtn.innerHTML = '▶️';
     }
-    isPlaying = !isPlaying;
+  });
+
+  // Atualiza o ícone se o estado da música mudar por outros motivos
+  weddingMusic.addEventListener('volumechange', () => {
+    musicBtn.innerHTML = weddingMusic.muted ? '▶️' : '⏸️';
   });
 
   if (rsvpConfirmBtn) {
