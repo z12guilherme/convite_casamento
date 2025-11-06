@@ -93,6 +93,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   const introVideo = document.getElementById('intro-video'); // Get video element
   const openInviteBtn = document.getElementById('open-invite-btn');
 
+  const showMainContent = () => {
+    if (mainContent.style.display === 'block') return; // Evita execuções múltiplas
+
+    if (introVideo) {
+      introVideo.pause();
+    }
+
+    envelopeScreen.style.opacity = '0';
+    mainContent.style.display = 'block';
+    try {
+      initApp();
+    } catch (error) {
+      console.error('Erro ao inicializar o aplicativo:', error);
+    }
+    playMusic(); // Toca a música quando o conteúdo principal é exibido
+    setTimeout(() => envelopeScreen.style.display = 'none', 1200);
+  };
+
   // Verifica se o convidado é válido antes de qualquer outra coisa
   await checkGuest();
 
@@ -135,24 +153,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     isPlaying = !isPlaying;
   });
-
-  const showMainContent = () => {
-    if (mainContent.style.display === 'block') return; // Evita execuções múltiplas
-
-    if (introVideo) {
-      introVideo.pause();
-    }
-
-    envelopeScreen.style.opacity = '0';
-    mainContent.style.display = 'block';
-    try {
-      initApp();
-    } catch (error) {
-      console.error('Erro ao inicializar o aplicativo:', error);
-    }
-    playMusic(); // Toca a música quando o conteúdo principal é exibido
-    setTimeout(() => envelopeScreen.style.display = 'none', 1200);
-  };
 
   if (rsvpConfirmBtn) {
     rsvpConfirmBtn.addEventListener('click', () => handleRsvp('Confirmado', nome));
