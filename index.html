@@ -160,11 +160,6 @@
 </head>
 <body>
 <script>
-  const password = prompt("Digite a senha do painel:");
-  if(password !== "Mg156810$") {
-    document.body.innerHTML = "<div id='access-denied'>🔒 Acesso negado</div>";
-    throw new Error("Acesso negado");
-  }
     const password = prompt("Digite a senha de acesso ao painel:");
     if (password !== "Mg156810$") { // Lembre-se de trocar esta senha por uma mais segura em produção
         document.body.innerHTML = '<div style="text-align: center; margin-top: 50px; font-size: 1.5rem; color: var(--main-color);">🔒 Acesso negado</div>';
