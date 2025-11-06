@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/guest-management.js" defer></script>
+<script src="js/main.js" defer></script>
 <style>
     :root {
         --main-color: #00BCA1; /* verde-água */
@@ -164,6 +165,11 @@
     document.body.innerHTML = "<div id='access-denied'>🔒 Acesso negado</div>";
     throw new Error("Acesso negado");
   }
+    const password = prompt("Digite a senha de acesso ao painel:");
+    if (password !== "Mg156810$") { // Lembre-se de trocar esta senha por uma mais segura em produção
+        document.body.innerHTML = '<div style="text-align: center; margin-top: 50px; font-size: 1.5rem; color: var(--main-color);">🔒 Acesso negado</div>';
+        throw new Error("Acesso negado ao painel de convidados.");
+    }
 </script>
 <div class="container">
     <h1>Painel de Convidados</h1>

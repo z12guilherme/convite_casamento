@@ -5,7 +5,124 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lista de Presentes - Marcos & Evellyn</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+<<<<<<< HEAD
 <link rel="stylesheet" href="lista_presentes.css">
+=======
+<style>
+  :root {
+    --background-color: #1a1a2e; /* Tom escuro do convite */
+    --text-color: #f0fafa;
+    --primary-color: #00BCA1; /* Verde-água vibrante */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+    --font-script: 'Dancing Script', cursive;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-family: var(--font-script);
+    color: var(--primary-color);
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  #guest-greeting {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    text-align: center;
+  }
+
+  .gifts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .gift-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(64, 224, 208, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .gift-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .gift-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .gift-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+  }
+
+  .gift-name a {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  .gift-name a:hover {
+    text-decoration: underline;
+  }
+
+  .confirm-btn {
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .confirm-btn:hover:not(:disabled) {
+    background: var(--primary-color);
+    color: var(--background-color);
+  }
+
+  .confirm-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  #confirmation-message {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 3rem;
+    display: none;
+  }
+</style>
+>>>>>>> fc608867ffdcd3bbcbdea975ef80c4846d4a7895
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -14,7 +131,87 @@
   <div class="gifts-container" id="gifts-container"></div>
   <div id="confirmation-message"></div>
 
+<<<<<<< HEAD
 <script src="../js/config.js"></script>
 <script src="../js/gift-list.js"></script>
+=======
+<script>
+  const supabaseUrl = 'https://ccaycdgjpmffkkrpppwv.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjYXljZGdqcG1mZmtrcnBwcHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNDUyNTMsImV4cCI6MjA3NDgyMTI1M30.G76CIatcTs3OxwB6VyWKcbDHhE4kDBGQ0OVavQ52WhM';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  const giftsContainer = document.getElementById('gifts-container');
+  const confirmationMessage = document.getElementById('confirmation-message');
+
+  async function loadGifts() {
+    const { data, error } = await supabase.from('gifts').select('*').order('name');
+    if (error) return console.error(error);
+
+    giftsContainer.innerHTML = '';
+    if (!data || data.length === 0) {
+      giftsContainer.textContent = 'Nenhum presente disponível.';
+      return;
+    }
+
+    const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
+    document.getElementById('guest-greeting').textContent = `Olá, ${guestName}! Escolha um presente para celebrar conosco 💝`;
+
+    data.forEach(gift => {
+      const card = document.createElement('div');
+      card.className = 'gift-card';
+
+      if (gift.image) {
+        const imgEl = document.createElement('img');
+        imgEl.className = 'gift-image';
+        imgEl.src = gift.image;
+        card.appendChild(imgEl);
+      }
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'gift-name';
+      const link = document.createElement('a');
+      link.href = gift.product_url || "#";
+      link.target = "_blank";
+      link.textContent = gift.name;
+      nameEl.appendChild(link);
+      card.appendChild(nameEl);
+
+      const btn = document.createElement('button');
+      btn.className = 'confirm-btn';
+      if (gift.taken_by) {
+        btn.textContent = 'Já escolhido';
+        btn.disabled = true;
+      } else {
+        btn.textContent = 'Confirmar Presente';
+        btn.onclick = async () => {
+          btn.disabled = true;
+          btn.textContent = 'Confirmando...';
+          const { error } = await supabase.from('gifts').update({
+            taken_by: guestName,
+            confirmed_at: new Date().toISOString()
+          }).eq('id', gift.id);
+          if (error) {
+            alert('Erro ao confirmar: ' + error.message);
+            btn.disabled = false;
+            btn.textContent = 'Confirmar Presente';
+          } else {
+            confirmationMessage.textContent = `Obrigado, ${guestName}! Seu presente foi confirmado 💝`;
+            confirmationMessage.style.display = 'block';
+            loadGifts();
+          }
+        };
+      }
+      card.appendChild(btn);
+      giftsContainer.appendChild(card);
+    });
+  }
+
+  supabase.channel('public:gifts')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, payload => loadGifts())
+    .subscribe();
+
+  window.addEventListener('DOMContentLoaded', loadGifts);
+</script>
+>>>>>>> fc608867ffdcd3bbcbdea975ef80c4846d4a7895
 </body>
 </html>

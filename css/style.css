@@ -109,6 +109,7 @@ body {
     color: #374151;
     margin: 0.3em 0;
 }
+<<<<<<< HEAD
 
 :root {
         --main-color: #00BCA1; /* verde-água */
@@ -255,3 +256,5 @@ body {
         background: var(--hover-color);
         transform: translateY(-2px);
     }
+=======
+>>>>>>> fc608867ffdcd3bbcbdea975ef80c4846d4a7895
