@@ -258,10 +258,6 @@ body {
     a.dashboard-link:hover {
         background: var(--hover-color);
         transform: translateY(-2px);
-<<<<<<< HEAD
-    }
-=======
->>>>>>> fc608867ffdcd3bbcbdea975ef80c4846d4a7895
-=======
-    }
->>>>>>> cc55e404ec0d8a138cac5d7734302dac6483783f
+        }
+
+

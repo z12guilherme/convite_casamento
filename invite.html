@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosso Casamento - Evellyn & Guilherme</title> 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
     <meta name="description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme. Aqui você encontrará todas as informações sobre a cerimônia, recepção, lista de presentes e muito mais.">
@@ -123,31 +125,33 @@
 
     <!-- Seção 5: Local & RSVP -->
     <section id="location-section" class="section">
-        <div class="location-card">
-            <div class="location-header">
-                <i class="location-icon"></i> <!-- Icon will be added via CSS -->
-                <h2>Cerimônia e Recepção</h2>
+        <div class="convite">
+            <p class="chamada">Você está convidado para o nosso casamento!</p>
+    
+            <div class="nomes" id="card-guest-name"></div>
+    
+            <div class="data-hora">
+                <span class="mes" id="wedding-month"></span>
+                <div class="detalhe-data">
+                    <span class="dia-semana" id="wedding-day-of-week"></span>
+                    <span class="dia-num" id="wedding-day"></span>
+                    <span class="hora" id="wedding-time"></span>
+                </div>
+                <span class="ano" id="wedding-year"></span>
             </div>
-            <div class="location-body">
-                <div class="date-info">
-                    <span class="day" id="wedding-day"></span>
-                    <span class="month-year" id="wedding-month-year"></span>
-                </div>
-                <div class="time-info">
-                    <span class="time-label">às</span>
-                    <span class="time" id="wedding-time"></span>
-                </div>
-                <div class="address-info">
-                    <p class="place">Salão de Festas Jardim Encantado</p>
-                    <p class="city">Belo Jardim, PE</p>
-                </div>
+    
+            <div class="local">
+                <p>Salão de Festas Jardim Encantado</p>
+                <p>Belo Jardim, PE</p>
             </div>
-            <div class="location-footer">
+    
+            <div class="confirmacao">
+                <p>Confirmação de Presença</p>
                 <div class="btn-group" id="rsvp-section">
                     <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
                     <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
                     <a id="gift-list-link" href="#" class="btn" style="display: none;">Ver Lista de Presentes 🎁</a>
-                    <div id="rsvp-message" style="margin-top: 10px;"></div>
+                    <div id="rsvp-message"></div>
                 </div>
             </div>
         </div>

@@ -72,16 +72,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (document.getElementById('bride-mother-name')) document.getElementById('bride-mother-name').innerText = brideMother;
     if (document.getElementById('groom-father-name')) document.getElementById('groom-father-name').innerText = groomFather;
     if (document.getElementById('groom-mother-name')) document.getElementById('groom-mother-name').innerText = groomMother;
-
+    if (document.getElementById('card-guest-name')) document.getElementById('card-guest-name').innerText = nome;
+    
     const day = weddingDate.getDate();
     const month = weddingDate.toLocaleString('default', { month: 'long' });
     const year = weddingDate.getFullYear();
+    const dayOfWeek = weddingDate.toLocaleString('pt-BR', { weekday: 'long' });
     const hours = weddingDate.getHours().toString().padStart(2, '0');
     const minutes = weddingDate.getMinutes().toString().padStart(2, '0');
 
-    if (document.getElementById('wedding-day')) document.getElementById('wedding-day').innerText = day;
-    if (document.getElementById('wedding-month-year')) document.getElementById('wedding-month-year').innerText = `${month} • ${year}`;
-    if (document.getElementById('wedding-time')) document.getElementById('wedding-time').innerText = `${hours}:${minutes}`;
+    // Preenche os dados no novo cartão de RSVP
+    if (document.getElementById('wedding-day')) document.getElementById('wedding-day').innerText = day.toString().padStart(2, '0');
+    if (document.getElementById('wedding-month')) document.getElementById('wedding-month').innerText = month;
+    if (document.getElementById('wedding-year')) document.getElementById('wedding-year').innerText = year;
+    if (document.getElementById('wedding-day-of-week')) document.getElementById('wedding-day-of-week').innerText = dayOfWeek;
+    if (document.getElementById('wedding-time')) document.getElementById('wedding-time').innerText = `às ${hours}h${minutes}`;
 
     startCountdown();
   }
