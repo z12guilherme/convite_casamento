@@ -113,8 +113,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error('Erro ao inicializar o aplicativo:', error);
     }
     // A música agora começa automaticamente, então não precisamos chamar playMusic() aqui.
-    // Apenas garantimos que o som seja ativado se o usuário já interagiu.
-    if (weddingMusic.muted) weddingMusic.muted = false;
     setTimeout(() => envelopeScreen.style.display = 'none', 1200);
   };
 
@@ -137,13 +135,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Função para tocar a música automaticamente (geralmente precisa ser mudo)
   const startMusicAutomatically = () => {
-    weddingMusic.muted = true; // Começa mudo para autoplay funcionar
+    weddingMusic.muted = false; // Tenta iniciar com som
     const playPromise = weddingMusic.play();
     if (playPromise !== undefined) {
       playPromise.catch(error => {
         console.log("Autoplay bloqueado, aguardando interação do usuário.");
-        // Se o autoplay falhar, o usuário precisará clicar no botão de música
+        // Se o autoplay com som falhar, silencia e tenta de novo.
+        // O usuário pode ativar o som com o botão.
+        weddingMusic.muted = true;
         musicBtn.innerHTML = '▶️';
+        weddingMusic.play(); // Tenta tocar mudo para que o botão funcione corretamente
       });
     }
   };
