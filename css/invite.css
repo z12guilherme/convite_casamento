@@ -1,0 +1,431 @@
+:root {
+    --c-primary: #00BCA1; /* Verde-água principal */
+    --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
+    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
+    --c-text-dark: #333; /* Texto escuro */
+    --c-text-light: #555; /* Texto mais claro */
+    --font-title: 'Cormorant Garamond', serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Montserrat', sans-serif;
+}
+
+/* --- Corpo e Estrutura --- */
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background-color: var(--c-background);
+    color: var(--c-text-dark);
+    overflow-y: auto;
+}
+
+.section {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
+    text-align: center;
+}
+
+/* --- Capa --- */
+#cover-section {
+    background-image: url('../img/ceu.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+#cover-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Overlay escuro para legibilidade */
+    z-index: 1;
+}
+
+#cover-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+#cover-section h1, #cover-section .ampersand, #cover-section .date-display {
+    color: #fff; /* Cor do texto para branco para contrastar com o fundo */
+}
+
+#cover-section h1 {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+#cover-section .date-display .day {
+    color: #fff;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+}
+
+.bible-verse {
+    color: #fff;
+    font-family: var(--font-sans);
+    margin-top: 3rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+.bible-verse p {
+    margin: 0.8rem 0;
+    font-size: 1.5rem;
+}
+.bible-verse .reference {
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+#cover-section h1 {
+    font-family: var(--font-title);
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    color: #fff;
+    font-weight: 700;
+    margin: 0;
+}
+#cover-section .ampersand {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: #fff;
+    margin: 1rem 0;
+}
+#cover-section .date-display {
+    margin-top: 2rem;
+    font-family: var(--font-sans);
+    color: #fff;
+}
+#cover-section .date-display .day {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+#cover-section .date-display .month-year {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+/* --- Contagem Regressiva --- */
+#countdown-section {
+    background-image: url('../img/ceu.jpg');
+    background-size: cover;
+    background-position: center;
+}
+#countdown-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2); /* Overlay um pouco mais escuro */
+    backdrop-filter: blur(3px);
+}
+#countdown-container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 700px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+#countdown-container h2 {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--c-secondary);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+#countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.time-unit {
+    background: transparent;
+    padding: 1rem;
+    border-radius: 10px;
+    border-top: 2px solid var(--c-primary);
+}
+.time-unit .number {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--c-secondary);
+}
+.time-unit .label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--c-text-light);
+}
+
+/* --- Os Noivos --- */
+#couple-section {
+    background: linear-gradient(to bottom right, #e0f2f1, #b2dfdb);
+}
+#couple-section .couple-container {
+    max-width: 700px;
+}
+#couple-section h2 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--c-primary);
+    margin-bottom: 2rem;
+}
+.couple-names-highlight {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--c-primary);
+    margin: 2.5rem 0;
+}
+.couple-names-highlight .ampersand-style {
+    font-family: var(--font-serif); /* Usa uma fonte com um '&' mais tradicional */
+    font-weight: 600;
+}
+#couple-section .parents-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+    font-family: var(--font-serif);
+    color: var(--c-text-light);
+}
+#couple-section .invitation-text {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-top: 2rem;
+}
+.highlighted-name {
+    font-weight: 700;
+    color: var(--c-primary);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 
+                 0 0 8px var(--c-primary), 
+                 0 0 15px var(--c-primary);
+}
+
+/* --- Nossa História --- */
+#story-section {
+    background: var(--c-background);
+    padding: 4rem 2rem;
+}
+.story-container h2 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--c-primary);
+    margin-bottom: 3rem;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.btn {
+    background: var(--c-primary);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* --- Tela de Abertura com Envelope --- */
+#envelope-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--c-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 1.2s ease-out 3s;
+    perspective: 1500px;
+}
+
+#intro-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: brightness(0.7);
+}
+
+/* Estilo para o botão de abrir convite */
+#open-invite-btn {
+    position: absolute;
+    bottom: 15%; /* Posiciona mais para baixo */
+    z-index: 10;
+    background-color: var(--c-primary); /* Cor verde-água */
+    border-color: var(--c-primary);
+}
+
+/* Estilo para o botão de iniciar */
+#start-btn {
+    /* Estilo do botão de coração */
+    background-color: transparent;
+    border: none;
+    width: 100px; /* Aumenta a área de clique */
+    height: 100px;
+    cursor: pointer;
+    /* Adiciona flexbox para centralizar o texto sobre o SVG */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Posicionamento */
+    position: absolute;
+    bottom: 10%; /* Mais para baixo */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    /* Animação de pulsação */
+    animation: pulse 2s infinite;
+}
+
+/* Estilo para o ícone SVG do coração */
+.heart-icon {
+    /* Posiciona o SVG atrás do texto */
+    position: absolute;
+    width: 70px; /* Tamanho do coração */
+    height: 70px;
+    fill: #D2B48C; /* Cor de areia */
+    transition: transform 0.3s ease;
+}
+
+/* Estilo para o texto dentro do botão */
+.button-text {
+    position: relative; /* Garante que o texto fique sobre o SVG */
+    z-index: 1;
+    color: white;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+    pointer-events: none; /* Evita que o texto bloqueie o clique no botão */
+}
+
+/* Efeito ao passar o mouse */
+#start-btn:hover .heart-icon {
+    transform: scale(1.1); /* Aumenta um pouco o coração */
+}
+
+/* Animação de pulsação */
+@keyframes pulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+}
+
+
+/* --- Estilos para o novo cartão de RSVP --- */
+#location-section {
+    background-image: url('../img/ceu.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative; /* Necessário para o pseudo-elemento */
+}
+
+/* Adiciona um overlay para melhorar a legibilidade */
+#location-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25); /* Overlay escuro para legibilidade, sem desfoque */
+    /* backdrop-filter: blur(5px); -- Removido */
+}
+
+.convite {
+    position: relative; /* Garante que o z-index funcione */
+    z-index: 2; /* Coloca o cartão acima do overlay */
+    background: rgba(255, 255, 255, 0.9); /* Fundo branco semitransparente */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 550px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.convite .chamada {
+    font-size: 1em;
+    color: #00BCA1;
+}
+
+.convite .nomes {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4em;
+    color: #00BCA1;
+    margin: 15px 0;
+}
+
+.convite .data-hora {
+    margin: 25px 0;
+    color: #00BCA1;
+    line-height: 1.4;
+}
+
+.convite .mes, .convite .ano {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.convite .detalhe-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.convite .dia-num {
+    font-size: 3.2em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 20px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.convite .dia-semana, .convite .hora {
+    padding: 0 20px;
+}
+
+.convite .local, .convite .confirmacao {
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.convite .confirmacao p:first-child {
+    color: #00BCA1;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8em;
+}

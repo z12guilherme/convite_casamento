@@ -1,0 +1,196 @@
+
+// Função para sanitizar HTML e prevenir ataques XSS
+function sanitizeHTML(str) {
+  const temp = document.createElement('div');
+  temp.textContent = str;
+  return temp.innerHTML;
+}
+document.addEventListener('DOMContentLoaded', async () => {
+  // Define a data do casamento. Substitua pela data e hora reais do seu evento.
+  const weddingDate = new Date('2026-11-19T18:00:00');
+  const urlParams = new URLSearchParams(window.location.search);
+  const nome = urlParams.get('name') ? sanitizeHTML(urlParams.get('name')) : '';
+
+  async function checkGuest() {
+    if (!nome) {
+      window.location.href = 'blocked.html';
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from('guests')
+      .select('name')
+      .eq('name', nome);
+
+    if (error || !data || data.length === 0) {
+      console.error('Erro ao verificar convidado ou convidado não encontrado:', error);
+      window.location.href = 'blocked.html';
+    }
+  }
+
+  // Elementos do DOM
+  const rsvpConfirmBtn = document.getElementById('rsvp-confirm-btn');
+  const rsvpDeclineBtn = document.getElementById('rsvp-decline-btn');
+  const giftListLink = document.getElementById('gift-list-link');
+  const rsvpMessageDiv = document.getElementById('rsvp-message');
+  const invitationTextEl = document.getElementById('invitation-text');
+
+  function startCountdown() {
+    const weddingTime = weddingDate.getTime();
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = weddingTime - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        const countdownContainer = document.getElementById('countdown-container');
+        if (countdownContainer) {
+          countdownContainer.innerHTML = "<h2>O grande dia chegou!</h2>";
+        }
+        return;
+      }
+      document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+      document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+      document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+    }, 1000);
+  }
+
+  function initApp() {
+    const invitationText = `Deus escreveu cada linha dessa história com amor, e sua presença, <span class="highlighted-name">${nome}</span>, é uma bênção nesse novo começo — o início do nosso “felizes para sempre”.`;
+    if (invitationTextEl) invitationTextEl.innerHTML = invitationText;
+    if (giftListLink) {
+      giftListLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
+    }
+
+    const brideFather = sanitizeHTML(urlParams.get('bride_father')) || 'Pai da Noiva';
+    const brideMother = sanitizeHTML(urlParams.get('bride_mother')) || 'Mãe da Noiva';
+    const groomFather = sanitizeHTML(urlParams.get('groom_father')) || 'Pai do Noivo';
+    const groomMother = sanitizeHTML(urlParams.get('groom_mother')) || 'Mãe da Noiva';
+
+    if (document.getElementById('bride-father-name')) document.getElementById('bride-father-name').innerText = brideFather;
+    if (document.getElementById('bride-mother-name')) document.getElementById('bride-mother-name').innerText = brideMother;
+    if (document.getElementById('groom-father-name')) document.getElementById('groom-father-name').innerText = groomFather;
+    if (document.getElementById('groom-mother-name')) document.getElementById('groom-mother-name').innerText = groomMother;
+    if (document.getElementById('card-guest-name')) document.getElementById('card-guest-name').innerText = nome;
+    
+    const day = weddingDate.getDate();
+    const month = weddingDate.toLocaleString('default', { month: 'long' });
+    const year = weddingDate.getFullYear();
+    const dayOfWeek = weddingDate.toLocaleString('pt-BR', { weekday: 'long' });
+    const hours = weddingDate.getHours().toString().padStart(2, '0');
+    const minutes = weddingDate.getMinutes().toString().padStart(2, '0');
+
+    // Preenche os dados no novo cartão de RSVP
+    if (document.getElementById('wedding-day')) document.getElementById('wedding-day').innerText = day.toString().padStart(2, '0');
+    if (document.getElementById('wedding-month')) document.getElementById('wedding-month').innerText = month;
+    if (document.getElementById('wedding-year')) document.getElementById('wedding-year').innerText = year;
+    if (document.getElementById('wedding-day-of-week')) document.getElementById('wedding-day-of-week').innerText = dayOfWeek;
+    if (document.getElementById('wedding-time')) document.getElementById('wedding-time').innerText = `às ${hours}h${minutes}`;
+
+    startCountdown();
+  }
+
+  const envelopeScreen = document.getElementById('envelope-screen');
+  const mainContent = document.getElementById('main-content');
+  const musicBtn = document.getElementById('music-btn');
+  const weddingMusic = document.getElementById('wedding-music');
+  const introVideo = document.getElementById('intro-video'); // Get video element
+  const startBtn = document.getElementById('start-btn');
+
+  const showMainContent = () => {
+    if (mainContent.style.display === 'block') return; // Evita execuções múltiplas
+
+    if (introVideo) {
+      introVideo.pause();
+    }
+
+    envelopeScreen.style.opacity = '0';
+    mainContent.style.display = 'block';
+    try {
+      initApp();
+    } catch (error) {
+      console.error('Erro ao inicializar o aplicativo:', error);
+    }
+    // Ativa o som da música, pois agora temos uma interação do usuário
+    if (weddingMusic.muted) weddingMusic.muted = false;
+    
+    setTimeout(() => envelopeScreen.style.display = 'none', 1200);
+  };
+
+  // Verifica se o convidado é válido antes de qualquer outra coisa
+  await checkGuest();
+
+  // Evento de clique no botão inicial
+  startBtn.addEventListener('click', () => {
+    // Esconde o botão
+    startBtn.style.display = 'none';
+
+    // Toca o vídeo com som
+    if (introVideo) {
+      introVideo.muted = false;
+      introVideo.play().catch(error => {
+        console.error("Erro ao tentar tocar o vídeo:", error);
+        // Se houver um erro ao tocar o vídeo, mostra o conteúdo principal diretamente
+        showMainContent();
+      });
+    }
+
+    // Toca a música de fundo com som
+    if (weddingMusic) {
+      weddingMusic.muted = false;
+      weddingMusic.play().catch(error => console.error("Erro ao tocar a música:", error));
+      if (musicBtn) musicBtn.innerHTML = '⏸️';
+    }
+  });
+
+  // Quando o vídeo terminar, mostra o conteúdo principal
+  introVideo.addEventListener('ended', () => {
+    showMainContent();
+  });
+
+  musicBtn.addEventListener('click', () => {
+    weddingMusic.muted = !weddingMusic.muted;
+  });
+
+  // Atualiza o ícone se o estado da música mudar por outros motivos
+  weddingMusic.addEventListener('volumechange', () => {
+    musicBtn.innerHTML = weddingMusic.muted ? '▶️' : '⏸️';
+  });
+
+  if (rsvpConfirmBtn) {
+    rsvpConfirmBtn.addEventListener('click', () => handleRsvp('Confirmado', nome));
+  }
+  if (rsvpDeclineBtn) {
+    rsvpDeclineBtn.addEventListener('click', () => handleRsvp('Recusado', nome));
+  }
+
+  async function handleRsvp(status, nome) {
+    const { error } = await supabase
+      .from('guests')
+      .update({ status: status })
+      .eq('name', nome);
+
+    if (error) {
+      alert('Ocorreu um erro ao registrar sua resposta. Por favor, tente novamente.');
+      console.error(error);
+    } else {
+      if (rsvpConfirmBtn) rsvpConfirmBtn.style.display = 'none';
+      if (rsvpDeclineBtn) rsvpDeclineBtn.style.display = 'none';
+
+      if (rsvpMessageDiv) {
+        rsvpMessageDiv.innerHTML = status === 'Confirmado'
+          ? `<h3>Obrigado por confirmar! ❤️</h3>`
+          : `<h3>Que pena! Sentiremos sua falta.</h3>`;
+      }
+
+      if (giftListLink) {
+        if (status === 'Confirmado') {
+          giftListLink.style.display = 'block'; // Mostra o link da lista de presentes
+        } else {
+          giftListLink.style.display = 'none'; // Esconde o link se recusado
+        }
+      }
+    }
+  }
+});

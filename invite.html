@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Casamento - Evellyn & Guilherme</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <meta name="description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme. Aqui você encontrará todas as informações sobre a cerimônia, recepção, lista de presentes e muito mais.">
+    <meta name="keywords" content="casamento, Evellyn e Guilherme, convite de casamento, lista de presentes, Belo Jardim">
+    <meta name="author" content="Evellyn & Guilherme">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="URL_DO_SEU_SITE_AQUI">
+    <meta property="og:title" content="Nosso Casamento - Evellyn & Guilherme">
+    <meta property="og:description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme.">
+    <meta property="og:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="URL_DO_SEU_SITE_AQUI">
+    <meta property="twitter:title" content="Nosso Casamento - Evellyn & Guilherme">
+    <meta property="twitter:description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme.">
+    <meta property="twitter:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
+
+    <!-- Cor do tema para navegadores móveis -->
+    <meta name="theme-color" content="#C0A080">
+    <!-- Favicon (substitua pelo seu) -->
+    <link rel="icon" href="https://placehold.co/32x32" type="image/png">
+    <link rel="stylesheet" href="css/invite.css">
+    <link rel="stylesheet" href="css/carousel.css"> <!-- Arquivo de estilo do carrossel -->
+</head>
+<body>
+ 
+<button id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 101; background: #fff; border: 1px solid #ccc; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 20px;">▶️</button>
+
+<div id="envelope-screen">
+    <!-- Vídeo de fundo -->
+    <video id="intro-video" playsinline muted>
+        <!-- Certifique-se de que o caminho para o vídeo está correto -->
+        <source src="video/video_introducao_sem_audio.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
+    <button id="start-btn" class="btn">
+        <!-- Coração em SVG para um formato perfeito -->
+        <svg class="heart-icon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="button-text">Clique aqui</span>
+    </button>
+
+</div>
+<main id="main-content" style="display: none;">
+    <!-- Seção 1: Capa -->
+    <section id="cover-section" class="section">
+        <div class="bible-verse">
+            <p>"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."</p>
+            <p class="reference">1 Coríntios 13:4</p>
+        </div>
+    </section>
+
+    <!-- Seção 3: Os Noivos -->
+    <section id="couple-section" class="section">
+        <div class="couple-container">
+            <p>Com a bênção de seus pais:</p>
+            <div class="parents-grid">
+                <div>
+                    <p><span id="bride-father-name"></span></p>
+                    <p><span id="bride-mother-name"></span></p>
+                </div>
+                <div>
+                    <p><span id="groom-father-name"></span></p>
+                    <p><span id="groom-mother-name"></span></p>
+                </div>
+            </div>
+            <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
+            <p class="invitation-text" id="invitation-text"></p>
+        </div>
+    </section>
+    <!-- Seção 2: Contagem Regressiva -->
+    <section id="countdown-section" class="section">
+        <div id="countdown-container">
+            <h2>Contagem Regressiva para o Grande Dia</h2>
+            <div id="countdown">
+                <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
+                <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
+                <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
+                <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 4: Nossa História -->
+    <section id="story-section" class="section">
+        <div class="story-container">
+            <h2>Nossa História</h2>
+            <div class="pentagon-container">
+                <div class="pentagon">
+                    <div class="face">
+                        <img src="img/foto.jpg" alt="Onde tudo começou">
+                        <h3>Onde tudo começou</h3>
+                        <p>Nossa história começou com um simples "oi" que se transformou em conversas sem fim. A cada dia, descobríamos mais um no outro, e a admiração crescia.</p>
+                    </div>
+                    <div class="face">
+                        <img src="img/foto.jpg" alt="O primeiro encontro">
+                        <h3>O primeiro encontro</h3>
+                        <p>O primeiro encontro foi mágico. Entre risadas e olhares, a certeza de que éramos feitos um para o outro se tornou inegável. Um dia que ficará para sempre em nossas memórias.</p>
+                    </div>
+                    <div class="face">
+                        <img src="img/foto.jpg" alt="O pedido">
+                        <h3>O pedido</h3>
+                        <p>E então, em um dia perfeito, o pedido de casamento. Um "sim" que selou nosso destino e deu início a um novo capítulo de nossas vidas, com a promessa de um futuro juntos.</p>
+                    </div>
+                    <div class="face">
+                        <img src="img/foto.jpg" alt="Os Preparativos">
+                        <h3>Os Preparativos</h3>
+                        <p>Começamos a planejar cada detalhe com carinho, sonhando com o dia em que celebraremos nosso amor com as pessoas que mais amamos. Cada escolha reflete um pouco de nós.</p>
+                    </div>
+                    <div class="face">
+                        <img src="img/foto.jpg" alt="O Grande Dia">
+                        <h3>O Grande Dia</h3>
+                        <p>Agora, contamos os dias para o nosso "sim" definitivo. Mal podemos esperar para compartilhar este momento único e iniciar nosso "felizes para sempre" ao seu lado.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button id="prev-face" class="nav-btn">Anterior</button>
+                <button id="next-face" class="nav-btn">Próximo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 5: Local & RSVP -->
+    <section id="location-section" class="section">
+        <div class="convite">
+            <p class="chamada">Você está convidado para o nosso casamento!</p>
+    
+            <div class="nomes" id="card-guest-name"></div>
+    
+            <div class="data-hora">
+                <span class="mes" id="wedding-month"></span>
+                <div class="detalhe-data">
+                    <span class="dia-semana" id="wedding-day-of-week"></span>
+                    <span class="dia-num" id="wedding-day"></span>
+                    <span class="hora" id="wedding-time"></span>
+                </div>
+                <span class="ano" id="wedding-year"></span>
+            </div>
+    
+            <div class="local">
+                <p>Salão de Festas Jardim Encantado</p>
+                <p>Belo Jardim, PE</p>
+            </div>
+    
+            <div class="confirmacao">
+                <p>Confirmação de Presença</p>
+                <div class="btn-group" id="rsvp-section">
+                    <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
+                    <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
+                    <a id="gift-list-link" href="#" class="btn" style="display: none;">Ver Lista de Presentes 🎁</a>
+                    <div id="rsvp-message"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<audio id="wedding-music" src="audio/musica.mp4" preload="auto" loop></audio>
+
+<script src="js/invite.js"></script>
+<script src="js/carousel.js"></script> <!-- Arquivo de lógica do carrossel -->
+</body>
+</html>

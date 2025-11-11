@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: URL_DO_SEU_SITEMAP_AQUI

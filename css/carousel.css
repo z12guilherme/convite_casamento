@@ -1,0 +1,90 @@
+/* --- Estilos para o Pentágono 3D --- */
+.pentagon-container {
+    width: 500px;
+    height: 350px; /* Aumentado para melhor acomodação do conteúdo */
+    position: relative;
+    perspective: 1500px;
+    margin: 3rem auto;
+}
+
+.pentagon {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    position: absolute;
+    transition: transform 1s ease-in-out;
+}
+
+.pentagon .face {
+    position: absolute;
+    width: 280px;
+    height: 300px; /* Altura da face ajustada */
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--c-primary);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 92, 79, 0.1);
+    backface-visibility: hidden;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Posicionamento de cada face do pentágono */
+.pentagon .face:nth-child(1) { transform: translateX(-50%) translateY(-50%) rotateY(0deg) translateZ(240px); }
+.pentagon .face:nth-child(2) { transform: translateX(-50%) translateY(-50%) rotateY(72deg) translateZ(240px); }
+.pentagon .face:nth-child(3) { transform: translateX(-50%) translateY(-50%) rotateY(144deg) translateZ(240px); }
+.pentagon .face:nth-child(4) { transform: translateX(-50%) translateY(-50%) rotateY(216deg) translateZ(240px); }
+.pentagon .face:nth-child(5) { transform: translateX(-50%) translateY(-50%) rotateY(288deg) translateZ(240px); }
+
+.face img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.face h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--c-primary);
+    margin-bottom: 10px;
+}
+
+.face p {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--c-text-light);
+    text-align: center;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.nav-btn {
+    background: var(--c-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    background: var(--c-secondary);
+    transform: translateY(-2px);
+}
