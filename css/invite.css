@@ -362,6 +362,7 @@ body {
 /* Estilo para o botão de iniciar */
 #start-btn {
     position: absolute;
+    bottom: 20%; /* Posiciona o botão mais para baixo */
     z-index: 10;
     background-color: var(--c-primary);
     border-color: var(--c-primary);
