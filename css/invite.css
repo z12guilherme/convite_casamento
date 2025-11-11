@@ -361,17 +361,61 @@ body {
 
 /* Estilo para o botão de iniciar */
 #start-btn {
+    /* Estilo do botão de coração */
+    background-color: transparent;
+    border: none;
+    width: 100px; /* Aumenta a área de clique */
+    height: 100px;
+    cursor: pointer;
+    /* Adiciona flexbox para centralizar o texto sobre o SVG */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Posicionamento */
     position: absolute;
-    bottom: 20%; /* Posiciona o botão mais para baixo */
+    bottom: 10%; /* Mais para baixo */
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
-    background-color: var(--c-primary);
-    border-color: var(--c-primary);
+
+    /* Animação de pulsação */
+    animation: pulse 2s infinite;
 }
 
-.btn:hover {
-    background: #00a58a;
-    transform: translateY(-2px);
+/* Estilo para o ícone SVG do coração */
+.heart-icon {
+    /* Posiciona o SVG atrás do texto */
+    position: absolute;
+    width: 70px; /* Tamanho do coração */
+    height: 70px;
+    fill: #D2B48C; /* Cor de areia */
+    transition: transform 0.3s ease;
 }
+
+/* Estilo para o texto dentro do botão */
+.button-text {
+    position: relative; /* Garante que o texto fique sobre o SVG */
+    z-index: 1;
+    color: white;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+    pointer-events: none; /* Evita que o texto bloqueie o clique no botão */
+}
+
+/* Efeito ao passar o mouse */
+#start-btn:hover .heart-icon {
+    transform: scale(1.1); /* Aumenta um pouco o coração */
+}
+
+/* Animação de pulsação */
+@keyframes pulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+}
+
 
 /* --- Estilos para o novo cartão de RSVP --- */
 #location-section {
