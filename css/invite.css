@@ -223,6 +223,89 @@ body {
     color: var(--c-primary);
     margin-bottom: 3rem;
 }
+<<<<<<< HEAD
+=======
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--c-secondary);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    border-radius: 2px;
+}
+.timeline-item {
+    padding: 4rem 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+.timeline-item:nth-child(odd) {
+    justify-content: flex-start;
+}
+
+.timeline-item:nth-child(even) {
+    justify-content: flex-end;
+}
+
+.timeline-img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid var(--c-secondary);
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.timeline-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    width: calc(50% - 80px); /* Adjusted width */
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    text-align: left;
+}
+.timeline-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--c-primary);
+    margin-bottom: 10px;
+}
+.timeline-content p {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--c-text-light);
+}
+>>>>>>> 5aca0b9c4e587d2e94e6252ad3fc35dacf1a7cee
 
 .btn-group {
     display: flex;
@@ -241,7 +324,10 @@ body {
     transition: all 0.3s ease;
     text-decoration: none;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5aca0b9c4e587d2e94e6252ad3fc35dacf1a7cee
 /* --- Tela de Abertura com Envelope --- */
 #envelope-screen {
     position: fixed;
