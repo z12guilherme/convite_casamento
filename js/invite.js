@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const musicBtn = document.getElementById('music-btn');
   const weddingMusic = document.getElementById('wedding-music');
   const introVideo = document.getElementById('intro-video'); // Get video element
-  const openInviteBtn = document.getElementById('open-invite-btn');
+  const startBtn = document.getElementById('start-btn');
 
   const showMainContent = () => {
-    if (mainContent.style.display === 'block') return;
+    if (mainContent.style.display === 'block') return; // Evita execuções múltiplas
 
     if (introVideo) {
       introVideo.pause();
@@ -112,64 +112,50 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       console.error('Erro ao inicializar o aplicativo:', error);
     }
-    
-    const playPromise = weddingMusic.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        console.error("Autoplay bloqueado, aguardando interação do usuário.", error);
-        musicBtn.innerHTML = '▶️';
-      });
-    }
+    // Ativa o som da música, pois agora temos uma interação do usuário
+    if (weddingMusic.muted) weddingMusic.muted = false;
     
     setTimeout(() => envelopeScreen.style.display = 'none', 1200);
   };
 
-  // --- NOVO: Fallback para garantir que a música toque na primeira interação ---
-  const playMusicOnFirstInteraction = () => {
-    if (weddingMusic.paused) {
-      weddingMusic.play().catch(() => {});
-    }
-    // Remove o ouvinte para que não seja acionado novamente
-    document.removeEventListener('click', playMusicOnFirstInteraction);
-    document.removeEventListener('touchstart', playMusicOnFirstInteraction);
-  };
-
-  document.addEventListener('click', playMusicOnFirstInteraction);
-  document.addEventListener('touchstart', playMusicOnFirstInteraction);
-  // --- FIM DO NOVO TRECHO ---
-
   // Verifica se o convidado é válido antes de qualquer outra coisa
   await checkGuest();
+
+  // Evento de clique no botão inicial
+  startBtn.addEventListener('click', () => {
+    // Esconde o botão
+    startBtn.style.display = 'none';
+
+    // Toca o vídeo com som
+    if (introVideo) {
+      introVideo.muted = false;
+      introVideo.play().catch(error => {
+        console.error("Erro ao tentar tocar o vídeo:", error);
+        // Se houver um erro ao tocar o vídeo, mostra o conteúdo principal diretamente
+        showMainContent();
+      });
+    }
+
+    // Toca a música de fundo com som
+    if (weddingMusic) {
+      weddingMusic.muted = false;
+      weddingMusic.play().catch(error => console.error("Erro ao tocar a música:", error));
+      if (musicBtn) musicBtn.innerHTML = '⏸️';
+    }
+  });
 
   // Quando o vídeo terminar, mostra o conteúdo principal
   introVideo.addEventListener('ended', () => {
     showMainContent();
   });
 
-  // Se o vídeo não puder ser reproduzido, mostra o botão como alternativa
-  introVideo.addEventListener('error', () => {
-    console.error("Erro ao carregar o vídeo. Exibindo botão de fallback.");
-    if (openInviteBtn) openInviteBtn.style.display = 'block';
-  });
-
-  // O gatilho principal agora é o clique no botão de fallback
-  openInviteBtn.addEventListener('click', showMainContent);
-
   musicBtn.addEventListener('click', () => {
-    if (weddingMusic.paused) {
-      weddingMusic.play();
-    } else {
-      weddingMusic.pause();
-    }
+    weddingMusic.muted = !weddingMusic.muted;
   });
 
-  // Atualiza o ícone com base no estado de play/pause
-  weddingMusic.addEventListener('play', () => {
-    musicBtn.innerHTML = '⏸️';
-  });
-
-  weddingMusic.addEventListener('pause', () => {
-    musicBtn.innerHTML = '▶️';
+  // Atualiza o ícone se o estado da música mudar por outros motivos
+  weddingMusic.addEventListener('volumechange', () => {
+    musicBtn.innerHTML = weddingMusic.muted ? '▶️' : '⏸️';
   });
 
   if (rsvpConfirmBtn) {

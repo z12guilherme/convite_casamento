@@ -350,6 +350,23 @@ body {
     filter: brightness(0.7);
 }
 
+/* Estilo para o botão de abrir convite */
+#open-invite-btn {
+    position: absolute;
+    bottom: 15%; /* Posiciona mais para baixo */
+    z-index: 10;
+    background-color: var(--c-primary); /* Cor verde-água */
+    border-color: var(--c-primary);
+}
+
+/* Estilo para o botão de iniciar */
+#start-btn {
+    position: absolute;
+    z-index: 10;
+    background-color: var(--c-primary);
+    border-color: var(--c-primary);
+}
+
 .btn:hover {
     background: #00a58a;
     transform: translateY(-2px);
