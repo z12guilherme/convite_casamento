@@ -223,8 +223,6 @@ body {
     color: var(--c-primary);
     margin-bottom: 3rem;
 }
-<<<<<<< HEAD
-=======
 .timeline {
     position: relative;
     max-width: 800px;
@@ -305,7 +303,6 @@ body {
     line-height: 1.6;
     color: var(--c-text-light);
 }
->>>>>>> 5aca0b9c4e587d2e94e6252ad3fc35dacf1a7cee
 
 .btn-group {
     display: flex;
@@ -324,10 +321,7 @@ body {
     transition: all 0.3s ease;
     text-decoration: none;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 5aca0b9c4e587d2e94e6252ad3fc35dacf1a7cee
 /* --- Tela de Abertura com Envelope --- */
 #envelope-screen {
     position: fixed;
