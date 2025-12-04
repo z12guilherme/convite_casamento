@@ -11,15 +11,15 @@
     --c-gradient-end: #b2dfdb;
     --c-gold: #03bb85;
     --c-silver: #c0c0c0;
-    --font-title: 'Cormorant Garamond', serif;
-    --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'Montserrat', sans-serif;
+    --font-title: 'Loved by the King', cursive;
+    --font-serif: 'Lato', sans-serif;
+    --font-sans: 'Lato', sans-serif;
 }
 
 /* --- Corpo e Estrutura --- */
 body {
     margin: 0;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     background: linear-gradient(135deg, var(--c-gradient-start) 0%, var(--c-gradient-end) 100%);
     background-attachment: fixed;
     color: var(--c-text-dark);
@@ -202,7 +202,7 @@ body::before {
     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .couple-names-highlight {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Loved by the King', cursive;
     font-size: 4rem;
     color: var(--c-primary);
     margin: 2.5rem 0;
@@ -508,7 +508,7 @@ body::before {
 }
 
 .convite .nomes {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Loved by the King', cursive;
     font-size: 4em;
     color: var(--c-primary);
     margin: 15px 0;
