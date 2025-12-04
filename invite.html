@@ -32,6 +32,53 @@
     <link rel="icon" href="https://placehold.co/32x32" type="image/png">
     <link rel="stylesheet" href="css/invite.css">
     <link rel="stylesheet" href="css/carousel.css"> <!-- Arquivo de estilo do carrossel -->
+    <style>
+        .chamada {
+            animation: fadeInText 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0ad4e; /* Amarelo */
+            opacity: 0.7;
+            animation: fall 5s linear infinite;
+        }
+
+        .confetti:nth-child(2n) {
+            background-color: #54a0a0; /* Verde-azulado */
+        }
+
+        .confetti:nth-child(3n) {
+            background-color: #ff6b6b; /* Vermelho-claro */
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-10vh) rotate(0deg);
+            }
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
  
@@ -132,7 +179,10 @@
     <!-- Seção 5: Local & RSVP -->
     <section id="location-section" class="section">
         <div class="convite">
-            <p class="chamada">Você está convidado para o nosso casamento!</p>
+            <div style="position: relative;">
+                <p class="chamada">Você está convidado para o nosso casamento!</p>
+                <div class="confetti-container" id="confetti-container"></div>
+            </div>
     
             <div class="nomes" id="card-guest-name"></div>
     
@@ -151,8 +201,38 @@
                 <p>Belo Jardim, PE</p>
             </div>
     
-            <div class="confirmacao">
-                <p>Confirmação de Presença</p>
+            <!-- Início da Política de Crianças -->
+            <div class="children-policy">
+                <p class="policy-notice">
+                    Sua presença é nosso maior presente! Gostaríamos de informar que o convite é individual. Crianças são bem-vindas, apenas nos informe abaixo.
+                </p>
+            
+                <div class="form-group">
+                    <p>Você levará seus filhos?</p>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="bringing_children" value="yes" onchange="toggleChildrenDetails(true)"> Sim
+                        </label>
+                        <label>
+                            <input type="radio" name="bringing_children" value="no" onchange="toggleChildrenDetails(false)" checked> Não
+                        </label>
+                    </div>
+                </div>
+            
+                <div id="children-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="children_count">Quantos filhos?</label>
+                        <input type="number" id="children_count" name="children_count" min="1" placeholder="Ex: 2">
+                    </div>
+                    <div class="form-group">
+                        <label for="children_ages">Qual a idade de cada um?</label>
+                        <input type="text" id="children_ages" name="children_ages" placeholder="Ex: 4 e 7 anos">
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirmacao" style="margin-top: 30px;">
+                <p>Confirme sua presença abaixo:</p>
                 <div class="btn-group" id="rsvp-section">
                     <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
                     <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
@@ -160,12 +240,33 @@
                     <div id="rsvp-message"></div>
                 </div>
             </div>
+
+            <!-- Fim da Política de Crianças -->
         </div>
     </section>
 </main>
 
 <audio id="wedding-music" src="audio/musica.mp4" preload="auto" loop></audio>
 
+<script>
+function toggleChildrenDetails(show) {
+    const detailsDiv = document.getElementById('children-details');
+    detailsDiv.style.display = show ? 'block' : 'none';
+}
+
+function createConfetti() {
+    const container = document.getElementById('confetti-container');
+    if (!container) return;
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(confetti);
+    }
+}
+createConfetti();
+</script>
 <script src="js/invite.js"></script>
 <script src="js/carousel.js"></script> <!-- Arquivo de lógica do carrossel -->
 

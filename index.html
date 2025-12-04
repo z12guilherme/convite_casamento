@@ -8,7 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
-<script src="js/guest-management.js" defer></script>
 <script src="js/main.js" defer></script>
 <style>
     :root {
@@ -113,6 +112,18 @@
         align-items: center;
         box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
+    
+    #listaConvidados li .guest-info {
+        text-align: left;
+    }
+
+    #listaConvidados li .guest-details {
+        font-size: 0.8rem; color: #666; margin-top: 4px;
+    }
+
+    #listaConvidados li .guest-actions {
+        display: flex;
+    }
 
     #listaConvidados li a {
         text-decoration: none;
@@ -131,6 +142,14 @@
 
     #listaConvidados li a:first-child:hover {
         background: var(--hover-color);
+    }
+
+    .info-btn {
+        background: #f0ad4e; /* Cor laranja/amarelo para destaque */
+    }
+
+    .info-btn:hover {
+        background: #ec971f;
     }
 
     .delete-btn {

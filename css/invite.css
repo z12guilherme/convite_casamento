@@ -558,3 +558,56 @@ body::before {
     letter-spacing: 1px;
     font-size: 0.8em;
 }
+
+/* --- Estilos para a Política de Crianças --- */
+.children-policy {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--c-light-aqua);
+    text-align: left;
+}
+
+.children-policy .policy-notice {
+    font-size: 0.9em;
+    color: var(--c-text-light);
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group p {
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    color: var(--c-secondary);
+}
+
+.radio-group label {
+    margin-right: 20px;
+    color: var(--c-text-dark);
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 5px;
+    accent-color: var(--c-primary);
+}
+
+#children-details {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: rgba(224, 242, 241, 0.5);
+    border-radius: 8px;
+}
+
+#children-details input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--c-light-aqua);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+}

@@ -166,9 +166,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function handleRsvp(status, nome) {
+    const updateData = { status: status };
+
+    // Se o convidado confirmou, coleta os dados sobre os filhos
+    if (status === 'Confirmado') {
+      const bringingChildren = document.querySelector('input[name="bringing_children"]:checked').value;
+      updateData.bringing_children = bringingChildren === 'yes';
+
+      if (bringingChildren === 'yes') {
+        updateData.children_count = parseInt(document.getElementById('children_count').value, 10) || 0;
+        updateData.children_ages = document.getElementById('children_ages').value || '';
+      } else {
+        updateData.children_count = 0;
+        updateData.children_ages = '';
+      }
+    }
+
     const { error } = await supabase
       .from('guests')
-      .update({ status: status })
+      .update(updateData)
       .eq('name', nome);
 
     if (error) {
