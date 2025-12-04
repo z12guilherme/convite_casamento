@@ -1,9 +1,16 @@
 :root {
-    --c-primary: #00BCA1; /* Verde-água principal */
-    --c-secondary: #009680; /* Verde-água mais escuro para detalhes */
-    --c-background: #f7fdfc; /* Fundo verde muito claro, quase branco */
-    --c-text-dark: #333; /* Texto escuro */
-    --c-text-light: #555; /* Texto mais claro */
+    --c-primary: #54a0a0;
+    --c-secondary: #3d7a7a;
+    --c-background: #f0f8f8;
+    --c-accent: #03bb85;
+    --c-text-dark: #333;
+    --c-text-light: #666;
+    --c-light-aqua: #b2dfdb;
+    --c-dark-aqua: #2e5c5c;
+    --c-gradient-start: #e0f2f1;
+    --c-gradient-end: #b2dfdb;
+    --c-gold: #03bb85;
+    --c-silver: #c0c0c0;
     --font-title: 'Cormorant Garamond', serif;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Montserrat', sans-serif;
@@ -12,10 +19,24 @@
 /* --- Corpo e Estrutura --- */
 body {
     margin: 0;
-    font-family: var(--font-sans);
-    background-color: var(--c-background);
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(135deg, var(--c-gradient-start) 0%, var(--c-gradient-end) 100%);
+    background-attachment: fixed;
     color: var(--c-text-dark);
     overflow-y: auto;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='dot-pattern' x='0' y='0' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='1' cy='1' r='1' fill='%2354a0a0' fill-opacity='0.1' /%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23dot-pattern)' /%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
 }
 
 .section {
@@ -29,50 +50,33 @@ body {
     box-sizing: border-box;
     position: relative;
     text-align: center;
+    backdrop-filter: blur(1px);
 }
 
 /* --- Capa --- */
 #cover-section {
-    background-image: url('../img/ceu.jpg');
-    background-size: cover;
-    background-position: center;
     position: relative;
 }
 
-#cover-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* Overlay escuro para legibilidade */
-    z-index: 1;
-}
+
 
 #cover-section > * {
     position: relative;
     z-index: 2;
 }
 
-#cover-section h1, #cover-section .ampersand, #cover-section .date-display {
-    color: #fff; /* Cor do texto para branco para contrastar com o fundo */
-}
-
 #cover-section h1 {
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    color: var(--c-text-dark);
 }
 
 #cover-section .date-display .day {
-    color: #fff;
-    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    color: var(--c-text-dark);
 }
 
 .bible-verse {
-    color: #fff;
+    color: var(--c-text-dark);
     font-family: var(--font-sans);
     margin-top: 3rem;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 .bible-verse p {
     margin: 0.8rem 0;
@@ -93,7 +97,7 @@ body {
 #cover-section .ampersand {
     font-family: var(--font-serif);
     font-size: 3rem;
-    color: #fff;
+    color: var(--c-accent);
     margin: 1rem 0;
 }
 #cover-section .date-display {
@@ -114,31 +118,35 @@ body {
 
 /* --- Contagem Regressiva --- */
 #countdown-section {
-    background-image: url('../img/ceu.jpg');
-    background-size: cover;
-    background-position: center;
 }
 #countdown-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.2); /* Overlay um pouco mais escuro */
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(3px);
 }
 #countdown-container {
     position: relative;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    padding: 3rem;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 20px rgba(84, 160, 160, 0.1), 0 0 30px rgba(212, 175, 55, 0.2);
     max-width: 700px;
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 3px solid var(--c-gold);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#countdown-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2), 0 0 30px rgba(84, 160, 160, 0.15);
 }
 #countdown-container h2 {
     font-family: var(--font-title);
     font-size: 2rem;
-    color: var(--c-secondary);
+    color: var(--c-primary);
     margin-bottom: 1.5rem;
     font-weight: 600;
 }
@@ -158,37 +166,57 @@ body {
     font-family: var(--font-serif);
     font-size: 3rem;
     font-weight: 600;
-    color: var(--c-secondary);
+    color: var(--c-primary);
 }
 .time-unit .label {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--c-text-light);
+    color: var(--c-text-dark);
 }
 
 /* --- Os Noivos --- */
 #couple-section {
-    background: linear-gradient(to bottom right, #e0f2f1, #b2dfdb);
 }
 #couple-section .couple-container {
     max-width: 700px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    padding: 3rem;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 20px rgba(84, 160, 160, 0.1), 0 0 30px rgba(212, 175, 55, 0.2);
+    border: 3px solid var(--c-gold);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+#couple-section .couple-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 30px rgba(84, 160, 160, 0.15);
+}
+
 #couple-section h2 {
     font-family: var(--font-title);
     font-size: 3rem;
     color: var(--c-primary);
     margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .couple-names-highlight {
-    font-family: var(--font-title);
-    font-size: 3rem;
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
     color: var(--c-primary);
     margin: 2.5rem 0;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    background: linear-gradient(45deg, var(--c-primary), var(--c-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 .couple-names-highlight .ampersand-style {
     font-family: var(--font-serif); /* Usa uma fonte com um '&' mais tradicional */
     font-weight: 600;
+    color: var(--c-accent);
+    text-shadow: 0 0 10px rgba(3, 187, 133, 0.5);
 }
 #couple-section .parents-grid {
     display: grid;
@@ -196,25 +224,25 @@ body {
     gap: 2rem;
     margin: 2rem 0;
     font-family: var(--font-serif);
-    color: var(--c-text-light);
+    color: var(--c-text-dark);
 }
 #couple-section .invitation-text {
     font-family: var(--font-serif);
     font-size: 1.3rem;
     line-height: 1.6;
     margin-top: 2rem;
+    color: var(--c-text-dark);
 }
 .highlighted-name {
     font-weight: 700;
-    color: var(--c-primary);
+    color: var(--c-accent);
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 
-                 0 0 8px var(--c-primary), 
-                 0 0 15px var(--c-primary);
+                 0 0 8px var(--c-accent), 
+                 0 0 15px var(--c-accent);
 }
 
 /* --- Nossa História --- */
 #story-section {
-    background: var(--c-background);
     padding: 4rem 2rem;
 }
 .story-container h2 {
@@ -232,7 +260,7 @@ body {
     content: '';
     position: absolute;
     width: 4px;
-    background-color: var(--c-secondary);
+    background-color: var(--c-primary);
     top: 0;
     bottom: 0;
     left: 50%;
@@ -263,7 +291,7 @@ body {
     height: 120px;
     border-radius: 50%;
     background: #fff;
-    border: 4px solid var(--c-secondary);
+    border: 4px solid var(--c-primary);
     z-index: 1;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -301,7 +329,7 @@ body {
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--c-text-light);
+    color: var(--c-text-dark);
 }
 
 .btn-group {
@@ -310,16 +338,40 @@ body {
     gap: 1rem;
 }
 .btn {
-    background: var(--c-primary);
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-gold) 50%, var(--c-secondary) 100%);
     color: white;
-    border: none;
-    padding: 1rem;
+    border: 2px solid var(--c-gold);
+    padding: 1.2rem 2rem;
     border-radius: 50px;
     font-family: var(--font-sans);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     text-decoration: none;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(84, 160, 160, 0.4);
+    background: linear-gradient(135deg, var(--c-secondary) 0%, var(--c-primary) 100%);
 }
 
 /* --- Tela de Abertura com Envelope --- */
@@ -390,7 +442,7 @@ body {
     position: absolute;
     width: 70px; /* Tamanho do coração */
     height: 70px;
-    fill: #D2B48C; /* Cor de areia */
+    fill: var(--c-accent);
     transition: transform 0.3s ease;
 }
 
@@ -398,7 +450,7 @@ body {
 .button-text {
     position: relative; /* Garante que o texto fique sobre o SVG */
     z-index: 1;
-    color: white;
+    color: var(--c-primary);
     font-family: var(--font-sans);
     font-weight: 600;
     font-size: 0.8rem;
@@ -420,31 +472,28 @@ body {
 
 /* --- Estilos para o novo cartão de RSVP --- */
 #location-section {
-    background-image: url('../img/ceu.jpg');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, var(--c-background), #b2dfdb);
     min-height: 100vh;
     padding: 40px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    position: relative; /* Necessário para o pseudo-elemento */
+    position: relative;
 }
 
-/* Adiciona um overlay para melhorar a legibilidade */
 #location-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.25); /* Overlay escuro para legibilidade, sem desfoque */
-    /* backdrop-filter: blur(5px); -- Removido */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
 }
 
 .convite {
-    position: relative; /* Garante que o z-index funcione */
-    z-index: 2; /* Coloca o cartão acima do overlay */
-    background: rgba(255, 255, 255, 0.9); /* Fundo branco semitransparente */
+    position: relative;
+    z-index: 2; 
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 20px;
     width: 100%;
@@ -455,19 +504,19 @@ body {
 
 .convite .chamada {
     font-size: 1em;
-    color: #00BCA1;
+    color: var(--c-primary);
 }
 
 .convite .nomes {
     font-family: 'Great Vibes', cursive;
     font-size: 4em;
-    color: #00BCA1;
+    color: var(--c-primary);
     margin: 15px 0;
 }
 
 .convite .data-hora {
     margin: 25px 0;
-    color: #00BCA1;
+    color: var(--c-primary);
     line-height: 1.4;
 }
 
@@ -503,7 +552,7 @@ body {
 }
 
 .convite .confirmacao p:first-child {
-    color: #00BCA1;
+    color: var(--c-primary);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;

@@ -3,7 +3,8 @@
     width: 500px;
     height: 350px; /* Aumentado para melhor acomodação do conteúdo */
     position: relative;
-    perspective: 1500px;
+    perspective: 1000px; /* Diminuído para um efeito 3D mais pronunciado */
+    pointer-events: none; /* Bloqueia interações do mouse com o carrossel */
     margin: 3rem auto;
 }
 
@@ -12,7 +13,17 @@
     height: 100%;
     transform-style: preserve-3d;
     position: absolute;
-    transition: transform 1s ease-in-out;
+    transition: transform 1s ease-in-out; /* Transição para rotação manual */
+    animation: rotate-pentagon 20s infinite linear;
+}
+
+@keyframes rotate-pentagon {
+    0% {
+        transform: rotateY(0deg) rotateX(5deg);
+    }
+    100% {
+        transform: rotateY(360deg) rotateX(5deg);
+    }
 }
 
 .pentagon .face {
@@ -22,9 +33,9 @@
     padding: 20px;
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.95);
-    border: 2px solid var(--c-primary);
+    border: 3px solid var(--c-gold);
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 92, 79, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 92, 79, 0.2), 0 0 20px rgba(212, 175, 55, 0.3);
     backface-visibility: hidden;
     left: 50%;
     top: 50%;
@@ -32,6 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Transição suave para o hover */
 }
 
 /* Posicionamento de cada face do pentágono */
@@ -62,29 +74,4 @@
     line-height: 1.6;
     color: var(--c-text-light);
     text-align: center;
-}
-
-.navigation-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.nav-btn {
-    background: var(--c-primary);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    font-family: var(--font-sans);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.nav-btn:hover {
-    background: var(--c-secondary);
-    transform: translateY(-2px);
 }
