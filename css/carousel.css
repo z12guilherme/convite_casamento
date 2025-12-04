@@ -4,16 +4,14 @@
     height: 350px; /* Aumentado para melhor acomodação do conteúdo */
     position: relative;
     perspective: 1000px; /* Diminuído para um efeito 3D mais pronunciado */
-    pointer-events: none; /* Bloqueia interações do mouse com o carrossel */
-    margin: 3rem auto;
+    margin: 3rem auto;    
 }
 
 .pentagon {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    position: absolute;
-    transition: transform 1s ease-in-out; /* Transição para rotação manual */
+    position: relative;    
     animation: rotate-pentagon 20s infinite linear;
 }
 

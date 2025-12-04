@@ -63,15 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       giftListLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(nome)}`;
     }
 
-    const brideFather = sanitizeHTML(urlParams.get('bride_father')) || 'Pai da Noiva';
-    const brideMother = sanitizeHTML(urlParams.get('bride_mother')) || 'Mãe da Noiva';
-    const groomFather = sanitizeHTML(urlParams.get('groom_father')) || 'Pai do Noivo';
-    const groomMother = sanitizeHTML(urlParams.get('groom_mother')) || 'Mãe da Noiva';
-
-    if (document.getElementById('bride-father-name')) document.getElementById('bride-father-name').innerText = brideFather;
-    if (document.getElementById('bride-mother-name')) document.getElementById('bride-mother-name').innerText = brideMother;
-    if (document.getElementById('groom-father-name')) document.getElementById('groom-father-name').innerText = groomFather;
-    if (document.getElementById('groom-mother-name')) document.getElementById('groom-mother-name').innerText = groomMother;
     if (document.getElementById('card-guest-name')) document.getElementById('card-guest-name').innerText = nome;
     
     const day = weddingDate.getDate();
@@ -91,6 +82,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     startCountdown();
   }
 
+  function typewriterEffect(element, text, callback) {
+    let i = 0;
+    element.innerHTML = ""; // Limpa o elemento
+    const speed = 70; // Velocidade da digitação em milissegundos
+
+    function type() {
+      if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        // Remove o cursor piscando ao final
+        element.style.borderRight = "none";
+        if (callback) {
+          callback();
+        }
+      }
+    }
+    type();
+  }
   const envelopeScreen = document.getElementById('envelope-screen');
   const mainContent = document.getElementById('main-content');
   const musicBtn = document.getElementById('music-btn');
@@ -109,6 +120,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     mainContent.style.display = 'block';
     try {
       initApp();
+      // Inicia o efeito de digitação após a exibição do conteúdo
+      const verseElement = document.getElementById('typing-verse');
+      const referenceElement = document.getElementById('verse-reference');
+      const verseText = '"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."';
+      
+      typewriterEffect(verseElement, verseText, () => {
+        // Quando a digitação terminar, revela a referência
+        verseElement.classList.remove('typing'); // Remove a classe que pode ter o cursor
+        if(referenceElement) referenceElement.style.opacity = '1';
+      });
     } catch (error) {
       console.error('Erro ao inicializar o aplicativo:', error);
     }

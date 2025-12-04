@@ -52,6 +52,10 @@
             pointer-events: none;
         }
 
+        .confetti-parent {
+            position: relative;
+        }
+
         .confetti {
             position: absolute;
             width: 10px;
@@ -78,6 +82,20 @@
                 opacity: 0;
             }
         }
+
+        /* Estilo para o efeito de digitação */
+        #typing-verse::after {
+            content: '|';
+            opacity: 1;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        #verse-reference {
+            transition: opacity 1.5s ease-in;
+        }
     </style>
 </head>
 <body>
@@ -102,34 +120,23 @@
 </div>
 <main id="main-content" style="display: none;">
     <!-- Seção 1: Capa -->
-    <section id="cover-section" class="section">
+    <section id="cover-section" class="section confetti-parent">
         <div class="bible-verse">
-            <p>"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."</p>
-            <p class="reference">1 Coríntios 13:4</p>
+            <p id="typing-verse"></p>
+            <p class="reference" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</p>
         </div>
     </section>
 
     <!-- Seção 3: Os Noivos -->
     <section id="couple-section" class="section">
-        <div class="couple-container">
-            <p>Com a bênção de seus pais:</p>
-            <div class="parents-grid">
-                <div>
-                    <p><span id="bride-father-name"></span></p>
-                    <p><span id="bride-mother-name"></span></p>
-                </div>
-                <div>
-                    <p><span id="groom-father-name"></span></p>
-                    <p><span id="groom-mother-name"></span></p>
-                </div>
-            </div>
+        <div class="couple-container confetti-parent">
             <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
             <p class="invitation-text" id="invitation-text"></p>
         </div>
     </section>
     <!-- Seção 2: Contagem Regressiva -->
     <section id="countdown-section" class="section">
-        <div id="countdown-container">
+        <div id="countdown-container" class="confetti-parent">
             <h2>Contagem Regressiva para o Grande Dia</h2>
             <div id="countdown">
                 <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
@@ -145,28 +152,28 @@
         <div class="story-container">
             <h2>Nossa História</h2>
             <div class="pentagon-container">
-                <div class="pentagon">
-                    <div class="face">
+                <div class="pentagon confetti-parent">
+                    <div class="face confetti-parent">
                         <img src="img/foto.jpg" alt="Onde tudo começou">
                         <h3>Onde tudo começou</h3>
                         <p>Nossa história começou com um simples "oi" que se transformou em conversas sem fim. A cada dia, descobríamos mais um no outro, e a admiração crescia.</p>
                     </div>
-                    <div class="face">
+                    <div class="face confetti-parent">
                         <img src="img/foto.jpg" alt="O primeiro encontro">
                         <h3>O primeiro encontro</h3>
                         <p>O primeiro encontro foi mágico. Entre risadas e olhares, a certeza de que éramos feitos um para o outro se tornou inegável. Um dia que ficará para sempre em nossas memórias.</p>
                     </div>
-                    <div class="face">
+                    <div class="face confetti-parent">
                         <img src="img/foto.jpg" alt="O pedido">
                         <h3>O pedido</h3>
                         <p>E então, em um dia perfeito, o pedido de casamento. Um "sim" que selou nosso destino e deu início a um novo capítulo de nossas vidas, com a promessa de um futuro juntos.</p>
                     </div>
-                    <div class="face">
+                    <div class="face confetti-parent">
                         <img src="img/foto.jpg" alt="Os Preparativos">
                         <h3>Os Preparativos</h3>
                         <p>Começamos a planejar cada detalhe com carinho, sonhando com o dia em que celebraremos nosso amor com as pessoas que mais amamos. Cada escolha reflete um pouco de nós.</p>
                     </div>
-                    <div class="face">
+                    <div class="face confetti-parent">
                         <img src="img/foto.jpg" alt="O Grande Dia">
                         <h3>O Grande Dia</h3>
                         <p>Agora, contamos os dias para o nosso "sim" definitivo. Mal podemos esperar para compartilhar este momento único e iniciar nosso "felizes para sempre" ao seu lado.</p>
@@ -178,11 +185,8 @@
 
     <!-- Seção 5: Local & RSVP -->
     <section id="location-section" class="section">
-        <div class="convite">
-            <div style="position: relative;">
-                <p class="chamada">Você está convidado para o nosso casamento!</p>
-                <div class="confetti-container" id="confetti-container"></div>
-            </div>
+        <div class="convite confetti-parent">
+            <p class="chamada">Você está convidado para o nosso casamento!</p>
     
             <div class="nomes" id="card-guest-name"></div>
     
@@ -255,20 +259,23 @@ function toggleChildrenDetails(show) {
 }
 
 function createConfetti() {
-    const container = document.getElementById('confetti-container');
-    if (!container) return;
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.animationDelay = Math.random() * 3 + 's';
-        container.appendChild(confetti);
-    }
+    const parents = document.querySelectorAll('.confetti-parent');
+    parents.forEach(parent => {
+        const confettiContainer = document.createElement('div');
+        confettiContainer.className = 'confetti-container';
+        for (let i = 0; i < 30; i++) { // Reduzi para 30 para não sobrecarregar
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 5 + 's';
+            confettiContainer.appendChild(confetti);
+        }
+        parent.prepend(confettiContainer);
+    });
 }
 createConfetti();
 </script>
 <script src="js/invite.js"></script>
-<script src="js/carousel.js"></script> <!-- Arquivo de lógica do carrossel -->
 
 </body>
 </html>
