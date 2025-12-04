@@ -62,7 +62,7 @@
 }
 
 .face h3 {
-    font-family: var(--font-serif);
+    font-family: var(--font-title);
     font-size: 1.5rem;
     color: var(--c-primary);
     margin-bottom: 10px;
