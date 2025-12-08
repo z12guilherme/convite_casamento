@@ -151,34 +151,71 @@
     <section id="story-section" class="section">
         <div class="story-container">
             <h2>Nossa História</h2>
-            <div class="pentagon-container">
-                <div class="pentagon">
-                    <div class="face">
-                        <img src="img/foto.jpg" alt="Onde tudo começou">
+            <div class="book-container">
+    <div class="book" id="book">
+        <div class="left-side">
+            <div class="cover-back"></div>
+        </div>
+
+        <div class="right-side">
+            <!-- PÁGINA 1 -->
+            <div class="page">
+                <div class="front cover-front">
+                    <div class="content">
+                        <h3>Nossa História de Amor</h3>
+                        <p>Um conto para recordar</p>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="content">
+                        <img src="img/foto.jpg">
                         <h3>Onde tudo começou</h3>
                         <p>Nossa história começou com um simples "oi" que se transformou em conversas sem fim. A cada dia, descobríamos mais um no outro, e a admiração crescia.</p>
                     </div>
-                    <div class="face">
-                        <img src="img/foto.jpg" alt="O primeiro encontro">
+                </div>
+            </div>
+
+            <!-- PÁGINA 2 -->
+            <div class="page">
+                <div class="front">
+                    <div class="content">
+                        <img src="img/foto.jpg">
                         <h3>O primeiro encontro</h3>
                         <p>O primeiro encontro foi mágico. Entre risadas e olhares, a certeza de que éramos feitos um para o outro se tornou inegável. Um dia que ficará para sempre em nossas memórias.</p>
                     </div>
-                    <div class="face">
-                        <img src="img/foto.jpg" alt="O pedido">
+                </div>
+                <div class="back">
+                    <div class="content">
+                        <img src="img/foto.jpg">
                         <h3>O pedido</h3>
                         <p>E então, em um dia perfeito, o pedido de casamento. Um "sim" que selou nosso destino e deu início a um novo capítulo de nossas vidas, com a promessa de um futuro juntos.</p>
                     </div>
-                    <div class="face">
-                        <img src="img/foto.jpg" alt="Os Preparativos">
+                </div>
+            </div>
+
+            <!-- PÁGINA 3 -->
+            <div class="page">
+                <div class="front">
+                    <div class="content">
+                        <img src="img/foto.jpg">
                         <h3>Os Preparativos</h3>
                         <p>Começamos a planejar cada detalhe com carinho, sonhando com o dia em que celebraremos nosso amor com as pessoas que mais amamos. Cada escolha reflete um pouco de nós.</p>
                     </div>
-                    <div class="face">
-                        <img src="img/foto.jpg" alt="O Grande Dia">
+                </div>
+                <div class="back">
+                    <div class="content">
+                        <img src="img/foto.jpg">
                         <h3>O Grande Dia</h3>
                         <p>Agora, contamos os dias para o nosso "sim" definitivo. Mal podemos esperar para compartilhar este momento único e iniciar nosso "felizes para sempre" ao seu lado.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="navigation-controls" style="text-align: center; margin-top: 20px;">
+                <button id="prev-page-btn" class="btn">Anterior</button>
+                <button id="next-page-btn" class="btn">Próxima</button>
             </div>
         </div>
     </section>
@@ -274,6 +311,41 @@ function createConfetti() {
     });
 }
 createConfetti();
+
+function setupBook() {
+    const pages = document.querySelectorAll(".page");
+    const totalPages = pages.length;
+    let currentPage = 0;
+
+    // Define o z-index inicial para empilhar as páginas corretamente
+    pages.forEach((page, index) => {
+        page.style.zIndex = totalPages - index;
+    });
+
+    function turnPage(pageIndex, direction) {
+        if (direction === 'next' && pageIndex < totalPages) {
+            pages[pageIndex].classList.add("flipped");
+            pages[pageIndex].style.zIndex = totalPages + pageIndex; // Traz para frente para virar
+            return pageIndex + 1;
+        }
+        if (direction === 'prev' && pageIndex > 0) {
+            const prevPageIndex = pageIndex - 1;
+            pages[prevPageIndex].classList.remove("flipped");
+            pages[prevPageIndex].style.zIndex = totalPages - prevPageIndex; // Restaura o z-index original
+            return prevPageIndex;
+        }
+        return pageIndex;
+    }
+
+    document.getElementById("next-page-btn").addEventListener("click", () => {
+        currentPage = turnPage(currentPage, 'next');
+    });
+
+    document.getElementById("prev-page-btn").addEventListener("click", () => {
+        currentPage = turnPage(currentPage, 'prev');
+    });
+}
+setupBook();
 </script>
 <script src="js/invite.js"></script>
 
