@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('guests')
       .select('name')
       .eq('name', nome);
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('guests')
       .update(updateData)
       .eq('name', nome);

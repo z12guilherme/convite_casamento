@@ -21,7 +21,7 @@ function createGiftRow(gift, isConfirmed=false){
                      <td><button class="btn">Liberar</button></td>`;
     tr.querySelector('.btn').onclick = async () => {
       if(!confirm(`Deseja liberar "${gift.name}"?`)) return;
-      const { error } = await supabase.from('gifts').update({taken_by:null,confirmed_at:null}).eq('id',gift.id);
+      const { error } = await supabaseClient.from('gifts').update({taken_by:null,confirmed_at:null}).eq('id',gift.id);
       if(error) return alert('Erro: '+error.message);
       loadAvailableGifts();
       loadConfirmedGifts();
@@ -31,7 +31,7 @@ function createGiftRow(gift, isConfirmed=false){
                      <td><button class="btn">Excluir</button></td>`;
     tr.querySelector('.btn').onclick = async () => {
       if(!confirm(`Deseja excluir "${gift.name}"?`)) return;
-      const { error } = await supabase.from('gifts').delete().eq('id', gift.id);
+      const { error } = await supabaseClient.from('gifts').delete().eq('id', gift.id);
       if(error) return alert('Erro: ' + error.message);
       loadAvailableGifts();
     };
@@ -41,7 +41,7 @@ function createGiftRow(gift, isConfirmed=false){
 }
 
 async function loadAvailableGifts(){
-  const { data, error } = await supabase.from('gifts').select('*').is('taken_by', null).order('name');
+  const { data, error } = await supabaseClient.from('gifts').select('*').is('taken_by', null).order('name');
   if(error){ console.error(error); availableBody.innerHTML='<tr><td colspan="3">Erro ao carregar</td></tr>'; return; }
   availableBody.innerHTML='';
   if(!data.length){ availableBody.innerHTML='<tr><td colspan="3">Nenhum presente disponível</td></tr>'; return; }
@@ -49,7 +49,7 @@ async function loadAvailableGifts(){
 }
 
 async function loadConfirmedGifts(){
-  const { data, error } = await supabase.from('gifts').select('*').not('taken_by','is',null).order('confirmed_at',{ascending:true});
+  const { data, error } = await supabaseClient.from('gifts').select('*').not('taken_by','is',null).order('confirmed_at',{ascending:true});
   if(error){ console.error(error); confirmedBody.innerHTML='<tr><td colspan="5">Erro ao carregar</td></tr>'; return; }
   confirmedBody.innerHTML='';
   if(!data.length){ confirmedBody.innerHTML='<tr><td colspan="5">Nenhum presente confirmado</td></tr>'; return; }
@@ -66,7 +66,7 @@ addGiftForm.onsubmit = async e => {
   const reader = new FileReader();
   reader.onload = async () => {
     const base64Image = reader.result;
-    const { error } = await supabase.from('gifts').insert([{ name, image: base64Image, product_url: productUrl }]);
+    const { error } = await supabaseClient.from('gifts').insert([{ name, image: base64Image, product_url: productUrl }]);
     if(error) return alert('Erro: ' + error.message);
     document.getElementById('gift-name').value='';
     document.getElementById('gift-link').value='';
@@ -77,7 +77,7 @@ addGiftForm.onsubmit = async e => {
 };
 
 // Atualização em tempo real
-supabase.channel('public:gifts')
+supabaseClient.channel('public:gifts')
   .on('postgres_changes', { event:'*', schema:'public', table:'gifts' }, () => {
     loadAvailableGifts();
     loadConfirmedGifts();

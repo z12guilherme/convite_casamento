@@ -6,7 +6,7 @@
     container.innerHTML = 'Carregando presentes...';
 
     try {
-      const { data, error } = await supabase.from('gifts').select('*').order('name');
+      const { data, error } = await supabaseClient.from('gifts').select('*').order('name');
       if (error) throw error;
       container.innerHTML = '';
       if (!data.length) { container.textContent = 'Nenhum presente disponível.'; return; }
@@ -43,7 +43,7 @@
           btn.onclick = async () => {
             btn.disabled = true;
             btn.textContent = 'Confirmando...';
-            const { error } = await supabase.from('gifts').update({
+            const { error } = await supabaseClient.from('gifts').update({
               taken_by: guestName,
               confirmed_at: new Date().toISOString()
             }).eq('id', gift.id);
@@ -74,7 +74,7 @@
 
     listarPresentesPublic(guestName);
 
-    supabase.channel('public:gifts')
+    supabaseClient.channel('public:gifts')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, () => listarPresentesPublic(guestName))
       .subscribe();
   });
