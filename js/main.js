@@ -4,11 +4,11 @@
     const nome = document.getElementById('nome')?.value.trim();
     if (!nome) return alert('Preencha o nome!');
     
-    const { data, error } = await supabase.from('guests').select('name').eq('name', nome);
+    const { data, error } = await supabaseClient.from('guests').select('name').eq('name', nome);
     if (error) return alert('Erro: ' + error.message);
     if (data.length > 0) return alert('Convidado já existe!');
 
-    const { error: insertError } = await supabase.from('guests').insert({ name: nome });
+    const { error: insertError } = await supabaseClient.from('guests').insert({ name: nome });
     if (insertError) return alert('Erro ao adicionar: ' + insertError.message);
 
     document.getElementById('nome').value = '';
@@ -21,7 +21,7 @@
 
     lista.innerHTML = 'Carregando...';
     try {
-      const { data, error } = await supabase.from('guests').select('*');
+      const { data, error } = await supabaseClient.from('guests').select('*');
       if (error) throw error;
 
       lista.innerHTML = '';
@@ -62,7 +62,7 @@
   }
 
   async function carregarConvidados() {
-    const { data, error } = await supabase.from('guests').select('*').order('name', { ascending: true });
+    const { data, error } = await supabaseClient.from('guests').select('*').order('name', { ascending: true });
     if (error) {
         console.error("Erro ao carregar convidados:", error);
         return;
@@ -77,7 +77,7 @@
   }
 
   async function removerConvidado(nome) {
-    const { error } = await supabase.from('guests').delete().eq('name', nome);
+    const { error } = await supabaseClient.from('guests').delete().eq('name', nome);
     if (error) return alert('Erro: ' + error.message);
     atualizarListaConvidados();
   }
