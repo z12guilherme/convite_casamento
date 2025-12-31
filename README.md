@@ -1,4 +1,4 @@
-# 💍 Convite de Casamento Interativo | Evellyn & Guilherme
+# 💍 Convite de Casamento | Evellyn & Guilherme
 
 <p align="center">
   <img src="https://img.shields.io/badge/Tecnologia-HTML,_CSS,_JS-blue?style=for-the-badge&logo=javascript" alt="Tecnologia">
