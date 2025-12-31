@@ -76,6 +76,10 @@ for linha in sheet.iter_rows(min_row=2, values_only=True):
     c.setFillColor(HexColor("#333333"))
     # Desenha o QR Code na posição esquerda
     c.drawImage(qr_code_para_pdf, left_margin, posicao_y_qr, width=qr_size, height=qr_size, mask='auto')
+
+    # Adiciona um link clicável sobre o QR Code
+    link_rect = (left_margin, posicao_y_qr, left_margin + qr_size, posicao_y_qr + qr_size)
+    c.linkURL(url_personalizada, link_rect, relative=1)
     
     c.save()
     packet.seek(0)
