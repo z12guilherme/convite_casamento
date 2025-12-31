@@ -119,114 +119,104 @@
 
 </div>
 <main id="main-content" style="display: none;">
-    <!-- Seção 1: Capa -->
-    <section id="cover-section" class="section confetti-parent">
-        <div class="bible-verse">
-            <p id="typing-verse"></p>
-            <p class="reference" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</p>
-        </div>
-    </section>
+    <!-- Seção Principal: Convite Unificado -->
+    <section id="invite-main-section" class="section">
+        <div class="invite-container">
+            <div class="bible-verse">
+                <p id="typing-verse"></p>
+                <p class="reference" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</p>
+            </div>
 
-    <!-- Seção 3: Os Noivos -->
-    <section id="couple-section" class="section">
-        <div class="couple-container confetti-parent">
             <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
             <p class="invitation-text" id="invitation-text"></p>
-        </div>
-    </section>
-    <!-- Seção 2: Contagem Regressiva -->
-    <section id="countdown-section" class="section">
-        <div id="countdown-container" class="confetti-parent">
-            <h2>Contagem Regressiva para o Grande Dia</h2>
-            <div id="countdown">
-                <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
-                <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
-                <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
-                <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+
+            <!-- Contagem Regressiva -->
+            <div id="countdown-container">
+                <h2>Contagem Regressiva</h2>
+                <div id="countdown">
+                    <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
+                    <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
+                    <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
+                    <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+                </div>
+            </div>
+
+            <!-- Carrossel de Fotos (Livro) -->
+            <div id="photo-carousel-section">
+                <h2>Nossos Momentos</h2>
+                <div class="book-container">
+                    <div class="book" id="book">
+                        <div class="left-side">
+                            <div class="cover-back"></div>
+                        </div>
+                        <div class="right-side">
+                            <!-- Capa do Álbum -->
+                            <div class="page">
+                                <div class="front cover-front">
+                                    <div class="content">
+                                        <h3>Nosso Álbum</h3>
+                                        <p>Vire as páginas para ver nossos momentos</p>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="content">
+                                        <img src="img/foto.jpg" alt="Foto do casal 1">
+                                        <h3>O Início</h3>
+                                        <p>Onde nossa história começou a ser escrita.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Página 2 -->
+                            <div class="page">
+                                <div class="front">
+                                    <div class="content">
+                                        <img src="img/noiva.jpg" alt="Foto da noiva">
+                                        <h3>A Noiva</h3>
+                                        <p>Um sorriso que ilumina tudo.</p>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="content">
+                                        <img src="img/noivo.png" alt="Foto do noivo">
+                                        <h3>O Noivo</h3>
+                                        <p>O olhar que encontrou seu par.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Página 3 -->
+                            <div class="page">
+                                <div class="front">
+                                    <div class="content">
+                                        <img src="img/ceu.jpg" alt="Paisagem">
+                                        <h3>O Futuro</h3>
+                                        <p>Um novo horizonte nos espera.</p>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="content">
+                                        <h3>Até o grande dia!</h3>
+                                        <p>Mal podemos esperar para celebrar com você.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-controls" style="text-align: center; margin-top: 20px;">
+                    <button id="prev-page-btn" class="btn">Anterior</button>
+                    <button id="next-page-btn" class="btn">Próxima</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção 4: Nossa História -->
-    <section id="story-section" class="section">
-        <div class="story-container">
-            <h2>Nossa História</h2>
-            <div class="book-container">
-    <div class="book" id="book">
-        <div class="left-side">
-            <div class="cover-back"></div>
-        </div>
-
-        <div class="right-side">
-            <!-- PÁGINA 1 -->
-            <div class="page">
-                <div class="front cover-front">
-                    <div class="content">
-                        <h3>Nossa História de Amor</h3>
-                        <p>Um conto para recordar</p>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="content">
-                        <img src="img/foto.jpg">
-                        <h3>Onde tudo começou</h3>
-                        <p>Nossa história começou com um simples "oi" que se transformou em conversas sem fim. A cada dia, descobríamos mais um no outro, e a admiração crescia.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PÁGINA 2 -->
-            <div class="page">
-                <div class="front">
-                    <div class="content">
-                        <img src="img/foto.jpg">
-                        <h3>O primeiro encontro</h3>
-                        <p>O primeiro encontro foi mágico. Entre risadas e olhares, a certeza de que éramos feitos um para o outro se tornou inegável. Um dia que ficará para sempre em nossas memórias.</p>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="content">
-                        <img src="img/foto.jpg">
-                        <h3>O pedido</h3>
-                        <p>E então, em um dia perfeito, o pedido de casamento. Um "sim" que selou nosso destino e deu início a um novo capítulo de nossas vidas, com a promessa de um futuro juntos.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PÁGINA 3 -->
-            <div class="page">
-                <div class="front">
-                    <div class="content">
-                        <img src="img/foto.jpg">
-                        <h3>Os Preparativos</h3>
-                        <p>Começamos a planejar cada detalhe com carinho, sonhando com o dia em que celebraremos nosso amor com as pessoas que mais amamos. Cada escolha reflete um pouco de nós.</p>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="content">
-                        <img src="img/foto.jpg">
-                        <h3>O Grande Dia</h3>
-                        <p>Agora, contamos os dias para o nosso "sim" definitivo. Mal podemos esperar para compartilhar este momento único e iniciar nosso "felizes para sempre" ao seu lado.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-            <div class="navigation-controls" style="text-align: center; margin-top: 20px;">
-                <button id="prev-page-btn" class="btn">Anterior</button>
-                <button id="next-page-btn" class="btn">Próxima</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção 5: Local & RSVP -->
+    <!-- Seção Local & RSVP -->
     <section id="location-section" class="section">
-        <div class="convite confetti-parent">
+        <div class="convite">
             <p class="chamada">Você está convidado para o nosso casamento!</p>
-    
+
             <div class="nomes" id="card-guest-name"></div>
-    
+
             <div class="data-hora">
                 <span class="mes" id="wedding-month"></span>
                 <div class="detalhe-data">
@@ -236,18 +226,18 @@
                 </div>
                 <span class="ano" id="wedding-year"></span>
             </div>
-    
+
             <div class="local">
                 <p>Salão de Festas Jardim Encantado</p>
                 <p>Belo Jardim, PE</p>
             </div>
-    
+
             <!-- Início da Política de Crianças -->
             <div class="children-policy">
                 <p class="policy-notice">
                     Sua presença é nosso maior presente! Gostaríamos de informar que o convite é individual. Crianças são bem-vindas, apenas nos informe abaixo.
                 </p>
-            
+
                 <div class="form-group">
                     <p>Você levará seus filhos?</p>
                     <div class="radio-group">
@@ -259,7 +249,7 @@
                         </label>
                     </div>
                 </div>
-            
+
                 <div id="children-details" style="display: none;">
                     <div class="form-group">
                         <label for="children_count">Quantos filhos?</label>
@@ -281,7 +271,6 @@
                     <div id="rsvp-message"></div>
                 </div>
             </div>
-
             <!-- Fim da Política de Crianças -->
         </div>
     </section>
@@ -294,60 +283,9 @@ function toggleChildrenDetails(show) {
     const detailsDiv = document.getElementById('children-details');
     detailsDiv.style.display = show ? 'block' : 'none';
 }
-
-function createConfetti() {
-    const parents = document.querySelectorAll('.confetti-parent');
-    parents.forEach(parent => {
-        const confettiContainer = document.createElement('div');
-        confettiContainer.className = 'confetti-container';
-        for (let i = 0; i < 30; i++) { // Reduzi para 30 para não sobrecarregar
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.animationDelay = Math.random() * 5 + 's';
-            confettiContainer.appendChild(confetti);
-        }
-        parent.prepend(confettiContainer);
-    });
-}
-createConfetti();
-
-function setupBook() {
-    const pages = document.querySelectorAll(".page");
-    const totalPages = pages.length;
-    let currentPage = 0;
-
-    // Define o z-index inicial para empilhar as páginas corretamente
-    pages.forEach((page, index) => {
-        page.style.zIndex = totalPages - index;
-    });
-
-    function turnPage(pageIndex, direction) {
-        if (direction === 'next' && pageIndex < totalPages) {
-            pages[pageIndex].classList.add("flipped");
-            pages[pageIndex].style.zIndex = totalPages + pageIndex; // Traz para frente para virar
-            return pageIndex + 1;
-        }
-        if (direction === 'prev' && pageIndex > 0) {
-            const prevPageIndex = pageIndex - 1;
-            pages[prevPageIndex].classList.remove("flipped");
-            pages[prevPageIndex].style.zIndex = totalPages - prevPageIndex; // Restaura o z-index original
-            return prevPageIndex;
-        }
-        return pageIndex;
-    }
-
-    document.getElementById("next-page-btn").addEventListener("click", () => {
-        currentPage = turnPage(currentPage, 'next');
-    });
-
-    document.getElementById("prev-page-btn").addEventListener("click", () => {
-        currentPage = turnPage(currentPage, 'prev');
-    });
-}
-setupBook();
 </script>
 <script src="js/invite.js"></script>
+<script src="js/carousel.js"></script>
 
 </body>
 </html>

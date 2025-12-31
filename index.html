@@ -197,6 +197,9 @@
         <button onclick="importarConvidados()">Importar Planilha</button>
         <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.9rem; text-align: center; color: var(--main-color);">Baixar planilha de exemplo</a>
     </div>
+    <div class="form" style="margin-top: 10px;">
+        <button onclick="exportarConvidados(this)" style="background-color: #3d7a7a;">📥 Baixar Lista de Convidados (.xlsx)</button>
+    </div>
     <h2>Lista de Convidados</h2>
     <ul id="listaConvidados"></ul>
     <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
@@ -249,6 +252,36 @@
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Convidados");
         XLSX.writeFile(wb, "exemplo_convidados.xlsx");
+    }
+
+    async function exportarConvidados(btn) {
+        const originalText = btn.innerText;
+        try {
+            btn.innerText = "Gerando planilha...";
+            btn.disabled = true;
+
+            const { data: convidados, error } = await supabaseClient
+                .from('guests')
+                .select('*')
+                .order('name', { ascending: true });
+
+            if (error) throw error;
+
+            if (!convidados || convidados.length === 0) {
+                alert("Nenhum convidado encontrado na base de dados.");
+            } else {
+                const ws = XLSX.utils.json_to_sheet(convidados);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Convidados");
+                XLSX.writeFile(wb, "lista_completa_convidados.xlsx");
+            }
+        } catch (error) {
+            console.error('Erro ao exportar:', error);
+            alert('Erro ao exportar convidados. Verifique o console.');
+        } finally {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
     }
 </script>
 </body>

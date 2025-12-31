@@ -9,8 +9,7 @@
     --c-dark-aqua: #2e5c5c;
     --c-gradient-start: #e0f2f1;
     --c-gradient-end: #b2dfdb;
-    --c-gold: #03bb85;
-    --c-silver: #c0c0c0;
+    --c-gold: #d4af37; /* True Gold para elegância */
     --font-title: 'Loved by the King', cursive;
     --font-serif: 'Lato', sans-serif;
     --font-sans: 'Lato', sans-serif;
@@ -20,7 +19,7 @@
 body {
     margin: 0;
     font-family: var(--font-serif);
-    background: linear-gradient(135deg, var(--c-gradient-start) 0%, var(--c-gradient-end) 100%);
+    background: radial-gradient(circle at top left, #fdfbf7, var(--c-gradient-start), var(--c-gradient-end));
     background-attachment: fixed;
     color: var(--c-text-dark);
     overflow-y: auto;
@@ -34,7 +33,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='dot-pattern' x='0' y='0' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='1' cy='1' r='1' fill='%2354a0a0' fill-opacity='0.1' /%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23dot-pattern)' /%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: -1;
 }
@@ -46,333 +45,146 @@ body::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 3rem 2rem;
     box-sizing: border-box;
     position: relative;
     text-align: center;
-    backdrop-filter: blur(1px);
 }
 
-/* --- Capa --- */
-#cover-section {
-    position: relative;
-}
-
-
-
-#cover-section > * {
-    position: relative;
-    z-index: 2;
-}
-
-#cover-section h1 {
-    color: var(--c-text-dark);
-}
-
-#cover-section .date-display .day {
-    color: var(--c-text-dark);
+/* --- Convite Principal --- */
+#invite-main-section .invite-container {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(46, 92, 92, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .bible-verse {
     color: var(--c-text-dark);
     font-family: var(--font-sans);
-    margin-top: 3rem;
+    margin-bottom: 2.5rem;
 }
+
 .bible-verse p {
-    margin: 0.8rem 0;
-    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    line-height: 1.6;
 }
+
 .bible-verse .reference {
     font-style: italic;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 1rem;
-}
-#cover-section h1 {
-    font-family: var(--font-title);
-    font-size: clamp(3.5rem, 10vw, 6rem);
-    color: #fff;
-    font-weight: 700;
-    margin: 0;
-}
-#cover-section .ampersand {
-    font-family: var(--font-serif);
-    font-size: 3rem;
-    color: var(--c-accent);
-    margin: 1rem 0;
-}
-#cover-section .date-display {
-    margin-top: 2rem;
-    font-family: var(--font-sans);
-    color: #fff;
-}
-#cover-section .date-display .day {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-}
-#cover-section .date-display .month-year {
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-}
-
-/* --- Contagem Regressiva --- */
-#countdown-section {
-}
-#countdown-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(3px);
-}
-#countdown-container {
-    position: relative;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-    padding: 3rem;
-    border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 20px rgba(84, 160, 160, 0.1), 0 0 30px rgba(212, 175, 55, 0.2);
-    max-width: 700px;
-    width: 100%;
-    border: 3px solid var(--c-gold);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#countdown-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2), 0 0 30px rgba(84, 160, 160, 0.15);
-}
-#countdown-container h2 {
-    font-family: var(--font-title);
-    font-size: 2rem;
-    color: var(--c-primary);
-    margin-bottom: 1.5rem;
+    color: var(--c-gold);
     font-weight: 600;
 }
+
+.couple-names-highlight {
+    font-family: var(--font-title);
+    font-size: 5rem;
+    color: var(--c-primary);
+    margin: 0.5rem 0 1.5rem 0;
+    background: -webkit-linear-gradient(45deg, var(--c-dark-aqua), var(--c-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+.couple-names-highlight .ampersand-style {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    color: var(--c-gold);
+    font-size: 0.6em;
+    vertical-align: middle;
+}
+
+.invitation-text {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    color: var(--c-text-light);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Contagem Regressiva (Integrada) --- */
+#countdown-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#countdown-container h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--c-secondary);
+    margin: 0 0 1.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
 #countdown {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    margin-top: 2rem;
 }
+
 .time-unit {
     background: transparent;
-    padding: 1rem;
-    border-radius: 10px;
-    border-top: 2px solid var(--c-primary);
+    padding: 1rem 0.5rem;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
 }
+
 .time-unit .number {
     font-family: var(--font-serif);
-    font-size: 3rem;
-    font-weight: 600;
-    color: var(--c-primary);
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--c-dark-aqua);
 }
+
 .time-unit .label {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--c-text-dark);
+    color: var(--c-text-light);
+    margin-top: 0.5rem;
 }
 
-/* --- Os Noivos --- */
-#couple-section {
-}
-#couple-section .couple-container {
-    max-width: 700px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
-    padding: 3rem;
-    border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 20px rgba(84, 160, 160, 0.1), 0 0 30px rgba(212, 175, 55, 0.2);
-    border: 3px solid var(--c-gold);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* --- Seção Carrossel de Fotos --- */
+#photo-carousel-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(84, 160, 160, 0.2);
 }
 
-#couple-section .couple-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 30px rgba(84, 160, 160, 0.15);
-}
-
-#couple-section h2 {
-    font-family: var(--font-title);
-    font-size: 3rem;
-    color: var(--c-primary);
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.couple-names-highlight {
-    font-family: 'Loved by the King', cursive;
-    font-size: 4rem;
-    color: var(--c-primary);
-    margin: 2.5rem 0;
-    text-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    background: linear-gradient(45deg, var(--c-primary), var(--c-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-.couple-names-highlight .ampersand-style {
-    font-family: var(--font-serif); /* Usa uma fonte com um '&' mais tradicional */
-    font-weight: 600;
-    color: var(--c-accent);
-    text-shadow: 0 0 10px rgba(3, 187, 133, 0.5);
-}
-#couple-section .parents-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin: 2rem 0;
-    font-family: var(--font-serif);
-    color: var(--c-text-dark);
-}
-#couple-section .invitation-text {
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    line-height: 1.6;
-    margin-top: 2rem;
-    color: var(--c-text-dark);
-}
-.highlighted-name {
-    font-weight: 700;
-    color: var(--c-accent);
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 
-                 0 0 8px var(--c-accent), 
-                 0 0 15px var(--c-accent);
-}
-
-/* --- Nossa História --- */
-#story-section {
-    padding: 4rem 2rem;
-}
-.story-container h2 {
-    font-family: var(--font-title);
-    font-size: 3rem;
-    color: var(--c-primary);
-    margin-bottom: 3rem;
-}
-.timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-}
-.timeline::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    background-color: var(--c-primary);
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -2px;
-    border-radius: 2px;
-}
-.timeline-item {
-    padding: 4rem 0;
-    position: relative;
-    width: 100%;
-    display: flex;
-}
-
-.timeline-item:nth-child(odd) {
-    justify-content: flex-start;
-}
-
-.timeline-item:nth-child(even) {
-    justify-content: flex-end;
-}
-
-.timeline-img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: #fff;
-    border: 4px solid var(--c-primary);
-    z-index: 1;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.timeline-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.timeline-content {
-    padding: 20px 30px;
-    background-color: white;
-    position: relative;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-    width: calc(50% - 80px); /* Adjusted width */
-}
-
-.timeline-item:nth-child(odd) .timeline-content {
-    text-align: right;
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-    text-align: left;
-}
-.timeline-content h3 {
+#photo-carousel-section h2 {
     font-family: var(--font-serif);
     font-size: 1.5rem;
-    color: var(--c-primary);
-    margin-bottom: 10px;
-}
-.timeline-content p {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--c-text-dark);
+    font-weight: 400;
+    color: var(--c-secondary);
+    margin: 0 0 1.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.btn-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-.btn {
-    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-gold) 50%, var(--c-secondary) 100%);
-    color: white;
-    border: 2px solid var(--c-gold);
-    padding: 1.2rem 2rem;
-    border-radius: 50px;
-    font-family: var(--font-sans);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-    position: relative;
-    overflow: hidden;
+.navigation-controls .btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn:hover::before {
-    left: 100%;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(84, 160, 160, 0.4);
-    background: linear-gradient(135deg, var(--c-secondary) 0%, var(--c-primary) 100%);
-}
 
 /* --- Tela de Abertura com Envelope --- */
 #envelope-screen {
@@ -403,114 +215,80 @@ body::before {
     filter: brightness(0.7);
 }
 
-/* Estilo para o botão de abrir convite */
-#open-invite-btn {
-    position: absolute;
-    bottom: 15%; /* Posiciona mais para baixo */
-    z-index: 10;
-    background-color: var(--c-primary); /* Cor verde-água */
-    border-color: var(--c-primary);
-}
-
-/* Estilo para o botão de iniciar */
 #start-btn {
-    /* Estilo do botão de coração */
     background-color: transparent;
     border: none;
-    width: 100px; /* Aumenta a área de clique */
+    width: 100px;
     height: 100px;
     cursor: pointer;
-    /* Adiciona flexbox para centralizar o texto sobre o SVG */
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* Posicionamento */
     position: absolute;
-    bottom: 10%; /* Mais para baixo */
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-
-    /* Animação de pulsação */
     animation: pulse 2s infinite;
 }
 
-/* Estilo para o ícone SVG do coração */
 .heart-icon {
-    /* Posiciona o SVG atrás do texto */
     position: absolute;
-    width: 70px; /* Tamanho do coração */
+    width: 70px;
     height: 70px;
     fill: var(--c-accent);
     transition: transform 0.3s ease;
 }
 
-/* Estilo para o texto dentro do botão */
 .button-text {
-    position: relative; /* Garante que o texto fique sobre o SVG */
+    position: relative;
     z-index: 1;
-    color: var(--c-primary);
+    color: white;
     font-family: var(--font-sans);
     font-weight: 600;
     font-size: 0.8rem;
     text-align: center;
-    pointer-events: none; /* Evita que o texto bloqueie o clique no botão */
+    pointer-events: none;
 }
 
-/* Efeito ao passar o mouse */
 #start-btn:hover .heart-icon {
-    transform: scale(1.1); /* Aumenta um pouco o coração */
+    transform: scale(1.1);
 }
 
-/* Animação de pulsação */
 @keyframes pulse {
     0%, 100% { transform: translateX(-50%) scale(1); }
     50% { transform: translateX(-50%) scale(1.05); }
 }
 
-
-/* --- Estilos para o novo cartão de RSVP --- */
+/* --- Cartão de Local & RSVP --- */
 #location-section {
-    background: linear-gradient(135deg, var(--c-background), #b2dfdb);
+    background: transparent; /* Fundo já definido no body */
     min-height: 100vh;
     padding: 40px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    position: relative;
-}
-
-#location-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
 }
 
 .convite {
-    position: relative;
-    z-index: 2; 
     background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
+    backdrop-filter: blur(20px) saturate(150%);
+    border-radius: 30px;
     width: 100%;
     max-width: 550px;
     padding: 40px;
     box-sizing: border-box;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .convite .chamada {
-    font-size: 1em;
-    color: var(--c-primary);
+    font-size: 1.1em;
+    color: var(--c-secondary);
+    font-weight: 400;
 }
 
 .convite .nomes {
     font-family: 'Loved by the King', cursive;
-    font-size: 4em;
-    color: var(--c-primary);
+    font-size: 3.5em;
+    color: var(--c-dark-aqua);
     margin: 15px 0;
 }
 
@@ -518,12 +296,15 @@ body::before {
     margin: 25px 0;
     color: var(--c-primary);
     line-height: 1.4;
+    border-top: 1px solid rgba(84, 160, 160, 0.3);
+    border-bottom: 1px solid rgba(84, 160, 160, 0.3);
+    padding: 20px 0;
 }
 
 .convite .mes, .convite .ano {
     font-size: 0.9em;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .convite .detalhe-data {
@@ -534,36 +315,92 @@ body::before {
 }
 
 .convite .dia-num {
-    font-size: 3.2em;
+    font-size: 3em;
     font-weight: bold;
     margin: 0;
     padding: 0 20px;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    border-left: 1px solid var(--c-light-aqua);
+    border-right: 1px solid var(--c-light-aqua);
 }
 
 .convite .dia-semana, .convite .hora {
     padding: 0 20px;
 }
 
-.convite .local, .convite .confirmacao {
+.convite .local {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+.convite .local p{
+    margin: 5px 0;
+}
+
+.convite .confirmacao {
     font-size: 0.9em;
     line-height: 1.5;
+    margin-top: 30px;
 }
 
 .convite .confirmacao p:first-child {
-    color: var(--c-primary);
+    color: var(--c-secondary);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
-/* --- Estilos para a Política de Crianças --- */
+
+/* --- Botões --- */
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-secondary) 100%);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 15px rgba(84, 160, 160, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(84, 160, 160, 0.5);
+    filter: brightness(1.1);
+}
+
+.btn.btn-secondary {
+    background: #f0f0f0;
+    color: var(--c-text-light);
+    box-shadow: none;
+    border: 1px solid #ddd;
+}
+.btn.btn-secondary:hover {
+    background-color: #e0e0e0;
+    color: var(--c-text-dark);
+}
+
+
+/* --- Política de Crianças --- */
 .children-policy {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid var(--c-light-aqua);
+    border-top: 1px solid rgba(84, 160, 160, 0.2);
     text-align: left;
 }
 
@@ -599,15 +436,25 @@ body::before {
 #children-details {
     margin-top: 15px;
     padding: 15px;
-    background-color: rgba(224, 242, 241, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 8px;
+    border: 1px solid rgba(84, 160, 160, 0.1);
+}
+
+#children-details label {
+    font-weight: bold;
+    color: var(--c-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
 }
 
 #children-details input {
     width: 100%;
     padding: 8px;
-    border: 1px solid var(--c-light-aqua);
+    border: 1px solid rgba(84, 160, 160, 0.3);
     border-radius: 4px;
     box-sizing: border-box;
     font-family: var(--font-sans);
+    background: rgba(255,255,255,0.8);
 }
