@@ -1,91 +1,110 @@
-# 💍 Convite de Casamento - Evellyn & Guilherme
+# 💍 Convite de Casamento Interativo | Evellyn & Guilherme
 
-![Wedding Invitation Banner](https://via.placeholder.com/800x200/fdf2f8/ec4899?text=Nosso+Casamento+%F0%9F%92%8D)
+<p align="center">
+  <img src="https://img.shields.io/badge/Tecnologia-HTML,_CSS,_JS-blue?style=for-the-badge&logo=javascript" alt="Tecnologia">
+  <img src="https://img.shields.io/badge/Banco_de_Dados-Supabase-green?style=for-the-badge&logo=supabase" alt="Supabase">
+  <img src="https://img.shields.io/badge/Automação-Python-yellow?style=for-the-badge&logo=python" alt="Python">
+</p>
 
-Bem-vindo ao sistema de gerenciamento de convites para o nosso casamento! Este projeto permite criar convites personalizados para convidados, gerenciar a lista de presentes e acompanhar confirmações de forma simples e elegante.
+<p align="center">
+  Bem-vindo ao projeto do nosso convite de casamento! Uma solução completa e moderna para gerenciar convidados, compartilhar informações e, claro, celebrar o nosso grande dia.
+</p>
 
-## 📋 Descrição
+---
 
-Um painel administrativo para:
-- Adicionar e remover convidados.
-- Gerar páginas HTML personalizadas para cada convidado.
-- Gerenciar confirmações de presentes com dashboard em tempo real.
+## ✨ Funcionalidades Principais
 
-O sistema é construído com HTML, CSS e JavaScript puro, funcionando offline no navegador.
+-   🎨 **Convite Online Personalizado**: Uma página web (`invite.html`) que exibe o nome de cada convidado dinamicamente a partir da URL.
+-   🔒 **Painel Administrativo**: Uma interface (`index.html`) protegida por senha para gerenciar a lista de convidados.
+-   ☁️ **Banco de Dados Realtime**: Integração com **Supabase** para armazenar e sincronizar a lista de convidados na nuvem.
+-   엑셀 **Importação/Exportação**: Adicione convidados em massa a partir de uma planilha Excel ou exporte a lista completa.
+-   🤖 **Gerador de Convites em PDF**: Um script em Python que cria convites em PDF personalizados, com nome e um QR Code único para cada convidado.
+-   🎁 **Dashboard de Presentes**: Uma página para visualizar a lista de presentes e as confirmações.
 
-## ✨ Funcionalidades
+---
 
-- **Gerenciamento de Convidados**: Adicione nomes e mensagens personalizadas via formulário. Cada convidado recebe uma página HTML única.
-- **Geração Automática de Convites**: Usa templates para criar páginas bonitas com placeholders substituídos dinamicamente.
-- **Lista de Presentes**: Convidados podem confirmar presentes via interface visual (com desenhos em canvas).
-- **Dashboard de Confirmações**: Visualize confirmações em tempo real, com opção de excluir entradas.
-- **Estrutura Organizada**: Pastas separadas para templates, convites gerados, gifts e dados.
+## 🚀 Como Usar o Site
+
+### 🔑 Painel de Convidados
+
+1.  Abra o arquivo `index.html` no seu navegador.
+2.  Digite a senha de acesso para entrar no painel.
+3.  **Adicione** um convidado pelo formulário, ou **importe** uma planilha `xlsx`.
+4.  A lista de convidados será exibida, sincronizada com o banco de dados Supabase.
+5.  Você pode **exportar** a lista completa para um arquivo Excel a qualquer momento.
+
+### 💌 Convite Online
+
+-   O convite online é acessado pela URL: `.../invite.html?name=Nome%20Do%20Convidado`.
+-   O JavaScript na página pega o nome da URL e o exibe, criando uma experiência personalizada.
+
+---
+
+## 🤖 Gerador de Convites em PDF (Tutorial)
+
+Esta é a funcionalidade para criar os convites físicos em PDF, cada um com um QR Code que leva ao convite online personalizado.
+
+### Passo 1: Prepare o Ambiente
+
+Certifique-se de que os seguintes arquivos estão dentro da pasta `gerar_convites/`:
+
+-   `convidados.xlsx`: A planilha Excel com a lista de nomes dos convidados na primeira coluna.
+-   `Convite_Template.pdf`: O arquivo PDF que serve como fundo/modelo do convite.
+-   `byrani.ttf` e `Vera.ttf`: Os arquivos de fonte necessários para o script.
+
+### Passo 2: Configure a URL do Site
+
+-   Abra o arquivo `gerar_convites/gerar_convites.py`.
+-   **Altere a variável `URL_BASE_DO_SITE`** para a URL principal do seu site (a que está no Netlify).
+
+```python
+# Mude esta linha!
+URL_BASE_DO_SITE = "https://casamento-evellyn-e-guilherme.netlify.app"
+```
+
+### Passo 3: Instale as Dependências
+
+-   Abra um terminal na pasta raiz do seu projeto (`convite_casamento`).
+-   Execute o comando abaixo para instalar as bibliotecas Python necessárias:
+
+```bash
+pip install -r gerar_convites/requirements.txt
+```
+
+### Passo 4: Execute o Script
+
+-   No mesmo terminal, execute o seguinte comando:
+
+```bash
+python gerar_convites/gerar_convites.py
+```
+
+-   O script irá ler cada nome, criar um convite em PDF com um QR Code exclusivo e salvá-lo na pasta `convites/`. Acompanhe o progresso no terminal!
+
+Pronto! Seus convites em PDF estão gerados e prontos para serem enviados.
+
+---
 
 ## 📁 Estrutura do Projeto
 
 ```
-ConviteCasamento/
-├── index.html              # Painel principal de gerenciamento
-├── invite.html             # Página dinâmica para convites (carrega de localStorage)
-├── css/
-│   └── style.css           # Estilos globais
-├── js/
-│   └── main.js             # Lógica frontend (adicionar/remover convidados)
-├── templates/
-│   └── convidado_template.html  # Template com placeholders para convites
-├── gifts/
-│   ├── lista_presentes.html  # Lista de presentes com confirmação
-│   └── dashboard.html     # Dashboard de confirmações
-└── README.md              # Este arquivo
+convite_casamento/
+├── 📄 index.html              # Painel de gerenciamento de convidados
+├── 💌 invite.html             # Página do convite online (dinâmico)
+├── 🎨 css/                     # Arquivos de estilo
+├── 💻 js/
+│   ├── main.js               # Lógica do painel de admin
+│   ├── invite.js             # Lógica do convite online
+│   └── config.js             # Configurações do Supabase
+├── 🤖 gerar_convites/
+│   ├── gerar_convites.py     # O SCRIPT PRINCIPAL de geração de PDFs
+│   ├── requirements.txt      # Dependências do Python
+│   ├── convidados.xlsx       # (Você precisa criar) Lista de convidados
+│   └── Convite_Template.pdf  # (Você precisa criar) Modelo do PDF
+├── 📂 convites/                 # Onde os PDFs gerados são salvos
+└── 📖 README.md                 # Este arquivo
 ```
 
-## 🚀 Como Executar
-
-1. **Requisitos**:
-   - Navegador web moderno (com suporte a localStorage).
-
-2. **Instalação**:
-   - Clone ou baixe o projeto.
-   - Abra `index.html` diretamente no navegador (funciona offline).
-
-3. **Acesso**:
-   - Painel principal: `index.html`
-   - Convites gerados: `invite.html?name=NomeDoConvidado`
-   - Lista de presentes: `gifts/lista_presentes.html`
-   - Dashboard: `gifts/dashboard.html`
-
-## 📖 Como Usar
-
-### 1. Gerenciar Convidados
-- Abra `index.html`.
-- Digite o nome do convidado e clique em "Adicionar Convidado".
-- O convite é gerado dinamicamente e armazenado no navegador.
-- Clique em "Ver Convite" para visualizar a página personalizada em `invite.html?name=NomeDoConvidado`.
-- Use "Excluir" para remover.
-
-### 2. Confirmação de Presentes
-- Convidados acessam sua página em `invite.html?name=NomeDoConvidado` e clicam em "Confirmar Convite".
-- São redirecionados para `gifts/lista_presentes.html`.
-- Selecione um presente e confirme (armazenado no localStorage).
-- Admin: Acesse `gifts/dashboard.html` para ver confirmações (atualiza a cada 5s).
-- Exclua entradas indesejadas no dashboard.
-
-### 3. Personalização
-- Edite `templates/convidado_template.html` para alterar o design dos convites (use placeholders como `{{NOME_CONVIDADO}}`).
-- Ajuste estilos em `css/style.css`.
-
-## 🛠️ Tecnologias
-
-- **Frontend**: HTML5, CSS3 (Gradientes, Flexbox), JavaScript (localStorage, Canvas para desenhos).
-- **Armazenamento**: localStorage (persistência no navegador).
-- **Servidor**: Nenhum necessário (funciona offline).
-
-## 📝 Notas
-
-- **Persistência**: Dados são armazenados no localStorage do navegador. Limpe o cache para resetar.
-- **Segurança**: Para produção, adicione validação/sanitização extra e considere um backend real.
-- **Melhorias Sugeridas**: Autenticação para o painel, envio de e-mails com links, integração com WhatsApp.
-
-Obrigado por usar nosso sistema! Se precisar de ajuda, entre em contato. 💕
-
-*Desenvolvido com ❤️ para o casamento de Marcos & Evellyn*
+<p align="center">
+  <em>Desenvolvido com ❤️ para o casamento de Evellyn & Guilherme</em>
+</p>
