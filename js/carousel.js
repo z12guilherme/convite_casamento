@@ -20,25 +20,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pages.forEach((page, index) => {
         page.style.zIndex = totalPages - index;
+        // append page number
+        const numberEl = document.createElement('span');
+        numberEl.className = 'page-number';
+        numberEl.setAttribute('aria-hidden', 'true');
+        numberEl.innerText = `${index + 1}/${totalPages}`;
+        page.querySelector('.content').appendChild(numberEl);
     });
 
     const turnPage = (direction) => {
         if (direction === 'next') {
             if (currentPage >= totalPages) return;
+            // small book ripple effect
+            book.classList.add('turning');
             pages[currentPage].classList.add('flipped');
             pages[currentPage].style.zIndex = totalPages + currentPage;
             currentPage++;
+            setTimeout(() => book.classList.remove('turning'), 800);
         } else if (direction === 'prev') {
             if (currentPage <= 0) return;
             currentPage--;
+            book.classList.add('turning');
             pages[currentPage].classList.remove('flipped');
             // Timeout to allow flip back animation to complete before resetting z-index
             setTimeout(() => {
                 pages[currentPage].style.zIndex = totalPages - currentPage;
-            }, 500);
+                book.classList.remove('turning');
+            }, 800);
         }
         updateControls();
     };
+
+    // keyboard support
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') turnPage('next');
+        if (e.key === 'ArrowLeft') turnPage('prev');
+    });
+
+    // touch support
+    let touchStartX = 0;
+    document.querySelector('.book-container').addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+    }, {passive:true});
+    document.querySelector('.book-container').addEventListener('touchend', (e) => {
+        const diff = e.changedTouches[0].clientX - touchStartX;
+        if (diff < -40) turnPage('next');
+        if (diff > 40) turnPage('prev');
+    });
 
     nextBtn.addEventListener('click', () => turnPage('next'));
     prevBtn.addEventListener('click', () => turnPage('prev'));

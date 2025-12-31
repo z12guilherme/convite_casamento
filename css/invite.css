@@ -1,15 +1,16 @@
 :root {
     --c-primary: #54a0a0;
     --c-secondary: #3d7a7a;
-    --c-background: #f0f8f8;
-    --c-accent: #03bb85;
+    --c-background: #e0f2f1;
+    --c-accent: #fde4d8;
     --c-text-dark: #333;
     --c-text-light: #666;
-    --c-light-aqua: #b2dfdb;
+    --c-light-aqua: #a0d8d3;
     --c-dark-aqua: #2e5c5c;
     --c-gradient-start: #e0f2f1;
-    --c-gradient-end: #b2dfdb;
-    --c-gold: #d4af37; /* True Gold para elegância */
+    --c-gradient-end: #a0d8d3;
+    --c-rose: #f8d7da; /* Rosa suave para romantismo */
+    --c-lavender: #e0c3fc; /* Lavanda para delicadeza */
     --font-title: 'Loved by the King', cursive;
     --font-serif: 'Lato', sans-serif;
     --font-sans: 'Lato', sans-serif;
@@ -19,11 +20,17 @@
 body {
     margin: 0;
     font-family: var(--font-serif);
-    background: radial-gradient(circle at top left, #fdfbf7, var(--c-gradient-start), var(--c-gradient-end));
+    background: linear-gradient(135deg, var(--c-gradient-start) 0%, var(--c-gradient-end) 50%, var(--c-lavender) 100%);
     background-attachment: fixed;
     color: var(--c-text-dark);
-    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
+    animation: backgroundShift 10s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
 
 body::before {
@@ -38,6 +45,161 @@ body::before {
     z-index: -1;
 }
 
+/* Elementos flutuantes de decoração */
+.floating-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.heart {
+    position: absolute;
+    color: var(--c-rose);
+    font-size: 2rem;
+    animation: floatAndGlow 8s ease-in-out infinite;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 5px var(--c-primary));
+}
+
+.heart:nth-child(odd) {
+    animation-delay: -2s;
+    color: var(--c-primary);
+}
+
+.heart:nth-child(even) {
+    animation-delay: -4s;
+    color: var(--c-accent);
+}
+
+.heart:nth-child(3n) {
+    animation-delay: -6s;
+    color: var(--c-rose);
+}
+
+@keyframes floatAndGlow {
+    0%, 100% {
+        transform: translateY(100vh) rotate(0deg) scale(1);
+        opacity: 0.7;
+        filter: drop-shadow(0 0 5px var(--c-primary));
+    }
+    25% {
+        transform: translateY(75vh) rotate(90deg) scale(1.2);
+        opacity: 1;
+        filter: drop-shadow(0 0 10px var(--c-primary));
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) scale(0.8);
+        opacity: 0.8;
+        filter: drop-shadow(0 0 5px var(--c-primary));
+    }
+    75% {
+        transform: translateY(25vh) rotate(270deg) scale(1.1);
+        opacity: 0.9;
+        filter: drop-shadow(0 0 8px var(--c-primary));
+    }
+}
+
+/* Confetti effect */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--c-accent);
+    animation: fallAndTwirl 5s linear infinite;
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--c-primary);
+}
+
+.confetti:nth-child(2n) {
+    background-color: var(--c-primary);
+}
+
+.confetti:nth-child(3n) {
+    background-color: var(--c-rose);
+}
+
+.confetti:nth-child(4n) {
+    background-color: var(--c-accent);
+}
+
+@keyframes fallAndTwirl {
+    0% {
+        transform: translateY(-100vh) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) scale(1.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Animações adicionais */
+@keyframes slideInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px var(--c-primary); }
+    50% { box-shadow: 0 0 20px var(--c-primary), 0 0 30px var(--c-primary); }
+}
+
+/* Scroll reveal states */
+.section { opacity: 0; transform: translateY(20px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.section.in-view { opacity: 1; transform: translateY(0); }
+
+/* Celebration style for RSVP */
+#rsvp-message.celebrate h3 { animation: popIn 0.8s ease; color: var(--c-accent); }
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0 } 60% { transform: scale(1.08); opacity: 1 } 100% { transform: scale(1); } }
+
+/* Album controls */
+.navigation-controls { display:flex; justify-content:center; gap:1rem; align-items:center; margin-top:20px; }
+.navigation-controls .btn { min-width:140px; }
+.navigation-controls .btn:focus { outline: 3px solid rgba(84,160,160,0.2); outline-offset: 3px; }
+.navigation-controls .btn[disabled] { transform:none; opacity:0.6; cursor:not-allowed; }
+
+
 .section {
     width: 100%;
     min-height: 90vh;
@@ -49,18 +211,62 @@ body::before {
     box-sizing: border-box;
     position: relative;
     text-align: center;
+    animation: slideInUp 1s ease-out, fadeInScale 1.5s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 700px) {
+    .couple-names-highlight { font-size: 3rem; }
+    #invite-main-section .invite-container { padding: 2rem; border-radius: 20px; }
+    .convite { padding: 24px; }
+    .book-container { height: 80vw; }
+    .btn { min-width: 120px; padding: 0.9rem 1.2rem; }
 }
 
 /* --- Convite Principal --- */
 #invite-main-section .invite-container {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px) saturate(180%);
-    border-radius: 30px;
-    padding: 4rem 3rem;
-    max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(25px) saturate(180%);
+    border-radius: 40px;
+    padding: 5rem 4rem;
+    max-width: 900px;
     width: 100%;
-    box-shadow: 0 20px 50px rgba(46, 92, 92, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 25px 60px rgba(73, 204, 187, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(217, 196, 169, 0.4);
+    position: relative;
+    overflow: hidden;
+    animation: bounceIn 1.2s ease-out 0.5s both;
+}
+
+#invite-main-section .invite-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(73, 204, 187, 0.15) 0%, transparent 70%);
+    animation: rotate 25s linear infinite;
+    z-index: -1;
+}
+
+#invite-main-section .invite-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--c-primary), var(--c-accent), var(--c-rose));
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .bible-verse {
@@ -79,25 +285,34 @@ body::before {
     font-style: italic;
     font-size: 1.1rem;
     margin-top: 1rem;
-    color: var(--c-gold);
+    color: var(--c-primary);
     font-weight: 600;
 }
 
+.couple-decor { margin-bottom: 8px; }
 .couple-names-highlight {
     font-family: var(--font-title);
-    font-size: 5rem;
+    font-size: 6rem;
     color: var(--c-primary);
     margin: 0.5rem 0 1.5rem 0;
-    background: -webkit-linear-gradient(45deg, var(--c-dark-aqua), var(--c-primary));
+    background: linear-gradient(45deg, var(--c-dark-aqua), var(--c-primary), var(--c-accent), var(--c-rose));
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+    background-clip: text;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    animation: gradientShift 4s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
 .couple-names-highlight .ampersand-style {
     font-family: var(--font-serif);
     font-weight: 400;
-    color: var(--c-gold);
+    color: var(--c-accent);
     font-size: 0.6em;
     vertical-align: middle;
 }
@@ -116,21 +331,24 @@ body::before {
 
 /* --- Contagem Regressiva (Integrada) --- */
 #countdown-container {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-top: 3rem;
+    padding: 2rem;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    animation: fadeInScale 1s ease-out 1s both;
 }
 
 #countdown-container h2 {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 400;
     color: var(--c-secondary);
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 2rem 0;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #countdown {
@@ -140,17 +358,48 @@ body::before {
 }
 
 .time-unit {
-    background: transparent;
-    padding: 1rem 0.5rem;
-    border-radius: 15px;
-    transition: transform 0.3s ease;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+    padding: 1.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(217, 196, 169, 0.4);
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.time-unit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s;
+}
+
+.time-unit:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(73, 204, 187, 0.4);
+}
+
+.time-unit:hover::before {
+    left: 100%;
 }
 
 .time-unit .number {
     font-family: var(--font-serif);
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: var(--c-dark-aqua);
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--c-primary);
+    animation: pulse-number 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@keyframes pulse-number {
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.1); filter: brightness(1.2); }
 }
 
 .time-unit .label {
@@ -193,14 +442,20 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--c-background);
+    background: linear-gradient(135deg, var(--c-background) 0%, var(--c-lavender) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 100;
     cursor: pointer;
-    transition: opacity 1.2s ease-out 3s;
+    transition: all 1.5s ease-out;
     perspective: 1500px;
+    animation: envelopeGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes envelopeGlow {
+    0% { box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.1); }
+    100% { box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.3), 0 0 50px var(--c-primary); }
 }
 
 #intro-video {
@@ -216,10 +471,10 @@ body::before {
 }
 
 #start-btn {
-    background-color: transparent;
+    background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
     border: none;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -229,15 +484,24 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    animation: pulse 2s infinite;
+    animation: pulse 3s infinite, glow 2s ease-in-out infinite alternate;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(84, 160, 160, 0.5);
+    transition: all 0.3s ease;
+}
+
+#start-btn:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 15px 40px rgba(84, 160, 160, 0.7);
 }
 
 .heart-icon {
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     fill: var(--c-accent);
-    transition: transform 0.3s ease;
+    transition: all 0.4s ease;
+    filter: drop-shadow(0 0 10px var(--c-primary));
 }
 
 .button-text {
@@ -245,14 +509,16 @@ body::before {
     z-index: 1;
     color: white;
     font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 0.8rem;
+    font-weight: 700;
+    font-size: 0.9rem;
     text-align: center;
     pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 #start-btn:hover .heart-icon {
-    transform: scale(1.1);
+    transform: scale(1.2) rotate(10deg);
+    filter: drop-shadow(0 0 20px var(--c-primary));
 }
 
 @keyframes pulse {
@@ -268,15 +534,30 @@ body::before {
 }
 
 .convite {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px) saturate(150%);
-    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(25px) saturate(150%);
+    border-radius: 40px;
     width: 100%;
-    max-width: 550px;
-    padding: 40px;
+    max-width: 600px;
+    padding: 50px;
     box-sizing: border-box;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    animation: slideInUp 1s ease-out, fadeInScale 1.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.convite::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--c-primary), var(--c-accent), var(--c-rose));
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
 }
 
 .convite .chamada {
@@ -287,9 +568,15 @@ body::before {
 
 .convite .nomes {
     font-family: 'Loved by the King', cursive;
-    font-size: 3.5em;
+    font-size: 4rem;
     color: var(--c-dark-aqua);
-    margin: 15px 0;
+    margin: 20px 0;
+    background: linear-gradient(45deg, var(--c-primary), var(--c-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 5s ease-in-out infinite;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .convite .data-hora {
@@ -360,28 +647,44 @@ body::before {
 }
 
 .btn {
-    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-secondary) 100%);
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-secondary) 50%, var(--c-accent) 100%);
     color: white;
     border: none;
-    padding: 1rem 1.5rem;
+    padding: 1.2rem 2rem;
     border-radius: 50px;
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.8rem;
-    box-shadow: 0 4px 15px rgba(84, 160, 160, 0.4);
+    font-size: 0.9rem;
+    box-shadow: 0 6px 20px rgba(84, 160, 160, 0.4);
     position: relative;
     overflow: hidden;
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
 }
 
 .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(84, 160, 160, 0.5);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(84, 160, 160, 0.6);
     filter: brightness(1.1);
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn.btn-secondary {

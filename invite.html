@@ -60,17 +60,19 @@
             position: absolute;
             width: 10px;
             height: 10px;
-            background-color: #f0ad4e; /* Amarelo */
-            opacity: 0.7;
+            background-color: var(--c-accent);
+            opacity: 0.85;
             animation: fall 5s linear infinite;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(0,0,0,0.08);
         }
 
         .confetti:nth-child(2n) {
-            background-color: #54a0a0; /* Verde-azulado */
+            background-color: var(--c-primary);
         }
 
         .confetti:nth-child(3n) {
-            background-color: #ff6b6b; /* Vermelho-claro */
+            background-color: var(--c-rose);
         }
 
         @keyframes fall {
@@ -109,44 +111,56 @@
         <source src="video/video_introducao_sem_audio.mp4" type="video/mp4">
         Seu navegador não suporta vídeos.
     </video>
-    <button id="start-btn" class="btn">
+    <button id="start-btn" class="btn" aria-label="Abrir convite" title="Abrir convite">
         <!-- Coração em SVG para um formato perfeito -->
-        <svg class="heart-icon" viewBox="0 0 24 24">
+        <svg class="heart-icon" viewBox="0 0 24 24" role="img" aria-hidden="true">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
         <span class="button-text">Clique aqui</span>
     </button>
+    <button id="skip-intro" class="btn" style="position: absolute; bottom: 6%; left: 2%; background: rgba(255,255,255,0.85); color: var(--c-primary);" aria-label="Pular introdução" title="Pular introdução">Pular</button>
 
 </div>
 <main id="main-content" style="display: none;">
+    <div class="floating-hearts">
+        <div class="heart">❤️</div>
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💘</div>
+        <div class="heart">💓</div>
+    </div>
     <!-- Seção Principal: Convite Unificado -->
-    <section id="invite-main-section" class="section">
+    <section id="invite-main-section" class="section" role="region" aria-label="Convite principal">
         <div class="invite-container">
             <div class="bible-verse">
                 <p id="typing-verse"></p>
                 <p class="reference" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</p>
             </div>
 
+            <div class="couple-decor">
+                <!-- Simple decorative leaf SVG to match the aquamarine theme -->
+                <svg width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M2 24C22 4 38 4 58 6C78 8 94 24 118 26" stroke="#54a0a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+                </svg>
+            </div>
             <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
             <p class="invitation-text" id="invitation-text"></p>
 
             <!-- Contagem Regressiva -->
             <div id="countdown-container">
                 <h2>Contagem Regressiva</h2>
-                <div id="countdown">
-                    <div class="time-unit"><div id="days" class="number">00</div><div class="label">Dias</div></div>
-                    <div class="time-unit"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
-                    <div class="time-unit"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
-                    <div class="time-unit"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
-                </div>
-            </div>
+                <div id="countdown" aria-live="polite" aria-atomic="true">
+                    <div class="time-unit" role="group" aria-label="dias"><div id="days" class="number">00</div><div class="label">Dias</div></div>
+                    <div class="time-unit" role="group" aria-label="horas"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
+                    <div class="time-unit" role="group" aria-label="minutos"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
+                    <div class="time-unit" role="group" aria-label="segundos"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
 
             <!-- Carrossel de Fotos (Livro) -->
             <div id="photo-carousel-section">
                 <h2>Nossos Momentos</h2>
-                <div class="book-container">
-                    <div class="book" id="book">
-                        <div class="left-side">
+                <div class="book-container" role="region" aria-label="Álbum de fotos">
+                    <div class="book" id="book" role="application" aria-roledescription="book">
+                        <div class="left-side" aria-hidden="true">
                             <div class="cover-back"></div>
                         </div>
                         <div class="right-side">
@@ -203,8 +217,8 @@
                     </div>
                 </div>
                 <div class="navigation-controls" style="text-align: center; margin-top: 20px;">
-                    <button id="prev-page-btn" class="btn">Anterior</button>
-                    <button id="next-page-btn" class="btn">Próxima</button>
+                    <button id="prev-page-btn" class="btn" type="button" aria-label="Página anterior" aria-controls="book">Anterior</button>
+                    <button id="next-page-btn" class="btn" type="button" aria-label="Próxima página" aria-controls="book">Próxima</button>
                 </div>
             </div>
         </div>

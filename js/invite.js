@@ -49,11 +49,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return;
       }
-      document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-      document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-      document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-      document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = days.toString().padStart(2, '0');
+      document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+
+      // Adicionar efeito de confete quando o countdown chega a zero em alguma unidade
+      if (seconds === 0) {
+        createConfetti();
+      }
     }, 1000);
+  }
+
+  function createConfetti() {
+    const confettiContainer = document.createElement('div');
+    confettiContainer.className = 'confetti-container';
+    document.body.appendChild(confettiContainer);
+
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.animationDelay = Math.random() * 5 + 's';
+      confettiContainer.appendChild(confetti);
+    }
+
+    setTimeout(() => {
+      document.body.removeChild(confettiContainer);
+    }, 5000);
   }
 
   function initApp() {
@@ -85,6 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function typewriterEffect(element, text, callback) {
     let i = 0;
     element.innerHTML = ""; // Limpa o elemento
+    element.setAttribute('aria-live', 'polite');
     const speed = 70; // Velocidade da digitação em milissegundos
 
     function type() {
@@ -101,6 +130,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
     type();
+  }
+
+  // Scroll reveal: adiciona classe 'in-view' quando seção entra no viewport
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
+
+    // posiciona corações flutuantes dinamicamente
+    const hearts = document.querySelectorAll('.floating-hearts .heart');
+    hearts.forEach((heart, i) => {
+      heart.style.left = (10 + i * 12) % 90 + '%';
+      heart.style.top = (10 + (i * 17) % 80) + '%';
+      heart.style.fontSize = (1.6 + (i % 3) * 0.6) + 'rem';
+    });
   }
   const envelopeScreen = document.getElementById('envelope-screen');
   const mainContent = document.getElementById('main-content');
@@ -130,6 +180,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         verseElement.classList.remove('typing'); // Remove a classe que pode ter o cursor
         if(referenceElement) referenceElement.style.opacity = '1';
       });
+
+      // Adicionar animações de scroll
+      initScrollAnimations();
     } catch (error) {
       console.error('Erro ao inicializar o aplicativo:', error);
     }
@@ -164,6 +217,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (musicBtn) musicBtn.innerHTML = '⏸️';
     }
   });
+
+  const skipIntroBtn = document.getElementById('skip-intro');
+  if (skipIntroBtn) {
+    skipIntroBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showMainContent();
+    });
+  }
 
   // Quando o vídeo terminar, mostra o conteúdo principal
   introVideo.addEventListener('ended', () => {
@@ -227,6 +288,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
           giftListLink.style.display = 'none'; // Esconde o link se recusado
         }
+      }
+
+      // triggers confetti and subtle celebration animation when confirmed
+      if (status === 'Confirmado') {
+        createConfetti();
+        if (rsvpMessageDiv) rsvpMessageDiv.classList.add('celebrate');
+        setTimeout(() => rsvpMessageDiv.classList.remove('celebrate'), 4000);
       }
     }
   }
