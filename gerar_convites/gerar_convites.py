@@ -3,52 +3,84 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.colors import HexColor
+from reportlab.lib.utils import ImageReader
 from openpyxl import load_workbook
 from PyPDF2 import PdfReader, PdfWriter
 import io
 import os
+import qrcode
+from urllib.parse import quote
+
+# =================================================================================
+# ⚙️ CONFIGURAÇÕES
+# =================================================================================
+# ❗️❗️❗️ IMPORTANTE: Verifique se esta é a URL base correta do seu site!
+URL_BASE_DO_SITE = "https://casamento-evellyn-e-guilherme.netlify.app"
+# =================================================================================
 
 os.makedirs("convites", exist_ok=True)
 
-# 🔹 Registrar a fonte Byriani
+# 🔹 Registrar fontes
 pdfmetrics.registerFont(TTFont("Byriani", "byrani.ttf"))
+pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf')) # Fonte padrão para o texto do QR Code
 
-# Excel
+# Carregar planilha do Excel
 wb = load_workbook("convidados.xlsx")
 sheet = wb.active
 
-# Obter dimensões reais do template para garantir centralização correta
+# Obter dimensões do template
 reader_temp = PdfReader("Convite_Template.pdf")
 largura, altura = float(reader_temp.pages[0].mediabox.width), float(reader_temp.pages[0].mediabox.height)
+
+print("🚀 Iniciando a geração dos convites com QR Code personalizado...")
 
 for linha in sheet.iter_rows(min_row=2, values_only=True):
     nome = linha[0]
     if not nome:
         continue
 
+    print(f"  -> Gerando para: {nome}")
+
+    # --- Gera um QR Code personalizado para cada convidado ---
+    url_personalizada = f"{URL_BASE_DO_SITE}/invite.html?name={quote(nome)}"
+    qr_img = qrcode.make(url_personalizada)
+    
+    qr_img_bytes = io.BytesIO()
+    qr_img.save(qr_img_bytes, format='PNG')
+    qr_img_bytes.seek(0)
+    qr_code_para_pdf = ImageReader(qr_img_bytes)
+    # ----------------------------------------------------
+
     packet = io.BytesIO()
     c = canvas.Canvas(packet, pagesize=(largura, altura))
 
     # 🔴 Nome com a fonte Byriani
-    # ajuste automático para nomes longos
     if len(nome) <= 15:
-        tamanho = 20 # 📏 Tamanho para nomes curtos (aumente ou diminua aqui)
+        tamanho = 20
     elif len(nome) <= 22:
-        tamanho = 18 # 📏 Tamanho para nomes médios
+        tamanho = 18
     else:
-        tamanho = 14 # 📏 Tamanho para nomes muito longos
+        tamanho = 14
 
     c.setFont("Byriani", tamanho)
-    c.setFillColor(HexColor("#54a0a0")) # 🎨 Cor da fonte (Ex: #000000 = Preto, #D4AF37 = Dourado)
-    posicao_y = 210 # Ajuste este valor para subir ou descer o nome
-    c.drawCentredString(
-        largura / 2, posicao_y,  nome  # ajuste fino vertical (mude até alinhar com o {NOME} 
-       )
+    c.setFillColor(HexColor("#54a0a0"))
+    posicao_y_nome = 210
+    c.drawCentredString(largura / 2, posicao_y_nome, nome)
 
+    # 🔳 Adiciona o QR Code e o texto
+    qr_size = 80
+    left_margin = 20  # Margem da esquerda para o alinhamento
+    posicao_y_qr = 10
+    
+    c.setFont("Vera", 9)
+    c.setFillColor(HexColor("#333333"))
+    # Desenha o QR Code na posição esquerda
+    c.drawImage(qr_code_para_pdf, left_margin, posicao_y_qr, width=qr_size, height=qr_size, mask='auto')
+    
     c.save()
     packet.seek(0)
 
-    # Carregar o template a cada iteração para evitar sobreposição de nomes
+    # Mistura o conteúdo gerado com o template PDF
     template = PdfReader("Convite_Template.pdf")
     pagina_base = template.pages[0]
 
@@ -58,5 +90,9 @@ for linha in sheet.iter_rows(min_row=2, values_only=True):
     writer = PdfWriter()
     writer.add_page(pagina_base)
 
-    with open(f"convites/convite_{nome.replace(' ', '_')}.pdf", "wb") as f:
+    # Salva o arquivo final
+    nome_arquivo = "".join(c for c in nome if c.isalnum() or c in (' ',)).rstrip()
+    with open(f"convites/convite_{nome_arquivo.replace(' ', '_')}.pdf", "wb") as f:
         writer.write(f)
+
+print("\n✅ Convites gerados com sucesso na pasta 'convites'!")
