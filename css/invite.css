@@ -7,6 +7,7 @@
     --c-text-light: #6a7a79;
     --c-gold: #d4af6f;
     --c-rose: #e8c4d0;
+    --c-rose-dark: #c1547a;
     --c-cream: #f5f1ed;
     --font-title: 'Playfair Display', serif;
     --font-serif: 'Lato', sans-serif;
@@ -242,6 +243,8 @@ body::before {
     position: relative;
     overflow: visible;
     animation: fadeInScale 1.2s ease-out;
+    border-left: 3px solid rgba(193, 84, 122, 0.15);
+    border-right: 3px solid rgba(193, 84, 122, 0.15);
 }
 
 #invite-main-section .invite-container::before {
@@ -267,6 +270,24 @@ body::before {
     height: 1px;
     background: linear-gradient(90deg, transparent 0%, rgba(74, 139, 129, 0.15) 50%, transparent 100%);
     z-index: 5;
+}
+
+/* --- Bênção Religiosa --- */
+.blessing-section {
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInScale 1s ease-out forwards;
+    position: relative;
+}
+
+.blessing-text {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--c-primary);
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0;
+    font-style: italic;
 }
 
 .bible-verse {
@@ -295,12 +316,13 @@ body::before {
 }
 
 .couple-decor { 
-    margin-bottom: 1rem;
-    height: 40px;
+    margin-bottom: 1.5rem;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     animation: fadeInScale 1s ease-out;
+    position: relative;
 }
 .couple-names-highlight {
     font-family: var(--font-title);
@@ -644,6 +666,13 @@ body::before {
     font-weight: 400;
     letter-spacing: 0.5px;
     margin-top: 2rem;
+}
+
+.rose-divider {
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+    opacity: 0.7;
+    animation: fadeInScale 1.2s ease-out 0.3s both;
 }
 
 .convite .nomes {

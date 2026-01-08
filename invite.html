@@ -125,33 +125,45 @@
     <div class="floating-hearts">
         <div class="heart">💍</div>
         <div class="heart">🌹</div>
+        <div class="heart">✝️</div>
         <div class="heart">🕯️</div>
-        <div class="heart">💍</div>
         <div class="heart">🌹</div>
     </div>
     <!-- Seção Principal: Convite Unificado -->
     <section id="invite-main-section" class="section" role="region" aria-label="Convite principal">
         <div class="invite-container">
+            <div class="blessing-section">
+                <p class="blessing-text">✝️ Abençoados em nome do Pai, do Filho e do Espírito Santo ✝️</p>
+            </div>
+
             <div class="bible-verse">
                 <p id="typing-verse"></p>
                 <p class="reference" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</p>
             </div>
 
             <div class="couple-decor">
-                <!-- Floral wreath decoration -->
-                <svg width="140" height="50" viewBox="0 0 140 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- Left flowers -->
-                    <circle cx="20" cy="25" r="6" fill="#4a8b81" opacity="0.35"/>
-                    <path d="M20 19 Q23 12 28 15" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
-                    <path d="M14 25 Q8 28 10 35" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
+                <!-- Floral wreath with roses and Catholic elements -->
+                <svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <!-- Left Catholic symbol (Cross) -->
+                    <line x1="20" y1="10" x2="20" y2="40" stroke="#4a8b81" stroke-width="2" opacity="0.4"/>
+                    <line x1="10" y1="20" x2="30" y2="20" stroke="#4a8b81" stroke-width="2" opacity="0.4"/>
+                    <!-- Left roses -->
+                    <circle cx="15" cy="50" r="4" fill="#c1547a" opacity="0.5"/>
+                    <path d="M15 46 Q18 42 22 45" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.4"/>
                     
-                    <!-- Center flourish -->
-                    <path d="M 40 25 Q 70 5 100 25 Q 70 45 40 25" fill="none" stroke="#4a8b81" stroke-width="1.5" opacity="0.25"/>
+                    <!-- Center flourish with roses -->
+                    <path d="M 50 30 Q 90 10 130 30 Q 90 50 50 30" fill="none" stroke="#4a8b81" stroke-width="1.5" opacity="0.3"/>
+                    <!-- Rose buds along center -->
+                    <circle cx="70" cy="18" r="3" fill="#c1547a" opacity="0.6"/>
+                    <circle cx="90" cy="12" r="3.5" fill="#c1547a" opacity="0.7"/>
+                    <circle cx="110" cy="18" r="3" fill="#c1547a" opacity="0.6"/>
                     
-                    <!-- Right flowers -->
-                    <circle cx="120" cy="25" r="6" fill="#4a8b81" opacity="0.35"/>
-                    <path d="M120 19 Q117 12 112 15" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
-                    <path d="M126 25 Q132 28 130 35" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
+                    <!-- Right Catholic symbol (Sacred heart with cross) -->
+                    <path d="M 155 15 Q 155 10 160 10 Q 165 10 165 15 Q 165 20 160 25 Q 155 20 155 15 Z" fill="none" stroke="#c1547a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="160" y1="12" x2="160" y2="22" stroke="#c1547a" stroke-width="1" opacity="0.4"/>
+                    <!-- Right roses -->
+                    <circle cx="165" cy="50" r="4" fill="#c1547a" opacity="0.5"/>
+                    <path d="M165 46 Q162 42 158 45" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.4"/>
                 </svg>
             </div>
             <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
@@ -241,6 +253,8 @@
     <section id="location-section" class="section">
         <div class="convite">
             <p class="chamada">Você está convidado para o nosso casamento!</p>
+            
+            <div class="rose-divider">🌹</div>
 
             <div class="nomes" id="card-guest-name"></div>
 
