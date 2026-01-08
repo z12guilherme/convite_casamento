@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosso Casamento - Evellyn & Guilherme</title> 
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Loved+by+the+King&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600&family=Playfair+Display:wght@300;400;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
@@ -118,16 +118,16 @@
         </svg>
         <span class="button-text">Clique aqui</span>
     </button>
-    <button id="skip-intro" class="btn" style="position: absolute; bottom: 6%; left: 2%; background: rgba(255,255,255,0.85); color: var(--c-primary);" aria-label="Pular introdução" title="Pular introdução">Pular</button>
+    <button id="skip-intro" class="btn" style="position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.85); color: var(--c-primary); font-size: 0.75rem;" aria-label="Pular introdução" title="Pular introdução">Pular Introdução</button>
 
 </div>
 <main id="main-content" style="display: none;">
     <div class="floating-hearts">
-        <div class="heart">❤️</div>
-        <div class="heart">💕</div>
-        <div class="heart">💖</div>
-        <div class="heart">💘</div>
-        <div class="heart">💓</div>
+        <div class="heart">💍</div>
+        <div class="heart">🌹</div>
+        <div class="heart">🕯️</div>
+        <div class="heart">💍</div>
+        <div class="heart">🌹</div>
     </div>
     <!-- Seção Principal: Convite Unificado -->
     <section id="invite-main-section" class="section" role="region" aria-label="Convite principal">
@@ -138,9 +138,20 @@
             </div>
 
             <div class="couple-decor">
-                <!-- Simple decorative leaf SVG to match the aquamarine theme -->
-                <svg width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M2 24C22 4 38 4 58 6C78 8 94 24 118 26" stroke="#54a0a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+                <!-- Floral wreath decoration -->
+                <svg width="140" height="50" viewBox="0 0 140 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <!-- Left flowers -->
+                    <circle cx="20" cy="25" r="6" fill="#4a8b81" opacity="0.35"/>
+                    <path d="M20 19 Q23 12 28 15" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
+                    <path d="M14 25 Q8 28 10 35" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
+                    
+                    <!-- Center flourish -->
+                    <path d="M 40 25 Q 70 5 100 25 Q 70 45 40 25" fill="none" stroke="#4a8b81" stroke-width="1.5" opacity="0.25"/>
+                    
+                    <!-- Right flowers -->
+                    <circle cx="120" cy="25" r="6" fill="#4a8b81" opacity="0.35"/>
+                    <path d="M120 19 Q117 12 112 15" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
+                    <path d="M126 25 Q132 28 130 35" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.3"/>
                 </svg>
             </div>
             <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
@@ -154,6 +165,8 @@
                     <div class="time-unit" role="group" aria-label="horas"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
                     <div class="time-unit" role="group" aria-label="minutos"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
                     <div class="time-unit" role="group" aria-label="segundos"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
+                </div>
+            </div>
 
             <!-- Carrossel de Fotos (Livro) -->
             <div id="photo-carousel-section">

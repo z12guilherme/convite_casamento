@@ -30,25 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const turnPage = (direction) => {
         if (direction === 'next') {
-            if (currentPage >= totalPages) return;
-            // small book ripple effect
-            book.classList.add('turning');
+            if (currentPage >= totalPages - 1) return;
             pages[currentPage].classList.add('flipped');
-            pages[currentPage].style.zIndex = totalPages + currentPage;
             currentPage++;
-            setTimeout(() => book.classList.remove('turning'), 800);
+            updateControls();
         } else if (direction === 'prev') {
             if (currentPage <= 0) return;
             currentPage--;
-            book.classList.add('turning');
             pages[currentPage].classList.remove('flipped');
-            // Timeout to allow flip back animation to complete before resetting z-index
-            setTimeout(() => {
-                pages[currentPage].style.zIndex = totalPages - currentPage;
-                book.classList.remove('turning');
-            }, 800);
+            updateControls();
         }
-        updateControls();
     };
 
     // keyboard support
