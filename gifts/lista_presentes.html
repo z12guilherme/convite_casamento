@@ -3,208 +3,155 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lista de Presentes - Marcos & Evellyn</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="lista_presentes.css">
-<style>
-  :root {
-    --background-color: #1a1a2e; /* Tom escuro do convite */
-    --text-color: #f0fafa;
-    --primary-color: #00BCA1; /* Verde-água vibrante */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Lato', sans-serif;
-    --font-script: 'Dancing Script', cursive;
-  }
+<title>Lista de Presentes - Evellyn & Guilherme</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600&family=Playfair+Display:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/invite.css">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<style>
   body {
-    margin: 0;
-    padding: 40px 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: var(--font-body);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
   }
 
   h1 {
-    font-family: var(--font-script);
-    color: var(--primary-color);
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-    text-align: center;
+      font-family: var(--font-title);
+      color: var(--c-primary);
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      margin-top: 2rem;
   }
 
   #guest-greeting {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: var(--text-color);
-    text-align: center;
+      font-family: var(--font-serif);
+      color: var(--c-text-light);
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
   }
 
-  .gifts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 900px;
+  #gifts-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      padding: 1rem;
   }
 
   .gift-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(64, 224, 208, 0.3);
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(74, 139, 129, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(74, 139, 129, 0.15);
   }
 
   .gift-card:hover {
-    transform: translateY(-5px);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(74, 139, 129, 0.2);
   }
 
   .gift-image {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(74, 139, 129, 0.1);
   }
 
   .gift-name {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 10px;
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      color: var(--c-text-dark);
+      padding: 1.5rem 1rem;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
   }
-
+  
   .gift-name a {
-    text-decoration: none;
-    color: var(--primary-color);
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
   }
-
+  
   .gift-name a:hover {
-    text-decoration: underline;
+      color: var(--c-primary);
   }
 
   .confirm-btn {
-    border: 1px solid var(--primary-color);
-    background: transparent;
-    color: var(--primary-color);
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+      width: 100%;
+      border-radius: 0;
+      margin: 0;
+      padding: 1.2rem;
   }
-
-  .confirm-btn:hover:not(:disabled) {
-    background: var(--primary-color);
-    color: var(--background-color);
-  }
-
+  
   .confirm-btn:disabled {
-    opacity: 0.6;
-    cursor: default;
+      background: #ccc;
+      cursor: not-allowed;
+      box-shadow: none;
   }
 
   #confirmation-message {
-    text-align: center;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-top: 3rem;
-    display: none;
+      display: none;
+      background: rgba(74, 139, 129, 0.1);
+      color: var(--c-primary);
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      margin: 2rem 0;
+      font-family: var(--font-sans);
+      font-weight: bold;
+      border: 1px solid var(--c-primary);
+      animation: fadeInScale 0.5s ease-out;
+  }
+
+  .back-link {
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+      color: var(--c-primary);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.3s;
+      font-size: 1.1rem;
+  }
+  
+  .back-link:hover {
+      opacity: 0.8;
   }
 </style>
-
-<link rel="stylesheet" href="lista_presentes.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <h1>Lista de Presentes</h1>
   <div id="guest-greeting"></div>
-  <div class="gifts-container" id="gifts-container"></div>
   <div id="confirmation-message"></div>
-
-<script src="../js/config.js"></script>
-<script>
-  const giftsContainer = document.getElementById('gifts-container');
-  const confirmationMessage = document.getElementById('confirmation-message');
-
-  async function loadGifts() {
-    const { data, error } = await supabase.from('gifts').select('*').order('name');
-    if (error) return console.error(error);
-
-    giftsContainer.innerHTML = '';
-    if (!data || data.length === 0) {
-      giftsContainer.textContent = 'Nenhum presente disponível.';
-      return;
-    }
-
-    const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
-    document.getElementById('guest-greeting').textContent = `Olá, ${guestName}! Escolha um presente para celebrar conosco 💝`;
-
-    data.forEach(gift => {
-      const card = document.createElement('div');
-      card.className = 'gift-card';
-
-      if (gift.image) {
-        const imgEl = document.createElement('img');
-        imgEl.className = 'gift-image';
-        imgEl.src = gift.image;
-        card.appendChild(imgEl);
-      }
-
-      const nameEl = document.createElement('div');
-      nameEl.className = 'gift-name';
-      const link = document.createElement('a');
-      link.href = gift.product_url || "#";
-      link.target = "_blank";
-      link.textContent = gift.name;
-      nameEl.appendChild(link);
-      card.appendChild(nameEl);
-
-      const btn = document.createElement('button');
-      btn.className = 'confirm-btn';
-      if (gift.taken_by) {
-        btn.textContent = 'Já escolhido';
-        btn.disabled = true;
-      } else {
-        btn.textContent = 'Confirmar Presente';
-        btn.onclick = async () => {
-          btn.disabled = true;
-          btn.textContent = 'Confirmando...';
-          const { error } = await supabase.from('gifts').update({
-            taken_by: guestName,
-            confirmed_at: new Date().toISOString()
-          }).eq('id', gift.id);
-          if (error) {
-            alert('Erro ao confirmar: ' + error.message);
-            btn.disabled = false;
-            btn.textContent = 'Confirmar Presente';
-          } else {
-            confirmationMessage.textContent = `Obrigado, ${guestName}! Seu presente foi confirmado 💝`;
-            confirmationMessage.style.display = 'block';
-            loadGifts();
-          }
-        };
-      }
-      card.appendChild(btn);
-      giftsContainer.appendChild(card);
-    });
-  }
-
-  supabase.channel('public:gifts')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, payload => loadGifts())
-    .subscribe();
-
-  window.addEventListener('DOMContentLoaded', loadGifts);
-</script>
+  <div class="gifts-container" id="gifts-container"></div>
+  
+  <a href="#" id="back-to-invite" class="back-link">← Voltar para o Convite</a>
 
 <script src="../js/gift-list.js"></script>
+<script>
+    // Configurar link de voltar
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('name');
+    const backLink = document.getElementById('back-to-invite');
+    if (guestName) {
+        backLink.href = `../invite.html?name=${encodeURIComponent(guestName)}`;
+    } else {
+        backLink.href = `../invite.html`;
+    }
+</script>
 </body>
 </html>

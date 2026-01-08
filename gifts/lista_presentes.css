@@ -1,112 +1,239 @@
 :root {
-    --background-color: #1a1a2e; /* Tom escuro do convite */
-    --text-color: #f0fafa;
-    --primary-color: #00BCA1; /* Verde-água vibrante */
+    --c-primary: #4a8b81;
+    --c-secondary: #3d6b66;
+    --c-background: #faf9f8;
+    --c-accent: #d9e8e5;
+    --c-text-dark: #2a3a39;
+    --c-text-light: #6a7a79;
+    --c-gold: #d4af6f;
+    --c-rose: #e8c4d0;
+    --c-cream: #f5f1ed;
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Lato', sans-serif;
     --font-script: 'Dancing Script', cursive;
-  }
+}
 
-  body {
+body {
     margin: 0;
     padding: 40px 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background: linear-gradient(180deg, var(--c-background) 0%, #f0ebe7 100%);
+    background-attachment: fixed;
+    color: var(--c-text-dark);
     font-family: var(--font-body);
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-  }
+    position: relative;
+}
 
-  h1 {
-    font-family: var(--font-script);
-    color: var(--primary-color);
+body::before {
+    content: '';
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    top: 5%;
+    right: -50px;
+    background: radial-gradient(circle, rgba(212, 175, 111, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    bottom: -30px;
+    left: -50px;
+    background: radial-gradient(circle, rgba(74, 139, 129, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+h1 {
+    font-family: var(--font-heading);
+    color: var(--c-primary);
     font-size: 3.5rem;
     margin-bottom: 10px;
     text-align: center;
-  }
+    font-weight: 400;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInScale 1s ease-out;
+}
 
-  #guest-greeting {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: var(--text-color);
+#guest-greeting {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    color: var(--c-text-light);
     text-align: center;
-  }
+    position: relative;
+    z-index: 1;
+    animation: fadeInScale 1.2s ease-out 0.2s both;
+    font-weight: 300;
+}
 
   .gifts-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInScale 1.4s ease-out 0.3s both;
   }
 
   .gift-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(64, 224, 208, 0.3);
-    border-radius: 15px;
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(74, 139, 129, 0.1);
+    border-radius: 4px;
+    padding: 2rem;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 24px rgba(74, 139, 129, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gift-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(74, 139, 129, 0.15), transparent);
+    z-index: 1;
   }
 
   .gift-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(74, 139, 129, 0.15);
+    border-color: rgba(74, 139, 129, 0.2);
   }
 
   .gift-image {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+    border-radius: 4px;
+    margin: 0 auto 1.5rem;
+    filter: drop-shadow(0 4px 12px rgba(74, 139, 129, 0.1));
+    transition: transform 0.3s ease;
+  }
+
+  .gift-card:hover .gift-image {
+    transform: scale(1.08);
   }
 
   .gift-name {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--c-primary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
   }
 
   .gift-name a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--c-primary);
+    transition: color 0.3s ease;
+    position: relative;
   }
 
-  .gift-name a:hover {
-    text-decoration: underline;
+  .gift-name a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--c-primary);
+    transition: width 0.3s ease;
+  }
+
+  .gift-name a:hover::after {
+    width: 100%;
   }
 
   .confirm-btn {
-    border: 1px solid var(--primary-color);
+    border: 1.5px solid var(--c-primary);
     background: transparent;
-    color: var(--primary-color);
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
+    color: var(--c-primary);
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .confirm-btn:hover:not(:disabled) {
-    background: var(--primary-color);
-    color: var(--background-color);
+    background: var(--c-primary);
+    color: white;
+    box-shadow: 0 6px 18px rgba(74, 139, 129, 0.25);
   }
 
   .confirm-btn:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: default;
+    border-color: var(--c-text-light);
+    color: var(--c-text-light);
   }
 
   #confirmation-message {
     text-align: center;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--c-primary);
     margin-top: 3rem;
     display: none;
+    position: relative;
+    z-index: 1;
+    animation: fadeInScale 0.8s ease-out;
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
   }
+
+/* === Animações === */
+@keyframes fadeInScale {
+  from { 
+    transform: scale(0.95); 
+    opacity: 0; 
+  }
+  to { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  #guest-greeting {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .gifts-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .gift-card {
+    padding: 1.5rem;
+  }
+}

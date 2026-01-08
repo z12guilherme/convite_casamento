@@ -34,7 +34,7 @@
         card.appendChild(nameDiv);
 
         const btn = document.createElement('button');
-        btn.className = 'confirm-btn';
+        btn.className = 'btn confirm-btn';
         if (gift.taken_by){
           btn.textContent = 'Já escolhido';
           btn.disabled = true;
@@ -52,7 +52,16 @@
               btn.disabled = false;
               btn.textContent = 'Confirmar Presente';
             } else {
-              alert(`Obrigado, ${guestName}! Presente confirmado 💝`);
+              const msgDiv = document.getElementById('confirmation-message');
+              if(msgDiv) {
+                  msgDiv.textContent = `Obrigado, ${guestName}! Seu presente foi confirmado 💝`;
+                  msgDiv.style.display = 'block';
+                  msgDiv.scrollIntoView({behavior: 'smooth'});
+              } else {
+                  alert(`Obrigado, ${guestName}! Presente confirmado 💝`);
+              }
+              // Atualiza a lista imediatamente
+              listarPresentesPublic(guestName);
             }
           };
         }
@@ -70,7 +79,7 @@
     const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
 
     const greeting = document.getElementById('guest-greeting');
-    if (greeting) greeting.textContent = `Olá, ${guestName}!`;
+    if (greeting) greeting.textContent = `Olá, ${guestName}! Escolha um presente para celebrar conosco 💝`;
 
     listarPresentesPublic(guestName);
 
