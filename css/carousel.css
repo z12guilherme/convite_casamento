@@ -46,9 +46,10 @@
     width: 50%;
     height: 100%;
     left: 0;
-    background: linear-gradient(135deg, #f5f1ed, #e8f4f2);
+    background: linear-gradient(135deg, var(--c-secondary), #23362b);
     border-radius: 4px 0 0 4px;
-    box-shadow: inset -6px 0 12px -6px rgba(0,0,0,0.06);
+    box-shadow: inset -6px 0 12px -6px rgba(0,0,0,0.4);
+    border: 1px solid rgba(194, 178, 128, 0.15);
 }
 
 /* === LADO DIREITO (PÁGINAS) === */
@@ -85,12 +86,12 @@
     bottom: 12px;
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    color: var(--c-text-light);
-    background: rgba(255,255,255,0.7);
+    color: var(--c-gold);
+    background: rgba(0,0,0,0.3);
     padding: 6px 10px;
     border-radius: 999px;
     backdrop-filter: blur(6px);
-    border: 1px solid rgba(74,139,129,0.08);
+    border: 1px solid rgba(194, 178, 128, 0.2);
 }
 
 
@@ -99,14 +100,14 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.99), rgba(250,249,248,0.97));
+    background: linear-gradient(135deg, var(--c-secondary), #23362b);
     padding: clamp(1.5rem, 5vw, 2.5rem);
     box-sizing: border-box;
     border-radius: 0 4px 4px 0;
     backface-visibility: hidden;
     overflow: hidden;
     backdrop-filter: none;
-    border: 1px solid rgba(74, 139, 129, 0.08);
+    border: 1px solid rgba(194, 178, 128, 0.2);
     box-shadow: 0 0 0 rgba(0,0,0,0);
 }
 

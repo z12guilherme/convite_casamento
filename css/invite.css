@@ -376,12 +376,15 @@ body {
 }
 
 .convite {
-    background: transparent;
+    background: rgba(25, 43, 31, 0.85);
+    backdrop-filter: blur(10px);
     width: 100%;
     max-width: 600px;
     padding: 3rem;
     box-sizing: border-box;
-    border: 1px solid rgba(201, 169, 116, 0.3);
+    border: 1px solid rgba(194, 178, 128, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     position: relative;
 }
 
@@ -435,7 +438,7 @@ body {
 
 .convite .data-hora {
     margin: 2.5rem 0;
-    color: var(--c-text-dark);
+    color: var(--c-gold);
     line-height: 1.8;
     border-top: 1px solid rgba(201, 169, 116, 0.2);
     border-bottom: 1px solid rgba(201, 169, 116, 0.2);
@@ -478,7 +481,7 @@ body {
 
 .convite .local p {
     margin: 5px 0;
-    color: var(--c-text-dark);
+    color: #f5f1ed;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
@@ -561,7 +564,7 @@ body {
 }
 .radio-group label {
     margin-right: 20px;
-    color: var(--c-text-dark);
+    color: #f5f1ed;
     cursor: pointer;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
@@ -591,7 +594,7 @@ body {
     box-sizing: border-box;
     font-family: var(--font-sans);
     background: rgba(0, 0, 0, 0.3);
-    color: var(--c-text-dark);
+    color: #f5f1ed;
 }
 
 /* --- Music Button --- */
