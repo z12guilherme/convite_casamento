@@ -1,6 +1,6 @@
 :root {
     /* NEW: Cinematic & Luxury Palette */
-    --c-primary: #538574; /* Deep Navy Blue */
+    --c-primary: #0e0f0f; /* Deep Navy Blue */
     --c-secondary: #192b1f; 
     --c-background:  #C2B280; /* Darker navy for background */
     --c-accent: #D9C4A; /* Gold/Bronze */
@@ -186,7 +186,7 @@ body {
 .couple-names-highlight {
     font-family: var(--font-title);
     font-size: 5.5rem;
-    color: var(--c-gold);
+    color: #000000;
     margin: 1.5rem 0 2rem 0;
     font-weight: 700;
     letter-spacing: 4px;
@@ -196,7 +196,7 @@ body {
 .couple-names-highlight .ampersand-style {
     font-family: 'Playfair Display', serif;
     font-weight: 400;
-    color: var(--c-text-light);
+    color: #000000;
     font-size: 0.6em;
     vertical-align: middle;
 }
