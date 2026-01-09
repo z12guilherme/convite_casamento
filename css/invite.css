@@ -37,13 +37,13 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 10 V70 M10 30 H70' stroke='%234a8b81' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: -1;
 }
 
-/* Elementos flutuantes de decoração */
-.floating-hearts {
+/* Elementos católicos de fundo */
+.catholic-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -51,59 +51,152 @@ body::before {
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-    z-index: 0;
-    display: block;
+    z-index: 1;
 }
 
-.heart {
+.catholic-element {
     position: absolute;
-    color: var(--c-primary);
-    font-size: 1.5rem;
-    animation: floatSoft 15s ease-in-out infinite;
-    opacity: 0.15;
-    filter: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
 }
 
-.heart:nth-child(1) {
-    top: 10%;
-    left: 5%;
-    animation-delay: 0s;
-    font-size: 2.5rem;
-}
-
-.heart:nth-child(2) {
-    top: 15%;
-    right: 8%;
-    animation-delay: -3s;
-    font-size: 1.8rem;
-}
-
-.heart:nth-child(3) {
-    top: 40%;
+.catholic-left {
+    top: 5%;
     left: 3%;
-    animation-delay: -6s;
-    font-size: 2rem;
+    width: 150px;
 }
 
-.heart:nth-child(4) {
-    bottom: 20%;
-    right: 5%;
-    animation-delay: -9s;
-    font-size: 2.2rem;
+.catholic-right {
+    top: 8%;
+    right: 3%;
+    width: 150px;
 }
 
-.heart:nth-child(5) {
+.catholic-center-top {
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+}
+
+.catholic-angel-left {
+    top: 35%;
+    left: 2%;
+    width: 100px;
+}
+
+.catholic-angel-right {
+    top: 35%;
+    right: 2%;
+    width: 100px;
+    transform: scaleX(-1); /* Espelhar o anjo da direita */
+}
+
+.catholic-eucharist {
     bottom: 15%;
-    left: 8%;
-    animation-delay: -12s;
-    font-size: 1.9rem;
+    left: 5%;
 }
 
-@keyframes floatSoft {
-    0%, 100% { transform: translateY(0) translateX(0) scale(1); }
-    25% { transform: translateY(-20px) translateX(10px) scale(1.1); }
-    50% { transform: translateY(-40px) translateX(-10px) scale(1); }
-    75% { transform: translateY(-20px) translateX(15px) scale(1.05); }
+.catholic-jmj {
+    bottom: 5%;
+    right: 5%;
+}
+
+.catholic-element svg {
+    filter: drop-shadow(0 2px 4px rgba(74, 139, 129, 0.1));
+}
+
+.catholic-text {
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    color: var(--c-primary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Elementos florais de fundo */
+.floral-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floral-element {
+    position: absolute;
+    opacity: 0.8;
+}
+
+.floral-bottom-left {
+    bottom: -40px;
+    left: -40px;
+}
+
+.floral-bottom-right {
+    bottom: -30px;
+    right: -30px;
+    transform: scaleX(-1);
+}
+
+.rosary-decoration {
+    top: -20px;
+    right: 8%;
+    opacity: 0.5;
+}
+
+/* Fundo com padrão de santos */
+.catholic-saints-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0; /* Colocado atrás dos elementos decorativos */
+    background: none;
+}
+
+/* Photo Bubbles Background */
+.photo-bubbles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    filter: grayscale(20%) sepia(10%);
+    box-shadow: 0 0 20px rgba(74, 139, 129, 0.1);
+    border: 1px solid rgba(212, 175, 111, 0.3);
+    animation: floatBubble 8s ease-in-out infinite;
+}
+
+.bubble:nth-child(1) { width: 180px; height: 180px; top: 12%; left: 5%; animation-delay: 0s; }
+.bubble:nth-child(2) { width: 140px; height: 140px; top: 25%; right: 8%; animation-delay: 2s; }
+.bubble:nth-child(3) { width: 200px; height: 200px; bottom: 15%; left: 10%; animation-delay: 4s; }
+.bubble:nth-child(4) { width: 160px; height: 160px; bottom: 25%; right: 5%; animation-delay: 1s; }
+
+@keyframes floatBubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
 /* Confetti effect */
@@ -218,7 +311,7 @@ body::before {
     animation: slideInUp 1s ease-out, fadeInScale 1.5s ease-out;
     opacity: 0;
     animation-fill-mode: forwards;
-    z-index: 1;
+    z-index: 2; /* Conteúdo fica acima da imagem de fundo */
 }
 
 @media (max-width: 700px) {
@@ -228,11 +321,13 @@ body::before {
     .book-container { height: 80vw; }
     .btn { min-width: 120px; padding: 0.9rem 1.2rem; font-size: 0.75rem; }
     .couple-decor { margin-bottom: 0.5rem; height: 30px; }
+    .catholic-left, .catholic-right { opacity: 0.03; }
 }
 
 /* --- Convite Principal --- */
+/* --- Convite Principal --- */
 #invite-main-section .invite-container {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(245, 241, 237, 0.95);
     backdrop-filter: blur(20px) saturate(150%);
     border-radius: 4px;
     padding: 5rem 6rem;
@@ -243,8 +338,17 @@ body::before {
     position: relative;
     overflow: visible;
     animation: fadeInScale 1.2s ease-out;
-    border-left: 3px solid rgba(193, 84, 122, 0.15);
-    border-right: 3px solid rgba(193, 84, 122, 0.15);
+    border: 1px solid rgba(74, 139, 129, 0.3);
+    /* Cantos com Cruzes + Imagem Central */
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 40V1H40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 10H10M5.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Top Left */
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1H39V40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 10H39M34.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Top Right */
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M39 0V39H0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 30H39M34.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Bottom Right */
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 39H1V0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 30H10M5.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Bottom Left */
+        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 20V180M40 70H160' stroke='%234a8b81' stroke-width='2' opacity='0.03'/%3E%3Cpath d='M100 60 C90 60 85 70 85 80 C85 95 100 105 100 105 C100 105 115 95 115 80 C115 70 110 60 100 60 Z' fill='%23e8c4d0' opacity='0.05'/%3E%3C/svg%3E"); /* Center */
+    background-repeat: no-repeat;
+    background-position: top left, top right, bottom right, bottom left, center;
+    background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 400px;
 }
 
 #invite-main-section .invite-container::before {
@@ -267,8 +371,8 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(74, 139, 129, 0.15) 50%, transparent 100%);
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(193, 84, 122, 0.2) 15%, rgba(74, 139, 129, 0.2) 50%, rgba(193, 84, 122, 0.2) 85%, transparent 100%);
     z-index: 5;
 }
 
@@ -278,6 +382,12 @@ body::before {
     opacity: 0;
     animation: fadeInScale 1s ease-out forwards;
     position: relative;
+}
+
+.religious-icon-container {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
 }
 
 .blessing-text {
@@ -375,6 +485,9 @@ body::before {
     border-bottom: 1px solid rgba(74, 139, 129, 0.1);
     backdrop-filter: none;
     animation: fadeInScale 1.2s ease-out 0.4s both;
+    /* Padrão de Sagrado Coração no fundo do contador */
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 30 Q30 10 10 40 Q10 70 50 90 Q90 70 90 40 Q70 10 50 30' stroke='%234a8b81' stroke-width='1' fill='none' opacity='0.03'/%3E%3Cpath d='M50 20 V40 M40 30 H60' stroke='%234a8b81' stroke-width='1' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
 }
 
 #countdown-container h2 {
@@ -620,7 +733,7 @@ body::before {
 }
 
 .convite {
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(245, 241, 237, 0.96);
     backdrop-filter: blur(20px) saturate(150%);
     border-radius: 4px;
     width: 100%;
@@ -628,10 +741,18 @@ body::before {
     padding: 4rem;
     box-sizing: border-box;
     box-shadow: 0 15px 50px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(74, 139, 129, 0.08);
-    border: none;
+    border: 1px solid rgba(74, 139, 129, 0.3);
     animation: slideInUp 1s ease-out, fadeInScale 1.2s ease-out;
     position: relative;
     overflow: visible;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 40V1H40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 10H10M5.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1H39V40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 10H39M34.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M39 0V39H0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 30H39M34.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 39H1V0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 30H10M5.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 40px 40px;
 }
 
 .convite::before {
@@ -640,22 +761,21 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(74, 139, 129, 0.15), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(193, 84, 122, 0.25), rgba(74, 139, 129, 0.2), rgba(193, 84, 122, 0.25), transparent);
     background-size: 200% 100%;
     animation: none;
 }
 
 .convite::after {
-    content: '';
+    content: '✝';
     position: absolute;
-    top: -60px;
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 150px;
-    height: 60px;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 150 60" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="30" r="8" fill="%234a8b81" opacity="0.4"/><path d="M40 22 Q45 15 50 22" fill="none" stroke="%234a8b81" stroke-width="1.5" opacity="0.4"/><circle cx="75" cy="35" r="6" fill="%234a8b81" opacity="0.5"/><path d="M75 28 Q80 22 85 28" fill="none" stroke="%234a8b81" stroke-width="1.5" opacity="0.5"/><circle cx="110" cy="28" r="7" fill="%234a8b81" opacity="0.45"/><path d="M110 20 Q115 14 120 20" fill="none" stroke="%234a8b81" stroke-width="1.5" opacity="0.45"/></svg>') no-repeat center;
-    background-size: contain;
+    font-size: 2rem;
+    color: var(--c-primary);
+    opacity: 0.15;
     z-index: 1;
     pointer-events: none;
 }
@@ -673,6 +793,38 @@ body::before {
     margin: 1.5rem 0;
     opacity: 0.7;
     animation: fadeInScale 1.2s ease-out 0.3s both;
+}
+
+.cross-divider {
+    width: 40px;
+    height: 40px;
+    margin: 1.5rem auto;
+    position: relative;
+    animation: fadeInScale 1.2s ease-out 0.3s both;
+}
+
+.cross-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 30px;
+    background: linear-gradient(180deg, transparent, var(--c-primary), transparent);
+    opacity: 0.4;
+}
+
+.cross-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--c-primary), transparent);
+    opacity: 0.4;
 }
 
 .convite .nomes {
@@ -880,6 +1032,26 @@ body::before {
 /* --- Music Button --- */
 #music-btn {
     position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 101 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(74, 139, 129, 0.2) !important;
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
+    cursor: pointer !important;
+    font-size: 22px !important;
+    box-shadow: 0 4px 15px rgba(74, 139, 129, 0.15) !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+#music-btn:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 6px 20px rgba(74, 139, 129, 0.25) !important;
+    transform: scale(1.08) !important;
+}   position: fixed !important;
     top: 20px !important;
     right: 20px !important;
     z-index: 101 !important;
