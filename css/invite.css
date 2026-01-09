@@ -202,8 +202,8 @@ body {
 }
 
 .invitation-text {
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
     line-height: 1.8;
     margin-top: 2rem;
     margin-bottom: 3rem;
