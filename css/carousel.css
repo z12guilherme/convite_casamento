@@ -1,6 +1,6 @@
 /* 
    ==========================================================================
-   Álbum de Fotos 3D - NEW Cinematic & Luxury Style
+   Álbum de Fotos 3D - Estilo Minimalista Luxuoso
    ==========================================================================
 */
 
@@ -12,8 +12,7 @@
     max-height: 600px;
     margin: 2rem auto 0 auto;
     perspective: 2000px;
-    /* NEW: Darker, more subtle shadow */
-    filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 12px 35px rgba(74, 139, 129, 0.18));
     animation: fadeInScale 1.3s ease-out 0.5s both;
 }
 
@@ -26,16 +25,30 @@
     animation: none;
 }
 
+@keyframes bookFloat {
+    0%, 100% { transform: rotateX(0deg) scale(1); }
+    50% { transform: rotateX(2deg) scale(1.02); }
+}
+
+.book:hover {
+    transform: none;
+    filter: none;
+}
+
+.book.turning {
+    transform: rotateX(2deg) scale(1.03);
+    transition: transform 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
 /* === LADO ESQUERDO (CAPA TRASEIRA) === */
 .left-side {
     position: absolute;
     width: 50%;
     height: 100%;
     left: 0;
-    /* NEW: Dark background */
-    background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+    background: linear-gradient(135deg, #f5f1ed, #e8f4f2);
     border-radius: 4px 0 0 4px;
-    box-shadow: inset -8px 0 15px -8px rgba(0,0,0,0.5);
+    box-shadow: inset -6px 0 12px -6px rgba(0,0,0,0.06);
 }
 
 /* === LADO DIREITO (PÁGINAS) === */
@@ -58,28 +71,43 @@
     transform-origin: left;
     transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 0.5s ease;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     will-change: transform;
 }
 
 .page:hover {
-    box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
 }
+
+.page .page-number {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--c-text-light);
+    background: rgba(255,255,255,0.7);
+    padding: 6px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(74,139,129,0.08);
+}
+
 
 /* === FRENTE E VERSO DAS PÁGINAS === */
 .page .front, .page .back {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* NEW: Dark page background */
-    background: var(--c-secondary);
+    background: linear-gradient(135deg, rgba(255,255,255,0.99), rgba(250,249,248,0.97));
     padding: clamp(1.5rem, 5vw, 2.5rem);
     box-sizing: border-box;
     border-radius: 0 4px 4px 0;
     backface-visibility: hidden;
     overflow: hidden;
-    /* NEW: Gold border */
-    border: 1px solid rgba(201, 169, 116, 0.2);
+    backdrop-filter: none;
+    border: 1px solid rgba(74, 139, 129, 0.08);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
 }
 
 .page .back {
@@ -100,24 +128,25 @@
 
 .page img {
     max-width: 85%;
-    max-height: 50%;
+    max-height: 85%;
     object-fit: cover;
-    border-radius: 4px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    border: 1px solid rgba(201, 169, 116, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .page img:hover {
     transform: scale(1.03);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
 }
 
 .page h3 {
     font-family: var(--font-title);
     font-size: clamp(1.2rem, 4vw, 1.6rem);
-    color: var(--c-gold); /* NEW COLOR */
+    color: var(--c-primary);
     margin: 0;
-    font-weight: 400;
+    text-shadow: none;
+    font-weight: 300;
     letter-spacing: 0.5px;
 }
 
@@ -125,7 +154,7 @@
     font-family: var(--font-sans);
     font-size: clamp(0.85rem, 2.5vw, 0.95rem);
     line-height: 1.6;
-    color: var(--c-text-light); /* NEW COLOR */
+    color: var(--c-text-light);
     text-align: center;
     margin: 0;
 }
@@ -133,7 +162,11 @@
 /* === ESTADO VIRADO === */
 .page.flipped {
     transform: rotateY(-180deg) translateZ(-1px) !important;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1) !important;
+}
+
+.page.flipped:hover {
+    box-shadow: 0 15px 45px rgba(0,0,0,0.15) !important;
 }
 
 /* Sombra que aparece durante a virada */
@@ -142,7 +175,7 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 35%);
+    background: linear-gradient(to left, rgba(0,0,0,0.12) 0%, transparent 35%);
     opacity: 0;
     transition: opacity 0.75s ease;
     pointer-events: none;
@@ -156,57 +189,17 @@
 
 /* === CAPA === */
 .cover-front, .cover-back {
-    /* NEW: Gold gradient for cover */
-    background: linear-gradient(145deg, var(--c-gold), #a88a5f);
-    color: var(--c-primary); /* Dark text on gold cover */
+    background: linear-gradient(145deg, #4a8b81, #3d6b66);
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
-}
-
-/* Add decorative spine */
-.book::before {
-    content: '';
-    position: absolute;
-    left: calc(50% - 1px);
-    width: 2px;
-    top: 5%;
-    bottom: 5%;
-    /* NEW: Gold spine */
-    background: linear-gradient(180deg, 
-        transparent, 
-        rgba(201, 169, 116, 0.4) 20%, 
-        rgba(201, 169, 116, 0.4) 80%,
-        transparent);
-    z-index: 5;
-    border-radius: 1px;
-}
-
-.cover-front h3 {
-    font-family: var(--font-title);
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin: 0;
-    font-weight: 400;
-    letter-spacing: 1px;
-    color: var(--c-primary);
-}
-
-.cover-front p {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: clamp(0.95rem, 3vw, 1.15rem);
-    margin-top: 0.75rem;
-    opacity: 0.9;
-    color: var(--c-secondary);
-}
-
-.cover-back {
-    background: var(--c-primary);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.12);
+    animation: none;
+    transform-origin: left center;
 }
 
 /* --- Responsive for album --- */
@@ -216,4 +209,41 @@
     .page img { max-height: 46%; }
     .book { transform-origin: center; }
     .page { transition: transform 0.8s ease; }
+}
+/* Add decorative spine */
+.book::before {
+    content: '';
+    position: absolute;
+    left: calc(50% - 1px);
+    width: 1px;
+    top: 8%;
+    bottom: 8%;
+    background: linear-gradient(180deg, 
+        rgba(255,255,255,0), 
+        rgba(74, 139, 129, 0.2) 20%, 
+        rgba(74, 139, 129, 0.2) 80%,
+        rgba(255,255,255,0));
+    z-index: 5;
+    border-radius: 1px;
+}
+
+.cover-front h3 {
+    font-family: var(--font-title);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    text-shadow: none;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.cover-front p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(0.95rem, 3vw, 1.15rem);
+    margin-top: 0.75rem;
+    opacity: 0.95;
+}
+
+.cover-back {
+    background: var(--c-dark-aqua);
 }

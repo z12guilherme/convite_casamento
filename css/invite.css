@@ -1,15 +1,15 @@
 :root {
     /* NEW: Cinematic & Luxury Palette */
-    --c-primary: #428257; /* Deep Navy Blue */
+    --c-primary: #538574; /* Deep Navy Blue */
     --c-secondary: #192b1f; 
-    --c-background: #072511; /* Darker navy for background */
-    --c-accent: #c9a974; /* Gold/Bronze */
-    --c-text-dark: #f4f1ea; /* Off-white/Cream for text */
-    --c-text-light: #a9b3c9; /* Lighter blue-gray for subtitles */
-    --c-gold: #c9a974;
-    --c-rose: #e8c4d0;
-    --c-rose-dark: #c1547a;
-    --c-cream: #f5f1ed;
+    --c-background:  #C2B280; /* Darker navy for background */
+    --c-accent: #D9C4A; /* Gold/Bronze */
+    --c-text-dark:  #192b1f; /* Off-white/Cream for text */
+    --c-text-light:  #C2B280; /* Lighter blue-gray for subtitles */
+    --c-gold: #C2B280;
+    --c-rose:  #192b1f;
+    --c-rose-dark: #192b1f;
+    --c-cream:  #192b1f;
     --font-title: 'Playfair Display', serif;
     --font-serif: 'Lato', sans-serif;
     --font-sans: 'Lato', sans-serif;
@@ -391,6 +391,7 @@ body {
     font-weight: 400;
     letter-spacing: 0.5px;
     margin-top: 2rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .cross-divider {
@@ -429,7 +430,7 @@ body {
     font-size: 3.2rem;
     color: var(--c-gold);
     margin: 1.5rem 0 2rem 0;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    text-shadow: 2px 2px 4px #000000;
 }
 
 .convite .data-hora {
@@ -446,6 +447,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--c-text-light);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .convite .detalhe-data {
@@ -464,17 +466,20 @@ body {
     border-right: 1px solid rgba(201, 169, 116, 0.2);
     color: var(--c-gold);
     font-family: var(--font-title);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .convite .dia-semana, .convite .hora {
     padding: 0 1rem;
     font-size: 0.9em;
     color: var(--c-text-light);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .convite .local p {
     margin: 5px 0;
     color: var(--c-text-dark);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .convite .confirmacao p:first-child {
@@ -483,6 +488,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.9em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 /* --- Botões --- */
@@ -542,6 +548,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
     line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 .form-group {
     margin-bottom: 15px;
@@ -550,11 +557,13 @@ body {
     margin: 0 0 10px 0;
     font-weight: bold;
     color: var(--c-gold);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 .radio-group label {
     margin-right: 20px;
     color: var(--c-text-dark);
     cursor: pointer;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 .radio-group input[type="radio"] {
     margin-right: 5px;
