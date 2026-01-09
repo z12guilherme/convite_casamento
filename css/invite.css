@@ -218,9 +218,10 @@ body {
 #countdown-container {
     margin-top: 3rem;
     padding: 3rem 2rem;
-    background: rgba(26, 34, 56, 0.4);
-    border-top: 1px solid rgba(201, 169, 116, 0.2);
-    border-bottom: 1px solid rgba(201, 169, 116, 0.2);
+    background: rgba(25, 43, 31, 0.85);
+    border: 1px solid rgba(194, 178, 128, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     backdrop-filter: blur(10px);
 }
 
