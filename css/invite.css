@@ -1,11 +1,12 @@
 :root {
-    --c-primary: #4a8b81;
-    --c-secondary: #3d6b66;
-    --c-background: #faf9f8;
-    --c-accent: #d9e8e5;
-    --c-text-dark: #2a3a39;
-    --c-text-light: #6a7a79;
-    --c-gold: #d4af6f;
+    /* NEW: Cinematic & Luxury Palette */
+    --c-primary: #428257; /* Deep Navy Blue */
+    --c-secondary: #192b1f; 
+    --c-background: #072511; /* Darker navy for background */
+    --c-accent: #c9a974; /* Gold/Bronze */
+    --c-text-dark: #f4f1ea; /* Off-white/Cream for text */
+    --c-text-light: #a9b3c9; /* Lighter blue-gray for subtitles */
+    --c-gold: #c9a974;
     --c-rose: #e8c4d0;
     --c-rose-dark: #c1547a;
     --c-cream: #f5f1ed;
@@ -18,284 +19,98 @@
 body {
     margin: 0;
     font-family: var(--font-serif);
-    background: linear-gradient(180deg, var(--c-background) 0%, #f0ebe7 100%);
+    /* NEW: Dark, cinematic background */
+    background: linear-gradient(170deg, var(--c-primary) 0%, var(--c-background) 100%);
     background-attachment: fixed;
     color: var(--c-text-dark);
     overflow-x: hidden;
     position: relative;
 }
 
-@keyframes backgroundShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-body::before {
-    content: '';
-    position: fixed;
+/* Restaura e posiciona os elementos de fundo */
+.catholic-background,
+.floral-background,
+.photo-bubbles {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 10 V70 M10 30 H70' stroke='%234a8b81' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Elementos católicos de fundo */
-.catholic-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    z-index: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: 1;
 }
 
-.catholic-element {
+.bubble {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    border-radius: 50%;
+    opacity: 0.3;
 }
 
+/* Posicionamento das bolhas de foto */
+.bubble:nth-child(1) { top: 8%; left: 5%; width: 180px; height: 180px; }
+.bubble:nth-child(2) { top: 18%; right: 8%; width: 140px; height: 140px; }
+.bubble:nth-child(3) { bottom: 25%; left: 8%; width: 160px; height: 160px; }
+.bubble:nth-child(4) { bottom: 15%; right: 5%; width: 130px; height: 130px; }
+.bubble:nth-child(5) { top: 42%; left: 3%; width: 130px; height: 130px; }
+.bubble:nth-child(6) { top: 45%; right: 2%; width: 120px; height: 120px; }
+.bubble:nth-child(7) { top: 65%; left: 12%; width: 110px; height: 110px; }
+.bubble:nth-child(8) { top: 30%; right: 18%; width: 100px; height: 100px; }
+
+.catholic-element, .floral-element {
+    position: absolute;
+}
+
+/* Posicionamento dos elementos de fundo */
 .catholic-left {
     top: 5%;
-    left: 3%;
-    width: 150px;
+    left: 2%;
 }
 
 .catholic-right {
-    top: 8%;
-    right: 3%;
-    width: 150px;
+    top: 5%;
+    right: 2%;
 }
 
 .catholic-center-top {
     top: 2%;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
 }
 
 .catholic-angel-left {
-    top: 35%;
-    left: 2%;
-    width: 100px;
+    top: 15%;
+    left: 10%;
 }
 
 .catholic-angel-right {
-    top: 35%;
-    right: 2%;
-    width: 100px;
-    transform: scaleX(-1); /* Espelhar o anjo da direita */
+    top: 15%;
+    right: 10%;
 }
 
 .catholic-eucharist {
-    bottom: 15%;
-    left: 5%;
-}
-
-.catholic-jmj {
     bottom: 5%;
-    right: 5%;
-}
-
-.catholic-element svg {
-    filter: drop-shadow(0 2px 4px rgba(74, 139, 129, 0.1));
-}
-
-.catholic-text {
-    margin-top: 1rem;
-    font-family: var(--font-serif);
-    font-size: 0.75rem;
-    color: var(--c-primary);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-
-/* Elementos florais de fundo */
-.floral-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.floral-element {
-    position: absolute;
-    opacity: 0.8;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .floral-bottom-left {
-    bottom: -40px;
-    left: -40px;
+    bottom: 0;
+    left: 0;
 }
 
 .floral-bottom-right {
-    bottom: -30px;
-    right: -30px;
-    transform: scaleX(-1);
+    bottom: 0;
+    right: 0;
 }
 
 .rosary-decoration {
-    top: -20px;
-    right: 8%;
-    opacity: 0.5;
-}
-
-/* Fundo com padrão de santos */
-.catholic-saints-bg {
-    position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0; /* Colocado atrás dos elementos decorativos */
-    background: none;
+    right: 15%;
 }
-
-/* Photo Bubbles Background */
-.photo-bubbles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.bubble {
-    position: absolute;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.15;
-    filter: grayscale(20%) sepia(10%);
-    box-shadow: 0 0 20px rgba(74, 139, 129, 0.1);
-    border: 1px solid rgba(212, 175, 111, 0.3);
-    animation: floatBubble 8s ease-in-out infinite;
-}
-
-.bubble:nth-child(1) { width: 180px; height: 180px; top: 12%; left: 5%; animation-delay: 0s; }
-.bubble:nth-child(2) { width: 140px; height: 140px; top: 25%; right: 8%; animation-delay: 2s; }
-.bubble:nth-child(3) { width: 200px; height: 200px; bottom: 15%; left: 10%; animation-delay: 4s; }
-.bubble:nth-child(4) { width: 160px; height: 160px; bottom: 25%; right: 5%; animation-delay: 1s; }
-
-@keyframes floatBubble {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-/* Confetti effect */
-.confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1000;
-    display: none;
-}
-
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: var(--c-accent);
-    animation: none;
-    border-radius: 50%;
-    box-shadow: none;
-}
-
-.confetti:nth-child(2n) {
-    background-color: var(--c-primary);
-}
-
-.confetti:nth-child(3n) {
-    background-color: var(--c-gold);
-}
-
-.confetti:nth-child(4n) {
-    background-color: var(--c-accent);
-}
-
-/* Animações adicionais */
-@keyframes slideInUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes fadeInScale {
-    from { transform: scale(0.95); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes slideInLeft {
-    from { transform: translateX(-50px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes bounceIn {
-    0% { transform: scale(0.95); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
-@keyframes glow {
-    0%, 100% { box-shadow: 0 0 0 rgba(90, 154, 143, 0.1); }
-    50% { box-shadow: 0 0 10px rgba(90, 154, 143, 0.1); }
-}
-
-/* Scroll reveal states */
-.section { opacity: 0; transform: translateY(20px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
-.section.in-view { opacity: 1; transform: translateY(0); }
-
-/* Celebration style for RSVP */
-#rsvp-message.celebrate h3 { animation: popIn 0.8s ease; color: var(--c-accent); }
-@keyframes popIn { 0% { transform: scale(0.8); opacity: 0 } 60% { transform: scale(1.08); opacity: 1 } 100% { transform: scale(1); } }
-
-/* Album controls */
-.navigation-controls { 
-    display: flex; 
-    justify-content: center; 
-    gap: 1rem; 
-    align-items: center; 
-    margin-top: 30px; 
-    flex-wrap: wrap;
-}
-.navigation-controls .btn { 
-    min-width: 130px; 
-    font-size: 0.85rem;
-}
-.navigation-controls .btn:focus { 
-    outline: 3px solid rgba(74, 139, 129, 0.2); 
-    outline-offset: 3px; 
-}
-.navigation-controls .btn[disabled] { 
-    transform: none; 
-    opacity: 0.5; 
-    cursor: not-allowed; 
-    background: linear-gradient(135deg, #999, #777);
-}
-
 
 .section {
     width: 100%;
@@ -308,103 +123,36 @@ body::before {
     box-sizing: border-box;
     position: relative;
     text-align: center;
-    animation: slideInUp 1s ease-out, fadeInScale 1.5s ease-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
-    z-index: 2; /* Conteúdo fica acima da imagem de fundo */
+    z-index: 2;
 }
 
-@media (max-width: 700px) {
-    .couple-names-highlight { font-size: 3rem; }
-    #invite-main-section .invite-container { padding: 2rem; border-radius: 4px; }
-    .convite { padding: 2rem; }
-    .book-container { height: 80vw; }
-    .btn { min-width: 120px; padding: 0.9rem 1.2rem; font-size: 0.75rem; }
-    .couple-decor { margin-bottom: 0.5rem; height: 30px; }
-    .catholic-left, .catholic-right { opacity: 0.03; }
-}
-
-/* --- Convite Principal --- */
 /* --- Convite Principal --- */
 #invite-main-section .invite-container {
-    background: rgba(245, 241, 237, 0.95);
-    backdrop-filter: blur(20px) saturate(150%);
-    border-radius: 4px;
-    padding: 5rem 6rem;
+    background: transparent;
+    backdrop-filter: none;
+    border-radius: 0;
+    padding: 4rem 2rem;
     max-width: 850px;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(74, 139, 129, 0.12), inset 0 0 0 1px rgba(74, 139, 129, 0.1);
+    box-shadow: none;
     border: none;
     position: relative;
     overflow: visible;
-    animation: fadeInScale 1.2s ease-out;
-    border: 1px solid rgba(74, 139, 129, 0.3);
-    /* Cantos com Cruzes + Imagem Central */
-    background-image: 
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 40V1H40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 10H10M5.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Top Left */
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1H39V40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 10H39M34.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Top Right */
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M39 0V39H0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 30H39M34.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Bottom Right */
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 39H1V0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 30H10M5.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"), /* Bottom Left */
-        url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 20V180M40 70H160' stroke='%234a8b81' stroke-width='2' opacity='0.03'/%3E%3Cpath d='M100 60 C90 60 85 70 85 80 C85 95 100 105 100 105 C100 105 115 95 115 80 C115 70 110 60 100 60 Z' fill='%23e8c4d0' opacity='0.05'/%3E%3C/svg%3E"); /* Center */
-    background-repeat: no-repeat;
-    background-position: top left, top right, bottom right, bottom left, center;
-    background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 400px;
+    border-top: 1px solid rgba(201, 169, 116, 0.3);
+    border-bottom: 1px solid rgba(201, 169, 116, 0.3);
+    background-image: none;
 }
 
-#invite-main-section .invite-container::before {
-    content: '';
-    position: absolute;
-    top: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 80px;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><path d="M50 60 Q60 40 80 50 T120 40 Q140 30 160 60" fill="none" stroke="%234a8b81" stroke-width="2" opacity="0.4"/><circle cx="60" cy="45" r="4" fill="%234a8b81" opacity="0.5"/><circle cx="85" cy="35" r="3" fill="%234a8b81" opacity="0.4"/><circle cx="110" cy="42" r="4" fill="%234a8b81" opacity="0.5"/><circle cx="140" cy="38" r="3" fill="%234a8b81" opacity="0.4"/></svg>') no-repeat center;
-    background-size: contain;
-    z-index: 10;
-    pointer-events: none;
-}
-
-#invite-main-section .invite-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, rgba(193, 84, 122, 0.2) 15%, rgba(74, 139, 129, 0.2) 50%, rgba(193, 84, 122, 0.2) 85%, transparent 100%);
-    z-index: 5;
-}
-
-/* --- Bênção Religiosa --- */
-.blessing-section {
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeInScale 1s ease-out forwards;
-    position: relative;
-}
-
-.religious-icon-container {
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
-}
-
+/* --- Typo & Content Styling --- */
 .blessing-text {
     font-family: var(--font-serif);
     font-size: 0.95rem;
-    color: var(--c-primary);
+    color: var(--c-gold);
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin: 0;
     font-style: italic;
-}
-
-.bible-verse {
-    color: var(--c-text-dark);
-    font-family: var(--font-sans);
-    margin-bottom: 2rem;
-    margin-top: 0;
+    text-transform: uppercase;
 }
 
 .bible-verse p {
@@ -420,44 +168,35 @@ body::before {
     font-style: normal;
     font-size: 0.9rem;
     margin-top: 1rem;
-    color: var(--c-primary);
+    color: var(--c-gold);
     font-weight: 600;
     letter-spacing: 0.5px;
 }
 
-.couple-decor { 
+.couple-decor {
     margin-bottom: 1.5rem;
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeInScale 1s ease-out;
     position: relative;
-}
-.couple-names-highlight {
-    font-family: var(--font-title);
-    font-size: 4.5rem;
-    color: var(--c-primary);
-    margin: 1.5rem 0 2rem 0;
-    background: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    background-clip: unset;
-    filter: none;
-    animation: fadeInScale 1.2s ease-out 0.3s both;
-    font-weight: 400;
-    letter-spacing: 2px;
+    opacity: 0.5;
 }
 
-@keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+.couple-names-highlight {
+    font-family: var(--font-title);
+    font-size: 5.5rem;
+    color: var(--c-gold);
+    margin: 1.5rem 0 2rem 0;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
 .couple-names-highlight .ampersand-style {
-    font-family: var(--font-serif);
+    font-family: 'Playfair Display', serif;
     font-weight: 400;
-    color: var(--c-primary);
+    color: var(--c-text-light);
     font-size: 0.6em;
     vertical-align: middle;
 }
@@ -468,37 +207,31 @@ body::before {
     line-height: 1.8;
     margin-top: 2rem;
     margin-bottom: 3rem;
-    color: var(--c-text-light);
+    color: var(--c-text-dark);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     font-weight: 300;
 }
 
-/* --- Contagem Regressiva (Integrada) --- */
+/* --- Contagem Regressiva --- */
 #countdown-container {
     margin-top: 3rem;
     padding: 3rem 2rem;
-    border-radius: 0;
-    background: rgba(74, 139, 129, 0.03);
-    border-top: 1px solid rgba(74, 139, 129, 0.1);
-    border-bottom: 1px solid rgba(74, 139, 129, 0.1);
-    backdrop-filter: none;
-    animation: fadeInScale 1.2s ease-out 0.4s both;
-    /* Padrão de Sagrado Coração no fundo do contador */
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 30 Q30 10 10 40 Q10 70 50 90 Q90 70 90 40 Q70 10 50 30' stroke='%234a8b81' stroke-width='1' fill='none' opacity='0.03'/%3E%3Cpath d='M50 20 V40 M40 30 H60' stroke='%234a8b81' stroke-width='1' opacity='0.03'/%3E%3C/svg%3E");
-    background-size: 100px 100px;
+    background: rgba(26, 34, 56, 0.4);
+    border-top: 1px solid rgba(201, 169, 116, 0.2);
+    border-bottom: 1px solid rgba(201, 169, 116, 0.2);
+    backdrop-filter: blur(10px);
 }
 
-#countdown-container h2 {
+#countdown-container h2, #photo-carousel-section h2 {
     font-family: var(--font-title);
     font-size: 1.4rem;
     font-weight: 400;
-    color: var(--c-primary);
+    color: var(--c-gold);
     margin: 0 0 2.5rem 0;
     text-transform: uppercase;
     letter-spacing: 3px;
-    text-shadow: none;
 }
 
 #countdown {
@@ -508,51 +241,16 @@ body::before {
 }
 
 .time-unit {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
-    padding: 2rem 1rem;
-    border-radius: 0;
-    transition: all 0.4s ease;
-    border: 1px solid rgba(74, 139, 129, 0.15);
-    backdrop-filter: none;
-    position: relative;
-    overflow: hidden;
-}
-
-.time-unit::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(74, 139, 129, 0.3), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.time-unit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(74, 139, 129, 0.1);
-    border-color: rgba(74, 139, 129, 0.25);
-}
-
-.time-unit:hover::before {
-    opacity: 1;
+    background: transparent;
+    padding: 1rem;
+    border: 1px solid rgba(201, 169, 116, 0.1);
 }
 
 .time-unit .number {
     font-family: var(--font-title);
     font-size: 3rem;
     font-weight: 400;
-    color: var(--c-primary);
-    animation: none;
-    text-shadow: none;
-    letter-spacing: 1px;
-}
-
-@keyframes pulse-number {
-    0%, 100% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.05); filter: brightness(1.05); }
+    color: var(--c-gold);
 }
 
 .time-unit .label {
@@ -564,11 +262,11 @@ body::before {
     font-weight: 500;
 }
 
-/* --- Seção Carrossel de Fotos --- */
+/* --- Photo Carousel --- */
 #photo-carousel-section {
     margin-top: 3rem;
     padding-top: 3rem;
-    border-top: 1px solid rgba(74, 139, 129, 0.1);
+    border-top: 1px solid rgba(201, 169, 116, 0.2);
     position: relative;
 }
 
@@ -579,69 +277,24 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.5rem;
-    color: var(--c-primary);
-    opacity: 0.3;
+    color: var(--c-gold);
+    opacity: 0.5;
 }
 
-#photo-carousel-section h2 {
-    font-family: var(--font-title);
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--c-primary);
-    margin: 0 0 2.5rem 0;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-}
-
-.navigation-controls .btn[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-
-/* --- Tela de Abertura com Envelope --- */
+/* --- Tela de Abertura --- */
 #envelope-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, var(--c-background) 0%, var(--c-accent) 50%, #f0ebe7 100%);
+    background: radial-gradient(circle, var(--c-secondary) 0%, var(--c-primary) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 100;
-    cursor: pointer;
     transition: all 1.5s ease-out;
-    perspective: 1500px;
-    animation: none;
     overflow: hidden;
-}
-
-#envelope-screen::before {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    top: 5%;
-    right: -50px;
-    background: radial-gradient(circle, rgba(212, 175, 111, 0.15) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-#envelope-screen::after {
-    content: '';
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    bottom: -30px;
-    left: -50px;
-    background: radial-gradient(circle, rgba(74, 139, 129, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
 }
 
 #intro-video {
@@ -653,11 +306,11 @@ body::before {
     object-fit: cover;
     transform: translate(-50%, -50%);
     z-index: 0;
-    filter: brightness(0.7);
+    filter: brightness(0.6);
 }
 
 #start-btn {
-    background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+    background: var(--c-gold);
     border: none;
     width: 140px;
     height: 140px;
@@ -670,41 +323,43 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    animation: pulse 2.5s ease-in-out infinite;
     border-radius: 50%;
-    box-shadow: 0 15px 40px rgba(74, 139, 129, 0.25), inset 0 0 0 2px rgba(255,255,255,0.2);
-    transition: all 0.4s ease;
-}
-
-#start-btn:hover {
-    transform: translateX(-50%) scale(1.12);
-    box-shadow: 0 20px 50px rgba(74, 139, 129, 0.35), inset 0 0 0 2px rgba(255,255,255,0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255,255,255,0.2);
+    animation: pulse 2.5s ease-in-out infinite;
 }
 
 .heart-icon {
     position: absolute;
     width: 90px;
     height: 90px;
-    fill: var(--c-rose);
-    transition: all 0.4s ease;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+    fill: var(--c-rose-dark);
 }
 
 .button-text {
     position: relative;
     z-index: 1;
-    color: white;
+    color: var(--c-primary);
     font-family: var(--font-sans);
     font-weight: 700;
     font-size: 1rem;
     text-align: center;
-    pointer-events: none;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-#start-btn:hover .heart-icon {
-    transform: scale(1.15);
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+#skip-intro-btn {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(0,0,0,0.3);
+    border-color: rgba(201, 169, 116, 0.5);
+    color: rgba(201, 169, 116, 0.8);
+}
+
+#skip-intro-btn:hover {
+    background: rgba(201, 169, 116, 0.8);
+    color: var(--c-primary);
 }
 
 @keyframes pulse {
@@ -720,64 +375,14 @@ body::before {
     position: relative;
 }
 
-#location-section::before {
-    content: '';
-    position: absolute;
-    bottom: -100px;
-    right: -100px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(74, 139, 129, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
 .convite {
-    background: rgba(245, 241, 237, 0.96);
-    backdrop-filter: blur(20px) saturate(150%);
-    border-radius: 4px;
+    background: transparent;
     width: 100%;
     max-width: 600px;
-    padding: 4rem;
+    padding: 3rem;
     box-sizing: border-box;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(74, 139, 129, 0.08);
-    border: 1px solid rgba(74, 139, 129, 0.3);
-    animation: slideInUp 1s ease-out, fadeInScale 1.2s ease-out;
+    border: 1px solid rgba(201, 169, 116, 0.3);
     position: relative;
-    overflow: visible;
-    background-image: 
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 40V1H40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 10H10M5.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1H39V40' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 10H39M34.5 5.5V14.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M39 0V39H0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M30 30H39M34.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 39H1V0' stroke='%234a8b81' stroke-width='1' fill='none'/%3E%3Cpath d='M1 30H10M5.5 25.5V34.5' stroke='%234a8b81' stroke-width='1'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: top left, top right, bottom right, bottom left;
-    background-size: 40px 40px;
-}
-
-.convite::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(193, 84, 122, 0.25), rgba(74, 139, 129, 0.2), rgba(193, 84, 122, 0.25), transparent);
-    background-size: 200% 100%;
-    animation: none;
-}
-
-.convite::after {
-    content: '✝';
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2rem;
-    color: var(--c-primary);
-    opacity: 0.15;
-    z-index: 1;
-    pointer-events: none;
 }
 
 .convite .chamada {
@@ -788,19 +393,11 @@ body::before {
     margin-top: 2rem;
 }
 
-.rose-divider {
-    font-size: 1.5rem;
-    margin: 1.5rem 0;
-    opacity: 0.7;
-    animation: fadeInScale 1.2s ease-out 0.3s both;
-}
-
 .cross-divider {
     width: 40px;
     height: 40px;
     margin: 1.5rem auto;
     position: relative;
-    animation: fadeInScale 1.2s ease-out 0.3s both;
 }
 
 .cross-divider::before {
@@ -809,10 +406,10 @@ body::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 2px;
+    width: 1px;
     height: 30px;
-    background: linear-gradient(180deg, transparent, var(--c-primary), transparent);
-    opacity: 0.4;
+    background: linear-gradient(180deg, transparent, var(--c-gold), transparent);
+    opacity: 0.6;
 }
 
 .cross-divider::after {
@@ -822,31 +419,25 @@ body::before {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 20px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--c-primary), transparent);
-    opacity: 0.4;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--c-gold), transparent);
+    opacity: 0.6;
 }
 
 .convite .nomes {
     font-family: var(--font-title);
     font-size: 3.2rem;
-    color: var(--c-primary);
+    color: var(--c-gold);
     margin: 1.5rem 0 2rem 0;
-    background: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    background-clip: unset;
-    animation: fadeInScale 1.2s ease-out 0.2s both;
-    font-weight: 400;
-    letter-spacing: 1.5px;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
 }
 
 .convite .data-hora {
     margin: 2.5rem 0;
-    color: var(--c-primary);
+    color: var(--c-text-dark);
     line-height: 1.8;
-    border-top: 1px solid rgba(74, 139, 129, 0.15);
-    border-bottom: 1px solid rgba(74, 139, 129, 0.15);
+    border-top: 1px solid rgba(201, 169, 116, 0.2);
+    border-bottom: 1px solid rgba(201, 169, 116, 0.2);
     padding: 2rem 0;
 }
 
@@ -867,13 +458,12 @@ body::before {
 .convite .dia-num {
     font-size: 2.8em;
     font-weight: 300;
-    margin: 0;
+    margin: 0 1.5rem;
     padding: 0 1.5rem;
-    border-left: 1px solid rgba(90, 154, 143, 0.1);
-    border-right: 1px solid rgba(90, 154, 143, 0.1);
-    color: var(--c-primary);
+    border-left: 1px solid rgba(201, 169, 116, 0.2);
+    border-right: 1px solid rgba(201, 169, 116, 0.2);
+    color: var(--c-gold);
     font-family: var(--font-title);
-    letter-spacing: 1px;
 }
 
 .convite .dia-semana, .convite .hora {
@@ -882,29 +472,18 @@ body::before {
     color: var(--c-text-light);
 }
 
-.convite .local {
-    font-size: 1em;
-    line-height: 1.6;
-    margin-top: 20px;
-}
-.convite .local p{
+.convite .local p {
     margin: 5px 0;
-}
-
-.convite .confirmacao {
-    font-size: 0.9em;
-    line-height: 1.5;
-    margin-top: 30px;
+    color: var(--c-text-dark);
 }
 
 .convite .confirmacao p:first-child {
-    color: var(--c-secondary);
+    color: var(--c-gold);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.9em;
 }
-
 
 /* --- Botões --- */
 .btn-group {
@@ -915,8 +494,8 @@ body::before {
 }
 
 .btn {
-    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-secondary) 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--c-gold) 0%, #a88a5f 100%);
+    color: var(--c-primary);
     border: none;
     padding: 1.1rem 2.2rem;
     border-radius: 2px;
@@ -928,53 +507,35 @@ body::before {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-size: 0.8rem;
-    box-shadow: 0 6px 20px rgba(74, 139, 129, 0.25);
-    position: relative;
-    overflow: hidden;
-    animation: none;
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-    transition: left 0.5s;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .btn:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(74, 139, 129, 0.35);
-    filter: none;
-}
-
-.btn:hover::before {
-    left: 100%;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
 }
 
 .btn.btn-secondary {
-    background: #f0f0f0;
-    color: var(--c-text-light);
+    background: transparent;
+    color: var(--c-gold);
     box-shadow: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--c-gold);
 }
+
 .btn.btn-secondary:hover {
-    background-color: #e0e0e0;
-    color: var(--c-text-dark);
+    background-color: var(--c-gold);
+    color: var(--c-primary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-
-/* --- Política de Crianças --- */
+/* --- Formulário --- */
 .children-policy {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(84, 160, 160, 0.2);
+    border-top: 1px solid rgba(201, 169, 116, 0.2);
     text-align: left;
 }
-
 .children-policy .policy-notice {
     font-size: 0.9em;
     color: var(--c-text-light);
@@ -982,93 +543,68 @@ body::before {
     margin-bottom: 20px;
     line-height: 1.5;
 }
-
 .form-group {
     margin-bottom: 15px;
 }
-
 .form-group p {
     margin: 0 0 10px 0;
     font-weight: bold;
-    color: var(--c-secondary);
+    color: var(--c-gold);
 }
-
 .radio-group label {
     margin-right: 20px;
     color: var(--c-text-dark);
     cursor: pointer;
 }
-
 .radio-group input[type="radio"] {
     margin-right: 5px;
-    accent-color: var(--c-primary);
+    accent-color: var(--c-gold);
 }
-
 #children-details {
     margin-top: 15px;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    border: 1px solid rgba(84, 160, 160, 0.1);
+    border: 1px solid rgba(201, 169, 116, 0.1);
 }
-
 #children-details label {
     font-weight: bold;
-    color: var(--c-secondary);
+    color: var(--c-gold);
     font-size: 0.9rem;
     margin-bottom: 5px;
     display: block;
 }
-
 #children-details input {
     width: 100%;
     padding: 8px;
-    border: 1px solid rgba(84, 160, 160, 0.3);
+    border: 1px solid rgba(201, 169, 116, 0.3);
     border-radius: 4px;
     box-sizing: border-box;
     font-family: var(--font-sans);
-    background: rgba(255,255,255,0.8);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--c-text-dark);
 }
+
 /* --- Music Button --- */
 #music-btn {
     position: fixed !important;
     top: 20px !important;
     right: 20px !important;
     z-index: 101 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(74, 139, 129, 0.2) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(201, 169, 116, 0.3) !important;
     border-radius: 50% !important;
     width: 50px !important;
     height: 50px !important;
     cursor: pointer !important;
     font-size: 22px !important;
-    box-shadow: 0 4px 15px rgba(74, 139, 129, 0.15) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
     transition: all 0.3s ease !important;
     backdrop-filter: blur(10px) !important;
 }
 
 #music-btn:hover {
-    background: rgba(255, 255, 255, 1) !important;
-    box-shadow: 0 6px 20px rgba(74, 139, 129, 0.25) !important;
-    transform: scale(1.08) !important;
-}   position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    z-index: 101 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(74, 139, 129, 0.2) !important;
-    border-radius: 50% !important;
-    width: 50px !important;
-    height: 50px !important;
-    cursor: pointer !important;
-    font-size: 22px !important;
-    box-shadow: 0 4px 15px rgba(74, 139, 129, 0.15) !important;
-    transition: all 0.3s ease !important;
-    backdrop-filter: blur(10px) !important;
-}
-
-#music-btn:hover {
-    background: rgba(255, 255, 255, 1) !important;
-    box-shadow: 0 6px 20px rgba(74, 139, 129, 0.25) !important;
+    background: rgba(201, 169, 116, 1) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5) !important;
     transform: scale(1.08) !important;
 }

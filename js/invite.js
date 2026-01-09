@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  const skipIntroBtn = document.getElementById('skip-intro');
+  const skipIntroBtn = document.getElementById('skip-intro-btn');
   if (skipIntroBtn) {
     skipIntroBtn.addEventListener('click', (e) => {
       e.stopPropagation();
