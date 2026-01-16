@@ -59,8 +59,6 @@ body {
     width: 280px; /* Largura fixa para o card individual */
     flex-shrink: 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    backface-visibility: hidden; /* Esconde o verso branco ao girar */
-    -webkit-backface-visibility: hidden;
 }
 
 .gift-card:hover {
