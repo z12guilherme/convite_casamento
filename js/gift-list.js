@@ -46,13 +46,8 @@
                 return; 
             }
 
-            // ================== Criação dos Cards ==================
-            data.forEach((gift, index) => {
-                const card = document.createElement('div');
-                // IMPORTANTE: A classe 'carousel__cell' deve ter position: absolute no CSS
-                card.className = 'carousel__cell'; 
-
-                // Conteúdo interno do Card
+            // Função auxiliar para criar o elemento visual do card
+            const createCardElement = (gift) => {
                 const innerContent = document.createElement('div');
                 innerContent.className = 'gift-card';
 
@@ -123,23 +118,42 @@
                     };
                 }
                 innerContent.appendChild(btn);
+                return innerContent;
+            };
+
+            // ================== Criação dos Cards (Agrupados em pares) ==================
+            // Loop incrementando de 2 em 2 para colocar 2 itens por face
+            for (let i = 0; i < data.length; i += 2) {
+                const cell = document.createElement('div');
+                // IMPORTANTE: A classe 'carousel__cell' deve ter position: absolute no CSS
+                cell.className = 'carousel__cell'; 
                 
-                // Adiciona o conteúdo interno à célula de posicionamento
-                card.appendChild(innerContent);
-                container.appendChild(card);
-            });
+                // Adiciona o primeiro item do par
+                cell.appendChild(createCardElement(data[i]));
+
+                // Se houver um segundo item, adiciona também
+                if (i + 1 < data.length) {
+                    cell.appendChild(createCardElement(data[i+1]));
+                }
+
+                container.appendChild(cell);
+            }
 
             // ================== Lógica Matemática do Carrossel 3D ==================
             const cells = container.children;
             cellCount = cells.length;
-            const cellWidth = 280; // Deve bater com a largura do CSS
+            const cellWidth = 560; // Ajustado para 2 cards (280*2) sem gap
             theta = 360 / cellCount;
             
-            // Calcula raio + margem de respiro (40px)
-            radius = Math.round((cellWidth / 2) / Math.tan(Math.PI / cellCount)) + 40;
+            // Calcula raio com espaçamento reduzido (+20) para manter os itens mais juntos
+            radius = Math.round( (cellWidth / 2) / Math.tan(Math.PI / cellCount) ) + 20;
 
             // Ajustes para poucos itens
-            if (cellCount === 1) radius = 0; 
+            if (cellCount === 1) {
+                radius = 0;
+            } else if (cellCount === 2) {
+                radius = 450; // Força um raio maior para 2 itens (4 presentes) para não se cruzarem
+            }
 
             // Aplica a transformação de posição inicial em cada card
             Array.from(cells).forEach((cell, i) => {

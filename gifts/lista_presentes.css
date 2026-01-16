@@ -21,7 +21,7 @@ body {
 .scene {
     margin: 40px auto;
     position: relative;
-    width: 280px;
+    width: 560px; /* Ajustado para 2 cards (280*2) sem gap */
     height: 450px;
     perspective: 1000px;
 }
@@ -36,10 +36,13 @@ body {
 
 .carousel__cell {
     position: absolute;
-    width: 280px;
+    width: 560px; /* Ajustado para 2 cards */
     height: 420px;
     left: 0;
     top: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0;
     /* Transform is handled by JS */
 }
 
@@ -53,8 +56,11 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
+    width: 280px; /* Largura fixa para o card individual */
+    flex-shrink: 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backface-visibility: hidden; /* Esconde o verso branco ao girar */
+    -webkit-backface-visibility: hidden;
 }
 
 .gift-card:hover {
@@ -177,4 +183,12 @@ body {
     font-size: 1.5rem;
     color: var(--text-main);
     margin-bottom: 2rem;
+}
+
+/* Responsividade para o carrossel duplo */
+@media (max-width: 768px) {
+    .scene {
+        transform: scale(0.55); /* Reduz o tamanho para caber na tela do celular */
+        margin: -80px auto; /* Ajusta margem negativa para compensar o scale */
+    }
 }
