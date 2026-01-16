@@ -1,3 +1,4 @@
 {
-    "CodeGPT.apiKey": "Perplexity"
+    "CodeGPT.apiKey": "Perplexity",
+    "liveServer.settings.port": 5501
 }
