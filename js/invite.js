@@ -6,6 +6,32 @@ function sanitizeHTML(str) {
   return temp.innerHTML;
 }
 document.addEventListener('DOMContentLoaded', async () => {
+  // Injeta a estrutura HTML das cortinas
+  const angelSVG = `
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12,2L9,5H15L12,2M12,6C9.79,6 8,7.79 8,10V12H16V10C16,7.79 14.21,6 12,6M5,9C3.9,9 3,9.9 3,11V14C3,15.1 3.9,16 5,16H6V20H18V16H19C20.1,16 21,15.1 21,14V11C21,9.9 20.1,9 19,9H18C17.45,9 17,9.45 17,10V12H7V10C7,9.45 6.55,9 6,9H5Z"/>
+    </svg>`;
+
+  const curtainHTML = `
+    <div id="curtain-container" class="curtain-container">
+        <div class="curtain-panel left">
+            <div class="angel-decoration angel-left-panel">${angelSVG}</div>
+            <div class="angel-decoration angel-bottom-left">${angelSVG}</div>
+            <div class="curtain-medal">
+                <img src="img/nossa_senhora.png" alt="Nossa Senhora">
+            </div>
+        </div>
+        <div class="curtain-panel right">
+            <div class="angel-decoration angel-right-panel">${angelSVG}</div>
+            <div class="angel-decoration angel-bottom-right">${angelSVG}</div>
+            <div class="curtain-medal">
+                <img src="img/nossa_senhora.png" alt="Nossa Senhora">
+            </div>
+        </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', curtainHTML);
+
   // Define a data do casamento. Substitua pela data e hora reais do seu evento.
   const weddingDate = new Date('2026-11-19T18:00:00');
   const urlParams = new URLSearchParams(window.location.search);
@@ -94,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (document.getElementById('card-guest-name')) document.getElementById('card-guest-name').innerText = nome;
     
     const day = weddingDate.getDate();
-    const month = weddingDate.toLocaleString('default', { month: 'long' });
+    const month = weddingDate.toLocaleString('pt-BR', { month: 'long' });
     const year = weddingDate.getFullYear();
     const dayOfWeek = weddingDate.toLocaleString('pt-BR', { weekday: 'long' });
     const hours = weddingDate.getHours().toString().padStart(2, '0');
@@ -157,66 +183,75 @@ document.addEventListener('DOMContentLoaded', async () => {
   const musicBtn = document.getElementById('music-btn');
   const weddingMusic = document.getElementById('wedding-music');
   const introVideo = document.getElementById('intro-video'); // Get video element
-  const startBtn = document.getElementById('start-btn');
 
   const showMainContent = () => {
     if (mainContent.style.display === 'block') return; // Evita execuções múltiplas
 
     if (introVideo) {
       introVideo.pause();
+      introVideo.style.display = 'none'; // Garante que o vídeo não bloqueie a visão
     }
 
+    // Esconde os botões de intro imediatamente
+    if (skipIntroBtn) skipIntroBtn.style.display = 'none';
+
+    // Inicia o fade-out da tela preta/vídeo
     envelopeScreen.style.opacity = '0';
+    envelopeScreen.style.pointerEvents = 'none';
+
+    // Prepara o conteúdo principal por baixo
     mainContent.style.display = 'block';
+    
     try {
       initApp();
-      // Inicia o efeito de digitação após a exibição do conteúdo
-      const verseElement = document.getElementById('typing-verse');
-      const referenceElement = document.getElementById('verse-reference');
-      const verseText = '"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."';
-      
-      typewriterEffect(verseElement, verseText, () => {
-        // Quando a digitação terminar, revela a referência
-        verseElement.classList.remove('typing'); // Remove a classe que pode ter o cursor
-        if(referenceElement) referenceElement.style.opacity = '1';
-      });
-
       // Adicionar animações de scroll
       initScrollAnimations();
     } catch (error) {
       console.error('Erro ao inicializar o aplicativo:', error);
     }
-    // Ativa o som da música, pois agora temos uma interação do usuário
-    if (weddingMusic.muted) weddingMusic.muted = false;
-    
-    setTimeout(() => envelopeScreen.style.display = 'none', 1200);
+
+    // Gerencia a Cortina e a Música
+    const curtain = document.getElementById('curtain-container');
+    if (curtain) {
+      // Coloca a cortina acima de tudo para a revelação
+      curtain.style.zIndex = '10010';
+      
+      // Força o navegador a processar o estado fechado
+      curtain.classList.remove('open');
+      void curtain.offsetWidth; 
+      
+      // Inicia a abertura com um pequeno delay para suavidade
+      setTimeout(() => {
+        curtain.classList.add('open');
+        
+        // Toca a música sincronizada com a abertura
+        if (weddingMusic) {
+          weddingMusic.muted = false;
+          weddingMusic.play().catch(e => console.error("Erro ao tocar música:", e));
+          if (musicBtn) musicBtn.innerHTML = '⏸️';
+        }
+
+        // Inicia o efeito de digitação após a cortina começar a abrir
+        const verseElement = document.getElementById('typing-verse');
+        const referenceElement = document.getElementById('verse-reference');
+        const verseText = '"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."';
+        
+        if (verseElement) {
+          typewriterEffect(verseElement, verseText, () => {
+            if(referenceElement) referenceElement.style.opacity = '1';
+          });
+        }
+      }, 600);
+    }
+
+    // Remove o envelope do DOM após o fade completo
+    setTimeout(() => {
+      envelopeScreen.style.display = 'none';
+    }, 1200);
   };
 
   // Verifica se o convidado é válido antes de qualquer outra coisa
   await checkGuest();
-
-  // Evento de clique no botão inicial
-  startBtn.addEventListener('click', () => {
-    // Esconde o botão
-    startBtn.style.display = 'none';
-
-    // Toca o vídeo com som
-    if (introVideo) {
-      introVideo.muted = false;
-      introVideo.play().catch(error => {
-        console.error("Erro ao tentar tocar o vídeo:", error);
-        // Se houver um erro ao tocar o vídeo, mostra o conteúdo principal diretamente
-        showMainContent();
-      });
-    }
-
-    // Toca a música de fundo com som
-    if (weddingMusic) {
-      weddingMusic.muted = false;
-      weddingMusic.play().catch(error => console.error("Erro ao tocar a música:", error));
-      if (musicBtn) musicBtn.innerHTML = '⏸️';
-    }
-  });
 
   const skipIntroBtn = document.getElementById('skip-intro-btn');
   if (skipIntroBtn) {

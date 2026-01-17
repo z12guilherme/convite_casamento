@@ -1,440 +1,340 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Casamento - Evellyn & Guilherme</title> 
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;600&family=Playfair+Display:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Nosso Casamento - Evellyn & Guilherme</title>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Original Styles (Carousel/Book) -->
+    <link rel="stylesheet" href="css/carousel.css">
+    <link rel="stylesheet" href="css/invite.css">
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
-    <meta name="description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme. Aqui você encontrará todas as informações sobre a cerimônia, recepção, lista de presentes e muito mais.">
-    <meta name="keywords" content="casamento, Evellyn e Guilherme, convite de casamento, lista de presentes, Belo Jardim">
-    <meta name="author" content="Evellyn & Guilherme">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="URL_DO_SEU_SITE_AQUI">
-    <meta property="og:title" content="Nosso Casamento - Evellyn & Guilherme">
-    <meta property="og:description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme.">
-    <meta property="og:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="URL_DO_SEU_SITE_AQUI">
-    <meta property="twitter:title" content="Nosso Casamento - Evellyn & Guilherme">
-    <meta property="twitter:description" content="Junte-se a nós para celebrar o casamento de Evellyn e Guilherme.">
-    <meta property="twitter:image" content="URL_DA_IMAGEM_DE_CAPA_AQUI">
-
-    <!-- Cor do tema para navegadores móveis -->
-    <meta name="theme-color" content="#54a0a0">
-    <!-- Favicon (substitua pelo seu) -->
-    <link rel="icon" href="https://placehold.co/32x32" type="image/png">
-    <link rel="stylesheet" href="css/invite.css">
-    <link rel="stylesheet" href="css/carousel.css"> <!-- Arquivo de estilo do carrossel -->
-    <style>
-        .chamada {
-            animation: fadeInText 2s ease-in-out forwards;
-        }
-
-        @keyframes fadeInText {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .confetti-parent {
-            position: relative;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: var(--c-accent);
-            opacity: 0.85;
-            animation: fall 5s linear infinite;
-            border-radius: 50%;
-            box-shadow: 0 0 6px rgba(0,0,0,0.08);
-        }
-
-        .confetti:nth-child(2n) {
-            background-color: var(--c-primary);
-        }
-
-        .confetti:nth-child(3n) {
-            background-color: var(--c-rose);
-        }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-10vh) rotate(0deg);
-            }
-            to {
-                transform: translateY(110vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* Estilo para o efeito de digitação */
-        #typing-verse::after {
-            content: '|';
-            opacity: 1;
-            animation: blink 0.7s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        #verse-reference {
-            transition: opacity 1.5s ease-in;
-        }
-    </style>
 </head>
 <body>
- 
-<button id="music-btn" style="position: fixed; top: 15px; right: 15px; z-index: 101; background: #fff; border: 1px solid #ccc; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 20px;">▶️</button>
 
-<div id="envelope-screen">
-    <!-- Vídeo de fundo -->
-    <video id="intro-video" playsinline muted>
-        <!-- Certifique-se de que o caminho para o vídeo está correto -->
-        <source src="video/video_introducao_sem_audio.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos.
-    </video>
-    <button id="start-btn" class="btn" aria-label="Abrir convite" title="Abrir convite">
-        <!-- Coração em SVG para um formato perfeito -->
-        <svg class="heart-icon" viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
-        <span class="button-text">Clique aqui</span>
+    <!-- Music Button -->
+    <button id="music-btn" class="btn btn-light rounded-circle shadow" style="position: fixed; top: 20px; right: 20px; z-index: 10000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+        <i class="bi bi-play-fill fs-4"></i>
     </button>
-    <button id="skip-intro-btn" class="btn btn-secondary" aria-label="Pular introdução" title="Pular introdução">Pular Introdução</button>
 
-</div>
-<main id="main-content" style="display: none;">
-    <!-- Catholic background decorations -->
-    <div class="catholic-background">
-        <div class="catholic-element catholic-left">
-            <!-- Cruz na esquerda -->
-            <svg width="120" height="180" viewBox="0 0 60 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="24" y="10" width="12" height="70" fill="#4a8b81" opacity="0.08"/>
-                <rect x="12" y="30" width="36" height="12" fill="#4a8b81" opacity="0.08"/>
-                <circle cx="30" cy="25" r="3" fill="#4a8b81" opacity="0.1"/>
-            </svg>
-        </div>
-        
-        <div class="catholic-element catholic-right">
-            <!-- Crucifix na direita com coroa -->
-            <svg width="120" height="180" viewBox="0 0 60 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 60 Q30 70 40 60" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.08"/>
-                <rect x="24" y="10" width="12" height="70" fill="#4a8b81" opacity="0.08"/>
-                <rect x="12" y="30" width="36" height="12" fill="#4a8b81" opacity="0.08"/>
-                <path d="M22 8 L26 12 L30 8 L34 12 L38 8" stroke="#c1547a" stroke-width="1.5" fill="none" opacity="0.12"/>
-            </svg>
-        </div>
-        
-        <div class="catholic-element catholic-center-top">
-            <!-- Chi Rho (Monograma de Cristo) -->
-            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 15V85M30 35L70 75M70 35L30 75" stroke="#4a8b81" stroke-width="1.5" opacity="0.15"/>
-                <path d="M50 15C65 15 70 25 70 35C70 45 60 50 50 50" stroke="#4a8b81" stroke-width="1.5" fill="none" opacity="0.15"/>
-            </svg>
-        </div>
-
-        <div class="catholic-element catholic-angel-left">
-            <!-- Anjo/Querubim Estilizado -->
-            <svg width="100" height="80" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 30 C30 10 10 30 10 50" stroke="#4a8b81" stroke-width="1" fill="none" opacity="0.2"/>
-                <path d="M50 30 C70 10 90 30 90 50" stroke="#4a8b81" stroke-width="1" fill="none" opacity="0.2"/>
-                <circle cx="50" cy="25" r="8" stroke="#4a8b81" stroke-width="1" opacity="0.2"/>
-                <path d="M40 15 Q50 5 60 15" stroke="#d4af6f" stroke-width="1" opacity="0.3"/>
-            </svg>
-        </div>
-        
-        <div class="catholic-element catholic-angel-right">
-             <!-- Anjo/Querubim Estilizado -->
-            <svg width="100" height="80" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 30 C30 10 10 30 10 50" stroke="#4a8b81" stroke-width="1" fill="none" opacity="0.2"/>
-                <path d="M50 30 C70 10 90 30 90 50" stroke="#4a8b81" stroke-width="1" fill="none" opacity="0.2"/>
-                <circle cx="50" cy="25" r="8" stroke="#4a8b81" stroke-width="1" opacity="0.2"/>
-                <path d="M40 15 Q50 5 60 15" stroke="#d4af6f" stroke-width="1" opacity="0.3"/>
-            </svg>
-        </div>
-
-        <div class="catholic-element catholic-eucharist">
-            <!-- Cálice e Hóstia -->
-            <svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 40 Q20 70 40 70 Q60 70 60 40 L60 30 L20 30 Z" stroke="#4a8b81" stroke-width="1" opacity="0.2"/>
-                <line x1="40" y1="70" x2="40" y2="90" stroke="#4a8b81" stroke-width="1" opacity="0.2"/>
-                <line x1="30" y1="90" x2="50" y2="90" stroke="#4a8b81" stroke-width="1" opacity="0.2"/>
-                <circle cx="40" cy="20" r="15" stroke="#d4af6f" stroke-width="1" opacity="0.3"/>
-                <path d="M40 10 V30 M30 20 H50" stroke="#d4af6f" stroke-width="1" opacity="0.3"/>
-            </svg>
-        </div>
-
-        <div class="catholic-element catholic-jmj">
-             <p style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #4a8b81; opacity: 0.1; margin: 0; font-weight: bold;">J.M.J.</p>
-        </div>
+    <!-- Envelope Screen -->
+    <div id="envelope-screen">
+        <video id="intro-video" playsinline muted loop autoplay>
+            <source src="video/video_introducao_sem_audio.mp4" type="video/mp4">
+        </video>
+        <button id="skip-intro-btn" class="btn btn-primary btn-lg shadow">
+            <i class="bi bi-envelope-open-heart me-2"></i> Abrir Convite
+        </button>
     </div>
+
+    <main id="main-content" style="display: none;">
+        
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">E & G</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#hero">Início</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#countdown-section">Contagem</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#details">Detalhes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#gallery">Álbum</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#rsvp">RSVP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="container text-center" data-aos="fade-up">
+                <p class="mb-2 text-uppercase letter-spacing-2">Vamos nos casar!</p>
+                <h1>Evellyn & Guilherme</h1>
+                <p class="mb-4">Convidam você para celebrar o amor.</p>
+                <a href="#rsvp" class="btn btn-primary">Confirmar Presença</a>
+            </div>
+        </section>
+
+        <!-- Countdown Section (Adapted Stats) -->
+        <section id="countdown-section" class="section stats">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Contagem Regressiva</h2>
+                    <p class="section-subtitle">Falta pouco para o grande dia!</p>
+                </div>
+                <div class="row justify-content-center" id="countdown">
+                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up">
+                        <div class="stat-number" id="days">00</div>
+                        <div class="stat-label">Dias</div>
+                    </div>
+                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-number" id="hours">00</div>
+                        <div class="stat-label">Horas</div>
+                    </div>
+                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-number" id="minutes">00</div>
+                        <div class="stat-label">Minutos</div>
+                    </div>
+                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-number" id="seconds">00</div>
+                        <div class="stat-label">Segundos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Details Section (Adapted Services) -->
+        <section id="details" class="section bg-white">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Detalhes do Casamento</h2>
+                    <p class="section-subtitle">Informações importantes para você.</p>
+                </div>
+                
+                <!-- Guest Name Display -->
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h3 id="card-guest-name" class="text-primary"></h3>
+                    <p class="lead">Você é nosso convidado especial!</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-custom">
+                            <div class="service-icon"><i class="bi bi-calendar-heart"></i></div>
+                            <h4>Data</h4>
+                            <p id="wedding-date-display">
+                                <span id="wedding-day-of-week">Quinta-feira</span>, 
+                                <span id="wedding-day">19</span> de 
+                                <span id="wedding-month">Novembro</span> de 
+                                <span id="wedding-year">2026</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-custom">
+                            <div class="service-icon"><i class="bi bi-clock"></i></div>
+                            <h4>Horário</h4>
+                            <p id="wedding-time">16:00</p>
+                            <p>Cerimônia e Recepção</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-custom">
+                            <div class="service-icon"><i class="bi bi-geo-alt"></i></div>
+                            <h4>Local</h4>
+                            <p>Salão de Festas Jardim Encantado</p>
+                            <p>Belo Jardim, PE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section (Book Carousel) -->
+        <section id="gallery" class="section">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Nossos Momentos</h2>
+                    <p class="section-subtitle">Um pouco da nossa história.</p>
+                </div>
+                
+                <div class="d-flex justify-content-center" data-aos="zoom-in">
+                    <div class="book-container">
+                        <div class="book" id="book">
+                            <div class="left-side"><div class="cover-back"></div></div>
+                            <div class="right-side">
+                                <div class="page">
+                                    <div class="front cover-front">
+                                        <div class="content">
+                                            <h3>Nosso Álbum</h3>
+                                            <p>Vire as páginas</p>
+                                        </div>
+                                    </div>
+                                    <div class="back">
+                                        <div class="content"><img src="img/foto.jpg" alt="Foto 1" style="width:100%; height:100%; object-fit:cover;"></div>
+                                    </div>
+                                </div>
+                                <div class="page">
+                                    <div class="front">
+                                        <div class="content"><img src="img/noiva.jpg" alt="Foto 2" style="width:100%; height:100%; object-fit:cover;"></div>
+                                    </div>
+                                    <div class="back">
+                                        <div class="content"><img src="img/noivo.png" alt="Foto 3" style="width:100%; height:100%; object-fit:cover;"></div>
+                                    </div>
+                                </div>
+                                <div class="page">
+                                    <div class="front">
+                                        <div class="content"><img src="img/ceu.jpg" alt="Foto 4" style="width:100%; height:100%; object-fit:cover;"></div>
+                                    </div>
+                                    <div class="back">
+                                        <div class="content">
+                                            <h3>Fim</h3>
+                                            <p>Esperamos você!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button id="prev-page-btn" class="btn btn-outline-primary me-2"><i class="bi bi-arrow-left"></i> Anterior</button>
+                    <button id="next-page-btn" class="btn btn-outline-primary">Próxima <i class="bi bi-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Verse Section -->
+        <section class="section bg-white">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8" data-aos="fade-up">
+                        <div class="testimonial">
+                            <div class="testimonial-text">
+                                <span id="typing-verse"></span>
+                            </div>
+                            <div class="testimonial-author" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section id="rsvp" class="section">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Confirmação de Presença</h2>
+                    <p class="section-subtitle">Por favor, confirme sua presença até o dia 10/05.</p>
+                </div>
+                
+                <div class="contact-form" data-aos="fade-up">
+                    <div class="text-center mb-4">
+                        <p>Sua presença é nosso maior presente! O convite é individual. Crianças são bem-vindas.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Você levará seus filhos?</label>
+                        <div class="d-flex justify-content-center gap-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="bringing_children" id="children_yes" value="yes" onchange="toggleChildrenDetails(true)">
+                                <label class="form-check-label" for="children_yes">Sim</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="bringing_children" id="children_no" value="no" onchange="toggleChildrenDetails(false)" checked>
+                                <label class="form-check-label" for="children_no">Não</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="children-details" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="number" id="children_count" class="form-control" min="1" placeholder="Quantos filhos?">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="children_ages" class="form-control" placeholder="Idade de cada um (ex: 4, 7)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4" id="rsvp-section">
+                        <button id="rsvp-confirm-btn" class="btn btn-primary btn-lg mx-2 mb-2">Confirmar Presença 🎉</button>
+                        <button id="rsvp-decline-btn" class="btn btn-secondary btn-lg mx-2 mb-2">Recusar Presença 😔</button>
+                        <div id="rsvp-message" class="mt-3 fw-bold"></div>
+                        <a id="gift-list-link" href="#" class="btn btn-outline-primary mt-3" style="display: none;">Ver Lista de Presentes 🎁</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer text-center">
+            <div class="container">
+                <h3>Evellyn & Guilherme</h3>
+                <p>Criando memórias eternas.</p>
+                <div class="copyright">
+                    &copy; 2026 <strong>E & G</strong>. Todos os direitos reservados.
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <audio id="wedding-music" src="audio/musica.mp4" preload="auto" loop></audio>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Maria e Santos background -->
-    <div class="catholic-saints-bg"></div>
+    <!-- Original Logic Scripts -->
+    <script src="js/invite.js"></script>
+    <script src="js/carousel.js"></script>
 
-    <!-- Photo Bubbles Background -->
-    <div class="photo-bubbles">
-        <!-- 📸 TROQUE AS FOTOS DO FUNDO AQUI: -->
-        <div class="bubble" style="background-image: url('img/sagrada.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/sagrada.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/sagrada.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/sagrada.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/pio.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/pio.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/sagrada.jpg');"></div>
-        <div class="bubble" style="background-image: url('img/pio.jpg');"></div>
-    </div>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
 
-    <!-- Floral background decorations -->
-    <div class="floral-background">
-        <div class="floral-element floral-bottom-left">
-            <svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 30C40 30 32 38 32 50C32 65 45 75 50 78C55 75 68 65 68 50C68 38 60 30 50 30Z" fill="#e8c4d0" opacity="0.15"/>
-                <path d="M50 30C50 30 42 40 50 52C58 40 50 30 50 30" stroke="#c1547a" stroke-width="0.5" opacity="0.3"/>
-                <path d="M50 52C45 52 40 48 40 42" stroke="#c1547a" stroke-width="0.5" opacity="0.3" fill="none"/>
-                <path d="M50 52C55 52 60 48 60 42" stroke="#c1547a" stroke-width="0.5" opacity="0.3" fill="none"/>
-                <path d="M32 50Q20 55 15 45" stroke="#4a8b81" stroke-width="1" fill="none" opacity="0.2"/>
-                <path d="M68 50Q80 55 85 45" stroke="#4a8b81" stroke-width="1" fill="none" opacity="0.2"/>
-            </svg>
-        </div>
-        <div class="floral-element floral-bottom-right">
-            <svg width="220" height="220" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 25C38 25 28 35 28 50C28 68 45 80 50 82C55 80 72 68 72 50C72 35 62 25 50 25Z" fill="#e8c4d0" opacity="0.15"/>
-                <path d="M50 25C50 25 40 38 50 55C60 38 50 25 50 25" stroke="#c1547a" stroke-width="0.5" opacity="0.3"/>
-            </svg>
-        </div>
-        <!-- Terço (Rosário) caindo no canto -->
-        <div class="floral-element rosary-decoration">
-            <svg width="150" height="300" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 0V150" stroke="#d4af6f" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>
-                <circle cx="50" cy="160" r="3" fill="#d4af6f" opacity="0.3"/>
-                <path d="M50 163V180M45 170H55" stroke="#d4af6f" stroke-width="1" opacity="0.4"/>
-                <circle cx="50" cy="20" r="2" fill="#d4af6f" opacity="0.2"/><circle cx="50" cy="35" r="2" fill="#d4af6f" opacity="0.2"/><circle cx="50" cy="50" r="2" fill="#d4af6f" opacity="0.2"/><circle cx="50" cy="65" r="2" fill="#d4af6f" opacity="0.2"/><circle cx="50" cy="80" r="2" fill="#d4af6f" opacity="0.2"/>
-            </svg>
-        </div>
-    </div>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
 
-    <!-- Seção Principal: Convite Unificado -->
-    <section id="invite-main-section" class="section" role="region" aria-label="Convite principal">
-        <div class="invite-container">
-            <div class="blessing-section">
-                <div class="religious-icon-container">
-                    <!-- Pomba do Espírito Santo -->
-                    <svg class="religious-icon" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M25 10C25 10 15 20 10 25C5 30 10 40 15 35C20 30 25 25 25 25" stroke="#4a8b81" stroke-width="1.5" fill="none"/>
-                        <path d="M25 10C25 10 35 20 40 25C45 30 40 40 35 35C30 30 25 25 25 25" stroke="#4a8b81" stroke-width="1.5" fill="none"/>
-                        <path d="M25 25V40M25 40L20 45M25 40L30 45" stroke="#4a8b81" stroke-width="1.5"/>
-                        <circle cx="25" cy="8" r="2" fill="#d4af6f" opacity="0.6"/>
-                    </svg>
-                </div>
-                <p class="blessing-text">Abençoados em nome do Pai, do Filho e do Espírito Santo</p>
-            </div>
+        // Toggle Children Details
+        function toggleChildrenDetails(show) {
+            const detailsDiv = document.getElementById('children-details');
+            detailsDiv.style.display = show ? 'block' : 'none';
+            if(show) {
+                // Re-trigger AOS layout refresh if needed
+                setTimeout(() => AOS.refresh(), 100);
+            }
+        }
 
-            <div class="bible-verse">
-                <p id="typing-verse"></p>
-                <p class="reference" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</p>
-            </div>
+        // Music Button Logic (Simple toggle)
+        const musicBtn = document.getElementById('music-btn');
+        const audio = document.getElementById('wedding-music');
+        let isPlaying = false;
 
-            <div class="couple-decor">
-                <!-- Floral wreath with roses and Catholic elements -->
-                <svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- Left Catholic symbol (Cross) -->
-                    <line x1="20" y1="10" x2="20" y2="40" stroke="#4a8b81" stroke-width="2" opacity="0.4"/>
-                    <line x1="10" y1="20" x2="30" y2="20" stroke="#4a8b81" stroke-width="2" opacity="0.4"/>
-                    <!-- Left roses -->
-                    <circle cx="15" cy="50" r="4" fill="#c1547a" opacity="0.5"/>
-                    <path d="M15 46 Q18 42 22 45" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.4"/>
-                    
-                    <!-- Center flourish with roses -->
-                    <path d="M 50 30 Q 90 10 130 30 Q 90 50 50 30" fill="none" stroke="#4a8b81" stroke-width="1.5" opacity="0.3"/>
-                    <!-- Rose buds along center -->
-                    <circle cx="70" cy="18" r="3" fill="#c1547a" opacity="0.6"/>
-                    <circle cx="90" cy="12" r="3.5" fill="#c1547a" opacity="0.7"/>
-                    <circle cx="110" cy="18" r="3" fill="#c1547a" opacity="0.6"/>
-                    
-                    <!-- Right Catholic symbol (Sacred heart with cross) -->
-                    <path d="M 155 15 Q 155 10 160 10 Q 165 10 165 15 Q 165 20 160 25 Q 155 20 155 15 Z" fill="none" stroke="#c1547a" stroke-width="1.5" opacity="0.5"/>
-                    <line x1="160" y1="12" x2="160" y2="22" stroke="#c1547a" stroke-width="1" opacity="0.4"/>
-                    <!-- Right roses -->
-                    <circle cx="165" cy="50" r="4" fill="#c1547a" opacity="0.5"/>
-                    <path d="M165 46 Q162 42 158 45" fill="none" stroke="#4a8b81" stroke-width="1" opacity="0.4"/>
-                </svg>
-            </div>
-            <h2 class="couple-names-highlight">Evellyn <span class="ampersand-style">&</span> Guilherme</h2>
-            <p class="invitation-text" id="invitation-text"></p>
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerHTML = '<i class="bi bi-play-fill fs-4"></i>';
+            } else {
+                audio.play();
+                musicBtn.innerHTML = '<i class="bi bi-pause-fill fs-4"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
 
-            <!-- Contagem Regressiva -->
-            <div id="countdown-container">
-                <h2>Contagem Regressiva</h2>
-                <div id="countdown" aria-live="polite" aria-atomic="true">
-                    <div class="time-unit" role="group" aria-label="dias"><div id="days" class="number">00</div><div class="label">Dias</div></div>
-                    <div class="time-unit" role="group" aria-label="horas"><div id="hours" class="number">00</div><div class="label">Horas</div></div>
-                    <div class="time-unit" role="group" aria-label="minutos"><div id="minutes" class="number">00</div><div class="label">Minutos</div></div>
-                    <div class="time-unit" role="group" aria-label="segundos"><div id="seconds" class="number">00</div><div class="label">Segundos</div></div>
-                </div>
-            </div>
-
-            <!-- Carrossel de Fotos (Livro) -->
-            <div id="photo-carousel-section">
-                <h2>Nossos Momentos</h2>
-                <div class="book-container" role="region" aria-label="Álbum de fotos">
-                    <div class="book" id="book" role="application" aria-roledescription="book">
-                        <div class="left-side" aria-hidden="true">
-                            <div class="cover-back"></div>
-                        </div>
-                        <div class="right-side">
-                            <!-- Capa do Álbum -->
-                            <div class="page">
-                                <div class="front cover-front">
-                                    <div class="content">
-                                        <h3>Nosso Álbum</h3>
-                                        <p>Vire as páginas para ver nossos momentos</p>
-                                    </div>
-                                </div>
-                                <div class="back">
-                                    <div class="content">
-                                        <!-- 📸 FOTO 1 DO ÁLBUM -->
-                                        <img src="img/foto.jpg" alt="Foto do casal 1">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Página 2 -->
-                            <div class="page">
-                                <div class="front">
-                                    <div class="content">
-                                        <!-- 📸 FOTO 2 DO ÁLBUM -->
-                                        <img src="img/noiva.jpg" alt="Foto da noiva">
-                                    </div>
-                                </div>
-                                <div class="back">
-                                    <div class="content">
-                                        <!-- 📸 FOTO 3 DO ÁLBUM -->
-                                        <img src="img/noivo.png" alt="Foto do noivo">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Página 3 -->
-                            <div class="page">
-                                <div class="front">
-                                    <div class="content">
-                                        <!-- 📸 FOTO 4 DO ÁLBUM -->
-                                        <img src="img/ceu.jpg" alt="Paisagem">
-                                    </div>
-                                </div>
-                                <div class="back">
-                                    <div class="content">
-                                        <h3>Até o grande dia!</h3>
-                                        <p>Mal podemos esperar para celebrar com você.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="navigation-controls" style="text-align: center; margin-top: 20px;">
-                    <button id="prev-page-btn" class="btn" type="button" aria-label="Página anterior" aria-controls="book">Anterior</button>
-                    <button id="next-page-btn" class="btn" type="button" aria-label="Próxima página" aria-controls="book">Próxima</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção Local & RSVP -->
-    <section id="location-section" class="section">
-        <div class="convite">
-            <p class="chamada">Você está convidado para o nosso casamento!</p>
-            
-            <div class="cross-divider"></div>
-
-            <div class="nomes" id="card-guest-name"></div>
-
-            <div class="data-hora">
-                <span class="mes" id="wedding-month"></span>
-                <div class="detalhe-data">
-                    <span class="dia-semana" id="wedding-day-of-week"></span>
-                    <span class="dia-num" id="wedding-day"></span>
-                    <span class="hora" id="wedding-time"></span>
-                </div>
-                <span class="ano" id="wedding-year"></span>
-            </div>
-
-            <div class="local">
-                <p>Salão de Festas Jardim Encantado</p>
-                <p>Belo Jardim, PE</p>
-            </div>
-
-            <!-- Início da Política de Crianças -->
-            <div class="children-policy">
-                <p class="policy-notice">
-                    Sua presença é nosso maior presente! Gostaríamos de informar que o convite é individual. Crianças são bem-vindas, apenas nos informe abaixo.
-                </p>
-
-                <div class="form-group">
-                    <p>Você levará seus filhos?</p>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="bringing_children" value="yes" onchange="toggleChildrenDetails(true)"> Sim
-                        </label>
-                        <label>
-                            <input type="radio" name="bringing_children" value="no" onchange="toggleChildrenDetails(false)" checked> Não
-                        </label>
-                    </div>
-                </div>
-
-                <div id="children-details" style="display: none;">
-                    <div class="form-group">
-                        <label for="children_count">Quantos filhos?</label>
-                        <input type="number" id="children_count" name="children_count" min="1" placeholder="Ex: 2">
-                    </div>
-                    <div class="form-group">
-                        <label for="children_ages">Qual a idade de cada um?</label>
-                        <input type="text" id="children_ages" name="children_ages" placeholder="Ex: 4 e 7 anos">
-                    </div>
-                </div>
-            </div>
-
-            <div class="confirmacao" style="margin-top: 30px;">
-                <p>Confirme sua presença abaixo:</p>
-                <div class="btn-group" id="rsvp-section">
-                    <button id="rsvp-confirm-btn" class="btn">Confirmar Presença 🎉</button>
-                    <button id="rsvp-decline-btn" class="btn btn-secondary">Recusar Presença 😔</button>
-                    <a id="gift-list-link" href="#" class="btn" style="display: none;">Ver Lista de Presentes 🎁</a>
-                    <div id="rsvp-message"></div>
-                </div>
-            </div>
-            <!-- Fim da Política de Crianças -->
-        </div>
-    </section>
-</main>
-
-<audio id="wedding-music" src="audio/musica.mp4" preload="auto" loop></audio>
-
-<script>
-function toggleChildrenDetails(show) {
-    const detailsDiv = document.getElementById('children-details');
-    detailsDiv.style.display = show ? 'block' : 'none';
-}
-</script>
-<script src="js/invite.js"></script>
-<script src="js/carousel.js"></script>
-
+    </script>
 </body>
 </html>
