@@ -152,6 +152,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 700; }
 }
 
 /* Stats / Countdown */
+.stats .container { position: relative; }
 .stats .row { margin-top: 60px; }
 .stat-item { text-align: center; padding: 30px; }
 .stat-number {
@@ -368,7 +369,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 700; }
 }
 
 .angel-decoration svg {
-    fill: #d4af37; /* Dourado do tema */
+    fill: var(--primary); /* Verde água do tema */
     filter: drop-shadow(0 0 8px rgba(34, 177, 151, 0.6)); /* Brilho na cor primária #22b197 */
 }
 
@@ -386,4 +387,70 @@ h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 700; }
         transform: translateY(-20px) rotate(5deg) scale(1.05); 
     }
 }
-.card-custom::before {
+
+/* === Anjos em CSS Puro (Querubins) === */
+.css-angel {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    z-index: 5;
+    pointer-events: none;
+    animation: float-angel 4s ease-in-out infinite;
+}
+
+.angel-wings {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Base das asas */
+.angel-wings::before,
+.angel-wings::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 80px;
+    background-color: var(--primary);
+    box-shadow: 0 0 15px rgba(34, 177, 151, 0.5);
+    top: 0;
+}
+
+/* Asa Esquerda */
+.angel-wings::before {
+    left: 0;
+    border-radius: 50px 0 50px 50px;
+    transform-origin: bottom right;
+    animation: flap-left 1.5s infinite alternate ease-in-out;
+}
+
+/* Asa Direita */
+.angel-wings::after {
+    right: 0;
+    border-radius: 0 50px 50px 50px;
+    transform-origin: bottom left;
+    animation: flap-right 1.5s infinite alternate-reverse ease-in-out;
+}
+
+.halo {
+    width: 40px;
+    height: 12px;
+    border: 3px solid var(--primary); /* Verde água do tema */
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--primary);
+    opacity: 0.8;
+}
+
+@keyframes flap-left {
+    0%, 100% { transform: rotate(-30deg); }
+    50% { transform: rotate(-10deg); }
+}
+
+@keyframes flap-right {
+    0%, 100% { transform: rotate(30deg); }
+    50% { transform: rotate(10deg); }
+}
