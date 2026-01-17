@@ -63,12 +63,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function startCountdown() {
     const weddingTime = weddingDate.getTime();
-    const interval = setInterval(() => {
+    
+    function updateTimer() {
       const now = new Date().getTime();
       const distance = weddingTime - now;
 
       if (distance < 0) {
-        clearInterval(interval);
+        if (typeof interval !== 'undefined') clearInterval(interval);
         const countdownContainer = document.getElementById('countdown-container');
         if (countdownContainer) {
           countdownContainer.innerHTML = "<h2>O grande dia chegou!</h2>";
@@ -80,16 +81,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById('days').innerText = days.toString().padStart(2, '0');
-      document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-      document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-      document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+      const elDays = document.getElementById('days');
+      const elHours = document.getElementById('hours');
+      const elMinutes = document.getElementById('minutes');
+      const elSeconds = document.getElementById('seconds');
+
+      if (elDays) elDays.innerText = days.toString().padStart(2, '0');
+      if (elHours) elHours.innerText = hours.toString().padStart(2, '0');
+      if (elMinutes) elMinutes.innerText = minutes.toString().padStart(2, '0');
+      if (elSeconds) elSeconds.innerText = seconds.toString().padStart(2, '0');
 
       // Adicionar efeito de confete quando o countdown chega a zero em alguma unidade
       if (seconds === 0) {
         createConfetti();
       }
-    }, 1000);
+    }
+
+    updateTimer(); // Atualiza imediatamente
+    const interval = setInterval(updateTimer, 1000);
   }
 
   function createConfetti() {

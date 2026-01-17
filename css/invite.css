@@ -386,3 +386,4 @@ h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 700; }
         transform: translateY(-20px) rotate(5deg) scale(1.05); 
     }
 }
+.card-custom::before {
