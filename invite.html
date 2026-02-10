@@ -166,17 +166,17 @@
       <div class="mb-6">
        <label class="block font-sans-elegant text-sm font-bold mb-2" style="color: var(--text-color);">Levará crianças?</label>
        <div class="flex justify-center gap-4">
-        <label class="inline-flex items-center"><input type="radio" name="bringing_children" value="yes" class="form-radio" style="color: var(--primary-action);" onchange="document.getElementById('children-details').classList.remove('hidden')"> <span class="ml-2">Sim</span></label> 
-        <label class="inline-flex items-center"><input type="radio" name="bringing_children" value="no" class="form-radio" style="color: var(--primary-action);" checked onchange="document.getElementById('children-details').classList.add('hidden')"> <span class="ml-2">Não</span></label>
+        <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children" value="yes" class="custom-radio" onchange="document.getElementById('children-details').classList.remove('hidden')"> <span class="ml-2">Sim</span></label> 
+        <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children" value="no" class="custom-radio" checked onchange="document.getElementById('children-details').classList.add('hidden')"> <span class="ml-2">Não</span></label>
        </div>
       </div>
       <div id="children-details" class="hidden mb-6 text-left">
        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-         <label class="block text-xs uppercase tracking-wide mb-1">Quantidade</label> <input type="number" id="children_count" class="w-full p-2 border rounded" style="border-color: var(--primary-action);">
+         <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Quantidade</label> <input type="number" id="children_count" class="w-full elegant-input" placeholder="0">
         </div>
         <div>
-         <label class="block text-xs uppercase tracking-wide mb-1">Idades</label> <input type="text" id="children_ages" class="w-full p-2 border rounded" placeholder="Ex: 2, 5" style="border-color: var(--primary-action);">
+         <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Idades</label> <input type="text" id="children_ages" class="w-full elegant-input" placeholder="Ex: 2, 5">
         </div>
        </div>
       </div>

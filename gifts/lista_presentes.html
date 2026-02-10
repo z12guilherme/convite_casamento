@@ -59,6 +59,12 @@
             <!-- Confirmation Message -->
             <div id="confirmation-message" class="alert text-center" role="alert"></div>
 
+            <!-- Search Bar -->
+            <div class="search-container" data-aos="fade-up">
+                <input type="text" id="gift-search" placeholder="Buscar presente..." class="search-input">
+                <i class="bi bi-search search-icon"></i>
+            </div>
+
             <!-- Gifts 3D Carousel -->
             <div class="scene" data-aos="zoom-in">
                 <div id="gifts-container" class="carousel">
@@ -67,6 +73,9 @@
             </div>
         </div>
     </section>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Voltar ao topo"><i class="bi bi-arrow-up"></i></button>
 
     <!-- Footer -->
     <footer class="footer text-center">
@@ -107,6 +116,19 @@
         } else {
             backLink.href = `../invite.html`;
         }
+
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
