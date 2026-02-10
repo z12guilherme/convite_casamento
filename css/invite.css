@@ -625,6 +625,16 @@ body {
   border-color: var(--secondary-action);
 }
 
+/* === Map Section === */
+.map-container {
+  transition: transform 0.3s ease;
+}
+
+.map-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
 /* === Intro Overlay === */
 #intro-overlay {
   position: fixed;

@@ -137,6 +137,15 @@ async function handleRsvp(status) {
         ? '<span style="color: var(--primary-action)">Presença confirmada! Obrigado! 🎉</span>'
         : 'Obrigado por responder. Sentiremos sua falta.';
       messageContainer.style.display = 'block';
+
+      // Trigger Confetti if confirmed
+      if (status === 'Confirmado' && window.confetti) {
+        window.confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
       
       // Show gift list link if confirmed
       const giftContainer = document.getElementById('gift-list-container');

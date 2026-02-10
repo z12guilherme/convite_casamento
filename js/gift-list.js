@@ -113,5 +113,20 @@
                 listarPresentesPublic(guestName);
             })
             .subscribe();
+
+        // ================== Lógica de Busca ==================
+        const searchInput = document.getElementById('gift-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const items = document.querySelectorAll('.gift-item');
+                
+                items.forEach(item => {
+                    const name = item.querySelector('.gift-name').textContent.toLowerCase();
+                    // Se o termo estiver no nome, mostra; senão, esconde
+                    item.style.display = name.includes(term) ? 'block' : 'none';
+                });
+            });
+        }
     });
 })();
