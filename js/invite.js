@@ -7,23 +7,14 @@ function sanitizeHTML(str) {
 }
 document.addEventListener('DOMContentLoaded', async () => {
   // Injeta a estrutura HTML das cortinas
-  const angelSVG = `
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12,2L9,5H15L12,2M12,6C9.79,6 8,7.79 8,10V12H16V10C16,7.79 14.21,6 12,6M5,9C3.9,9 3,9.9 3,11V14C3,15.1 3.9,16 5,16H6V20H18V16H19C20.1,16 21,15.1 21,14V11C21,9.9 20.1,9 19,9H18C17.45,9 17,9.45 17,10V12H7V10C7,9.45 6.55,9 6,9H5Z"/>
-    </svg>`;
-
   const curtainHTML = `
     <div id="curtain-container" class="curtain-container">
         <div class="curtain-panel left">
-            <div class="angel-decoration angel-left-panel">${angelSVG}</div>
-            <div class="angel-decoration angel-bottom-left">${angelSVG}</div>
             <div class="curtain-medal">
                 <img src="img/nossa_senhora.png" alt="Nossa Senhora">
             </div>
         </div>
         <div class="curtain-panel right">
-            <div class="angel-decoration angel-right-panel">${angelSVG}</div>
-            <div class="angel-decoration angel-bottom-right">${angelSVG}</div>
             <div class="curtain-medal">
                 <img src="img/nossa_senhora.png" alt="Nossa Senhora">
             </div>
@@ -186,6 +177,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       heart.style.top = (10 + (i * 17) % 80) + '%';
       heart.style.fontSize = (1.6 + (i % 3) * 0.6) + 'rem';
     });
+
+
+    
+    // === JS Parallax Logic ===
+    const parallaxItems = document.querySelectorAll('.js-parallax');
+    if (parallaxItems.length > 0) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        // Usa requestAnimationFrame para performance suave (60fps)
+        window.requestAnimationFrame(() => {
+          parallaxItems.forEach(item => {
+            const speed = parseFloat(item.getAttribute('data-speed')) || 0.1;
+            // Calcula a posição relativa ao scroll
+            const yPos = scrollY * speed;
+            item.style.transform = `translate3d(0, ${yPos}px, 0)`;
+          });
+        });
+      });
+    }
   }
   const envelopeScreen = document.getElementById('envelope-screen');
   const mainContent = document.getElementById('main-content');
