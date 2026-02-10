@@ -64,6 +64,8 @@
                             <h6 class="animate__animated animate__fadeInDown">Bem-vindos ao nosso casamento</h6>
                             <h1 class="animate__animated animate__zoomIn">Evellyn & Guilherme</h1>
                             <p class="animate__animated animate__fadeInUp">19 de Novembro de 2026</p>
+                            <p class="animate__animated animate__fadeInUp"></p>"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."</p>
+
                             <div class="slider-buttons">
                                 <a href="#rsvp" class="btn btn-primary animate__animated animate__fadeInUp">Confirmar Presença</a>
                             </div>
@@ -104,22 +106,25 @@
                     <h2>Contagem Regressiva</h2>
                     <p class="section-subtitle text-white">Falta pouco para o grande dia!</p>
                 </div>
-                <div class="row justify-content-center text-center" id="countdown-container">
-                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up">
-                        <div class="stat-number" id="days">00</div>
-                        <div class="stat-label">Dias</div>
+                <div class="clock" id="countdown-container" data-aos="fade-up">
+                    <div class="clock-col">
+                        <div class="bg"><h2 id="days">00</h2></div>
+                        <span class="clock-label">Dias</span>
                     </div>
-                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="stat-number" id="hours">00</div>
-                        <div class="stat-label">Horas</div>
+                    <div class="clock-divider">:</div>
+                    <div class="clock-col">
+                        <div class="bg"><h2 id="hours">00</h2></div>
+                        <span class="clock-label">Horas</span>
                     </div>
-                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="stat-number" id="minutes">00</div>
-                        <div class="stat-label">Minutos</div>
+                    <div class="clock-divider">:</div>
+                    <div class="clock-col">
+                        <div class="bg"><h2 id="minutes">00</h2></div>
+                        <span class="clock-label">Minutos</span>
                     </div>
-                    <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="stat-number" id="seconds">00</div>
-                        <div class="stat-label">Segundos</div>
+                    <div class="clock-divider">:</div>
+                    <div class="clock-col">
+                        <div class="bg"><h2 id="seconds">00</h2></div>
+                        <span class="clock-label">Segundos</span>
                     </div>
                 </div>
             </div>

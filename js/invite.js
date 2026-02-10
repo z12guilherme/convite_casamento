@@ -7,21 +7,6 @@ function sanitizeHTML(str) {
 }
 document.addEventListener('DOMContentLoaded', async () => {
   // Injeta a estrutura HTML das cortinas
-  const curtainHTML = `
-    <div id="curtain-container" class="curtain-container">
-        <div class="curtain-panel left">
-            <div class="curtain-medal">
-                <img src="img/nossa_senhora.png" alt="Nossa Senhora">
-            </div>
-        </div>
-        <div class="curtain-panel right">
-            <div class="curtain-medal">
-                <img src="img/nossa_senhora.png" alt="Nossa Senhora">
-            </div>
-        </div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', curtainHTML);
 
   // Define a data do casamento. Substitua pela data e hora reais do seu evento.
   const weddingDate = new Date('2026-11-19T18:00:00');
@@ -229,38 +214,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error('Erro ao inicializar o aplicativo:', error);
     }
 
-    // Gerencia a Cortina e a Música
-    const curtain = document.getElementById('curtain-container');
-    if (curtain) {
-      // Coloca a cortina acima de tudo para a revelação
-      curtain.style.zIndex = '10010';
-      
-      // Força o navegador a processar o estado fechado
-      curtain.classList.remove('open');
-      void curtain.offsetWidth; 
-      
-      // Inicia a abertura com um pequeno delay para suavidade
-      setTimeout(() => {
-        curtain.classList.add('open');
-        
-        // Toca a música sincronizada com a abertura
-        if (weddingMusic) {
-          weddingMusic.muted = false;
-          weddingMusic.play().catch(e => console.error("Erro ao tocar música:", e));
-          if (musicBtn) musicBtn.innerHTML = '⏸️';
-        }
+    // Toca a música
+    if (weddingMusic) {
+      weddingMusic.muted = false;
+      weddingMusic.play().catch(e => console.error("Erro ao tocar música:", e));
+      if (musicBtn) musicBtn.innerHTML = '⏸️';
+    }
 
-        // Inicia o efeito de digitação após a cortina começar a abrir
-        const verseElement = document.getElementById('typing-verse');
-        const referenceElement = document.getElementById('verse-reference');
-        const verseText = '"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."';
-        
-        if (verseElement) {
-          typewriterEffect(verseElement, verseText, () => {
-            if(referenceElement) referenceElement.style.opacity = '1';
-          });
-        }
-      }, 600);
+    // Inicia o efeito de digitação
+    const verseElement = document.getElementById('typing-verse');
+    const referenceElement = document.getElementById('verse-reference');
+    const verseText = '"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."';
+    
+    if (verseElement) {
+      typewriterEffect(verseElement, verseText, () => {
+        if(referenceElement) referenceElement.style.opacity = '1';
+      });
     }
 
     // Remove o envelope do DOM após o fade completo

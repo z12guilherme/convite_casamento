@@ -1,4 +1,5 @@
 /* Shapely-based Theme CSS */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,700|Merriweather:300,400,700,900');
 
 :root {
@@ -216,7 +217,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 20px;
     line-height: 36px;
     font-style: italic;
-    color: #777;
+    color: #f0eeee;
     font-weight: 300;
 }
 .testimonial-author {
@@ -269,7 +270,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 16px;
 }
 .footer p {
-    color: rgba(255,255,255,0.5);
+    color: rgba(243, 240, 240, 0.992);
     font-size: 13px;
 }
 .footer .copyright {
@@ -600,4 +601,72 @@ h1, h2, h3, h4, h5, h6 {
 .swiper-button-next:hover {
     background: var(--primary);
     border-color: var(--primary);
+}
+
+/* === New Clock Style === */
+.clock {
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    background: #ebf5fc;
+    border-radius: 30px;
+    margin: 0 auto;
+    width: fit-content;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.clock h2 {
+    color: var(--primary);
+    padding: 0 10px;
+    margin-bottom: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: inherit;
+}
+
+.clock .bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    background: inherit;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1), inset 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.clock-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.clock-label {
+    margin-top: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #555;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.clock-divider {
+    font-size: 40px;
+    color: var(--primary);
+    padding: 0 5px;
+    line-height: 2.5em; /* Alinha verticalmente com os círculos */
+    font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    .clock {
+        font-size: 20px;
+        padding: 10px;
+    }
 }
