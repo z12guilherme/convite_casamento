@@ -10,6 +10,15 @@
   <style>@view-transition { navigation: auto; }</style>
   
   <!-- Mantendo scripts originais caso queira reativar o backend -->
+  <script src="https://cdn.jsdelivr.net/gh/kripken/ammo.js@HEAD/builds/ammo.js"></script>
+  <script type="importmap">
+    {
+      "imports": {      
+        "three": "https://unpkg.com/three@0.177.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.177.0/examples/jsm/"
+      }
+    }
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
  </head>
@@ -21,6 +30,7 @@
      <div class="orb orb-2"></div>
      <div class="orb orb-3"></div><!-- Animated Grid -->
      <div class="grid-bg"></div>
+     <div id="hero-canvas-container"></div>
     </div><!-- Decorative Leaves -->
     <svg class="leaf-decoration leaf-1" viewbox="0 0 100 100" fill="currentColor"><path d="M50 5C30 5 15 25 15 50c0 30 35 45 35 45s35-15 35-45C85 25 70 5 50 5zm0 10c15 0 25 15 25 35 0 20-25 35-25 35S25 70 25 50c0-20 10-35 25-35z" />
     </svg>
@@ -359,5 +369,6 @@
    </footer>
   </div>
   <script src="js/invite.js"></script>
+  <script type="module" src="js/hearts-3d.js"></script>
  </body>
 </html>

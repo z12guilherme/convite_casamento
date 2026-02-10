@@ -113,6 +113,17 @@ body {
   100% { transform: translate(80px, 80px); }
 }
 
+/* 3D Hearts Canvas Container */
+#hero-canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Atrás do texto */
+  /* pointer-events: none;  Removido para permitir rotação se desejado, mas cuidado com o texto */
+}
+
 /* Section Dynamic Backgrounds */
 .section-bg-dynamic {
   position: absolute;
