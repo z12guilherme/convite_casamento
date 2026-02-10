@@ -47,7 +47,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (distance < 0) {
         if (typeof interval !== 'undefined') clearInterval(interval);
         const countdownContainer = document.getElementById('countdown-container');
-        if (countdownContainer) {
+        const clockContainer = document.getElementById('clock');
+        if (clockContainer) {
+          clockContainer.innerHTML = "<h2 class='time'>O grande dia chegou!</h2>";
+        } else if (countdownContainer) {
           countdownContainer.innerHTML = "<h2>O grande dia chegou!</h2>";
         }
         return;
@@ -57,15 +60,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      const elDays = document.getElementById('days');
-      const elHours = document.getElementById('hours');
-      const elMinutes = document.getElementById('minutes');
-      const elSeconds = document.getElementById('seconds');
-
-      if (elDays) elDays.innerText = days.toString().padStart(2, '0');
-      if (elHours) elHours.innerText = hours.toString().padStart(2, '0');
-      if (elMinutes) elMinutes.innerText = minutes.toString().padStart(2, '0');
-      if (elSeconds) elSeconds.innerText = seconds.toString().padStart(2, '0');
+      const countdownDisplay = document.getElementById('countdown-display');
+      if (countdownDisplay) {
+        const d = days.toString().padStart(2, '0');
+        const h = hours.toString().padStart(2, '0');
+        const m = minutes.toString().padStart(2, '0');
+        const s = seconds.toString().padStart(2, '0');
+        countdownDisplay.innerText = `${d}:${h}:${m}:${s}`;
+      }
 
       // Adicionar efeito de confete quando o countdown chega a zero em alguma unidade
       if (seconds === 0) {

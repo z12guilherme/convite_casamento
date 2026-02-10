@@ -1,5 +1,6 @@
 /* Shapely-based Theme CSS */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,700|Merriweather:300,400,700,900');
 
 :root {
@@ -603,70 +604,53 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--primary);
 }
 
-/* === New Clock Style === */
-.clock {
-    color: #000;
-    font-family: 'Roboto', sans-serif;
-    font-size: 40px;
+/* === Digital Clock Style === */
+#clock {
+    font-family: 'Share Tech Mono', monospace;
+    color: #daf6ff;
     text-align: center;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px;
-    background: #ebf5fc;
-    border-radius: 30px;
+    text-shadow: 0 0 20px rgba(34, 177, 151, 1), 0 0 20px rgba(34, 177, 151, 0);
+
+    /* === Opção de Imagem de Fundo no Relógio === */
+    /* Para ativar, remova o comentário da linha abaixo e altere o caminho da imagem */
+    /* background-image: url('../img/fundo.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Estilo do container para melhorar leitura */
+    background-color: rgba(0, 0, 0, 0.2); /* Fundo escuro transparente */
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(3px); /* Efeito de vidro fosco */
     margin: 0 auto;
-    width: fit-content;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 800px;
 }
-
-.clock h2 {
-    color: var(--primary);
-    padding: 0 10px;
-    margin-bottom: 0;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: inherit;
+#clock .time {
+    letter-spacing: 0.05em;
+    font-size: 80px;
+    padding: 10px 0;
+    margin: 0;
+    line-height: 1;
 }
-
-.clock .bg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5em;
-    height: 2.5em;
-    background: inherit;
-    position: relative;
-    border-radius: 50%;
-    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1), inset 3px 3px 5px rgba(0, 0, 0, 0.2);
+#clock .date {
+    letter-spacing: 0.1em;
+    font-size: 24px;
+    margin: 0;
+    line-height: 1.5;
 }
-
-.clock-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.clock-label {
-    margin-top: 10px;
+#clock .text {
+    letter-spacing: 0.1em;
     font-size: 12px;
-    text-transform: uppercase;
-    color: #555;
-    font-weight: 600;
-    letter-spacing: 1px;
+    padding: 20px 0 0;
+    margin: 0;
+    color: rgba(255,255,255,0.8);
 }
-
-.clock-divider {
-    font-size: 40px;
-    color: var(--primary);
-    padding: 0 5px;
-    line-height: 2.5em; /* Alinha verticalmente com os círculos */
-    font-weight: 300;
-}
-
 @media (max-width: 768px) {
-    .clock {
-        font-size: 20px;
-        padding: 10px;
+    #clock .time {
+        font-size: 40px;
+    }
+    #clock .date {
+        font-size: 18px;
     }
 }
