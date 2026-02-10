@@ -1,263 +1,363 @@
-
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Casamento - Evellyn & Guilherme</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Animate.css Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- SwiperJs CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="css/invite.css">
-    <link rel="stylesheet" href="css/carousel.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/config.js"></script>
-</head>
-<body>
-
-    <!-- Music Button -->
-    <button id="music-btn" class="btn btn-light rounded-circle shadow" style="position: fixed; top: 20px; right: 20px; z-index: 10000; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-        <i class="bi bi-play-fill fs-4"></i>
-    </button>
-
-    <!-- Envelope Screen (Intro) -->
-    <div id="envelope-screen">
-        <video id="intro-video" playsinline muted loop autoplay>
-            <source src="video/video_introducao_sem_audio.mp4" type="video/mp4">
-        </video>
-        <button id="skip-intro-btn" class="btn btn-primary btn-lg shadow animate__animated animate__pulse animate__infinite">
-            <i class="bi bi-envelope-open-heart me-2"></i> Abrir Convite
-        </button>
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evellyn &amp; Marcos - Convite de Casamento</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/invite.css">
+  <style>@view-transition { navigation: auto; }</style>
+  
+  <!-- Mantendo scripts originais caso queira reativar o backend -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-wrapper" style="background: var(--primary-bg);"><!-- Hero Section -->
+   <section class="hero-section flex items-center justify-center text-white text-center px-4 py-16" style="min-height: 100%; position: relative;"><!-- Dynamic Background Layer -->
+    <div class="dynamic-bg"><!-- Floating Orbs -->
+     <div class="orb orb-1"></div>
+     <div class="orb orb-2"></div>
+     <div class="orb orb-3"></div><!-- Animated Grid -->
+     <div class="grid-bg"></div>
+    </div><!-- Decorative Leaves -->
+    <svg class="leaf-decoration leaf-1" viewbox="0 0 100 100" fill="currentColor"><path d="M50 5C30 5 15 25 15 50c0 30 35 45 35 45s35-15 35-45C85 25 70 5 50 5zm0 10c15 0 25 15 25 35 0 20-25 35-25 35S25 70 25 50c0-20 10-35 25-35z" />
+    </svg>
+    <svg class="leaf-decoration leaf-2" viewbox="0 0 100 100" fill="currentColor"><ellipse cx="50" cy="50" rx="30" ry="45" opacity="0.5" /> <path d="M50 10v80M30 30c20 10 20 30 0 40M70 30c-20 10-20 30 0 40" stroke="currentColor" stroke-width="2" fill="none" />
+    </svg>
+    <svg class="leaf-decoration leaf-3" viewbox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="40" opacity="0.3" /> <circle cx="50" cy="50" r="25" opacity="0.4" />
+    </svg>
+    <svg class="leaf-decoration leaf-4" viewbox="0 0 100 100" fill="currentColor"><path d="M50 10c-20 0-35 20-35 40s35 40 35 40 35-20 35-40-15-40-35-40z" opacity="0.4" />
+    </svg><!-- Particles -->
+    <div class="particle" style="top: 20%; left: 15%;"></div>
+    <div class="particle" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
+    <div class="particle" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 70%; right: 15%; animation-delay: 0.5s;"></div>
+    <div class="particle" style="top: 40%; left: 40%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="top: 80%; right: 35%; animation-delay: 2.5s;"></div>
+    <div class="names-container relative z-10 max-w-4xl mx-auto"><!-- Cross Icon -->
+     <div class="mb-6">
+      <svg class="w-12 h-12 mx-auto opacity-80" viewbox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M30 8v44M16 22h28" stroke-linecap="round" /> <circle cx="30" cy="8" r="3" fill="currentColor" opacity="0.5" />
+      </svg>
+     </div><!-- Main Title -->
+     <p class="font-sans-elegant text-sm tracking-widest uppercase mb-4 opacity-90" style="letter-spacing: 4px;">Com a bênção de Deus, convidamos você para celebrar</p><!-- Names -->
+     <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-2" id="bride-name">Evellyn</h1>
+     <div class="ampersand my-4"><span class="font-serif-elegant text-4xl md:text-5xl italic" style="color: var(--secondary-action);">&amp;</span>
+     </div>
+     <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-8" id="groom-name">Marcos</h1><!-- Romantic Phrase -->
+     <div class="divider-ornament"><span class="divider-line"></span>
+      <svg class="w-6 h-6" style="color: var(--secondary-action);" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg><span class="divider-line"></span>
+     </div>
+     <p class="font-serif-elegant text-xl md:text-2xl italic opacity-95 mb-8 px-4" id="wedding-phrase">"Unidos pela fé, amor e graça divina"</p><!-- Wedding Date -->
+     <div class="mt-8 p-6 rounded-2xl" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);">
+      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2">Cerimônia de Casamento</p>
+      <p class="font-serif-elegant text-3xl md:text-4xl font-semibold">19 de Novembro de 2026</p>
+     </div>
     </div>
-
-    <!-- Main Content (Hidden initially) -->
-    <main id="main-content" style="display: none;">
-        
-        <!-- Hero Section (Swiper) -->
-        <section id="hero" class="p-0 position-relative">
-            <div class="swiper mySlider">
-                <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="overlay"></div>
-                        <img src="img/fundo.jpg" alt="Decoração">
-                        <div class="slider-content">
-                            <h6 class="animate__animated animate__fadeInDown">Bem-vindos ao nosso casamento</h6>
-                            <h1 class="animate__animated animate__zoomIn">Evellyn & Guilherme</h1>
-                            <p class="animate__animated animate__fadeInUp">19 de Novembro de 2026</p>
-                            <p class="animate__animated animate__fadeInUp"></p>"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha."</p>
-
-                            <div class="slider-buttons">
-                                <a href="#rsvp" class="btn btn-primary animate__animated animate__fadeInUp">Confirmar Presença</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <div class="overlay"></div>
-                        <img src="img/foto.jpg" alt="Casal">
-                        <div class="slider-content">
-                            <h6 class="animate__animated animate__fadeInDown">Com a bênção de Deus</h6>
-                            <h1 class="animate__animated animate__zoomIn">Celebramos o Amor</h1>
-                            <p class="animate__animated animate__fadeInUp">Compartilhe este momento conosco</p>
-                        </div>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <div class="overlay"></div>
-                        <img src="img/pio.jpg" alt="Local">
-                        <div class="slider-content">
-                            <h6 class="animate__animated animate__fadeInDown">Cerimônia e Recepção</h6>
-                            <h1 class="animate__animated animate__zoomIn">Jardim Encantado</h1>
-                            <p class="animate__animated animate__fadeInUp">Belo Jardim - PE, às 18:00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-        </section>
-
-        <!-- Countdown Section -->
-        <section id="countdown-section" class="section parallax-section bg-sky">
-            <div class="parallax-overlay"></div>
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Contagem Regressiva</h2>
-                    <p class="section-subtitle text-white">Falta pouco para o grande dia!</p>
-                </div>
-                <div id="clock" data-aos="fade-up">
-                    <p class="date">19 NOV 2026</p>
-                    <p class="time" id="countdown-display">00:00:00:00</p>
-                    <p class="text">DIAS : HORAS : MIN : SEG</p>
-                </div>
-            </div>
-        </section>
-        <!-- Gallery Section (Book) -->
-        <section id="gallery" class="section">
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Nossa História</h2>
-                    <p class="section-subtitle">Alguns momentos especiais.</p>
-                </div>
-                <div class="d-flex justify-content-center" data-aos="zoom-in">
-                    <div class="css-book-wrapper">
-                        <div class="book">
-                            <div class="gap"></div>
-                            <div class="pages">
-                                <div class="page"></div><div class="page"></div><div class="page"></div>
-                                <div class="page"></div><div class="page"></div><div class="page"></div>
-                            </div>
-                            <div class="flips">
-                                <div class="flip flip1"><div class="flip flip2"><div class="flip flip3"><div class="flip flip4"><div class="flip flip5"><div class="flip flip6"><div class="flip flip7"></div></div></div></div></div></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        
-        <!-- Verse Section -->
-        <section class="section bg-white">
-            <div class="container">
-                <div class="testimonial" data-aos="fade-up">
-                    <div class="testimonial-text">
-                        <span id="typing-verse"></span>
-                    </div>
-                    <div class="testimonial-author" id="verse-reference" style="opacity: 0;">1 Coríntios 13:4</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- RSVP Section -->
-        <section id="rsvp" class="section parallax-section bg-romance">
-            <div class="parallax-overlay"></div>
-            <div class="container">
-                <div class="section-title" data-aos="fade-up">
-                    <h2>Confirmação de Presença</h2>
-                    <p class="section-subtitle text-white">Sua presença é fundamental!</p>
-                </div>
-                
-                <div class="contact-form" data-aos="fade-up">
-                    <div class="text-center mb-4">
-                        <p>Por favor, confirme se poderá comparecer.</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Levará crianças?</label>
-                        <div class="d-flex justify-content-center gap-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="bringing_children" id="children_yes" value="yes" onchange="document.getElementById('children-details').style.display = 'block'">
-                                <label class="form-check-label" for="children_yes">Sim</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="bringing_children" id="children_no" value="no" onchange="document.getElementById('children-details').style.display = 'none'" checked>
-                                <label class="form-check-label" for="children_no">Não</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="children-details" style="display: none;" class="mb-3">
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <input type="number" id="children_count" class="form-control" min="1" placeholder="Quantas crianças?">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" id="children_ages" class="form-control" placeholder="Idades (ex: 2, 5)">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button id="rsvp-confirm-btn" class="btn btn-primary btn-lg mx-2 mb-2">Confirmar Presença 🎉</button>
-                        <button id="rsvp-decline-btn" class="btn btn-secondary btn-lg mx-2 mb-2">Não poderei ir 😔</button>
-                        <div id="rsvp-message" class="mt-3 fw-bold"></div>
-                        <a id="gift-list-link" href="#" class="btn btn-outline-primary mt-3" style="display: none;">Ver Lista de Presentes 🎁</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <audio id="wedding-music" src="audio/musica.mp4" preload="auto" loop></audio>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- SwiperJs JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <!-- Original Logic Scripts -->
-    <script src="js/invite.js"></script>
-
-    <!-- Swiper Initialization -->
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        const swiper = new Swiper('.mySlider', {
-            direction: 'horizontal',
-            loop: true,
-            autoplay: {
-                delay: 5000, // Delay maior para dar tempo de ler
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true,
-            },
-            speed: 1500,
-            // Re-ativa animações do Animate.css a cada troca de slide
-            on: {
-                slideChangeTransitionStart: function () {
-                    const activeSlide = this.slides[this.activeIndex];
-                    const animatedElements = activeSlide.querySelectorAll('.slider-content [class*="animate__"]');
-                    animatedElements.forEach(el => {
-                        const animation = el.className.match(/animate__[\w-]+/)[0];
-                        el.classList.remove(animation);
-                        // Força o repaint antes de adicionar a classe novamente
-                        void el.offsetWidth; 
-                        el.classList.add(animation);
-                    });
-                },
-            },
-        });
-    </script>
-</body>
+   </section><!-- Gallery Section -->
+   <section class="gallery-section fade-in-section" id="gallery" style="position: relative;">
+    <div class="section-bg-dynamic">
+     <div class="blob blob-1"></div>
+     <div class="blob blob-2"></div>
+    </div>
+    <div class="gallery-container">
+     <div class="section-title">
+      <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
+      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70" style="color: var(--text-color);">Explore nossos momentos especiais em 3D</p>
+     </div><!-- 3D Carousel -->
+     <div class="carousel-3d-wrapper">
+      <div class="carousel-3d" id="carousel3d"><!-- Slide 1 -->
+       <div class="carousel-item-3d active">
+        <div class="carousel-item-3d-inner">
+         <div class="carousel-card-front">
+          <img src="img/foto.jpg" class="carousel-card-image" alt="O Encontro">
+          <div class="carousel-card-title">
+           O Encontro
+          </div>
+          <div class="carousel-card-subtitle">
+           Capítulo 1
+          </div>
+          <div class="carousel-card-description">
+           Quando dois corações se encontraram pela primeira vez, tudo mudou.
+          </div>
+         </div>
+         <div class="carousel-card-back">
+          <img src="img/foto.jpg" class="carousel-card-image" alt="O Encontro">
+          <div class="carousel-card-title">
+           Um Novo Começo
+          </div>
+          <div class="carousel-card-subtitle">
+           Nosso Destino
+          </div>
+          <div class="carousel-card-description">
+           Aquele momento mágico que nos uniu para sempre.
+          </div>
+         </div>
+        </div>
+       </div><!-- Slide 2 -->
+       <div class="carousel-item-3d next">
+        <div class="carousel-item-3d-inner">
+         <div class="carousel-card-front">
+          <img src="img/fundo.jpg" class="carousel-card-image" alt="Amor Verdadeiro">
+          <div class="carousel-card-title">
+           Amor Verdadeiro
+          </div>
+          <div class="carousel-card-subtitle">
+           Capítulo 2
+          </div>
+          <div class="carousel-card-description">
+           Dia após dia, nosso amor cresceu e se fortaleceu.
+          </div>
+         </div>
+         <div class="carousel-card-back">
+          <img src="img/fundo.jpg" class="carousel-card-image" alt="Amor Verdadeiro">
+          <div class="carousel-card-title">
+           Crescimento
+          </div>
+          <div class="carousel-card-subtitle">
+           Juntos
+          </div>
+          <div class="carousel-card-description">
+           Cada momento passou a ser mais especial e significativo.
+          </div>
+         </div>
+        </div>
+       </div><!-- Slide 3 -->
+       <div class="carousel-item-3d far-next">
+        <div class="carousel-item-3d-inner">
+         <div class="carousel-card-front">
+          <img src="img/fundo.jpg" class="carousel-card-image" alt="Os Anéis">
+          <div class="carousel-card-title">
+           Os Anéis
+          </div>
+          <div class="carousel-card-subtitle">
+           Capítulo 3
+          </div>
+          <div class="carousel-card-description">
+           Símbolos eternos do nosso compromisso e promessa.
+          </div>
+         </div>
+         <div class="carousel-card-back">
+          <img src="img/fundo.jpg" class="carousel-card-image" alt="Os Anéis">
+          <div class="carousel-card-title">
+           Eternidade
+          </div>
+          <div class="carousel-card-subtitle">
+           Para Sempre
+          </div>
+          <div class="carousel-card-description">
+           Selados no metal, gravados no coração.
+          </div>
+         </div>
+        </div>
+       </div><!-- Slide 4 -->
+       <div class="carousel-item-3d far-next">
+        <div class="carousel-item-3d-inner">
+         <div class="carousel-card-front">
+          <img src="img/noivo.png" class="carousel-card-image" alt="Pedido Especial">
+          <div class="carousel-card-title">
+           Pedido Especial
+          </div>
+          <div class="carousel-card-subtitle">
+           Capítulo 4
+          </div>
+          <div class="carousel-card-description">
+           O momento em que tudo se tornou oficial e sagrado.
+          </div>
+         </div>
+         <div class="carousel-card-back">
+          <img src="img/noivo.png" class="carousel-card-image" alt="Pedido Especial">
+          <div class="carousel-card-title">
+           O Sim
+          </div>
+          <div class="carousel-card-subtitle">
+           Eternizado
+          </div>
+          <div class="carousel-card-description">
+           Aquele sim que ecoará para sempre em nossas almas.
+          </div>
+         </div>
+        </div>
+       </div><!-- Slide 5 -->
+       <div class="carousel-item-3d far-prev">
+        <div class="carousel-item-3d-inner">
+         <div class="carousel-card-front">
+          <img src="img/noiva.jpg" class="carousel-card-image" alt="Preparação">
+          <div class="carousel-card-title">
+           Preparação
+          </div>
+          <div class="carousel-card-subtitle">
+           Capítulo 5
+          </div>
+          <div class="carousel-card-description">
+           Cada detalhe pensado com amor e dedicação.
+          </div>
+         </div>
+         <div class="carousel-card-back">
+          <img src="img/noiva.jpg" class="carousel-card-image" alt="Preparação">
+          <div class="carousel-card-title">
+           Antecipação
+          </div>
+          <div class="carousel-card-subtitle">
+           Ansiedade
+          </div>
+          <div class="carousel-card-description">
+           Contando os dias para o maior dia de nossas vidas.
+          </div>
+         </div>
+        </div>
+       </div><!-- Slide 6 -->
+       <div class="carousel-item-3d prev">
+        <div class="carousel-item-3d-inner">
+         <div class="carousel-card-front">
+          <img src="img/pio.jpg" class="carousel-card-image" alt="O Grande Dia">
+          <div class="carousel-card-title">
+           O Grande Dia
+          </div>
+          <div class="carousel-card-subtitle">
+           Capítulo 6
+          </div>
+          <div class="carousel-card-description">
+           19 de Novembro de 2026 - Nosso matrimônio sagrado.
+          </div>
+         </div>
+         <div class="carousel-card-back">
+          <img src="img/pio.jpg" class="carousel-card-image" alt="O Grande Dia">
+          <div class="carousel-card-title">
+           Eternidade
+          </div>
+          <div class="carousel-card-subtitle">
+           Começo
+          </div>
+          <div class="carousel-card-description">
+           Dois se tornando um, para sempre abençoados.
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Controls -->
+     <div class="carousel-controls"><button class="carousel-nav-btn" onclick="rotateCarousel(-1)">❮</button>
+      <div class="carousel-dots-3d" id="carouselDots"></div>
+      <div class="carousel-counter">
+       <span id="currentSlide">1</span> / 6
+      </div><button class="carousel-nav-btn" onclick="rotateCarousel(1)">❯</button>
+     </div>
+    </div>
+   </section><!-- Countdown Section -->
+   <section class="py-20 px-4 fade-in-section" style="background: var(--secondary-surface); position: relative;">
+    <div class="section-bg-dynamic">
+     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.25), transparent);"></div>
+     <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);"></div>
+    </div>
+    <div class="max-w-4xl mx-auto text-center">
+     <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70" style="color: var(--text-color);">Para o grande dia</p>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="days">000</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Dias</span>
+      </div>
+      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="hours">00</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Horas</span>
+      </div>
+      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="minutes">00</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Minutos</span>
+      </div>
+      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="seconds">00</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Segundos</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- Catholic Elements Section -->
+   <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
+    <div class="section-bg-dynamic">
+     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent);"></div>
+     <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);"></div>
+    </div>
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="icon-container mb-12"><!-- Cross -->
+      <div class="flex flex-col items-center">
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--primary-action);"><path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="3" stroke-linecap="round" /> <circle cx="30" cy="5" r="2" fill="currentColor" /> <circle cx="30" cy="55" r="2" fill="currentColor" /> <circle cx="15" cy="18" r="2" fill="currentColor" /> <circle cx="45" cy="18" r="2" fill="currentColor" />
+       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Fé</span>
+      </div><!-- Rings -->
+      <div class="flex flex-col items-center rings-container">
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><circle cx="22" cy="30" r="12" stroke="currentColor" stroke-width="3" /> <circle cx="38" cy="30" r="12" stroke="currentColor" stroke-width="3" /> <circle cx="22" cy="30" r="8" stroke="currentColor" stroke-width="1" opacity="0.5" /> <circle cx="38" cy="30" r="8" stroke="currentColor" stroke-width="1" opacity="0.5" />
+       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">União</span>
+      </div><!-- Bible -->
+      <div class="flex flex-col items-center">
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--primary-action);"><rect x="12" y="10" width="36" height="40" rx="2" stroke="currentColor" stroke-width="2" /> <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="2" /> <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="2" /> <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" /> <line x1="22" y1="38" x2="38" y2="38" stroke="currentColor" stroke-width="1.5" opacity="0.5" /> <line x1="22" y1="42" x2="38" y2="42" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Palavra</span>
+      </div><!-- Heart -->
+      <div class="flex flex-col items-center">
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.2" />
+       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Amor</span>
+      </div>
+     </div><!-- Bible Verse -->
+     <div class="max-w-2xl mx-auto p-8 rounded-2xl" style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+      <svg class="w-8 h-8 mx-auto mb-4" style="color: var(--secondary-action);" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+      </svg>
+      <p class="font-serif-elegant text-lg md:text-xl italic leading-relaxed mb-4" style="color: var(--text-color);" id="bible-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."</p>
+      <p class="font-sans-elegant text-sm tracking-widest" style="color: var(--primary-action);">— 1 Coríntios 13:4-7</p>
+     </div>
+    </div>
+   </section><!-- Invitation Message Section -->
+   <section class="py-20 px-4 fade-in-section" style="background: var(--secondary-surface); position: relative;">
+    <div class="section-bg-dynamic">
+     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.25), transparent);"></div>
+     <div class="blob blob-2" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent);"></div>
+    </div>
+    <div class="max-w-2xl mx-auto text-center">
+     <div class="divider-ornament"><span class="divider-line"></span>
+      <svg class="w-8 h-8" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="none"><circle cx="22" cy="30" r="10" stroke="currentColor" stroke-width="2" /> <circle cx="38" cy="30" r="10" stroke="currentColor" stroke-width="2" />
+      </svg><span class="divider-line"></span>
+     </div>
+     <p id="guest-greeting" class="font-serif-elegant text-2xl md:text-3xl mb-6 font-bold" style="color: var(--primary-action);"></p>
+     <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Com muito amor</h2>
+     <p class="font-sans-elegant text-base leading-relaxed mb-8" style="color: var(--text-color); opacity: 0.85;">Convidamos você para celebrar conosco este momento tão especial em nossas vidas. Será uma honra ter sua presença em nossa cerimônia de casamento, onde uniremos nossas vidas diante de Deus e de nossos familiares e amigos.</p>
+     <p class="font-sans-elegant text-base leading-relaxed mb-10" style="color: var(--text-color); opacity: 0.85;">Sua presença é o maior presente que podemos receber. Venha compartilhar conosco esse dia de alegria, fé e esperança.</p><button class="save-date-btn" style="background: linear-gradient(135deg, var(--primary-action), #2D8B7A); color: white;"> ✨ Save the Date ✨ </button>
+    </div>
+   </section><!-- RSVP Section -->
+   <section class="py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
+    <div class="max-w-2xl mx-auto text-center p-8 rounded-2xl" style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+     <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Confirmação de Presença</h2>
+     <p class="font-sans-elegant text-sm mb-8" style="color: var(--text-color);">Por favor, confirme sua presença.</p>
+     <div id="rsvp-form-container">
+      <div class="mb-6">
+       <label class="block font-sans-elegant text-sm font-bold mb-2" style="color: var(--text-color);">Levará crianças?</label>
+       <div class="flex justify-center gap-4">
+        <label class="inline-flex items-center"><input type="radio" name="bringing_children" value="yes" class="form-radio" style="color: var(--primary-action);" onchange="document.getElementById('children-details').classList.remove('hidden')"> <span class="ml-2">Sim</span></label> 
+        <label class="inline-flex items-center"><input type="radio" name="bringing_children" value="no" class="form-radio" style="color: var(--primary-action);" checked onchange="document.getElementById('children-details').classList.add('hidden')"> <span class="ml-2">Não</span></label>
+       </div>
+      </div>
+      <div id="children-details" class="hidden mb-6 text-left">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+         <label class="block text-xs uppercase tracking-wide mb-1">Quantidade</label> <input type="number" id="children_count" class="w-full p-2 border rounded" style="border-color: var(--primary-action);">
+        </div>
+        <div>
+         <label class="block text-xs uppercase tracking-wide mb-1">Idades</label> <input type="text" id="children_ages" class="w-full p-2 border rounded" placeholder="Ex: 2, 5" style="border-color: var(--primary-action);">
+        </div>
+       </div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-center gap-4 mt-8">
+       <button onclick="handleRsvp('Confirmado')" class="save-date-btn">Confirmar Presença</button> <button onclick="handleRsvp('Recusado')" class="save-date-btn" style="background: #ef4444;">Não poderei ir</button>
+      </div>
+     </div>
+     <div id="rsvp-message" class="mt-6 font-serif-elegant text-xl" style="display: none;"></div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-12 px-4 text-center" style="background: linear-gradient(135deg, #40B5A0 0%, #2D8B7A 100%);">
+    <div class="max-w-2xl mx-auto text-white">
+     <div class="mb-6">
+      <svg class="w-10 h-10 mx-auto opacity-80" viewbox="0 0 60 60" fill="currentColor"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" />
+      </svg>
+     </div>
+     <p class="font-serif-elegant text-2xl md:text-3xl italic mb-2" id="footer-names">Evellyn &amp; Marcos</p>
+     <p class="font-sans-elegant text-sm tracking-widest opacity-80">19 · 11 · 2026</p>
+     <div class="mt-8 pt-6 border-t border-white border-opacity-20">
+      <p class="font-serif-elegant text-base italic opacity-90">"Duas pessoas são melhores do que uma, porque podem ajudar uma à outra a vencer."</p>
+      <p class="font-sans-elegant text-xs tracking-widest mt-2 opacity-70">— Eclesiastes 4:9</p>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script src="js/invite.js"></script>
+ </body>
 </html>
