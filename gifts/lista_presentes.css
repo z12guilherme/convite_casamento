@@ -12,9 +12,12 @@
     --c-cream: #f5f1ed;
 
     /* Fontes */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Lato', sans-serif;
-    --font-script: 'Dancing Script', cursive;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    /* Compatibilidade com invite.css */
+    --secondary-action: var(--c-gold);
+    --primary-action: var(--c-primary);
 }
 
 /* === Configurações Gerais da Página === */
@@ -60,16 +63,18 @@ body::after {
 
 /* === Tipografia === */
 h1 {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading); /* Cormorant Garamond */
     color: var(--c-primary);
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-    text-align: center;
-    font-weight: 400;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-    animation: fadeInScale 1s ease-out;
+}
+
+.premium-title {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--c-text-dark);
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    letter-spacing: -1px;
 }
 
 #guest-greeting {
@@ -86,42 +91,42 @@ h1 {
 
 /* === Cena 3D e Carrossel (Lista de Presentes) === */
 .scene {
-    margin: 0 auto;
+    margin: 40px auto;
     position: relative;
     width: 100%;
     max-width: 1200px;
+    height: auto;
+    perspective: none;
     z-index: 1;
     animation: fadeInScale 1.4s ease-out 0.3s both;
 }
 
 .carousel {
-    display: flex;
-    flex-wrap: nowrap; /* Impede que os itens pulem para a linha de baixo */
-    overflow-x: auto;  /* Ativa a rolagem horizontal */
-    gap: 25px;
-    padding: 30px 10px;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; /* Rolagem suave no iOS */
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: var(--c-gold) transparent;
+    width: 100%;
+    height: auto;
+    position: relative;
+    transform-style: flat;
+    animation: none;
+    
+    /* Layout em Grid para mostrar todos os presentes */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+    padding: 20px;
 }
 
-/* Estilização da barra de rolagem para ficar "chic" */
-.carousel::-webkit-scrollbar {
-    height: 8px;
-}
-.carousel::-webkit-scrollbar-thumb {
-    background: var(--c-gold);
-    border-radius: 10px;
+.carousel:hover {
+    animation-play-state: running;
 }
 
 .gift-item {
-    flex: 0 0 300px; /* Define largura fixa e impede que o item encolha */
     position: relative;
-    min-height: 420px;
-    display: flex;
-    scroll-snap-align: center; /* Centraliza o card ao rolar */
+    width: 100%;
+    height: auto;
+    left: auto;
+    top: auto;
+    background: transparent;
+    transform: none !important; /* Garante que não haja transformação 3D */
 }
 
 /* === Estilo dos Cards === */
@@ -137,7 +142,10 @@ h1 {
     position: relative;
     height: 100%;
     width: 100%;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Animação de flutuação constante */
+    animation: float-card 6s ease-in-out infinite;
+    border: 1px solid rgba(212, 175, 111, 0.2);
 }
 
 /* Detalhe Dourado no Topo do Card */
@@ -153,26 +161,37 @@ h1 {
     overflow: hidden;
 }
 
-/* Efeito de brilho passando na borda dourada */
+/* Efeito de brilho passando pelo card inteiro */
 .gift-card::after {
     content: '';
     position: absolute;
-    top: 0; left: -100%; width: 50%; height: 4px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    top: 0; 
+    left: -150%; 
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+    );
+    transform: skewX(-25deg);
     z-index: 2;
-    animation: shine-gold 3s infinite;
-}
-
-@keyframes shine-gold {
-    0% { left: -100%; }
-    20% { left: 100%; }
-    100% { left: 100%; }
+    animation: shine-sweep 5s infinite;
+    pointer-events: none;
 }
 
 .gift-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(74, 139, 129, 0.2);
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 30px 60px rgba(74, 139, 129, 0.3);
+    border-color: var(--c-gold);
+    z-index: 10;
+    animation-play-state: paused; /* Pausa a flutuação ao passar o mouse */
 }
+
+/* Variação nas animações para parecer mais orgânico */
+.gift-item:nth-child(odd) .gift-card { animation-duration: 7s; }
+.gift-item:nth-child(even) .gift-card { animation-duration: 5s; animation-delay: 1s; }
 
 .gift-image {
     width: 100%;
@@ -258,6 +277,14 @@ h1 {
     display: none; /* Esconde os botões de navegação do carrossel antigo */
 }
 
+/* Footer Premium */
+.premium-footer-names {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
 /* === Animações === */
 @keyframes fadeInScale {
     from { 
@@ -270,10 +297,21 @@ h1 {
     }
 }
 
+@keyframes float-card {
+    0%, 100% { transform: translateY(0); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); }
+    50% { transform: translateY(-10px); box-shadow: 0 25px 45px rgba(212, 175, 111, 0.15); }
+}
+
+@keyframes shine-sweep {
+    0% { left: -150%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { left: 150%; opacity: 0; }
+}
+
 /* === Responsividade === */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
+    .premium-title {
+        font-size: 3rem;
     }
     
     #guest-greeting {
@@ -282,7 +320,7 @@ h1 {
     }
     
     .scene {
-        width: 100%;
-        height: auto;
+        transform: none;
+        margin: 20px auto;
     }
 }
