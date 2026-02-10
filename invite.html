@@ -22,6 +22,26 @@
   <script src="js/config.js"></script>
  </head>
  <body class="h-full">
+  <!-- Intro Overlay -->
+  <div id="intro-overlay">
+    <div class="intro-content">
+        <div class="dolls-container">
+            <img src="img/noiva.jpg" alt="Noiva" class="doll doll-bride">
+            <img src="img/noivo.png" alt="Noivo" class="doll doll-groom">
+        </div>
+        <h1 class="intro-title">Evellyn & Guilherme</h1>
+        <p class="intro-subtitle">Convite de Casamento</p>
+        <button id="enter-invite-btn" class="enter-btn">
+            <span>💌</span> Abrir Convite
+        </button>
+    </div>
+  </div>
+  <audio id="wedding-music" loop>
+    <source src="audio/musica.mp4" type="audio/mp4">
+  </audio>
+  <!-- Music Control (Floating) -->
+  <button id="music-control" class="music-btn hidden" title="Pausar/Tocar Música">🔊</button>
+
   <div class="app-wrapper" style="background: var(--primary-bg);"><!-- Hero Section -->
    <section class="hero-section flex items-center justify-center text-white text-center px-4 py-16" style="min-height: 100%; position: relative;"><!-- Dynamic Background Layer -->
     <div class="dynamic-bg"><!-- Floating Orbs -->

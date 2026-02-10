@@ -163,4 +163,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const greetingEl = document.getElementById('guest-greeting');
     if (greetingEl) greetingEl.textContent = `Olá, ${guestName}!`;
   }
+
+  // Intro & Music Logic
+  const introOverlay = document.getElementById('intro-overlay');
+  const enterBtn = document.getElementById('enter-invite-btn');
+  const music = document.getElementById('wedding-music');
+  const musicBtn = document.getElementById('music-control');
+
+  if (enterBtn) {
+    enterBtn.addEventListener('click', () => {
+      // Hide overlay
+      if (introOverlay) {
+        introOverlay.classList.add('hidden');
+        setTimeout(() => introOverlay.remove(), 1000); // Remove do DOM após transição
+      }
+      
+      // Play music
+      if (music) {
+        music.volume = 0.5;
+        music.play().catch(e => console.log("Autoplay prevented:", e));
+        if (musicBtn) musicBtn.classList.remove('hidden');
+      }
+    });
+  }
+
+  if (musicBtn && music) {
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        musicBtn.textContent = '🔊';
+      } else {
+        music.pause();
+        musicBtn.textContent = '🔇';
+      }
+    });
+  }
 });
