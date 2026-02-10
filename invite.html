@@ -10,7 +10,6 @@
   <style>@view-transition { navigation: auto; }</style>
   
   <!-- Mantendo scripts originais caso queira reativar o backend -->
-  <script src="https://cdn.jsdelivr.net/gh/kripken/ammo.js@HEAD/builds/ammo.js"></script>
   <script type="importmap">
     {
       "imports": {      
@@ -77,183 +76,18 @@
       <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
       <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70" style="color: var(--text-color);">Explore nossos momentos especiais em 3D</p>
      </div><!-- 3D Carousel -->
-     <div class="carousel-3d-wrapper">
-      <div class="carousel-3d" id="carousel3d"><!-- Slide 1 -->
-       <div class="carousel-item-3d active">
-        <div class="carousel-item-3d-inner">
-         <div class="carousel-card-front">
-          <img src="img/foto.jpg" class="carousel-card-image" alt="O Encontro">
-          <div class="carousel-card-title">
-           O Encontro
-          </div>
-          <div class="carousel-card-subtitle">
-           Capítulo 1
-          </div>
-          <div class="carousel-card-description">
-           Quando dois corações se encontraram pela primeira vez, tudo mudou.
-          </div>
-         </div>
-         <div class="carousel-card-back">
-          <img src="img/foto.jpg" class="carousel-card-image" alt="O Encontro">
-          <div class="carousel-card-title">
-           Um Novo Começo
-          </div>
-          <div class="carousel-card-subtitle">
-           Nosso Destino
-          </div>
-          <div class="carousel-card-description">
-           Aquele momento mágico que nos uniu para sempre.
-          </div>
-         </div>
-        </div>
-       </div><!-- Slide 2 -->
-       <div class="carousel-item-3d next">
-        <div class="carousel-item-3d-inner">
-         <div class="carousel-card-front">
-          <img src="img/fundo.jpg" class="carousel-card-image" alt="Amor Verdadeiro">
-          <div class="carousel-card-title">
-           Amor Verdadeiro
-          </div>
-          <div class="carousel-card-subtitle">
-           Capítulo 2
-          </div>
-          <div class="carousel-card-description">
-           Dia após dia, nosso amor cresceu e se fortaleceu.
-          </div>
-         </div>
-         <div class="carousel-card-back">
-          <img src="img/fundo.jpg" class="carousel-card-image" alt="Amor Verdadeiro">
-          <div class="carousel-card-title">
-           Crescimento
-          </div>
-          <div class="carousel-card-subtitle">
-           Juntos
-          </div>
-          <div class="carousel-card-description">
-           Cada momento passou a ser mais especial e significativo.
-          </div>
-         </div>
-        </div>
-       </div><!-- Slide 3 -->
-       <div class="carousel-item-3d far-next">
-        <div class="carousel-item-3d-inner">
-         <div class="carousel-card-front">
-          <img src="img/fundo.jpg" class="carousel-card-image" alt="Os Anéis">
-          <div class="carousel-card-title">
-           Os Anéis
-          </div>
-          <div class="carousel-card-subtitle">
-           Capítulo 3
-          </div>
-          <div class="carousel-card-description">
-           Símbolos eternos do nosso compromisso e promessa.
-          </div>
-         </div>
-         <div class="carousel-card-back">
-          <img src="img/fundo.jpg" class="carousel-card-image" alt="Os Anéis">
-          <div class="carousel-card-title">
-           Eternidade
-          </div>
-          <div class="carousel-card-subtitle">
-           Para Sempre
-          </div>
-          <div class="carousel-card-description">
-           Selados no metal, gravados no coração.
-          </div>
-         </div>
-        </div>
-       </div><!-- Slide 4 -->
-       <div class="carousel-item-3d far-next">
-        <div class="carousel-item-3d-inner">
-         <div class="carousel-card-front">
-          <img src="img/noivo.png" class="carousel-card-image" alt="Pedido Especial">
-          <div class="carousel-card-title">
-           Pedido Especial
-          </div>
-          <div class="carousel-card-subtitle">
-           Capítulo 4
-          </div>
-          <div class="carousel-card-description">
-           O momento em que tudo se tornou oficial e sagrado.
-          </div>
-         </div>
-         <div class="carousel-card-back">
-          <img src="img/noivo.png" class="carousel-card-image" alt="Pedido Especial">
-          <div class="carousel-card-title">
-           O Sim
-          </div>
-          <div class="carousel-card-subtitle">
-           Eternizado
-          </div>
-          <div class="carousel-card-description">
-           Aquele sim que ecoará para sempre em nossas almas.
-          </div>
-         </div>
-        </div>
-       </div><!-- Slide 5 -->
-       <div class="carousel-item-3d far-prev">
-        <div class="carousel-item-3d-inner">
-         <div class="carousel-card-front">
-          <img src="img/noiva.jpg" class="carousel-card-image" alt="Preparação">
-          <div class="carousel-card-title">
-           Preparação
-          </div>
-          <div class="carousel-card-subtitle">
-           Capítulo 5
-          </div>
-          <div class="carousel-card-description">
-           Cada detalhe pensado com amor e dedicação.
-          </div>
-         </div>
-         <div class="carousel-card-back">
-          <img src="img/noiva.jpg" class="carousel-card-image" alt="Preparação">
-          <div class="carousel-card-title">
-           Antecipação
-          </div>
-          <div class="carousel-card-subtitle">
-           Ansiedade
-          </div>
-          <div class="carousel-card-description">
-           Contando os dias para o maior dia de nossas vidas.
-          </div>
-         </div>
-        </div>
-       </div><!-- Slide 6 -->
-       <div class="carousel-item-3d prev">
-        <div class="carousel-item-3d-inner">
-         <div class="carousel-card-front">
-          <img src="img/pio.jpg" class="carousel-card-image" alt="O Grande Dia">
-          <div class="carousel-card-title">
-           O Grande Dia
-          </div>
-          <div class="carousel-card-subtitle">
-           Capítulo 6
-          </div>
-          <div class="carousel-card-description">
-           19 de Novembro de 2026 - Nosso matrimônio sagrado.
-          </div>
-         </div>
-         <div class="carousel-card-back">
-          <img src="img/pio.jpg" class="carousel-card-image" alt="O Grande Dia">
-          <div class="carousel-card-title">
-           Eternidade
-          </div>
-          <div class="carousel-card-subtitle">
-           Começo
-          </div>
-          <div class="carousel-card-description">
-           Dois se tornando um, para sempre abençoados.
-          </div>
-         </div>
-        </div>
-       </div>
+     <div class="carousel-container-3d">
+      <div class="carousel-spinner">
+       <div class="carousel__face"><span>O Encontro</span></div>
+       <div class="carousel__face"><span>Nossa História</span></div>
+       <div class="carousel__face"><span>O Pedido</span></div>
+       <div class="carousel__face"><span>O Sim</span></div>
+       <div class="carousel__face"><span>A Preparação</span></div>
+       <div class="carousel__face"><span>O Grande Dia</span></div>
+       <div class="carousel__face"><span>Eternidade</span></div>
+       <div class="carousel__face"><span>Fé & Amor</span></div>
+       <div class="carousel__face"><span>19.11.2026</span></div>
       </div>
-     </div><!-- Controls -->
-     <div class="carousel-controls"><button class="carousel-nav-btn" onclick="rotateCarousel(-1)">❮</button>
-      <div class="carousel-dots-3d" id="carouselDots"></div>
-      <div class="carousel-counter">
-       <span id="currentSlide">1</span> / 6
-      </div><button class="carousel-nav-btn" onclick="rotateCarousel(1)">❯</button>
      </div>
     </div>
    </section><!-- Countdown Section -->
@@ -351,6 +185,9 @@
       </div>
      </div>
      <div id="rsvp-message" class="mt-6 font-serif-elegant text-xl" style="display: none;"></div>
+     <div id="gift-list-container" class="mt-8" style="display: none;">
+      <a id="gift-list-link" href="#" class="save-date-btn" style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, var(--secondary-action), #C99B2A);">🎁 Ver Lista de Presentes</a>
+     </div>
     </div>
    </section><!-- Footer -->
    <footer class="py-12 px-4 text-center" style="background: linear-gradient(135deg, #40B5A0 0%, #2D8B7A 100%);">

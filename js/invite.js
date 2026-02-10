@@ -12,74 +12,6 @@ const defaultConfig = {
 };
 
 let config = { ...defaultConfig };
-let currentCarouselIndex = 0;
-const totalSlides = 6;
-
-// Create carousel dots
-function createCarouselDots() {
-  const dotsContainer = document.getElementById('carouselDots');
-  if (!dotsContainer) return;
-  dotsContainer.innerHTML = '';
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement('div');
-    dot.className = `carousel-dot-3d ${i === 0 ? 'active' : ''}`;
-    dot.onclick = () => goToSlide(i);
-    dotsContainer.appendChild(dot);
-  }
-}
-
-// Rotate carousel
-function rotateCarousel(direction) {
-  currentCarouselIndex = (currentCarouselIndex + direction + totalSlides) % totalSlides;
-  updateCarouselPosition();
-}
-
-// Go to specific slide
-function goToSlide(index) {
-  currentCarouselIndex = index;
-  updateCarouselPosition();
-}
-
-// Update carousel position
-function updateCarouselPosition() {
-  const carousel = document.getElementById('carousel3d');
-  if (!carousel) return;
-  const items = carousel.querySelectorAll('.carousel-item-3d');
-  
-  items.forEach((item, index) => {
-    item.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
-    
-    let position = (index - currentCarouselIndex + totalSlides) % totalSlides;
-    
-    if (position === 0) {
-      item.classList.add('active');
-    } else if (position === 1) {
-      item.classList.add('next');
-    } else if (position === totalSlides - 1) {
-      item.classList.add('prev');
-    } else if (position > 1) {
-      item.classList.add('far-next');
-    } else {
-      item.classList.add('far-prev');
-    }
-  });
-  
-  // Update dots
-  const dots = document.querySelectorAll('.carousel-dot-3d');
-  dots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === currentCarouselIndex);
-  });
-  
-  // Update counter
-  const counter = document.getElementById('currentSlide');
-  if (counter) counter.textContent = currentCarouselIndex + 1;
-}
-
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') rotateCarousel(-1);
-  if (e.key === 'ArrowRight') rotateCarousel(1);
-});
 
 // Countdown
 function updateCountdown() {
@@ -205,6 +137,14 @@ async function handleRsvp(status) {
         ? '<span style="color: var(--primary-action)">Presença confirmada! Obrigado! 🎉</span>'
         : 'Obrigado por responder. Sentiremos sua falta.';
       messageContainer.style.display = 'block';
+      
+      // Show gift list link if confirmed
+      const giftContainer = document.getElementById('gift-list-container');
+      const giftLink = document.getElementById('gift-list-link');
+      if (status === 'Confirmado') {
+        if (giftContainer) giftContainer.style.display = 'block';
+        if (giftLink) giftLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(name)}`;
+      }
     }
   }
 }
@@ -215,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateCountdown, 1000);
   handleScrollAnimation();
   onConfigChange(config);
-  createCarouselDots();
 
   // Guest Name Logic
   const urlParams = new URLSearchParams(window.location.search);
