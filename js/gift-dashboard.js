@@ -27,7 +27,14 @@ function createGiftRow(gift, isConfirmed=false){
       loadConfirmedGifts();
     };
   } else {
-    tr.innerHTML += `<td>${nameHTML}</td>
+    let priceInfo = '';
+    if (gift.price) {
+        const total = (gift.contributions || []).reduce((acc, c) => acc + (c.amount || 0), 0);
+        const style = total >= gift.price ? 'color:#00BCA1; font-weight:bold;' : 'color:#ccc;';
+        priceInfo = `<div style="font-size:0.85rem; margin-top:4px; ${style}">Meta: R$ ${gift.price} | Arrecadado: R$ ${total}</div>`;
+    }
+
+    tr.innerHTML += `<td>${nameHTML}${priceInfo}</td>
                      <td><button class="btn">Excluir</button></td>`;
     tr.querySelector('.btn').onclick = async () => {
       if(!confirm(`Deseja excluir "${gift.name}"?`)) return;
@@ -60,16 +67,18 @@ addGiftForm.onsubmit = async e => {
   e.preventDefault();
   const name = document.getElementById('gift-name').value.trim();
   const productUrl = document.getElementById('gift-link').value.trim();
+  const price = document.getElementById('gift-price')?.value || null; // Captura o preço se existir o input
   const file = document.getElementById('gift-image').files[0];
   if(!name || !file) return;
 
   const reader = new FileReader();
   reader.onload = async () => {
     const base64Image = reader.result;
-    const { error } = await supabaseClient.from('gifts').insert([{ name, image: base64Image, product_url: productUrl }]);
+    const { error } = await supabaseClient.from('gifts').insert([{ name, image: base64Image, product_url: productUrl, price: price ? parseFloat(price) : null }]);
     if(error) return alert('Erro: ' + error.message);
     document.getElementById('gift-name').value='';
     document.getElementById('gift-link').value='';
+    if(document.getElementById('gift-price')) document.getElementById('gift-price').value='';
     document.getElementById('gift-image').value='';
     loadAvailableGifts();
   };
