@@ -172,8 +172,8 @@ function initHorizontalBook() {
     wrapper.insertBefore(dynamicBg, wrapper.firstChild);
   }
 
-  // Transforma as sections e o footer em "Páginas do Livro"
-  const pages = Array.from(wrapper.querySelectorAll('section, footer'));
+  // Transforma apenas as sections em "Páginas do Livro"
+  const pages = Array.from(wrapper.querySelectorAll('section'));
   pages.forEach((page, index) => {
     page.classList.remove('vertical-page'); // Limpa caso tenha ficado no HTML
     page.classList.add('horizontal-page');
@@ -266,12 +266,12 @@ function initHorizontalBook() {
     if (e.deltaY > 0) {
       // Para baixo
       if (Math.ceil(activePage.scrollTop + activePage.clientHeight) >= activePage.scrollHeight - 5 && currentPage < pages.length - 1) {
-        isScrolling = true; currentPage++; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 800);
+        isScrolling = true; currentPage++; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 1200);
       }
     } else if (e.deltaY < 0) {
       // Para cima
       if (activePage.scrollTop <= 5 && currentPage > 0) {
-        isScrolling = true; currentPage--; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 800);
+        isScrolling = true; currentPage--; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 1200);
       }
     }
   }, { passive: false });
