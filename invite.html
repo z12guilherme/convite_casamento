@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evellyn &amp; Marcos - Convite de Casamento</title>
+  <link rel="icon" href="data:image/x-icon;base64,">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/invite.css">
@@ -94,22 +95,38 @@
      <div class="blob blob-2"></div>
     </div>
     <div class="gallery-container">
-     <div class="section-title">
+     <div class="section-title text-center">
       <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
-      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70" style="color: var(--text-color);">Explore nossos momentos especiais em 3D</p>
-     </div><!-- 3D Carousel -->
-     <div class="carousel-container-3d">
-      <div class="carousel-spinner">
-       <div class="carousel__face"><span>O Encontro</span></div>
-       <div class="carousel__face"><span>Nossa História</span></div>
-       <div class="carousel__face"><span>O Pedido</span></div>
-       <div class="carousel__face"><span>O Sim</span></div>
-       <div class="carousel__face"><span>A Preparação</span></div>
-       <div class="carousel__face"><span>O Grande Dia</span></div>
-       <div class="carousel__face"><span>Eternidade</span></div>
-       <div class="carousel__face"><span>Fé & Amor</span></div>
-       <div class="carousel__face"><span>19.11.2026</span></div>
-      </div>
+      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2 opacity-70" style="color: var(--text-color);">Passe o mouse (ou toque) para folhear</p>
+     </div>
+     <!-- Novo Álbum CSS 3D (Turning Pages Automático) -->
+     <div class="imgLoader"></div>
+     <div class="css-book-wrapper">
+      <div class="book">
+        <div class="gap"></div>
+        <div class="pages">
+          <div class="page"></div>
+          <div class="page"></div>
+          <div class="page"></div>
+          <div class="page"></div>
+          <div class="page"></div>
+          <div class="page"></div>
+        </div>
+        <div class="flips">
+          <div class="flip flip1">
+            <div class="flip flip2">
+              <div class="flip flip3">
+                <div class="flip flip4">
+                  <div class="flip flip5">
+                    <div class="flip flip6">
+                      <div class="flip flip7"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
      </div>
     </div>
    </section><!-- Countdown Section -->
@@ -195,7 +212,7 @@
      <a href="https://maps.google.com/?q=Belo+Jardim+PE" target="_blank" class="save-date-btn mt-4 inline-block no-underline">Ver no Google Maps</a>
     </div>
    </section>
-   <section class="vertical-page py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
+   <section class="py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
     <div class="max-w-2xl mx-auto text-center p-8 rounded-2xl" style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
      <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Confirmação de Presença</h2>
      <p class="font-sans-elegant text-sm mb-8" style="color: var(--text-color);">Por favor, confirme sua presença.</p>
