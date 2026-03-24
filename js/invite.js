@@ -158,12 +158,134 @@ async function handleRsvp(status) {
   }
 }
 
+// === Lógica do Livro Vertical (Injetada dinamicamente) ===
+function initVerticalBook() {
+  const wrapper = document.querySelector('.app-wrapper');
+  if (!wrapper) return;
+
+  // Força a classe do livro no wrapper
+  wrapper.classList.add('vertical-book');
+
+  // Garante que o fundo dinâmico fique atrás de todas as páginas
+  const dynamicBg = document.querySelector('.dynamic-bg');
+  if (dynamicBg && dynamicBg.parentElement !== wrapper) {
+    wrapper.insertBefore(dynamicBg, wrapper.firstChild);
+  }
+
+  // Transforma as sections e o footer em "Páginas do Livro"
+  const pages = Array.from(wrapper.querySelectorAll('section, footer'));
+  pages.forEach((page, index) => {
+    page.classList.add('vertical-page');
+
+    // Remove a classe de animação antiga para não conflitar com a virada do livro e fazer os elementos "sumirem"
+    page.classList.remove('fade-in-section', 'visible');
+
+    if (index === 0) page.classList.add('active-page');
+    else page.classList.add('next-page');
+
+    // Mantém o parallax das bolhas de fundo funcionando dentro da rolagem de cada página
+    page.addEventListener('scroll', () => {
+      const scrollY = page.scrollTop;
+      const sections = page.querySelectorAll('.section-bg-dynamic');
+      sections.forEach((section, idx) => {
+        const blobs = section.querySelectorAll('.blob');
+        blobs.forEach((blob) => {
+          const speed = 0.4 + (idx * 0.08);
+          blob.style.transform = `translateY(${scrollY * speed}px) scale(${1 + scrollY * 0.00005})`;
+        });
+      });
+    });
+  });
+
+  let currentPage = 0;
+
+  // Cria dinamicamente os controles de navegação na tela
+  const controls = document.createElement('div');
+  controls.className = 'book-controls';
+  controls.innerHTML = `
+    <button id="prev-page" class="book-btn" disabled title="Página Anterior">
+      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <button id="next-page" class="book-btn" title="Próxima Página">
+      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  `;
+  document.body.appendChild(controls);
+
+  const btnPrev = document.getElementById('prev-page');
+  const btnNext = document.getElementById('next-page');
+
+  function updateBook() {
+    pages.forEach((page, index) => {
+      page.classList.remove('active-page', 'flipped', 'next-page');
+      if (index === currentPage) page.classList.add('active-page');
+      else if (index < currentPage) page.classList.add('flipped');
+      else page.classList.add('next-page');
+    });
+    btnPrev.disabled = currentPage === 0;
+    btnNext.disabled = currentPage === pages.length - 1;
+  }
+
+  btnNext.addEventListener('click', () => {
+    if (currentPage < pages.length - 1) { currentPage++; pages[currentPage].scrollTop = 0; updateBook(); }
+  });
+  btnPrev.addEventListener('click', () => {
+    if (currentPage > 0) { currentPage--; pages[currentPage].scrollTop = 0; updateBook(); }
+  });
+
+  // Lógica de "Arrastar com o dedo" (Mobile)
+  let touchStartY = 0;
+  document.addEventListener('touchstart', e => { touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const touchEndY = e.changedTouches[0].screenY;
+    const activePage = pages[currentPage];
+    if (!activePage) return;
+    
+    const threshold = 50; // Quão longo tem que ser o deslize
+    if (touchEndY < touchStartY - threshold) {
+      // Só vira para baixo se já scrollou o conteúdo atual da página todo
+      if (Math.ceil(activePage.scrollTop + activePage.clientHeight) >= activePage.scrollHeight - 5 && currentPage < pages.length - 1) {
+        currentPage++; pages[currentPage].scrollTop = 0; updateBook();
+      }
+    } else if (touchEndY > touchStartY + threshold) {
+      // Só vira para cima se o scroll estiver no topo
+      if (activePage.scrollTop <= 5 && currentPage > 0) {
+        currentPage--; pages[currentPage].scrollTop = 0; updateBook();
+      }
+    }
+  }, { passive: true });
+
+  // Lógica de "Rodinha do Mouse" (PC)
+  let isScrolling = false;
+  window.addEventListener('wheel', (e) => {
+    if (isScrolling) return;
+    const activePage = pages[currentPage];
+    if (!activePage) return;
+
+    if (e.deltaY > 0) {
+      // Para baixo
+      if (Math.ceil(activePage.scrollTop + activePage.clientHeight) >= activePage.scrollHeight - 5 && currentPage < pages.length - 1) {
+        isScrolling = true; currentPage++; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 800);
+      }
+    } else if (e.deltaY < 0) {
+      // Para cima
+      if (activePage.scrollTop <= 5 && currentPage > 0) {
+        isScrolling = true; currentPage--; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 800);
+      }
+    }
+  }, { passive: false });
+
+  // Força atualização inicial para garantir que tudo fique no lugar correto
+  updateBook();
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
   handleScrollAnimation();
   onConfigChange(config);
+  initVerticalBook();
 
   // Guest Name Logic
   const urlParams = new URLSearchParams(window.location.search);
