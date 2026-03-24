@@ -20,6 +20,11 @@
     --primary-action: var(--c-primary);
 }
 
+/* Desativa a trava de altura imposta pelo invite.css */
+html {
+    height: auto !important;
+}
+
 /* === Configurações Gerais da Página === */
 body {
     margin: 0;
@@ -30,8 +35,10 @@ body {
     font-family: var(--font-body);
     display: block; /* Garante rolagem correta */
     min-height: 100vh;
+    height: auto !important;
     position: relative;
     overflow-x: hidden;
+    overflow-y: auto !important; /* Reativa a barra de rolagem apenas nesta página */
 }
 
 /* Decorações de Fundo (Círculos) */
