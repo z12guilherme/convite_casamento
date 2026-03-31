@@ -399,3 +399,191 @@ h1 {
     background: var(--c-gold-dark);
     transform: translateY(-5px);
 }
+
+/* === Modal de Contribuição Pix (Novo Estilo) === */
+.contribution-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo escuro sem desabilitar pointer-events */
+    backdrop-filter: blur(8px); /* Efeito de blur no fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.contribution-modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contribution-modal-content {
+    background: var(--c-background);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    border: 1px solid var(--c-accent);
+}
+
+.contribution-modal-overlay.show .contribution-modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-header {
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--c-primary);
+    margin-bottom: 5px;
+}
+
+.modal-header p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--c-text-light);
+}
+
+.progress-container-modal {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: rgba(74, 139, 129, 0.05); /* Fundo suave para a barra */
+    border-radius: 10px;
+    border: 1px solid rgba(74, 139, 129, 0.1);
+}
+
+.progress-bar-elegant {
+    background:#e0e0e0; 
+    border-radius:10px; 
+    height:10px; 
+    width:100%; 
+    overflow:hidden; 
+    margin-top: 10px;
+}
+
+.progress-fill-elegant {
+    background: linear-gradient(90deg, var(--c-gold), var(--c-gold-dark)); 
+    height:100%; 
+    transition: width 0.5s ease;
+}
+
+.amount-input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.amount-input-group label {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--c-primary);
+    margin-right: 10px;
+}
+
+.amount-input {
+    padding: 10px 15px;
+    border: 2px solid var(--c-gold);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-family: var(--font-body);
+    color: var(--c-text-dark);
+    text-align: center;
+    width: 150px; /* Largura fixa para o input de valor */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.amount-input:focus {
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(74, 139, 129, 0.2);
+}
+
+.pix-key-display {
+    background: var(--c-accent);
+    padding: 12px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--c-text-dark);
+    font-size: 0.95rem;
+    word-break: break-all; /* Garante que a chave não quebre o layout */
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn-confirm {
+    background: linear-gradient(45deg, var(--c-gold), var(--c-gold-dark));
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 15px rgba(212, 175, 111, 0.3);
+}
+
+.modal-btn-confirm:hover {
+    background: linear-gradient(45deg, var(--c-gold-dark), var(--c-gold));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 111, 0.4);
+}
+
+.modal-btn-cancel {
+    background: transparent;
+    border: 1px solid var(--c-primary);
+    color: var(--c-primary);
+}
+
+.modal-btn-cancel:hover {
+    background: var(--c-primary);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Responsividade para o modal */
+@media (max-width: 480px) {
+    .contribution-modal-content {
+        padding: 20px;
+    }
+    .modal-header h3 {
+        font-size: 1.5rem;
+    }
+    .amount-input-group label {
+        font-size: 1.2rem;
+    }
+    .amount-input {
+        width: 120px;
+        font-size: 1rem;
+    }
+}

@@ -2,14 +2,14 @@
   // ================== Convidados ==================
   async function adicionarConvidado() {
     const nome = document.getElementById('nome')?.value.trim();
-    if (!nome) return alert('Preencha o nome!');
+    if (!nome) return showToast('Preencha o nome!', 'error');
     
     const { data, error } = await supabaseClient.from('guests').select('name').eq('name', nome);
-    if (error) return alert('Erro: ' + error.message);
-    if (data.length > 0) return alert('Convidado já existe!');
+    if (error) return showToast('Erro: ' + error.message, 'error');
+    if (data.length > 0) return showToast('Convidado já existe!', 'info');
 
     const { error: insertError } = await supabaseClient.from('guests').insert({ name: nome });
-    if (insertError) return alert('Erro ao adicionar: ' + insertError.message);
+    if (insertError) return showToast('Erro ao adicionar: ' + insertError.message, 'error');
 
     document.getElementById('nome').value = '';
     atualizarListaConvidados();
@@ -77,9 +77,12 @@
   }
 
   async function removerConvidado(nome) {
+    const confirmed = await showConfirm(`Tem certeza que deseja remover o convidado "<strong>${nome}</strong>"? Esta ação não pode ser desfeita.`);
+    if (!confirmed) return;
     const { error } = await supabaseClient.from('guests').delete().eq('name', nome);
-    if (error) return alert('Erro: ' + error.message);
+    if (error) return showToast('Erro: ' + error.message, 'error');
     atualizarListaConvidados();
+    showToast(`Convidado "${nome}" removido.`, 'success');
   }
 
   function mostrarInfoFilhos(event, convidado) {
@@ -97,7 +100,7 @@
     } else {
       info += `A informação sobre os filhos aparecerá após a confirmação.`;
     }
-    alert(info);
+    showToast(info.replace(/\n/g, '<br>'), 'info');
   }
 
   window.addEventListener('DOMContentLoaded', ()=>{

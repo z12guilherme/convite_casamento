@@ -1,9 +1,31 @@
 (function() {
     // CONFIGURAÇÃO DO PIX
-    const PIX_KEY = "81989035561"; 
+    const PIX_KEY = "81989035561";
+
+    // ================== Elementos do Modal ==================
+    const modal = document.getElementById('contributionModal');
+    const modalGiftName = document.getElementById('modalGiftName');
+    const modalGiftPrice = document.getElementById('modalGiftPrice');
+    const modalProgressBar = document.getElementById('modalProgressBar');
+    const modalContributedAmount = document.getElementById('modalContributedAmount');
+    const modalRemainingAmount = document.getElementById('modalRemainingAmount');
+    const modalProgressFill = document.getElementById('modalProgressFill');
+    const contributionAmountInput = document.getElementById('contributionAmount');
+    const modalPixKey = document.getElementById('modalPixKey');
+    const confirmContributionBtn = document.getElementById('confirmContributionBtn');
+    const cancelContributionBtn = document.getElementById('cancelContributionBtn');
+
+    let currentGift = null; // Armazena o presente selecionado no modal
+    let currentGuestName = ''; // Armazena o nome do convidado
+
+    // Helper para formatar moeda
+    const formatCurrency = (value) => {
+        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    };
 
     // ================== Site Público ==================
     async function listarPresentesPublic(guestName) {
+        currentGuestName = guestName; // Atualiza o nome do convidado atual
         const container = document.getElementById('gifts-container');
         if (!container) return;
         
@@ -83,10 +105,10 @@
                     progressContainer.innerHTML = `
                         <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:5px; color:var(--c-text-light);">
                             <span>Arrecadado: R$ ${totalContributed.toFixed(2)}</span>
-                            <span>Meta: R$ ${gift.price.toFixed(2)}</span>
+                            <span>Meta: ${formatCurrency(gift.price)}</span>
                         </div>
                         <div style="background:#e0e0e0; border-radius:10px; height:8px; width:100%; overflow:hidden;">
-                            <div style="background:var(--c-gold); width:${percent}%; height:100%; transition: width 0.5s ease;"></div>
+                            <div style="background: linear-gradient(90deg, var(--c-gold), var(--c-gold-dark)); width:${percent}%; height:100%; transition: width 0.5s ease;"></div>
                         </div>
                         <div style="text-align:center; font-size:0.85rem; margin-top:5px; color:var(--c-primary);">
                             Falta: <strong>R$ ${remaining.toFixed(2)}</strong>
@@ -105,59 +127,11 @@
                 } else {
                     btn.textContent = gift.price ? 'Contribuir (Pix) 💸' : 'Presentear 🎁';
                     btn.onclick = async () => {
-                        // Se tiver preço, pergunta o valor
-                        let contributionAmount = 0;
                         if (gift.price) {
-                            const remaining = gift.price - totalContributed;
-                            const inputVal = prompt(`O valor total é R$ ${gift.price}. Quanto deseja contribuir?\n(Máximo restante: R$ ${remaining})`, remaining);
-                            if (!inputVal) return; // Cancelou
-                            
-                            contributionAmount = parseFloat(inputVal.replace(',', '.'));
-                            if (isNaN(contributionAmount) || contributionAmount <= 0) return alert("Valor inválido.");
-                            if (contributionAmount > remaining + 1) return alert("O valor excede o restante do presente."); // +1 margem de erro float
-                        }
-
-                        // Confirmação do Pix
-                        const confirmMsg = gift.price 
-                            ? `Para confirmar sua contribuição de R$ ${contributionAmount.toFixed(2)}, faça um PIX para:\n\nChave: ${PIX_KEY}\n\nApós fazer o PIX, clique em OK para registrar no site.`
-                            : `Você confirma que irá presentear este item?`;
-
-                        if (!confirm(confirmMsg)) return;
-
-                        btn.disabled = true;
-                        btn.textContent = 'Registrando...';
-                        
-                        // Prepara atualização
-                        const updatePayload = {};
-                        if (gift.price) {
-                            const newContributions = [...(gift.contributions || []), {
-                                name: guestName,
-                                amount: contributionAmount,
-                                date: new Date().toISOString()
-                            }];
-                            updatePayload.contributions = newContributions;
+                            openContributionModal(gift);
                         } else {
-                            updatePayload.taken_by = guestName;
-                            updatePayload.confirmed_at = new Date().toISOString();
-                        }
-
-                        const { error: updateError } = await supabaseClient
-                            .from('gifts')
-                            .update(updatePayload)
-                            .eq('id', gift.id);
-
-                        if (updateError) {
-                            alert('Erro: ' + updateError.message);
-                            btn.disabled = false;
-                            btn.textContent = gift.price ? 'Contribuir (Pix) 💸' : 'Presentear 🎁';
-                        } else {
-                            const msgDiv = document.getElementById('confirmation-message');
-                            if (msgDiv) {
-                                msgDiv.innerHTML = `Obrigado, <strong>${guestName}</strong>! Você escolheu: <em>${gift.name}</em> 💖`;
-                                msgDiv.style.display = 'block';
-                                msgDiv.className = 'alert alert-success fade-in';
-                            }
-                            listarPresentesPublic(guestName);
+                            // Lógica antiga para presentes únicos
+                            handleUniqueGift(gift);
                         }
                     };
                 }
@@ -172,18 +146,106 @@
         }
     }
 
+    async function handleUniqueGift(gift) {
+        const confirmed = await showConfirm(`Você confirma que irá nos presentear com "<strong>${gift.name}</strong>"? <br><br>Ao confirmar, o item será marcado como escolhido em seu nome.`);
+        if (!confirmed) return;
+
+        const { error } = await supabaseClient
+            .from('gifts')
+            .update({ taken_by: currentGuestName, confirmed_at: new Date().toISOString() })
+            .eq('id', gift.id);
+
+        if (error) {
+            showToast('Erro ao registrar presente: ' + error.message, 'error');
+        } else {
+            showToast(`Obrigado, <strong>${currentGuestName}</strong>! Você escolheu: <em>${gift.name}</em> 💖`, 'success');
+            // A lista será atualizada pelo listener em tempo real
+        }
+    }
+
+    function openContributionModal(gift) {
+        currentGift = gift;
+        const totalContributed = (gift.contributions || []).reduce((acc, c) => acc + (c.amount || 0), 0);
+        const remaining = gift.price - totalContributed;
+        const percent = Math.min(100, (totalContributed / gift.price) * 100);
+        modalGiftName.textContent = gift.name;
+        modalGiftPrice.textContent = formatCurrency(gift.price);
+        modalContributedAmount.textContent = formatCurrency(totalContributed);
+        modalRemainingAmount.textContent = formatCurrency(remaining);
+        modalProgressFill.style.width = `${percent}%`;
+        modalPixKey.textContent = PIX_KEY;
+
+        contributionAmountInput.value = '';
+        contributionAmountInput.placeholder = remaining.toFixed(2).replace('.', ',');
+        contributionAmountInput.max = remaining.toFixed(2);
+        
+        // Esconde a barra de progresso se o presente já foi totalmente pago
+        modalProgressBar.style.display = remaining > 0.01 ? 'block' : 'none';
+
+        modal.classList.add('show');
+    }
+
+    function closeContributionModal() {
+        modal.classList.remove('show');
+        currentGift = null;
+        confirmContributionBtn.disabled = false;
+        confirmContributionBtn.textContent = 'Confirmar Contribuição';
+    }
+
+    async function handleConfirmContribution() {
+        const amount = parseFloat(contributionAmountInput.value.replace(',', '.'));
+        const remaining = currentGift.price - (currentGift.contributions || []).reduce((acc, c) => acc + (c.amount || 0), 0);
+
+        if (isNaN(amount) || amount <= 0) {
+            return showToast('Por favor, insira um valor de contribuição válido.', 'error');
+        }
+        if (amount > remaining + 0.01) { // 0.01 de margem para erros de float
+            return showToast(`O valor de ${formatCurrency(amount)} excede o restante de ${formatCurrency(remaining)}.`, 'error');
+        }
+
+        confirmContributionBtn.disabled = true;
+        confirmContributionBtn.textContent = 'Registrando...';
+
+        const newContribution = {
+            name: currentGuestName,
+            amount: amount,
+            date: new Date().toISOString()
+        };
+
+        const { error } = await supabaseClient
+            .from('gifts')
+            .update({ contributions: [...(currentGift.contributions || []), newContribution] })
+            .eq('id', currentGift.id);
+
+        if (error) {
+            showToast('Erro ao registrar contribuição: ' + error.message, 'error');
+            confirmContributionBtn.disabled = false;
+            confirmContributionBtn.textContent = 'Confirmar Contribuição';
+        } else {
+            showToast(`Obrigado, <strong>${currentGuestName}</strong>! Sua contribuição de ${formatCurrency(amount)} para <em>${currentGift.name}</em> foi registrada! 💖`, 'success');
+            closeContributionModal();
+        }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';
-        const greeting = document.getElementById('guest-greeting');
-        if (greeting) {
-            greeting.innerHTML = `Olá, <strong>${guestName}</strong>! Sua presença é nosso maior presente. <br><small>Se desejar, escolha um item abaixo:</small>`;
-        }
+
         listarPresentesPublic(guestName);
+
         supabaseClient.channel('public:gifts')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, () => {
                 listarPresentesPublic(guestName);
             })
             .subscribe();
+
+        // ================== Event Listeners do Modal ==================
+        cancelContributionBtn.addEventListener('click', closeContributionModal);
+        confirmContributionBtn.addEventListener('click', handleConfirmContribution);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) { // Fecha se clicar no overlay
+                closeContributionModal();
+            }
+        });
 
         // ================== Lógica de Busca ==================
         const searchInput = document.getElementById('gift-search');

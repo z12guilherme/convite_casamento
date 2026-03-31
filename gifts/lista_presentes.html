@@ -88,11 +88,45 @@
         </div>
     </footer>
 
+    <!-- Modal de Contribuição Pix (NOVO) -->
+    <div id="contributionModal" class="contribution-modal-overlay">
+        <div class="contribution-modal-content">
+            <div class="modal-header">
+                <h3 id="modalGiftName">Presente Escolhido</h3>
+                <p>Valor total: <strong id="modalGiftPrice">R$ 0,00</strong></p>
+            </div>
+            <div id="modalProgressBar" class="progress-container-modal">
+                <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:5px; color:var(--c-text-dark);">
+                    <span>Arrecadado: <strong id="modalContributedAmount">R$ 0,00</strong></span>
+                    <span>Falta: <strong id="modalRemainingAmount">R$ 0,00</strong></span>
+                </div>
+                <div class="progress-bar-elegant">
+                    <div id="modalProgressFill" class="progress-fill-elegant" style="width:0%;"></div>
+                </div>
+            </div>
+            <div class="amount-input-group">
+                <label for="contributionAmount">R$</label>
+                <input type="number" id="contributionAmount" class="amount-input" step="0.01" min="0.01" placeholder="0,00">
+            </div>
+            <p class="pix-key-info" style="font-size: 0.9rem; color: var(--c-text-light);">
+                Para confirmar sua contribuição, faça um PIX para a chave abaixo. Após o Pix, clique em "Confirmar Contribuição".
+            </p>
+            <div class="pix-key-display">
+                Chave Pix: <strong id="modalPixKey">Carregando...</strong>
+            </div>
+            <div class="modal-actions">
+                <button id="confirmContributionBtn" class="modal-btn modal-btn-confirm">Confirmar Contribuição</button>
+                <button id="cancelContributionBtn" class="modal-btn modal-btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- Lógica da Lista de Presentes -->
+    <script src="../js/utils.js"></script>
     <script src="../js/gift-list.js"></script>
 
     <script>

@@ -36,6 +36,129 @@
   a { color: var(--primary-color); text-decoration:none; }
   a:hover { text-decoration: underline; }
   #access-denied { text-align:center; margin-top:4rem; font-size:1.5rem; color: var(--primary-color); }
+
+  /* === Toast Notifications (Dark Theme) === */
+  .toast-notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .toast-notification {
+    background-color: #2c2c44;
+    color: var(--text-color);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-left: 5px solid;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+    min-width: 250px;
+    max-width: 350px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left-width: 5px;
+  }
+
+  .toast-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .toast-notification.success { border-left-color: var(--primary-color); }
+  .toast-notification.error { border-left-color: #e57373; } /* A lighter red for dark bg */
+  .toast-notification.info { border-left-color: #64b5f6; } /* A nice blue for info */
+
+  /* === Confirmation Modal (Dark Theme) === */
+  .confirm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .confirm-modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .confirm-modal-content {
+    background: #2c2c44; /* Lighter than the main background */
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(64, 224, 208, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+  }
+
+  .confirm-modal-overlay.show .confirm-modal-content {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .confirm-modal-message {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    line-height: 1.6;
+  }
+
+  .confirm-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .confirm-modal-btn {
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .confirm-modal-btn.confirm {
+    background: var(--primary-color);
+    color: var(--background-color); /* Dark text on light button */
+  }
+
+  .confirm-modal-btn.confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 188, 161, 0.4);
+  }
+
+  .confirm-modal-btn.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+  }
+
+  .confirm-modal-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 </style>
 <link rel="stylesheet" href="dashboard.css">
 </head>
@@ -97,6 +220,7 @@
 <script>
 // A lógica foi movida para ../js/gift-dashboard.js
 </script>
+<script src="../js/utils.js"></script>
 <script src="../js/gift-dashboard.js"></script>
 
 </body>

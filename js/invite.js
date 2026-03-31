@@ -110,7 +110,7 @@ window.addEventListener('scroll', () => {
 async function handleRsvp(status) {
   const urlParams = new URLSearchParams(window.location.search);
   const name = urlParams.get('name');
-  if (!name) return alert('Nome do convidado não identificado na URL.');
+  if (!name) return showToast('Nome do convidado não identificado na URL.', 'error');
 
   const updateData = { status };
   
@@ -126,7 +126,7 @@ async function handleRsvp(status) {
   const { error } = await supabaseClient.from('guests').update(updateData).eq('name', name);
   
   if (error) {
-    alert('Erro ao confirmar: ' + error.message);
+    showToast('Erro ao confirmar: ' + error.message, 'error');
   } else {
     const formContainer = document.getElementById('rsvp-form-container');
     const messageContainer = document.getElementById('rsvp-message');
