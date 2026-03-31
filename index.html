@@ -16,13 +16,20 @@
   // Esconde o conteúdo até confirmar a sessão para evitar piscar o painel
   document.documentElement.style.visibility = 'hidden';
   (async function() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (!session) {
-      window.location.href = 'login.html';
-    } else {
-      document.documentElement.style.visibility = 'visible';
+    try {
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (error || !data.session) {
+        window.location.replace('login.html');
+      } else {
+        document.documentElement.style.visibility = 'visible';
+      }
+    } catch (err) {
+      window.location.replace('login.html');
     }
   })();
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT' || !session) window.location.replace('login.html');
+  });
   async function logout() {
     await supabaseClient.auth.signOut();
     window.location.href = 'login.html';

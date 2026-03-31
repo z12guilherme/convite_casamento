@@ -1,33 +1,33 @@
-# TODO: Redesign Wedding Invitation
+# TODO: Redesign do Convite de Casamento
 
-## Information Gathered
-- Current files: invite.html, css/invite.css, js/invite.js
-- Existing design uses aqua color palette (--c-primary: #54a0a0, etc.)
-- Features: countdown, photo carousel, RSVP, floating hearts, confetti
-- Reference: modelo.jpg (likely a design inspiration)
+## Informações Coletadas
+- Arquivos atuais: invite.html, css/invite.css, js/invite.js
+- O design atual usa uma paleta verde-água/dourada (--c-primary: #3D7A6C, etc.)
+- Funcionalidades: contagem regressiva, carrossel de fotos, RSVP, corações flutuantes, confetes
+- Referência: modelo.jpg (inspiração de design premium)
 
-## Plan
-- Enhance HTML structure with more decorative elements
-- Update CSS with additional animations and improved styling
-- Modify JS for better interactivity and effects
+## Plano
+- Melhorar a estrutura HTML com mais elementos decorativos
+- Atualizar o CSS com animações adicionais e estilo refinado
+- Modificar o JS para melhor interatividade e efeitos
 
-## Dependent Files to Edit
-- invite.html: Add more sections, decorative elements
-- css/invite.css: Apply new animations, improve colors, add effects
-- js/invite.js: Enhance countdown with confetti, add more interactions
+## Arquivos Dependentes para Editar
+- invite.html: Adicionar mais seções e elementos decorativos
+- css/invite.css: Aplicar novas animações, melhorar cores, adicionar efeitos
+- js/invite.js: Melhorar contagem regressiva com confetes, adicionar mais interações
 
-## Followup Steps
-- Test animations and responsiveness
-- Ensure compatibility with existing features
-- Final review and adjustments
+## Próximos Passos
+- Testar animações e responsividade
+- Garantir compatibilidade com funcionalidades existentes
+- Revisão final e ajustes
 
-## Tasks
-- [x] Add floating hearts to main content
-- [x] Add new keyframes for animations
-- [x] Enhance countdown with confetti effect
-- [ ] Apply slideInUp animation to sections
-- [ ] Add fadeInScale to couple names
-- [ ] Improve button hover effects
-- [ ] Add more decorative elements (e.g., sparkles)
-- [ ] Enhance color palette based on modelo.jpg reference
-- [ ] Test all animations and interactions
+## Tarefas
+- [x] Adicionar corações flutuantes ao conteúdo principal
+- [x] Adicionar novos keyframes para animações
+- [x] Melhorar contagem regressiva com efeito de confete
+- [x] Aplicar animação de deslizar para cima (slideInUp) nas seções
+- [x] Adicionar animação de surgir/crescer (fadeInScale) aos nomes dos noivos
+- [x] Melhorar efeitos de hover nos botões
+- [x] Adicionar mais elementos decorativos (ex: brilhos e estrelas)
+- [x] Melhorar paleta de cores com base na referência (modelo.jpg)
+- [ ] Testar todas as animações e interações finais
