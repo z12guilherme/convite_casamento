@@ -46,7 +46,7 @@
   <button id="music-control" class="music-btn hidden" title="Pausar/Tocar Música">🔊</button>
 
   <div class="app-wrapper" style="background: var(--primary-bg);"><!-- Hero Section -->
-   <section class="hero-section flex items-center justify-center text-white text-center px-4 py-16" style="min-height: 100%; position: relative;"><!-- Dynamic Background Layer -->
+   <section class="hero-section flex items-center justify-center text-center px-4 py-16" style="min-height: 100%; position: relative; color: var(--text-color);"><!-- Dynamic Background Layer -->
     <div class="dynamic-bg"><!-- Floating Orbs -->
      <div class="orb orb-1"></div>
      <div class="orb orb-2"></div>
@@ -70,7 +70,7 @@
     <div class="particle" style="top: 80%; right: 35%; animation-delay: 2.5s;"></div>
     <div class="names-container relative z-10 max-w-4xl mx-auto"><!-- Cross Icon -->
      <div class="mb-6">
-      <svg class="w-12 h-12 mx-auto opacity-80" viewbox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M30 8v44M16 22h28" stroke-linecap="round" /> <circle cx="30" cy="8" r="3" fill="currentColor" opacity="0.5" />
+      <svg class="w-12 h-12 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1"><path d="M30 8v44M16 22h28" stroke-linecap="round" /> <circle cx="30" cy="8" r="2" fill="currentColor" opacity="0.5" />
       </svg>
      </div><!-- Main Title -->
      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-4 opacity-90" style="letter-spacing: 4px;">Com a bênção de Deus, convidamos você para celebrar</p><!-- Names -->
@@ -157,19 +157,19 @@
     <div class="max-w-4xl mx-auto text-center">
      <div class="icon-container mb-12"><!-- Cross -->
       <div class="flex flex-col items-center">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--primary-action);"><path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="3" stroke-linecap="round" /> <circle cx="30" cy="5" r="2" fill="currentColor" /> <circle cx="30" cy="55" r="2" fill="currentColor" /> <circle cx="15" cy="18" r="2" fill="currentColor" /> <circle cx="45" cy="18" r="2" fill="currentColor" />
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /> <circle cx="30" cy="5" r="1.5" fill="currentColor" /> <circle cx="30" cy="55" r="1.5" fill="currentColor" /> <circle cx="15" cy="18" r="1.5" fill="currentColor" /> <circle cx="45" cy="18" r="1.5" fill="currentColor" />
        </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Fé</span>
       </div><!-- Rings -->
       <div class="flex flex-col items-center rings-container">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><circle cx="22" cy="30" r="12" stroke="currentColor" stroke-width="3" /> <circle cx="38" cy="30" r="12" stroke="currentColor" stroke-width="3" /> <circle cx="22" cy="30" r="8" stroke="currentColor" stroke-width="1" opacity="0.5" /> <circle cx="38" cy="30" r="8" stroke="currentColor" stroke-width="1" opacity="0.5" />
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><circle cx="22" cy="30" r="12" stroke="currentColor" stroke-width="1.5" /> <circle cx="38" cy="30" r="12" stroke="currentColor" stroke-width="1.5" />
        </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">União</span>
       </div><!-- Bible -->
       <div class="flex flex-col items-center">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--primary-action);"><rect x="12" y="10" width="36" height="40" rx="2" stroke="currentColor" stroke-width="2" /> <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="2" /> <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="2" /> <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" /> <line x1="22" y1="38" x2="38" y2="38" stroke="currentColor" stroke-width="1.5" opacity="0.5" /> <line x1="22" y1="42" x2="38" y2="42" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><rect x="12" y="10" width="36" height="40" rx="2" stroke="currentColor" stroke-width="1.5" /> <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="1.5" /> <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="1.5" /> <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
        </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Palavra</span>
       </div><!-- Heart -->
       <div class="flex flex-col items-center">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.2" />
+       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" stroke="currentColor" stroke-width="1.5" fill="none" />
        </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Amor</span>
       </div>
      </div><!-- Bible Verse -->
@@ -245,10 +245,10 @@
     </div>
 
     <!-- Footer movido para o final da página de RSVP -->
-    <footer class="mt-20 py-12 px-4 text-center rounded-2xl shadow-lg mx-auto" style="max-width: 900px; background: linear-gradient(135deg, #40B5A0 0%, #2D8B7A 100%);">
-    <div class="max-w-2xl mx-auto text-white">
+    <footer class="mt-20 py-12 px-4 text-center rounded-2xl mx-auto" style="max-width: 900px;">
+    <div class="max-w-2xl mx-auto">
      <div class="mb-6">
-      <svg class="w-10 h-10 mx-auto opacity-80" viewbox="0 0 60 60" fill="currentColor"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" />
+      <svg class="w-10 h-10 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="currentColor"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" />
       </svg>
      </div>
      <p class="font-serif-elegant text-2xl md:text-3xl italic mb-2" id="footer-names">Evellyn &amp; Marcos</p>

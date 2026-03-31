@@ -5,39 +5,241 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dashboard de Presentes - Marcos & Evellyn</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="dashboard.css">
 
+<script src="../js/config.js"></script>
+<script>
+  // Esconde o conteúdo até confirmar a sessão para evitar piscar o painel
+  document.documentElement.style.visibility = 'hidden';
+  (async function() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) {
+      window.location.href = '../login.html';
+    } else {
+      document.documentElement.style.visibility = 'visible';
+    }
+  })();
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.href = '../login.html';
+  }
+</script>
 <style>
   :root {
-    --background-color: #1a1a2e; /* Tom escuro do convite */
-    --text-color: #f0fafa;
-    --primary-color: #00BCA1; /* Verde-água vibrante */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Lato', sans-serif;
-    --font-script: 'Dancing Script', cursive;
+    --c-primary: #3D7A6C;       /* Verde sofisticado */
+    --c-gold: #C5A059;          /* Dourado elegante */
+    --c-bg: #FCFBF8;            /* Off-white */
+    --c-text: #23352A;          /* Verde muito escuro para texto */
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Montserrat', sans-serif;
   }
-  body { font-family: var(--font-body); background: var(--background-color); color: var(--text-color); padding:2rem; margin:0; min-height:100vh; }
-  h1 { font-family: var(--font-script); text-align:center; font-size:3rem; color:var(--primary-color); margin-bottom:2rem; }
-  h2 { font-family: var(--font-heading); text-align:center; color:var(--primary-color); margin-top:2rem; }
-  .gifts-section { max-width:1000px; margin:1.5rem auto; background: rgba(255,255,255,0.05); border:1px solid rgba(64, 224, 208, 0.3); border-radius:15px; padding:1rem 1.5rem; box-shadow:0 0 15px rgba(64, 224, 208, 0.15); }
-  table { width:100%; border-collapse:collapse; margin-top:1rem; }
-  th, td { padding:12px; text-align:left; border-bottom:1px solid rgba(64, 224, 208, 0.3); vertical-align:middle; color:var(--text-color); }
-  th { background: rgba(64, 224, 208, 0.2); color: var(--primary-color); font-family: var(--font-heading); font-weight:600; }
-  tr:hover { background: rgba(64, 224, 208, 0.05); }
-  img.gift-img { width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid rgba(64, 224, 208, 0.3); }
-  .btn { border:1px solid var(--primary-color); background:transparent; color:var(--primary-color); padding:0.4rem 0.8rem; border-radius:6px; font-weight:600; cursor:pointer; transition:all 0.2s ease; }
-  .btn:hover { background: var(--primary-color); color: var(--background-color); }
-  #add-gift-form { max-width:1000px; margin:3rem auto; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; background: rgba(255,255,255,0.05); padding:1rem; border-radius:15px; border:1px solid rgba(64, 224, 208, 0.3); }
-  #add-gift-form input, #add-gift-form button { padding:0.5rem; border-radius:6px; border:1px solid rgba(64, 224, 208, 0.4); background:transparent; color: var(--text-color); }
-  #add-gift-form input::placeholder { color: rgba(240, 250, 250, 0.7); }
-  #add-gift-form button { font-weight:600; cursor:pointer; border:1px solid var(--primary-color); background:transparent; color:var(--primary-color); transition:0.3s; }
-  #add-gift-form button:hover { background: var(--primary-color); color: var(--background-color); }
-  a { color: var(--primary-color); text-decoration:none; }
-  a:hover { text-decoration: underline; }
-  #access-denied { text-align:center; margin-top:4rem; font-size:1.5rem; color: var(--primary-color); }
+  
+  body { 
+    margin: 0;
+    padding: 40px 20px;
+    font-family: var(--font-sans);
+    background: linear-gradient(rgba(252, 251, 248, 0.88), rgba(252, 251, 248, 0.95)), 
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Raphael_-_Sistine_Madonna_-_detail.jpg/1280px-Raphael_-_Sistine_Madonna_-_detail.jpg') center/cover no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--c-text);
+  }
+  
+  .dashboard-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), inset 0 0 20px rgba(197, 160, 89, 0.05);
+    position: relative;
+  }
 
-  /* === Toast Notifications (Dark Theme) === */
+  .dashboard-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--c-gold), transparent);
+  }
+
+  .icon-cross {
+      width: 40px;
+      height: 40px;
+      color: var(--c-gold);
+      margin: 0 auto 15px auto;
+      opacity: 0.9;
+      display: block;
+  }
+
+  h1 { 
+    font-family: var(--font-serif); 
+    text-align:center; 
+    font-size: 2.8rem; 
+    color: var(--c-text); 
+    margin-bottom: 2rem; 
+    font-weight: 600;
+  }
+  
+  h2 { 
+    font-family: var(--font-serif); 
+    color: var(--c-text); 
+    margin-top: 2rem; 
+    font-size: 1.8rem;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    padding-bottom: 10px;
+    display: inline-block;
+  }
+  
+  .gifts-section { 
+    margin: 2rem 0; 
+  }
+  
+  table { 
+    width: 100%; 
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1.5rem; 
+  }
+  
+  th, td { 
+    padding: 15px; 
+    text-align: left; 
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2); 
+    vertical-align: middle; 
+    color: var(--c-text); 
+  }
+  
+  th { 
+    color: var(--c-primary); 
+    font-family: var(--font-serif); 
+    font-weight: 600; 
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--c-gold);
+  }
+  
+  tr:hover td { 
+    background: rgba(197, 160, 89, 0.03); 
+  }
+  
+  img.gift-img { 
+    width: 70px; 
+    height: 70px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  
+  .btn { 
+    background: transparent;
+    color: var(--c-primary);
+    border: 1px solid var(--c-primary);
+    padding: 8px 15px; 
+    border-radius: 50px; 
+    font-weight: 600; 
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+  }
+  
+  .btn:hover { 
+    background: var(--c-primary); 
+    color: white; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(61, 122, 108, 0.2);
+  }
+  
+  #add-gift-form { 
+    margin: 3rem 0 1rem 0; 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 1.5rem; 
+    align-items: center; 
+    background: rgba(197, 160, 89, 0.05); 
+    padding: 2rem; 
+    border-radius: 12px; 
+    border: 1px solid rgba(197, 160, 89, 0.2); 
+  }
+  
+  #add-gift-form input { 
+    padding: 12px 5px; 
+    border: none; 
+    border-bottom: 1px solid rgba(197, 160, 89, 0.4); 
+    background: transparent; 
+    color: var(--c-text); 
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    outline: none;
+    flex-grow: 1;
+    min-width: 200px;
+  }
+  
+  #add-gift-form input::placeholder { 
+    color: rgba(35, 53, 42, 0.4); 
+    font-style: italic;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+  }
+  
+  #add-gift-form input:focus {
+    border-bottom-color: var(--c-primary);
+  }
+
+  #add-gift-form button { 
+    background: transparent;
+    color: var(--c-primary);
+    border: 1px solid var(--c-primary);
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-sans);
+  }
+  
+  #add-gift-form button:hover { 
+    background: var(--c-primary); 
+    color: white; 
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(61, 122, 108, 0.2);
+  }
+  
+  a { 
+    color: var(--c-primary); 
+    text-decoration: none; 
+    font-weight: 500;
+  }
+  
+  a:hover { 
+    color: var(--c-gold);
+  }
+  
+  .btn-danger {
+    border-color: #e57373;
+    color: #e57373;
+  }
+
+  .btn-danger:hover {
+    background: #e57373;
+    color: white;
+  }
+
+  /* === Toast Notifications (Light Elegant Theme) === */
   .toast-notification-container {
     position: fixed;
     top: 20px;
@@ -50,19 +252,17 @@
   }
 
   .toast-notification {
-    background-color: #2c2c44;
-    color: var(--text-color);
+    background-color: #fff;
+    color: var(--c-text);
     padding: 15px 20px;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border-left: 5px solid;
     opacity: 0;
     transform: translateX(100%);
     transition: all 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
     min-width: 250px;
     max-width: 350px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-left-width: 5px;
   }
 
   .toast-notification.show {
@@ -70,19 +270,19 @@
     transform: translateX(0);
   }
 
-  .toast-notification.success { border-left-color: var(--primary-color); }
-  .toast-notification.error { border-left-color: #e57373; } /* A lighter red for dark bg */
-  .toast-notification.info { border-left-color: #64b5f6; } /* A nice blue for info */
+  .toast-notification.success { border-left-color: var(--c-primary); }
+  .toast-notification.error { border-left-color: #e57373; }
+  .toast-notification.info { border-left-color: var(--c-gold); }
 
-  /* === Confirmation Modal (Dark Theme) === */
+  /* === Confirmation Modal (Light Elegant Theme) === */
   .confirm-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,10 +298,10 @@
   }
 
   .confirm-modal-content {
-    background: #2c2c44; /* Lighter than the main background */
+    background: var(--c-bg);
     padding: 30px;
-    border-radius: 15px;
-    border: 1px solid rgba(64, 224, 208, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(197, 160, 89, 0.3);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     width: 90%;
     max-width: 400px;
@@ -117,9 +317,9 @@
   }
 
   .confirm-modal-message {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    color: var(--text-color);
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    color: var(--c-text);
     margin-bottom: 25px;
     line-height: 1.6;
   }
@@ -133,90 +333,99 @@
   .confirm-modal-btn {
     padding: 10px 25px;
     border-radius: 50px;
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: none;
+    border: 1px solid transparent;
   }
 
   .confirm-modal-btn.confirm {
-    background: var(--primary-color);
-    color: var(--background-color); /* Dark text on light button */
+    background: var(--c-primary);
+    color: white;
   }
 
   .confirm-modal-btn.confirm:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 188, 161, 0.4);
+    box-shadow: 0 5px 15px rgba(61, 122, 108, 0.3);
   }
 
   .confirm-modal-btn.cancel {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
+    background: transparent;
+    border-color: var(--c-primary);
+    color: var(--c-primary);
   }
 
   .confirm-modal-btn.cancel:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(61, 122, 108, 0.05);
   }
 </style>
 <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 
-<h1>Dashboard de Presentes</h1>
+<div class="dashboard-container">
+  <!-- Ícone de Cruz + Asas -->
+  <svg class="icon-cross" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M60 15 v90 M35 45 h50" stroke-linecap="round"/>
+      <path d="M50 45 C35 30, 15 35, 20 60 C25 85, 45 70, 50 60" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M70 45 C85 30, 105 35, 100 60 C95 85, 75 70, 70 60" stroke-linecap="round" stroke-linejoin="round"/>
+      <ellipse cx="60" cy="12" rx="10" ry="3" opacity="0.6"/>
+  </svg>
 
-<script>
-  const password = prompt("Digite a senha do painel:");
-  if(password !== "Mg156810$") {
-    document.body.innerHTML = "<div id='access-denied'>🔒 Acesso negado</div>";
-    throw new Error("Acesso negado");
-  }
-</script>
+  <h1>Gestão de Presentes</h1>
 
-<div class="gifts-section">
-  <h2>🎁 Presentes Disponíveis</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Imagem</th>
-        <th>Presente</th>
-        <th>Ação</th>
-      </tr>
-    </thead>
-    <tbody id="available-gifts">
-      <tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>
-    </tbody>
-  </table>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <a href="../index.html" class="btn" style="margin-right: 10px;">Voltar aos Convidados</a>
+    <button onclick="logout()" class="btn btn-danger">Sair do Painel</button>
+  </div>
+
+  <div class="gifts-section">
+    <h2>🎁 Presentes Disponíveis</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Imagem</th>
+          <th>Presente</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="available-gifts">
+        <tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gifts-section">
+    <h2>💝 Presentes Confirmados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Imagem</th>
+          <th>Convidado</th>
+          <th>Presente</th>
+          <th>Hora</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="confirmed-gifts">
+        <tr><td colspan="5" style="text-align:center;">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form id="add-gift-form">
+    <input type="text" id="gift-name" placeholder="Nome do presente" required />
+    <input type="text" id="gift-link" placeholder="URL do produto (opcional)" />
+    <input type="number" id="gift-price" step="0.01" placeholder="Valor (R$) - Opcional" />
+    <input type="file" id="gift-image" accept="image/*" required />
+    <button type="submit">Adicionar Presente</button>
+  </form>
 </div>
 
-<div class="gifts-section">
-  <h2>💝 Presentes Confirmados</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Imagem</th>
-        <th>Convidado</th>
-        <th>Presente</th>
-        <th>Hora</th>
-        <th>Ação</th>
-      </tr>
-    </thead>
-    <tbody id="confirmed-gifts">
-      <tr><td colspan="5" style="text-align:center;">Carregando...</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<form id="add-gift-form">
-  <input type="text" id="gift-name" placeholder="Nome do presente" required />
-  <input type="text" id="gift-link" placeholder="URL do produto (opcional)" />
-  <input type="number" id="gift-price" step="0.01" placeholder="Valor (R$) - Opcional" />
-  <input type="file" id="gift-image" accept="image/*" required />
-  <button type="submit">Adicionar Presente</button>
-</form>
-
-<script src="../js/config.js"></script>
 <script>
 // A lógica foi movida para ../js/gift-dashboard.js
 </script>

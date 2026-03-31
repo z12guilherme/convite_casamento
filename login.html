@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acesso Sagrado - Administração</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Scripts do Supabase e Utilitários -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<style>
+    :root {
+        --c-primary: #3D7A6C;       /* Verde sofisticado */
+        --c-gold: #59c59e;          /* Dourado elegante */
+        --c-bg: #FCFBF8;            /* Off-white */
+        --c-text: #23352A;          /* Verde muito escuro para texto */
+        --font-serif: 'Cormorant Garamond', serif;
+        --font-sans: 'Montserrat', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-sans);
+        /* Fundo com a pintura clássica dos Querubins de Rafael + Overlay Off-white */
+        background: linear-gradient(rgba(252, 251, 248, 0.88), rgba(252, 251, 248, 0.95)), 
+                    url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Raphael_-_Sistine_Madonna_-_detail.jpg/1280px-Raphael_-_Sistine_Madonna_-_detail.jpg') center/cover no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+        color: var(--c-text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-container {
+        width: 92%;
+        max-width: 420px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(197, 160, 89, 0.3);
+        border-radius: 16px;
+        padding: 50px 40px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), inset 0 0 20px rgba(197, 160, 89, 0.05);
+        text-align: center;
+        position: relative;
+    }
+
+    /* Ornamento Superior Dourado */
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--c-gold), transparent);
+    }
+
+    .icon-cross {
+        width: 40px;
+        height: 40px;
+        color: var(--c-gold);
+        margin-bottom: 15px;
+        opacity: 0.9;
+    }
+
+    h1 {
+        font-family: var(--font-serif);
+        font-size: 2.2rem;
+        color: var(--c-text);
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    p {
+        font-family: var(--font-sans);
+        color: var(--c-text);
+        opacity: 0.7;
+        margin-bottom: 35px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .form input {
+        padding: 12px 5px;
+        border: none;
+        border-bottom: 1px solid rgba(197, 160, 89, 0.4);
+        background: transparent;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        color: var(--c-text);
+        outline: none;
+        transition: border 0.2s ease;
+    }
+
+    .form input::placeholder {
+        color: rgba(35, 53, 42, 0.4);
+        font-style: italic;
+        font-family: var(--font-serif);
+        font-size: 1.1rem;
+    }
+
+    .form input:focus {
+        border-bottom-color: var(--c-primary);
+    }
+
+    .form button {
+        background: transparent;
+        color: var(--c-primary);
+        border: 1px solid var(--c-primary);
+        border-radius: 50px;
+        padding: 14px 15px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+        font-family: var(--font-sans);
+    }
+
+    .form button:hover {
+        background: var(--c-primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(61, 122, 108, 0.2);
+    }
+
+    .form button:disabled {
+        border-color: #ccc;
+        color: #ccc;
+        background: transparent;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .bible-verse {
+        margin-top: 35px;
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--c-gold);
+        line-height: 1.5;
+    }
+
+    /* Toast CSS Inline para evitar carregar arquivo pesado do convite */
+    .toast-notification-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .toast-notification { background-color: #fff; color: #333; padding: 15px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-left: 5px solid; opacity: 0; transform: translateX(100%); transition: all 0.4s ease; min-width: 250px; max-width: 350px; }
+    .toast-notification.show { opacity: 1; transform: translateX(0); }
+    .toast-notification.success { border-left-color: #3D7A6C; }
+    .toast-notification.error { border-left-color: #ef4444; }
+    .toast-notification.info { border-left-color: #C5A059; }
+</style>
+</head>
+<body>
+<div class="login-container">
+    <!-- Ícone de Cruz + Asas (Remetendo aos Anjos/Querubins) -->
+    <svg class="icon-cross" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M60 15 v90 M35 45 h50" stroke-linecap="round"/>
+        <path d="M50 45 C35 30, 15 35, 20 60 C25 85, 45 70, 50 60" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M70 45 C85 30, 105 35, 100 60 C95 85, 75 70, 70 60" stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse cx="60" cy="12" rx="10" ry="3" opacity="0.6"/>
+    </svg>
+
+    <h1>Gestão do Matrimônio</h1>
+    <p>Acesso Restrito aos Noivos</p>
+    
+    <form id="login-form" class="form">
+        <input type="email" id="email" placeholder="Seu e-mail" required autocomplete="email" />
+        <input type="password" id="password" placeholder="Sua senha secreta" required />
+        <button type="submit" id="submit-btn">Entrar no Painel</button>
+    </form>
+    
+    <div class="bible-verse">
+        "Tudo o que fizerem, façam com amor."<br>
+        <span style="font-family: var(--font-sans); font-size: 0.7rem; font-style: normal; letter-spacing: 1px; color: var(--c-text); opacity: 0.6; display: block; margin-top: 5px;">1 CORÍNTIOS 16:14</span>
+    </div>
+</div>
+<script>
+    // Se já estiver logado, redireciona automaticamente para o dashboard
+    window.addEventListener('DOMContentLoaded', async () => {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session) window.location.href = 'index.html';
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const btn = document.getElementById('submit-btn');
+
+        btn.disabled = true;
+        btn.textContent = 'Autenticando...';
+
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
+
+        if (error) {
+            const msg = error.message.includes('Invalid login') ? 'E-mail ou senha incorretos' : error.message;
+            showToast('Erro ao fazer login: ' + msg, 'error');
+            btn.disabled = false;
+            btn.textContent = 'Entrar no Painel';
+        } else {
+            showToast('Login realizado com sucesso! Redirecionando...', 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        }
+    });
+</script>
+</body>
+</html>
