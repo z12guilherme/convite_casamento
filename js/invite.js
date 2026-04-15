@@ -4,10 +4,10 @@ const defaultConfig = {
   groom_name: 'Guilherme',
   wedding_phrase: '"Unidos pela fé, amor e graça divina"',
   bible_verse: '"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."',
-  primary_bg: '#E8F5F3',
+  primary_bg: '#E8F6F8',
   secondary_surface: '#ffffff',
-  text_color: '#2D5A4A',
-  primary_action: '#40B5A0',
+  text_color: '#1A3B47',
+  primary_action: '#4080B5',
   secondary_action: '#D4AF37'
 };
 

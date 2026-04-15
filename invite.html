@@ -1,15 +1,22 @@
 <!doctype html>
 <html lang="pt-BR" class="h-full">
- <head>
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evellyn &amp; Marcos - Convite de Casamento</title>
   <link rel="icon" href="data:image/x-icon;base64,">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/invite.css">
-  <style>@view-transition { navigation: auto; }</style>
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/invite.css?v=20240415-2">
+  <style>
+    @view-transition {
+      navigation: auto;
+    }
+  </style>
+
   <!-- Mantendo scripts originais caso queira reativar o backend -->
   <script type="importmap">
     {
@@ -23,20 +30,21 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
- </head>
- <body class="h-full">
+</head>
+
+<body class="h-full">
   <!-- Intro Overlay -->
   <div id="intro-overlay">
     <div class="intro-content">
-        <div class="dolls-container">
-            <img src="img/noivo.png" alt="Noivo" class="doll doll-bride">
-            <img src="img/noiva.png" alt="Noiva" class="doll doll-groom">
-        </div>
-        <h1 class="intro-title">Evellyn & Guilherme</h1>
-        <p class="intro-subtitle">Convite de Casamento</p>
-        <button id="enter-invite-btn" class="enter-btn">
-            <span>💌</span> Abrir Convite
-        </button>
+      <div class="dolls-container">
+        <img src="img/noivo.png" alt="Noivo" class="doll doll-bride">
+        <img src="img/noiva.png" alt="Noiva" class="doll doll-groom">
+      </div>
+      <h1 class="intro-title">Evellyn & Guilherme</h1>
+      <p class="intro-subtitle">Convite de Casamento</p>
+      <button id="enter-invite-btn" class="enter-btn">
+        <span>💌</span> Abrir Convite
+      </button>
     </div>
   </div>
   <audio id="wedding-music" loop>
@@ -46,86 +54,250 @@
   <button id="music-control" class="music-btn hidden" title="Pausar/Tocar Música">🔊</button>
 
   <div class="app-wrapper" style="background: var(--primary-bg);"><!-- Hero Section -->
-   <section class="hero-section flex items-center justify-center text-center px-4 py-16" style="min-height: 100%; position: relative; color: var(--text-color);"><!-- Dynamic Background Layer -->
-    <div class="dynamic-bg"><!-- Floating Orbs -->
-     <div class="orb orb-1"></div>
-     <div class="orb orb-2"></div>
-     <div class="orb orb-3"></div><!-- Animated Grid -->
-     <div class="grid-bg"></div>
-     <div id="hero-canvas-container"></div>
-    </div><!-- Decorative Leaves -->
-    <svg class="leaf-decoration leaf-1" viewbox="0 0 100 100" fill="currentColor"><path d="M50 5C30 5 15 25 15 50c0 30 35 45 35 45s35-15 35-45C85 25 70 5 50 5zm0 10c15 0 25 15 25 35 0 20-25 35-25 35S25 70 25 50c0-20 10-35 25-35z" />
-    </svg>
-    <svg class="leaf-decoration leaf-2" viewbox="0 0 100 100" fill="currentColor"><ellipse cx="50" cy="50" rx="30" ry="45" opacity="0.5" /> <path d="M50 10v80M30 30c20 10 20 30 0 40M70 30c-20 10-20 30 0 40" stroke="currentColor" stroke-width="2" fill="none" />
-    </svg>
-    <svg class="leaf-decoration leaf-3" viewbox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="40" opacity="0.3" /> <circle cx="50" cy="50" r="25" opacity="0.4" />
-    </svg>
-    <svg class="leaf-decoration leaf-4" viewbox="0 0 100 100" fill="currentColor"><path d="M50 10c-20 0-35 20-35 40s35 40 35 40 35-20 35-40-15-40-35-40z" opacity="0.4" />
-    </svg><!-- Particles -->
-    <div class="particle" style="top: 20%; left: 15%;"></div>
-    <div class="particle" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
-    <div class="particle" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
-    <div class="particle" style="top: 70%; right: 15%; animation-delay: 0.5s;"></div>
-    <div class="particle" style="top: 40%; left: 40%; animation-delay: 1.5s;"></div>
-    <div class="particle" style="top: 80%; right: 35%; animation-delay: 2.5s;"></div>
-    <div class="names-container relative z-10 max-w-4xl mx-auto w-full">
-     <!-- Sparkles (Estrelas de Brilho) -->
-     <svg class="sparkle-icon" style="top: 15%; left: 10%; width: 28px; height: 28px; animation-delay: 0.5s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-     <svg class="sparkle-icon" style="top: 45%; right: 12%; width: 20px; height: 20px; animation-delay: 1.5s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-     <svg class="sparkle-icon" style="bottom: 10%; left: 20%; width: 24px; height: 24px; animation-delay: 2.5s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+    <section class="hero-section flex items-center justify-center text-center px-4 py-16"
+      style="min-height: 100%; position: relative; color: var(--text-color);"><!-- Dynamic Background Layer -->
+      <div class="dynamic-bg"><!-- Floating Orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
 
-     <!-- Cross Icon -->
-     <div class="mb-6">
-      <svg class="w-12 h-12 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1"><path d="M30 8v44M16 22h28" stroke-linecap="round" /> <circle cx="30" cy="8" r="2" fill="currentColor" opacity="0.5" />
-      </svg>
-     </div><!-- Main Title -->
-     <p class="font-sans-elegant text-sm tracking-widest uppercase mb-4 opacity-90" style="letter-spacing: 4px;">Com a bênção de Deus, convidamos você para celebrar</p><!-- Names -->
-     <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-2" id="bride-name">Evellyn</h1>
-     <div class="ampersand my-4"><span class="font-serif-elegant text-4xl md:text-5xl italic" style="color: var(--secondary-action);">&amp;</span>
-     </div>
-     <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-8" id="groom-name">Marcos</h1><!-- Romantic Phrase -->
-     <div class="divider-ornament"><span class="divider-line"></span>
-      <svg class="w-6 h-6" style="color: var(--secondary-action);" viewbox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-      </svg><span class="divider-line"></span>
-     </div>
-     <p class="font-serif-elegant text-xl md:text-2xl italic opacity-95 mb-8 px-4" id="wedding-phrase">"Unidos pela fé, amor e graça divina"</p><!-- Wedding Date -->
-     <div class="mt-8 p-6 rounded-2xl" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);">
-      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2">Cerimônia de Casamento</p>
-      <p class="font-serif-elegant text-3xl md:text-4xl font-semibold">19 de Novembro de 2026</p>
-     </div>
-    </div>
-   </section><!-- Gallery Section -->
-   <section class="gallery-section fade-in-section" id="gallery" style="position: relative;">
-    <div class="section-bg-dynamic">
-     <div class="blob blob-1"></div>
-     <div class="blob blob-2"></div>
-    </div>
-    <div class="gallery-container">
-     <div class="section-title text-center">
-      <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
-      <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2 opacity-70" style="color: var(--text-color);">Passe o mouse (ou toque) para folhear</p>
-     </div>
-     <!-- Novo Álbum CSS 3D (Turning Pages Automático) -->
-     <div class="imgLoader"></div>
-     <div class="css-book-wrapper">
-      <div class="book">
-        <div class="gap"></div>
-        <div class="pages">
-          <div class="page"></div>
-          <div class="page"></div>
-          <div class="page"></div>
-          <div class="page"></div>
-          <div class="page"></div>
-          <div class="page"></div>
+      <div class="cover-art-wrapper"
+        style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1; pointer-events: none;">
+        <div class="god-rays"></div>
+
+        <!-- Catholic Borders -->
+        <div class="catholic-border left-border">
+          <svg class="holy-icon" fill="currentColor" viewBox="0 0 100 100">
+            <!-- Crucifix -->
+            <path d="M48 10h4v80h-4z" fill="var(--secondary-action)" />
+            <path d="M25 35h50v4H25z" fill="var(--secondary-action)" />
+            <circle cx="50" cy="37" r="10" fill="none" stroke="var(--secondary-action)" stroke-width="1.5"
+              opacity="0.6" />
+            <circle cx="50" cy="37" r="14" fill="none" stroke="var(--secondary-action)" stroke-width="0.5"
+              opacity="0.3" />
+          </svg>
+          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
+            <!-- Chalice / Hostia -->
+            <path d="M35 50 L25 25 H75 L65 50 Q50 65 50 75 L65 95 H35 L50 75 Q50 65 35 50 Z"
+              fill="rgba(212, 175, 55, 0.2)" stroke="var(--secondary-action)" stroke-width="2" />
+            <circle cx="50" cy="15" r="12" fill="#fff" opacity="0.9" stroke="var(--secondary-action)"
+              stroke-width="2" />
+            <path d="M45 15h10M50 10v10" stroke="var(--secondary-action)" stroke-width="1.5" />
+          </svg>
+          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
+            <!-- Dove / Holy Spirit -->
+            <path d="M50 20 Q70 0 85 35 Q50 40 50 70 Q50 40 15 35 Q30 0 50 20 Z" fill="rgba(255,255,255,0.7)"
+              stroke="var(--secondary-action)" stroke-width="2" />
+            <circle cx="50" cy="50" r="3" fill="var(--secondary-action)" />
+            <path d="M50 70v15M42 75h16" stroke="var(--secondary-action)" stroke-width="1.5" />
+          </svg>
         </div>
-        <div class="flips">
-          <div class="flip flip1">
-            <div class="flip flip2">
-              <div class="flip flip3">
-                <div class="flip flip4">
-                  <div class="flip flip5">
-                    <div class="flip flip6">
-                      <div class="flip flip7"></div>
+
+        <div class="catholic-border right-border">
+          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
+            <!-- Dove / Holy Spirit -->
+            <path d="M50 20 Q70 0 85 35 Q50 40 50 70 Q50 40 15 35 Q30 0 50 20 Z" fill="rgba(255,255,255,0.7)"
+              stroke="var(--secondary-action)" stroke-width="2" />
+            <circle cx="50" cy="50" r="3" fill="var(--secondary-action)" />
+            <path d="M50 70v15M42 75h16" stroke="var(--secondary-action)" stroke-width="1.5" />
+          </svg>
+          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
+            <!-- Chalice / Hostia -->
+            <path d="M35 50 L25 25 H75 L65 50 Q50 65 50 75 L65 95 H35 L50 75 Q50 65 35 50 Z"
+              fill="rgba(212, 175, 55, 0.2)" stroke="var(--secondary-action)" stroke-width="2" />
+            <circle cx="50" cy="15" r="12" fill="#fff" opacity="0.9" stroke="var(--secondary-action)"
+              stroke-width="2" />
+            <path d="M45 15h10M50 10v10" stroke="var(--secondary-action)" stroke-width="1.5" />
+          </svg>
+          <svg class="holy-icon" fill="currentColor" viewBox="0 0 100 100">
+            <!-- Crucifix -->
+            <path d="M48 10h4v80h-4z" fill="var(--secondary-action)" />
+            <path d="M25 35h50v4H25z" fill="var(--secondary-action)" />
+            <circle cx="50" cy="37" r="10" fill="none" stroke="var(--secondary-action)" stroke-width="1.5"
+              opacity="0.6" />
+            <circle cx="50" cy="37" r="14" fill="none" stroke="var(--secondary-action)" stroke-width="0.5"
+              opacity="0.3" />
+          </svg>
+        </div>
+
+        <div class="holy-church-container">
+          <!-- Left Wing -->
+          <div class="church-wing left-wing">
+            <div class="wing-top">
+              <div class="windows-container">
+                <div class="arch-window"></div>
+                <div class="arch-window"></div>
+              </div>
+            </div>
+            <div class="wing-bottom">
+              <div class="side-door-container">
+                <div class="side-door">
+                  <div class="door-grid"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Wing -->
+          <div class="church-wing right-wing">
+            <div class="wing-top">
+              <div class="windows-container">
+                <div class="arch-window"></div>
+                <div class="arch-window"></div>
+              </div>
+            </div>
+            <div class="wing-bottom">
+              <div class="side-door-container">
+                <div class="side-door">
+                  <div class="door-grid"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Body -->
+          <div class="church-center">
+            <div class="stained-glass-wrapper"></div>
+            <div class="balcony-frieze">
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+              <div class="frieze-arch"></div>
+            </div>
+            <div class="main-door-container">
+              <div class="main-door">
+                <div class="door-grid"></div>
+                <div class="door-line"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bell Tower -->
+          <div class="bell-tower">
+            <div class="cross-top-new"></div>
+            <div class="bell-tower-roof"></div>
+            <div class="bell-tower-base">
+              <div class="bell-tower-hole"></div>
+            </div>
+            <div class="church-bell"></div>
+          </div>
+        </div>
+        <div class="ocean">
+          <div class="wave"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+        </div>
+        <div id="hero-canvas-container"></div>
+      </div><!-- /Cover Art Wrapper -->
+      <!-- Decorative Leaves -->
+      <svg class="leaf-decoration leaf-1" viewbox="0 0 100 100" fill="currentColor">
+        <path
+          d="M50 5C30 5 15 25 15 50c0 30 35 45 35 45s35-15 35-45C85 25 70 5 50 5zm0 10c15 0 25 15 25 35 0 20-25 35-25 35S25 70 25 50c0-20 10-35 25-35z" />
+      </svg>
+      <svg class="leaf-decoration leaf-2" viewbox="0 0 100 100" fill="currentColor">
+        <ellipse cx="50" cy="50" rx="30" ry="45" opacity="0.5" />
+        <path d="M50 10v80M30 30c20 10 20 30 0 40M70 30c-20 10-20 30 0 40" stroke="currentColor" stroke-width="2"
+          fill="none" />
+      </svg>
+      <svg class="leaf-decoration leaf-3" viewbox="0 0 100 100" fill="currentColor">
+        <circle cx="50" cy="50" r="40" opacity="0.3" />
+        <circle cx="50" cy="50" r="25" opacity="0.4" />
+      </svg>
+      <svg class="leaf-decoration leaf-4" viewbox="0 0 100 100" fill="currentColor">
+        <path d="M50 10c-20 0-35 20-35 40s35 40 35 40 35-20 35-40-15-40-35-40z" opacity="0.4" />
+      </svg><!-- Particles -->
+      <div class="particle" style="top: 20%; left: 15%;"></div>
+      <div class="particle" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
+      <div class="particle" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
+      <div class="particle" style="top: 70%; right: 15%; animation-delay: 0.5s;"></div>
+      <div class="particle" style="top: 40%; left: 40%; animation-delay: 1.5s;"></div>
+      <div class="particle" style="top: 80%; right: 35%; animation-delay: 2.5s;"></div>
+      <div class="names-container relative z-10 max-w-4xl mx-auto w-full p-8 rounded-3xl"
+        style="background: rgba(255,255,255,0.4); backdrop-filter: blur(2px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-shadow: 0 4px 15px rgba(255,255,255,0.8); margin-bottom: 20vh;">
+        <!-- Sparkles (Estrelas de Brilho) -->
+        <svg class="sparkle-icon" style="top: 15%; left: 10%; width: 28px; height: 28px; animation-delay: 0.5s;"
+          viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+        <svg class="sparkle-icon" style="top: 45%; right: 12%; width: 20px; height: 20px; animation-delay: 1.5s;"
+          viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+        <svg class="sparkle-icon" style="bottom: 10%; left: 20%; width: 24px; height: 24px; animation-delay: 2.5s;"
+          viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+
+        <!-- Cross Icon -->
+        <div class="mb-6">
+          <svg class="w-12 h-12 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60"
+            fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M30 8v44M16 22h28" stroke-linecap="round" />
+            <circle cx="30" cy="8" r="2" fill="currentColor" opacity="0.5" />
+          </svg>
+        </div><!-- Main Title -->
+        <p class="font-sans-elegant text-sm tracking-widest uppercase mb-4 opacity-90" style="letter-spacing: 4px;">Com
+          a bênção de Deus, convidamos você para celebrar</p><!-- Names -->
+        <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-2" id="bride-name">Evellyn</h1>
+        <div class="ampersand my-4"><span class="font-serif-elegant text-4xl md:text-5xl italic"
+            style="color: var(--secondary-action);">&amp;</span>
+        </div>
+        <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-8" id="groom-name">Marcos</h1>
+        <!-- Romantic Phrase -->
+        <div class="divider-ornament"><span class="divider-line"></span>
+          <svg class="w-6 h-6" style="color: var(--secondary-action);" viewbox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg><span class="divider-line"></span>
+        </div>
+        <p class="font-serif-elegant text-xl md:text-2xl italic opacity-95 mb-8 px-4" id="wedding-phrase">"Unidos pela
+          fé, amor e graça divina"</p><!-- Wedding Date -->
+        <div class="mt-8 p-6 rounded-2xl" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);">
+          <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2">Cerimônia de Casamento</p>
+          <p class="font-serif-elegant text-3xl md:text-4xl font-semibold">07 de novembro de 2026</p>
+        </div>
+      </div>
+    </section><!-- Gallery Section -->
+    <section class="gallery-section fade-in-section" id="gallery" style="position: relative;">
+      <div class="section-bg-dynamic">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+      </div>
+      <div class="gallery-container">
+        <div class="section-title text-center">
+          <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
+          <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2 opacity-70"
+            style="color: var(--text-color);">Passe o mouse (ou toque) para folhear</p>
+        </div>
+        <!-- Novo Álbum CSS 3D (Turning Pages Automático) -->
+        <div class="imgLoader"></div>
+        <div class="css-book-wrapper">
+          <div class="book">
+            <div class="gap"></div>
+            <div class="pages">
+              <div class="page"></div>
+              <div class="page"></div>
+              <div class="page"></div>
+              <div class="page"></div>
+              <div class="page"></div>
+              <div class="page"></div>
+            </div>
+            <div class="flips">
+              <div class="flip flip1">
+                <div class="flip flip2">
+                  <div class="flip flip3">
+                    <div class="flip flip4">
+                      <div class="flip flip5">
+                        <div class="flip flip6">
+                          <div class="flip flip7"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -133,142 +305,239 @@
             </div>
           </div>
         </div>
-     </div>
-    </div>
-   </section><!-- Countdown Section -->
-   <section class="py-20 px-4 flex flex-col justify-center fade-in-section" style="background: var(--secondary-surface); position: relative;">
-    <div class="section-bg-dynamic">
-     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.25), transparent);"></div>
-     <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);"></div>
-    </div>
-    <div class="max-w-4xl mx-auto text-center">
-     <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70" style="color: var(--text-color);">Para o grande dia</p>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="days">000</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Dias</span>
-      </div>
-      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="hours">00</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Horas</span>
-      </div>
-      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="minutes">00</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Minutos</span>
-      </div>
-      <div class="countdown-card p-6 md:p-8"><span class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="seconds">00</span> <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block" style="color: var(--text-color); opacity: 0.7;">Segundos</span>
-      </div>
-     </div>
-    </div>
-   </section><!-- Catholic Elements Section -->
-   <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
-    <div class="section-bg-dynamic">
-     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent);"></div>
-     <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);"></div>
-    </div>
-    <div class="max-w-4xl mx-auto text-center">
-     <div class="icon-container mb-12"><!-- Cross -->
-      <div class="flex flex-col items-center">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /> <circle cx="30" cy="5" r="1.5" fill="currentColor" /> <circle cx="30" cy="55" r="1.5" fill="currentColor" /> <circle cx="15" cy="18" r="1.5" fill="currentColor" /> <circle cx="45" cy="18" r="1.5" fill="currentColor" />
-       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Fé</span>
-      </div><!-- Rings -->
-      <div class="flex flex-col items-center rings-container">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><circle cx="22" cy="30" r="12" stroke="currentColor" stroke-width="1.5" /> <circle cx="38" cy="30" r="12" stroke="currentColor" stroke-width="1.5" />
-       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">União</span>
-      </div><!-- Bible -->
-      <div class="flex flex-col items-center">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><rect x="12" y="10" width="36" height="40" rx="2" stroke="currentColor" stroke-width="1.5" /> <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="1.5" /> <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="1.5" /> <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Palavra</span>
-      </div><!-- Heart -->
-      <div class="flex flex-col items-center">
-       <svg class="catholic-icon" viewbox="0 0 60 60" fill="none" style="color: var(--secondary-action);"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" stroke="currentColor" stroke-width="1.5" fill="none" />
-       </svg><span class="font-sans-elegant text-xs mt-2 opacity-60" style="color: var(--text-color);">Amor</span>
-      </div>
-     </div><!-- Bible Verse -->
-     <div class="max-w-2xl mx-auto p-8 rounded-2xl" style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
-      <svg class="w-8 h-8 mx-auto mb-4" style="color: var(--secondary-action);" viewbox="0 0 24 24" fill="currentColor" opacity="0.6"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-      </svg>
-      <p class="font-serif-elegant text-lg md:text-xl italic leading-relaxed mb-4" style="color: var(--text-color);" id="bible-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."</p>
-      <p class="font-sans-elegant text-sm tracking-widest" style="color: var(--primary-action);">— 1 Coríntios 13:4-7</p>
-     </div>
-    </div>
-   </section><!-- Invitation Message Section -->
-   <section class="py-20 px-4 fade-in-section" style="background: var(--secondary-surface); position: relative;">
-    <div class="section-bg-dynamic">
-     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.25), transparent);"></div>
-     <div class="blob blob-2" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent);"></div>
-    </div>
-    <div class="max-w-2xl mx-auto text-center">
-     <div class="divider-ornament"><span class="divider-line"></span>
-      <svg class="w-8 h-8" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="none"><circle cx="22" cy="30" r="10" stroke="currentColor" stroke-width="2" /> <circle cx="38" cy="30" r="10" stroke="currentColor" stroke-width="2" />
-      </svg><span class="divider-line"></span>
-     </div>
-     <p id="guest-greeting" class="font-serif-elegant text-2xl md:text-3xl mb-6 font-bold" style="color: var(--primary-action);"></p>
-     <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Com muito amor</h2>
-     <p class="font-sans-elegant text-base leading-relaxed mb-8" style="color: var(--text-color); opacity: 0.85;">Convidamos você para celebrar conosco este momento tão especial em nossas vidas. Será uma honra ter sua presença em nossa cerimônia de casamento, onde uniremos nossas vidas diante de Deus e de nossos familiares e amigos.</p>
-     <p class="font-sans-elegant text-base leading-relaxed mb-10" style="color: var(--text-color); opacity: 0.85;">Sua presença é o maior presente que podemos receber. Venha compartilhar conosco esse dia de alegria, fé e esperança.</p><button class="save-date-btn" style="background: linear-gradient(135deg, var(--primary-action), #2D8B7A); color: white;"> ✨ Save the Date ✨ </button>
-    </div>
-   </section><!-- RSVP Section -->
-   <!-- Location Section -->
-   <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
-    <div class="section-bg-dynamic">
-     <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent);"></div>
-    </div>
-    <div class="max-w-4xl mx-auto text-center">
-     <h2 class="font-serif-elegant text-3xl md:text-4xl mb-8" style="color: var(--text-color);">Localização</h2>
-     <div class="map-container shadow-lg rounded-2xl overflow-hidden border-4 border-white">
-      <!-- Iframe do Google Maps (Apontando para Belo Jardim - PE como exemplo) -->
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.39899874668!2d-36.46353566815646!3d-8.333555987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a98bb1e6a0b0b3%3A0x6a0b0b3b0b0b0b0b!2sBelo%20Jardim%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-     </div>
-     <p class="font-sans-elegant text-sm mt-6 opacity-80">Belo Jardim - PE</p>
-     <a href="https://maps.google.com/?q=Belo+Jardim+PE" target="_blank" class="save-date-btn mt-4 inline-block no-underline">Ver no Google Maps</a>
-    </div>
-   </section>
-   <section class="py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
-    <div class="max-w-2xl mx-auto text-center p-8 rounded-2xl" style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
-     <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Confirmação de Presença</h2>
-     <p class="font-sans-elegant text-sm mb-8" style="color: var(--text-color);">Por favor, confirme sua presença.</p>
-     <div id="rsvp-form-container">
-      <div class="mb-6">
-       <label class="block font-sans-elegant text-sm font-bold mb-2" style="color: var(--text-color);">Levará crianças?</label>
-       <div class="flex justify-center gap-4">
-        <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children" value="yes" class="custom-radio" onchange="document.getElementById('children-details').classList.remove('hidden')"> <span class="ml-2">Sim</span></label> 
-        <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children" value="no" class="custom-radio" checked onchange="document.getElementById('children-details').classList.add('hidden')"> <span class="ml-2">Não</span></label>
-       </div>
-      </div>
-      <div id="children-details" class="hidden mb-6 text-left">
-       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-         <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Quantidade</label> <input type="number" id="children_count" class="w-full elegant-input" placeholder="0">
+    </section><!-- Countdown Section -->
+    <section class="py-20 px-4 flex flex-col justify-center fade-in-section"
+      style="background: var(--secondary-surface); position: relative;">
+      <div class="section-bg-dynamic">
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.25), transparent);">
         </div>
-        <div>
-         <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Idades</label> <input type="text" id="children_ages" class="w-full elegant-input" placeholder="Ex: 2, 5">
+        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);">
         </div>
-       </div>
       </div>
-      <div class="flex flex-col md:flex-row justify-center gap-4 mt-8">
-       <button onclick="handleRsvp('Confirmado')" class="save-date-btn">Confirmar Presença</button> <button onclick="handleRsvp('Recusado')" class="save-date-btn" style="background: #ef4444;">Não poderei ir</button>
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70"
+          style="color: var(--text-color);">Para o grande dia</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div class="countdown-card p-6 md:p-8"><span
+              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="days">000</span>
+            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
+              style="color: var(--text-color); opacity: 0.7;">Dias</span>
+          </div>
+          <div class="countdown-card p-6 md:p-8"><span
+              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="hours">00</span>
+            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
+              style="color: var(--text-color); opacity: 0.7;">Horas</span>
+          </div>
+          <div class="countdown-card p-6 md:p-8"><span
+              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="minutes">00</span>
+            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
+              style="color: var(--text-color); opacity: 0.7;">Minutos</span>
+          </div>
+          <div class="countdown-card p-6 md:p-8"><span
+              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="seconds">00</span>
+            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
+              style="color: var(--text-color); opacity: 0.7;">Segundos</span>
+          </div>
+        </div>
       </div>
-     </div>
-     <div id="rsvp-message" class="mt-6 font-serif-elegant text-xl" style="display: none;"></div>
-     <div id="gift-list-container" class="mt-8" style="display: none;">
-      <a id="gift-list-link" href="#" class="save-date-btn" style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, var(--secondary-action), #C99B2A);">🎁 Ver Lista de Presentes</a>
-     </div>
-    </div>
+    </section><!-- Catholic Elements Section -->
+    <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
+      <div class="section-bg-dynamic">
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent);">
+        </div>
+        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);">
+        </div>
+      </div>
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="icon-container mb-12" style="position: relative; z-index: 5;"><!-- Cross -->
+          <div class="flex flex-col items-center">
+            <div class="icon-wrapper p-4 rounded-full"
+              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
+                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                <path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="30" cy="5" r="2" fill="currentColor" />
+                <circle cx="30" cy="55" r="2" fill="currentColor" />
+                <circle cx="15" cy="18" r="2" fill="currentColor" />
+                <circle cx="45" cy="18" r="2" fill="currentColor" />
+              </svg>
+            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+              style="color: var(--primary-action);">Fé</span>
+          </div><!-- Rings -->
+          <div class="flex flex-col items-center rings-container">
+            <div class="icon-wrapper p-4 rounded-full"
+              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
+                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                <circle cx="22" cy="30" r="14" stroke="currentColor" stroke-width="2" />
+                <circle cx="38" cy="30" r="14" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+              style="color: var(--primary-action);">Sagrado União</span>
+          </div><!-- Bible -->
+          <div class="flex flex-col items-center">
+            <div class="icon-wrapper p-4 rounded-full"
+              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
+                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                <rect x="12" y="10" width="36" height="40" rx="3" stroke="currentColor" stroke-width="2" />
+                <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="2" />
+                <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="2" />
+                <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+              style="color: var(--primary-action);">A Palavra</span>
+          </div><!-- Heart / Dove / Grace -->
+          <div class="flex flex-col items-center">
+            <div class="icon-wrapper p-4 rounded-full"
+              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
+                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                <path d="M30 50c-2-2-18-14-18-24 0-6 4-10 9-10 4 0 7 3 9 6 2-3 5-6 9-6 5 0 9 4 9 10 0 10-16 22-18 24z"
+                  stroke="currentColor" stroke-width="2" fill="none" />
+                <circle cx="30" cy="10" r="1.5" fill="currentColor" opacity="0.6" />
+                <circle cx="15" cy="20" r="1.5" fill="currentColor" opacity="0.6" />
+                <circle cx="45" cy="20" r="1.5" fill="currentColor" opacity="0.6" />
+              </svg>
+            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+              style="color: var(--primary-action);">Graça e Amor</span>
+          </div>
+        </div><!-- Bible Verse -->
+        <div class="max-w-2xl mx-auto p-8 rounded-2xl"
+          style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+          <svg class="w-8 h-8 mx-auto mb-4" style="color: var(--secondary-action);" viewbox="0 0 24 24"
+            fill="currentColor" opacity="0.6">
+            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+          </svg>
+          <p class="font-serif-elegant text-lg md:text-xl italic leading-relaxed mb-4" style="color: var(--text-color);"
+            id="bible-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não
+            maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a
+            injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."</p>
+          <p class="font-sans-elegant text-sm tracking-widest" style="color: var(--primary-action);">— 1 Coríntios
+            13:4-7</p>
+        </div>
+      </div>
+    </section><!-- Invitation Message Section -->
+    <section class="py-20 px-4 fade-in-section" style="background: var(--secondary-surface); position: relative;">
+      <div class="section-bg-dynamic">
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.25), transparent);">
+        </div>
+        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent);">
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="divider-ornament"><span class="divider-line"></span>
+          <svg class="w-8 h-8" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="none">
+            <circle cx="22" cy="30" r="10" stroke="currentColor" stroke-width="2" />
+            <circle cx="38" cy="30" r="10" stroke="currentColor" stroke-width="2" />
+          </svg><span class="divider-line"></span>
+        </div>
+        <p id="guest-greeting" class="font-serif-elegant text-2xl md:text-3xl mb-6 font-bold"
+          style="color: var(--primary-action);"></p>
+        <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Com muito amor</h2>
+        <p class="font-sans-elegant text-base leading-relaxed mb-8" style="color: var(--text-color); opacity: 0.85;">
+          Convidamos você para celebrar conosco este momento tão especial em nossas vidas. Será uma honra ter sua
+          presença em nossa cerimônia de casamento, onde uniremos nossas vidas diante de Deus e de nossos familiares e
+          amigos.</p>
+        <p class="font-sans-elegant text-base leading-relaxed mb-10" style="color: var(--text-color); opacity: 0.85;">
+          Sua presença é o maior presente que podemos receber. Venha compartilhar conosco esse dia de alegria, fé e
+          esperança.</p><button class="save-date-btn"
+          style="background: linear-gradient(135deg, var(--primary-action), #2D8B7A); color: white;"> ✨ Save the Date ✨
+        </button>
+      </div>
+    </section><!-- RSVP Section -->
+    <!-- Location Section -->
+    <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
+      <div class="section-bg-dynamic">
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent);">
+        </div>
+      </div>
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-serif-elegant text-3xl md:text-4xl mb-8" style="color: var(--text-color);">Localização</h2>
+        <div class="map-container shadow-lg rounded-2xl overflow-hidden border-4 border-white">
+          <!-- Iframe do Google Maps (Apontando para Belo Jardim - PE como exemplo) -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.39899874668!2d-36.46353566815646!3d-8.333555987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a98bb1e6a0b0b3%3A0x6a0b0b3b0b0b0b0b!2sBelo%20Jardim%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p class="font-sans-elegant text-sm mt-6 opacity-80">Belo Jardim - PE</p>
+        <a href="https://maps.google.com/?q=Belo+Jardim+PE" target="_blank"
+          class="save-date-btn mt-4 inline-block no-underline">Ver no Google Maps</a>
+      </div>
+    </section>
+    <section class="py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
+      <div class="max-w-2xl mx-auto text-center p-8 rounded-2xl"
+        style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+        <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Confirmação de
+          Presença</h2>
+        <p class="font-sans-elegant text-sm mb-8" style="color: var(--text-color);">Por favor, confirme sua presença.
+        </p>
+        <div id="rsvp-form-container">
+          <div class="mb-6">
+            <label class="block font-sans-elegant text-sm font-bold mb-2" style="color: var(--text-color);">Levará
+              crianças?</label>
+            <div class="flex justify-center gap-4">
+              <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children"
+                  value="yes" class="custom-radio"
+                  onchange="document.getElementById('children-details').classList.remove('hidden')"> <span
+                  class="ml-2">Sim</span></label>
+              <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children"
+                  value="no" class="custom-radio" checked
+                  onchange="document.getElementById('children-details').classList.add('hidden')"> <span
+                  class="ml-2">Não</span></label>
+            </div>
+          </div>
+          <div id="children-details" class="hidden mb-6 text-left">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Quantidade</label> <input
+                  type="number" id="children_count" class="w-full elegant-input" placeholder="0">
+              </div>
+              <div>
+                <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Idades</label> <input type="text"
+                  id="children_ages" class="w-full elegant-input" placeholder="Ex: 2, 5">
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col md:flex-row justify-center gap-4 mt-8">
+            <button onclick="handleRsvp('Confirmado')" class="save-date-btn">Confirmar Presença</button> <button
+              onclick="handleRsvp('Recusado')" class="save-date-btn" style="background: #ef4444;">Não poderei
+              ir</button>
+          </div>
+        </div>
+        <div id="rsvp-message" class="mt-6 font-serif-elegant text-xl" style="display: none;"></div>
+        <div id="gift-list-container" class="mt-8" style="display: none;">
+          <a id="gift-list-link" href="#" class="save-date-btn"
+            style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, var(--secondary-action), #C99B2A);">🎁
+            Ver Lista de Presentes</a>
+        </div>
+      </div>
 
-    <!-- Footer movido para o final da página de RSVP -->
-    <footer class="mt-20 py-12 px-4 text-center rounded-2xl mx-auto" style="max-width: 900px;">
-    <div class="max-w-2xl mx-auto">
-     <div class="mb-6">
-      <svg class="w-10 h-10 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="currentColor"><path d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" />
-      </svg>
-     </div>
-     <p class="font-serif-elegant text-2xl md:text-3xl italic mb-2" id="footer-names">Evellyn &amp; Marcos</p>
-     <p class="font-sans-elegant text-sm tracking-widest opacity-80">19 · 11 · 2026</p>
-     <div class="mt-8 pt-6 border-t border-white border-opacity-20">
-      <p class="font-serif-elegant text-base italic opacity-90">"Duas pessoas são melhores do que uma, porque podem ajudar uma à outra a vencer."</p>
-      <p class="font-sans-elegant text-xs tracking-widest mt-2 opacity-70">— Eclesiastes 4:9</p>
-     </div>
-    </div>
-   </footer>
-   </section>
+      <!-- Footer movido para o final da página de RSVP -->
+      <footer class="mt-20 py-12 px-4 text-center rounded-2xl mx-auto" style="max-width: 900px;">
+        <div class="max-w-2xl mx-auto">
+          <div class="mb-6">
+            <svg class="w-10 h-10 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60"
+              fill="currentColor">
+              <path
+                d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" />
+            </svg>
+          </div>
+          <p class="font-serif-elegant text-2xl md:text-3xl italic mb-2" id="footer-names">Evellyn &amp; Marcos</p>
+          <p class="font-sans-elegant text-sm tracking-widest opacity-80">19 · 11 · 2026</p>
+          <div class="mt-8 pt-6 border-t border-white border-opacity-20">
+            <p class="font-serif-elegant text-base italic opacity-90">"Duas pessoas são melhores do que uma, porque
+              podem ajudar uma à outra a vencer."</p>
+            <p class="font-sans-elegant text-xs tracking-widest mt-2 opacity-70">— Eclesiastes 4:9</p>
+          </div>
+        </div>
+      </footer>
+    </section>
   </div>
   <script src="js/utils.js"></script>
   <script src="js/invite.js"></script>
   <script type="module" src="js/hearts-3d.js"></script>
- </body>
+</body>
+
 </html>
