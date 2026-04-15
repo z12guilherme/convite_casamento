@@ -25,21 +25,23 @@ html {
     height: auto !important;
 }
 
-/* === Configurações Gerais da Página === */
+/* Desativa rolagem horizontal do canvas e body */
 body {
     margin: 0;
-    padding: 80px 20px 40px; /* Padding top aumentado para navbar */
+    padding: 80px 20px 40px;
     background: linear-gradient(180deg, var(--c-background) 0%, #f0ebe7 100%);
     background-attachment: fixed;
     color: var(--c-text-dark);
     font-family: var(--font-body);
-    display: block; /* Garante rolagem correta */
+    display: block; 
     min-height: 100vh;
     height: auto !important;
     position: relative;
     overflow-x: hidden;
-    overflow-y: auto !important; /* Reativa a barra de rolagem apenas nesta página */
+    overflow-y: auto !important;
 }
+
+/* Fundo da tela modificado */
 
 /* Decorações de Fundo (Círculos) */
 body::before {

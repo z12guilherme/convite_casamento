@@ -28,6 +28,9 @@
 </head>
 <body>
 
+    <!-- Premium Vistas (Particles) -->
+    <canvas id="ambient-particles" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -51,6 +54,20 @@
                 </div>
                 <h2 class="premium-title">Lista de Presentes</h2>
                 <p class="section-subtitle">Sua presença é o nosso maior presente! Se desejar nos presentear, fique à vontade para escolher uma opção abaixo.</p>
+                
+                <!-- Instruction Box with Pix -->
+                <div class="pix-instruction-box mt-4 mb-4 p-4 rounded-3" style="background: rgba(212, 175, 111, 0.1); border: 1px solid var(--c-gold); max-width: 600px; margin: 0 auto; text-align: left; font-family: var(--font-body); color: var(--c-text-dark); position: relative; z-index: 5;">
+                    <h4 style="font-family: var(--font-heading); color: var(--c-primary); font-size: 1.5rem; text-align: center; margin-bottom: 15px;"><i class="bi bi-gift-fill me-2" style="color: var(--c-gold);"></i>Como funciona?</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle text-success me-2"></i><strong>1.</strong> Escolha com carinho um ou mais itens na lista abaixo.</li>
+                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle text-success me-2"></i><strong>2.</strong> Clique em confirmar e escolha o valor desejado (pode ser total ou uma cota do presente).</li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i><strong>3.</strong> Realize a sua contribuição através de PIX para a chave informada.</li>
+                    </ul>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center; border: 1px dashed var(--c-gold); margin-top: 20px;">
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--c-text-light); text-transform: uppercase; letter-spacing: 1px;">Nossa Chave Pix (Celular):</p>
+                        <p style="margin: 5px 0 0; font-size: 1.5rem; font-weight: bold; color: var(--c-primary); user-select: all;">81989035561</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Guest Greeting -->
@@ -128,6 +145,11 @@
     <!-- Lógica da Lista de Presentes -->
     <script src="../js/utils.js"></script>
     <script src="../js/gift-list.js"></script>
+    
+    <!-- Efeitos Premium WebGL/GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="../js/premium-effects.js"></script>
 
     <script>
         // Inicializar animações
