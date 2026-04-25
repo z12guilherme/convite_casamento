@@ -1,9 +1,18 @@
 :root {
-  --primary-bg: #E8F6F8; /* Soft ethereal water blue/white */
-  --secondary-surface: #ffffff;
-  --text-color: #1A3B47; /* Deep ocean navy/green */
-  --primary-action: #4080B5; /* Divine/Living water blue */
-  --secondary-action: #D4AF37; /* Ethereal Gold */
+  /* === Verde Água — Paleta Principal === */
+  --primary-bg: #EDF5F0;          /* Sage mist background */
+  --secondary-surface: #FEFDFB;   /* Warm off-white */
+  --text-color: #2C4A3E;          /* Deep forest green */
+  --primary-action: #5BA89D;      /* Verde água principal */
+  --secondary-action: #C9A84C;    /* Dourado orgânico */
+
+  /* === Acentos Botânicos === */
+  --accent-sage: #8FBC8F;         /* Sage green */
+  --accent-olive: #6B7F4E;        /* Olive leaf */
+  --accent-mint: #B8D4CA;         /* Mint claro */
+  --accent-forest: #3D7A6B;       /* Forest deep */
+  --accent-cream: #F5EFE6;        /* Warm cream */
+  --accent-gold-light: #E8D9A0;   /* Gold shimmer */
 }
 
 * {
@@ -45,7 +54,7 @@ body {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background: rgba(250, 250, 250, 0.98) !important;
+  background: rgba(254, 253, 251, 0.98) !important;
   transform-origin: 0% 50%;
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1),
               opacity 1.2s ease,
@@ -55,26 +64,26 @@ body {
   z-index: 1;
   visibility: hidden;
   opacity: 0;
-  border-left: 2px solid rgba(212, 175, 55, 0.4); /* Borda dourada marcando a espessura */
+  border-left: 2px solid rgba(91, 168, 157, 0.4);
   box-shadow: inset 3px 0 10px rgba(0,0,0,0.02), -5px 0 20px rgba(0,0,0,0.05);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-/* Alterna a cor de páginas pares para um tom ameno, ignorando os inline-styles antigos */
+/* Alterna a cor de páginas pares para um tom ameno */
 .horizontal-page:nth-child(even) {
-  background: rgba(235, 246, 244, 0.98) !important;
+  background: rgba(237, 245, 240, 0.98) !important;
 }
 
 /* Fundo específico para manter o aspecto visual da primeira página */
 .horizontal-page.hero-section {
-  background: radial-gradient(circle at top center, #ffffff 0%, var(--primary-bg) 100%) !important;
+  background: radial-gradient(circle at top center, #FEFDFB 0%, var(--primary-bg) 100%) !important;
 }
 
 .horizontal-page footer {
   background: var(--primary-bg) !important;
   color: var(--text-color) !important;
-  border-top: 1px solid rgba(197, 160, 89, 0.2);
+  border-top: 1px solid rgba(91, 168, 157, 0.2);
 }
 
 /* Página Ativa */
@@ -90,7 +99,7 @@ body {
 .horizontal-page.flipped {
   visibility: hidden;
   opacity: 0;
-  transform: rotateY(-110deg) translateZ(-100px) scale(0.9) !important; /* Vira quase totalmente e afunda */
+  transform: rotateY(-110deg) translateZ(-100px) scale(0.9) !important;
   z-index: 10;
   pointer-events: none;
   box-shadow: inset -10px 0 30px rgba(0,0,0,0.05), -20px 0 40px rgba(0,0,0,0.1);
@@ -100,7 +109,7 @@ body {
 .horizontal-page.next-page {
   visibility: hidden;
   opacity: 0;
-  transform: rotateY(10deg) translateZ(-150px) translateX(80px) scale(0.95) !important; /* Inclinada aguardando na direita */
+  transform: rotateY(10deg) translateZ(-150px) translateX(80px) scale(0.95) !important;
   z-index: 1;
   pointer-events: none;
 }
@@ -127,7 +136,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(91, 168, 157, 0.3);
   transition: transform 0.3s, opacity 0.3s, background 0.3s;
 }
 
@@ -150,12 +159,17 @@ body {
   font-family: 'Montserrat', Arial, sans-serif;
 }
 
-/* Hero Section */
+/* ========================================
+   HERO SECTION — Verde Água + Natureza
+   ======================================== */
 .hero-section {
   background-attachment: fixed;
   position: relative;
   overflow: hidden;
   min-height: 100%;
+  background: radial-gradient(ellipse at 20% 50%, rgba(184, 212, 202, 0.4) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(201, 168, 76, 0.12) 0%, transparent 40%),
+              linear-gradient(180deg, #FEFDFB 0%, var(--primary-bg) 40%, #D6EAE0 100%);
 }
 
 /* Dynamic Background Canvas */
@@ -169,37 +183,57 @@ body {
   pointer-events: none;
 }
 
-/* Floating Orbs */
+/* ========================================
+   FLOATING ORBS — Tons Verdes + Dourado
+   ======================================== */
 .orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(100px);
-  opacity: 0.5;
+  opacity: 0.45;
   mix-blend-mode: screen;
 }
 
 .orb-1 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 1), rgba(212, 175, 55, 0.2));
+  background: radial-gradient(circle, rgba(91, 168, 157, 0.8), rgba(91, 168, 157, 0.15));
   top: -100px;
   right: 5%;
+  animation: orbFloat1 12s ease-in-out infinite;
 }
 
 .orb-2 {
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.5), rgba(201, 168, 76, 0.1));
   bottom: -50px;
   left: -50px;
+  animation: orbFloat2 15s ease-in-out infinite;
 }
 
 .orb-3 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, #ffffff, transparent);
+  background: radial-gradient(circle, rgba(143, 188, 143, 0.6), transparent);
   top: 50%;
   left: 20%;
+  animation: orbFloat3 10s ease-in-out infinite;
+}
+
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.05); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, 35px) scale(1.08); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -30px); }
 }
 
 /* Animated Grid */
@@ -207,7 +241,6 @@ body {
   position: absolute;
   width: 150%;
   height: 150%;
-  /* Removido o background listrado para focar na limpeza */
   background: transparent;
   opacity: 0;
   top: 0;
@@ -226,11 +259,12 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Atrás do texto */
-  /* pointer-events: none;  Removido para permitir rotação se desejado, mas cuidado com o texto */
+  z-index: 0;
 }
 
-/* Section Dynamic Backgrounds */
+/* ========================================
+   SECTION DYNAMIC BACKGROUNDS
+   ======================================== */
 .section-bg-dynamic {
   position: absolute;
   top: 0;
@@ -244,7 +278,7 @@ body {
 .blob {
   position: absolute;
   filter: blur(80px);
-  opacity: 0.1; /* Apenas uma presença de luz */
+  opacity: 0.12;
   border-radius: 50%;
   mix-blend-mode: multiply;
 }
@@ -252,7 +286,7 @@ body {
 .blob-1 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, var(--secondary-action), transparent);
+  background: radial-gradient(circle, var(--accent-sage), transparent);
   top: -100px;
   right: -50px;
   animation: blobMove1 8s ease-in-out infinite;
@@ -281,7 +315,7 @@ body {
 .glow-point {
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 60px var(--secondary-action);
+  box-shadow: 0 0 60px var(--primary-action);
   animation: pulse-glow 3s ease-in-out infinite;
 }
 
@@ -296,11 +330,14 @@ body {
   }
 }
 
-/* Decorative Elements */
+/* ========================================
+   DECORATIVE LEAVES — Natureza Botânica
+   ======================================== */
 .leaf-decoration {
   position: absolute;
-  opacity: 0.15;
+  opacity: 0.2;
   pointer-events: none;
+  color: var(--accent-sage);
 }
 
 .leaf-1 {
@@ -309,6 +346,7 @@ body {
   width: 120px;
   height: 120px;
   animation: floatLeaf 8s ease-in-out infinite;
+  color: var(--accent-olive);
 }
 
 .leaf-2 {
@@ -317,6 +355,7 @@ body {
   width: 100px;
   height: 100px;
   animation: floatLeaf 10s ease-in-out infinite reverse;
+  color: var(--accent-sage);
 }
 
 .leaf-3 {
@@ -325,6 +364,7 @@ body {
   width: 80px;
   height: 80px;
   animation: floatLeaf 12s ease-in-out infinite;
+  color: var(--accent-mint);
 }
 
 .leaf-4 {
@@ -333,44 +373,62 @@ body {
   width: 90px;
   height: 90px;
   animation: floatLeaf 9s ease-in-out infinite reverse;
+  color: var(--accent-olive);
 }
 
 @keyframes floatLeaf {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  33% { transform: translateY(-15px) rotate(3deg); }
+  66% { transform: translateY(-8px) rotate(-2deg); }
 }
 
-/* Particles */
+/* ========================================
+   PARTICLES — Verde Água + Dourado
+   ======================================== */
 .particle {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--secondary-action);
+  width: 5px;
+  height: 5px;
+  background: var(--accent-sage);
   border-radius: 50%;
   pointer-events: none;
   animation: sparkle 6s ease-in-out infinite;
-  opacity: 0.2;
+  opacity: 0.25;
+}
+
+.particle:nth-child(odd) {
+  background: var(--secondary-action);
+}
+
+.particle:nth-child(3n) {
+  background: var(--accent-mint);
+  width: 4px;
+  height: 4px;
 }
 
 @keyframes sparkle {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.5); }
+  0%, 100% { opacity: 0.15; transform: scale(1) translateY(0); }
+  50% { opacity: 0.7; transform: scale(1.6) translateY(-8px); }
 }
 
-/* Sparkles (Estrelas Cadentes/Brilhos) */
+/* ========================================
+   SPARKLES — Estrelas Douradas Sacras
+   ======================================== */
 .sparkle-icon {
   position: absolute;
   color: var(--secondary-action);
-  opacity: 0.6;
+  opacity: 0.5;
   animation: twinkle 4s ease-in-out infinite;
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
-  50% { opacity: 0.9; transform: scale(1.3) rotate(20deg); }
+  0%, 100% { opacity: 0.15; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 0.85; transform: scale(1.3) rotate(20deg); }
 }
 
-/* Names Animation */
+/* ========================================
+   NAMES CONTAINER — Glassmorphism Verde Água
+   ======================================== */
 .names-container {
   animation: fadeInScale 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
@@ -389,26 +447,46 @@ body {
   50% { transform: scale(1.1); }
 }
 
-/* Countdown Cards */
+/* ========================================
+   COUNTDOWN CARDS — Glassmorphism Verde Água
+   ======================================== */
 .countdown-card {
-  background: var(--secondary-surface);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(197, 160, 89, 0.1);
+  background: rgba(254, 253, 251, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(44, 74, 62, 0.06);
+  border: 1px solid rgba(91, 168, 157, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-action), var(--secondary-action), var(--accent-sage));
+  border-radius: 20px 20px 0 0;
 }
 
 .countdown-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 35px rgba(91, 168, 157, 0.15);
 }
 
 .countdown-number {
-  color: var(--secondary-action);
+  color: var(--accent-forest);
   font-weight: 400;
+  text-shadow: 0 2px 8px rgba(91, 168, 157, 0.15);
 }
 
-/* Section Animations */
+/* ========================================
+   SECTION ANIMATIONS
+   ======================================== */
 .fade-in-section {
   opacity: 0;
   transform: translateY(50px);
@@ -420,7 +498,9 @@ body {
   transform: translateY(0);
 }
 
-/* Decorative Divider */
+/* ========================================
+   DECORATIVE DIVIDER — Ornamento Botânico
+   ======================================== */
 .divider-ornament {
   display: flex;
   align-items: center;
@@ -430,12 +510,14 @@ body {
 }
 
 .divider-line {
-  width: 60px;
+  width: 70px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--secondary-action), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary-action), var(--secondary-action), transparent);
 }
 
-/* Button Styles */
+/* ========================================
+   BUTTONS — Verde Água + Dourado
+   ======================================== */
 .save-date-btn {
   background: transparent;
   border: 1px solid var(--primary-action);
@@ -448,17 +530,37 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.save-date-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(91, 168, 157, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.save-date-btn:hover::before {
+  left: 100%;
 }
 
 .save-date-btn:hover {
-  background: var(--primary-action);
+  background: linear-gradient(135deg, var(--primary-action), var(--accent-forest));
   color: white;
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(61, 122, 108, 0.3);
+  box-shadow: 0 10px 30px rgba(91, 168, 157, 0.35);
+  border-color: transparent;
 }
 
-/* Icon Styles */
+/* ========================================
+   ICON STYLES — Ícones Católicos
+   ======================================== */
 .icon-container {
   display: flex;
   justify-content: center;
@@ -484,15 +586,16 @@ body {
 }
 
 @keyframes shimmer {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3)); }
-  50% { filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.6)); }
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.3)); }
+  50% { filter: drop-shadow(0 0 16px rgba(201, 168, 76, 0.6)); }
 }
 
-/* Gallery Section */
+/* ========================================
+   GALLERY SECTION — Seção de Fotos
+   ======================================== */
 .gallery-section {
   background: var(--secondary-surface);
-  padding: 80px 20px;
-  padding: 20px 20px 80px 20px; /* Reduz o espaço acima do título "Nossa História" */
+  padding: 20px 20px 80px 20px;
 }
 
 .gallery-container {
@@ -504,7 +607,7 @@ body {
 .carousel-container-3d {
   position: relative;
   width: 320px;
-  height: 300px; /* Altura ajustada para caber as faces */
+  height: 300px;
   margin: 40px auto;
   perspective: 1000px;
 }
@@ -526,7 +629,7 @@ body {
   right: 10px;
   background-size: cover;
   background-position: center;
-  box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.3); /* Sombra mais suave */
+  box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.3);
   display: flex;
   border-radius: 8px;
   border: 2px solid rgba(255,255,255,0.5);
@@ -561,7 +664,7 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
   .carousel-container-3d {
-    transform: scale(0.7); /* Reduz um pouco em telas menores */
+    transform: scale(0.7);
     margin: 0 auto;
   }
 }
@@ -569,7 +672,7 @@ body {
 @media (max-width: 480px) {
   .carousel-container-3d {
     transform: scale(0.5);
-    margin: -40px auto; /* Compensa o espaço extra */
+    margin: -40px auto;
   }
 }
 
@@ -610,16 +713,16 @@ body {
 }
 
 .book-front {
-  background: linear-gradient(135deg, var(--primary-action) 0%, #2D8B7A 100%);
+  background: linear-gradient(135deg, var(--primary-action) 0%, var(--accent-forest) 100%);
   color: white;
-  box-shadow: 0 20px 60px rgba(64, 181, 160, 0.4);
+  box-shadow: 0 20px 60px rgba(91, 168, 157, 0.4);
 }
 
 .book-back {
-  background: linear-gradient(135deg, var(--secondary-action) 0%, #C99B2A 100%);
+  background: linear-gradient(135deg, var(--secondary-action) 0%, #B8932E 100%);
   color: white;
   transform: rotateY(180deg);
-  box-shadow: 0 20px 60px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 20px 60px rgba(201, 168, 76, 0.4);
 }
 
 .book-spine {
@@ -661,12 +764,8 @@ body {
 }
 
 @keyframes pulse-emoji {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 /* Responsive adjustments */
@@ -695,11 +794,13 @@ body {
   }
 }
 
-/* === Premium Form Elements === */
+/* ========================================
+   FORM ELEMENTS — Verde Água
+   ======================================== */
 .elegant-input {
   background: transparent;
   border: none;
-  border-bottom: 2px solid rgba(64, 181, 160, 0.3);
+  border-bottom: 2px solid rgba(91, 168, 157, 0.3);
   border-radius: 0;
   padding: 12px 5px;
   font-family: 'Montserrat', sans-serif;
@@ -710,8 +811,8 @@ body {
 
 .elegant-input:focus {
   outline: none;
-  border-bottom-color: var(--secondary-action);
-  background: rgba(255, 255, 255, 0.5);
+  border-bottom-color: var(--primary-action);
+  background: rgba(184, 212, 202, 0.15);
 }
 
 .custom-radio {
@@ -735,7 +836,7 @@ body {
   border-radius: 50%;
   transform: scale(0);
   transition: 0.2s transform ease-in-out;
-  box-shadow: inset 1em 1em var(--secondary-action);
+  box-shadow: inset 1em 1em var(--primary-action);
 }
 
 .custom-radio:checked::before {
@@ -743,7 +844,7 @@ body {
 }
 
 .custom-radio:checked {
-  border-color: var(--secondary-action);
+  border-color: var(--primary-action);
 }
 
 /* === Map Section === */
@@ -753,17 +854,22 @@ body {
 
 .map-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px rgba(44, 74, 62, 0.15);
 }
 
-/* === Intro Overlay === */
+/* ========================================
+   INTRO OVERLAY — Verde Água Botânico
+   ======================================== */
 #intro-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-bg); /* Fundo sólido para cobrir o site */
+  background: 
+    radial-gradient(ellipse at 30% 30%, rgba(184, 212, 202, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 70%, rgba(201, 168, 76, 0.15) 0%, transparent 50%),
+    linear-gradient(180deg, #FEFDFB 0%, var(--primary-bg) 50%, #D6EAE0 100%);
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -783,6 +889,11 @@ body {
   padding: 20px;
 }
 
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .dolls-container {
   display: flex;
   justify-content: center;
@@ -795,366 +906,8 @@ body {
   height: 240px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 10px 15px rgba(44, 74, 62, 0.2));
   transition: transform 0.3s ease;
-  /* Borda suave caso a imagem tenha fundo */
-}
-
-/* === Pure CSS Catholic Church - Watercolor Style === */
-.holy-church-container {
-   width: 360px;
-   height: 400px;
-   position: absolute;
-   top: 45%; 
-   left: 50%;
-   transform: translate(-50%, -50%);
-   z-index: 2;
-   pointer-events: none;
-   /* Aumenta drasticamente a nitidez da silhueta */
-   filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6)) drop-shadow(0 5px 10px rgba(0,0,0,0.4));
-}
-
-/* Catholic Elements Sidebar */
-.catholic-border {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 2;
-  pointer-events: none;
-  padding: 15vh 0;
-}
-.left-border {
-  left: 3%;
-}
-.right-border {
-  right: 3%;
-}
-.holy-icon {
-  width: 50px;
-  height: 50px;
-  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
-  animation: holy-float 6s ease-in-out infinite;
-  opacity: 0.85;
-}
-.holy-icon:nth-child(2) {
-  animation-delay: 2s;
-}
-.holy-icon:nth-child(3) {
-  animation-delay: 4s;
-}
-
-@keyframes holy-float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-15px) scale(1.05); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7)); opacity: 1;}
-}
-
-@media (max-width: 768px) {
-  .left-border { left: 0px; }
-  .right-border { right: 0px; }
-  .holy-icon { width: 35px; height: 35px; }
-}
-
-.church-wing {
-   position: absolute;
-   bottom: 0;
-   width: 100px;
-   height: 180px; 
-}
-.left-wing { left: 0; clip-path: polygon(0 100%, 0 15%, 100% 0, 100% 100%); }
-.right-wing { right: 0; clip-path: polygon(0 100%, 0 0, 100% 15%, 100% 100%); }
-
-.wing-top {
-   height: 90px;
-   width: 100%;
-   background: #FDFBF7; /* Cream top half mais viva */
-   border-top: 2px solid #D1B898; 
-   box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
-}
-.windows-container {
-   display: flex; 
-   justify-content: space-evenly;
-   padding-top: 25px; /* Offset to push down from clipping */
-}
-.arch-window {
-   width: 20px; 
-   height: 40px; 
-   background: rgba(50, 40, 30, 0.85); /* dark glass */
-   border-radius: 10px 10px 0 0;
-   border: 2px solid #D1B898;
-}
-
-.wing-bottom {
-   height: 90px;
-   width: 100%;
-   background: linear-gradient(135deg, #B57950 0%, #90532E 50%, #764121 100%);
-   position: relative;
-}
-.wing-bottom::after {
-   content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 90px;
-   background-image: repeating-linear-gradient(transparent, transparent 6px, rgba(0,0,0,0.2) 6px, rgba(0,0,0,0.2) 8px),
-                     repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(0,0,0,0.2) 14px, rgba(0,0,0,0.2) 16px);
-   opacity: 1; 
-   pointer-events: none;
-}
-.side-door-container {
-   width: 100%; height: 100%; position: relative; z-index: 2;
-}
-.side-door {
-   width: 44px; height: 60px; background: #9A5A28; /* Wood */
-   border-radius: 22px 22px 0 0;
-   border: 2px solid #EFE4D5; /* Cream frame */
-   position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-   overflow: hidden;
-}
-
-.church-center {
-   position: absolute;
-   bottom: 0;
-   left: 100px;
-   width: 160px;
-   height: 250px;
-   clip-path: polygon(0 100%, 0 28%, 50% 0, 100% 28%, 100% 100%);
-   background: linear-gradient(135deg, #B57950 0%, #90532E 50%, #764121 100%);
-}
-.church-center::after {
-   content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-   background-image: repeating-linear-gradient(transparent, transparent 6px, rgba(0,0,0,0.2) 6px, rgba(0,0,0,0.2) 8px),
-                     repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(0,0,0,0.2) 14px, rgba(0,0,0,0.2) 16px);
-   opacity: 1;
-   pointer-events: none;
-   z-index: 0;
-}
-.church-center > * { position: relative; z-index: 1; } /* Place children above brick */
-
-.stained-glass-wrapper {
-   position: absolute;
-   top: 85px; /* Safely within the brick bounds */
-   left: 50%;
-   transform: translateX(-50%);
-   width: 50px; height: 50px;
-   border-radius: 50%;
-   border: 4px solid #F4EBE1;
-   background: conic-gradient(from 0deg, #FF6B6B, #FCA048, #F9D423, #45B649, #00C9FF, #92FE9D, #B3FFAB, #FF6B6B);
-   box-shadow: 0 0 15px rgba(255,255,255,0.6);
-   animation: holy-glow-new 4s infinite alternate;
-}
-.stained-glass-wrapper::before {
-   content:''; position:absolute; top:0;left:0;right:0;bottom:0;
-   border-radius:50%;
-   background: radial-gradient(circle, rgba(255,255,255,0.6) 10%, transparent 40%);
-}
-.stained-glass-wrapper::after {
-   content:''; position:absolute; top:0;left:0;right:0;bottom:0;
-   border-radius:50%;
-   background-image: 
-    linear-gradient(to right, transparent 48%, rgba(0,0,0,0.5) 48%, rgba(0,0,0,0.5) 52%, transparent 52%),
-    linear-gradient(to bottom, transparent 48%, rgba(0,0,0,0.5) 48%, rgba(0,0,0,0.5) 52%, transparent 52%),
-    linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.5) 49%, rgba(0,0,0,0.5) 51%, transparent 51%),
-    linear-gradient(-45deg, transparent 49%, rgba(0,0,0,0.5) 49%, rgba(0,0,0,0.5) 51%, transparent 51%);
-}
-
-@keyframes holy-glow-new {
-   0% { filter: brightness(1) drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
-   100% { filter: brightness(1.2) drop-shadow(0 0 25px rgba(235,185,50,0.8)); }
-}
-
-.balcony-frieze {
-   position: absolute;
-   bottom: 110px; /* Above main door container */
-   left: 0; width: 100%;
-   height: 18px;
-   background: #F4EBE1;
-   display: flex;
-   justify-content: space-evenly;
-   padding-top: 3px;
-   border-bottom: 2px solid #D1B898;
-}
-.frieze-arch {
-   width: 8px; height: 10px;
-   background: #5C2F19; /* dark indent */
-   border-radius: 4px 4px 0 0;
-}
-
-.main-door-container {
-   position: absolute;
-   bottom: 0px;
-   left: 50%;
-   transform: translateX(-50%);
-   width: 84px;
-   height: 110px;
-   background: #F4EBE1; /* White cream framing around door */
-   clip-path: polygon(0 100%, 0 40%, 50% 0, 100% 40%, 100% 100%);
-   display: flex;
-   justify-content: center;
-   align-items: flex-end;
-}
-.main-door {
-   width: 54px;
-   height: 75px;
-   background: #9A5A28;
-   border-radius: 27px 27px 0 0;
-   border: 3px solid #EFE4D5;
-   position: relative;
-   overflow: hidden;
-}
-.door-line {
-   position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
-   background: rgba(0,0,0,0.5);
-   z-index: 2;
-}
-.door-grid {
-   position: absolute; top: 0; left: 0; right: 0; height: 25px;
-   background: linear-gradient(45deg, transparent 48%, rgba(0,0,0,0.7) 48%, rgba(0,0,0,0.7) 52%, transparent 52%),
-               linear-gradient(-45deg, transparent 48%, rgba(0,0,0,0.7) 48%, rgba(0,0,0,0.7) 52%, transparent 52%);
-   border-bottom: 2px solid rgba(0,0,0,0.5);
-   z-index: 1;
-}
-
-.bell-tower {
-   position: absolute;
-   bottom: 250px; /* Sits exactly on center peak */
-   left: 50%;
-   transform: translateX(-50%);
-   width: 70px;
-   height: 140px;
-   z-index: 0; /* Behinds the center clipping but above god rays */
-}
-.bell-tower-base {
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   width: 100%;
-   height: 100px;
-   overflow: hidden;
-}
-.bell-tower-hole {
-   position: absolute;
-   bottom: 0;
-   left: 18px;
-   width: 34px;
-   height: 70px;
-   border-radius: 17px 17px 0 0;
-   box-shadow: 0 0 0 50px #F4EBE1; /* Fills outer part */
-}
-.bell-tower-roof {
-   position: absolute;
-   top: 10px; /* Aligns with base */
-   left: 0;
-   width: 0;
-   height: 0;
-   border-left: 35px solid transparent;
-   border-right: 35px solid transparent;
-   border-bottom: 30px solid #F4EBE1;
-}
-.church-bell {
-   position: absolute;
-   bottom: 60px; /* Insight the hole */
-   left: 50%;
-   transform: translateX(-50%);
-   width: 20px; height: 25px;
-   background: linear-gradient(to bottom, #7A5C19, #D4AF37);
-   border-radius: 10px 10px 0 0;
-   animation: swing-bell 4s ease-in-out infinite;
-   transform-origin: 50% 0%;
-}
-.church-bell::after {
-   content:''; position:absolute; bottom:-4px; left:5px;
-   width: 10px; height: 8px;
-   background: #333;
-   border-radius: 50%;
-}
-@keyframes swing-bell {
-   0% { transform: translateX(-50%) rotate(20deg); }
-   50% { transform: translateX(-50%) rotate(-20deg); }
-   100% { transform: translateX(-50%) rotate(20deg); }
-}
-.cross-top-new {
-   position: absolute;
-   top: -15px; /* Above roof */
-   left: 50%;
-   transform: translateX(-50%);
-   width: 6px;
-   height: 35px;
-   background: #F4EBE1;
-   box-shadow: 0 0 10px rgba(255,255,255,0.8);
-}
-.cross-top-new::after {
-   content: ''; position: absolute;
-   top: 8px; left: -8px;
-   width: 22px; height: 6px;
-   background: #F4EBE1;
-   box-shadow: 0 0 10px rgba(255,255,255,0.8);
-}
-
-/* God Rays */
-.god-rays {
-  position: absolute;
-  top: -20%;
-  left: -50%;
-  width: 200%;
-  height: 150%;
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 15%,
-    rgba(255, 255, 255, 0) 30%
-  );
-  transform-origin: top left;
-  animation: rays-move 30s linear infinite;
-  z-index: 1;
-  pointer-events: none;
-  mix-blend-mode: plus-lighter;
-}
-
-@keyframes rays-move {
-  0% { transform: translateY(-10%) rotate(0deg) scale(1.2); opacity: 0.6; }
-  50% { transform: translateY(0%) rotate(5deg) scale(1.3); opacity: 0.9; }
-  100% { transform: translateY(-10%) rotate(0deg) scale(1.2); opacity: 0.6; }
-}
-
-/* Water Waves */
-.ocean { 
-  height: 250px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: transparent;
-  z-index: 3;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.wave {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2348C9B0" fill-opacity="0.4" d="M0,160L48,170.7C96,181,192,203,288,208C384,213,480,203,576,176C672,149,768,107,864,106.7C960,107,1056,149,1152,160C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
-  width: 200%;
-  height: 250px;
-  position: absolute;
-  bottom: 0;
-  animation: wave 18s linear infinite;
-}
-
-.wave:nth-of-type(2) {
-  bottom: -20px;
-  animation: wave 25s linear infinite reverse;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFFFFF" fill-opacity="0.7" d="M0,224L48,229.3C96,235,192,245,288,218.7C384,192,480,128,576,122.7C672,117,768,171,864,197.3C960,224,1056,224,1152,202.7C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
-}
-
-.wave:nth-of-type(3) {
-  bottom: -40px;
-  animation: wave 14s linear infinite;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231ABC9C" fill-opacity="0.8" d="M0,96L60,112C120,128,240,160,360,165.3C480,171,600,149,720,128C840,107,960,85,1080,90.7C1200,96,1320,128,1380,144L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>') repeat-x;
-}
-
-@keyframes wave {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
   border-radius: 20px; 
 }
 
@@ -1167,7 +920,7 @@ body {
 }
 
 .doll-groom {
-  animation: float-doll 3s ease-in-out infinite 1.5s; /* Delay para flutuar alternado */
+  animation: float-doll 3s ease-in-out infinite 1.5s;
 }
 
 @keyframes float-doll {
@@ -1194,7 +947,7 @@ body {
 }
 
 .enter-btn {
-  background: linear-gradient(135deg, var(--primary-action), #2D8B7A);
+  background: linear-gradient(135deg, var(--primary-action), var(--accent-forest));
   color: white;
   border: none;
   padding: 15px 50px;
@@ -1203,7 +956,7 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(64, 181, 160, 0.4);
+  box-shadow: 0 10px 30px rgba(91, 168, 157, 0.4);
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
@@ -1212,10 +965,12 @@ body {
 
 .enter-btn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(64, 181, 160, 0.6);
+  box-shadow: 0 15px 40px rgba(91, 168, 157, 0.6);
 }
 
-/* Music Control */
+/* ========================================
+   MUSIC CONTROL — Verde Água
+   ======================================== */
 .music-btn {
   position: fixed;
   bottom: 20px;
@@ -1223,7 +978,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: white;
+  background: var(--secondary-surface);
   border: 2px solid var(--primary-action);
   color: var(--primary-action);
   font-size: 1.5rem;
@@ -1232,7 +987,7 @@ body {
   justify-content: center;
   cursor: pointer;
   z-index: 100;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(91, 168, 157, 0.15);
   transition: all 0.3s ease;
 }
 
@@ -1246,11 +1001,384 @@ body {
   display: none;
 }
 
-/* === Novo Álbum CSS 3D (Turning Pages) === */
+/* ========================================
+   PURE CSS CATHOLIC CHURCH — Verde Água / Creme
+   ======================================== */
+.holy-church-container {
+   width: 380px;
+   height: 420px;
+   position: absolute;
+   top: 44%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 6;
+   pointer-events: none;
+   filter: drop-shadow(0 8px 18px rgba(30, 56, 44, 0.45)) drop-shadow(0 2px 5px rgba(30, 56, 44, 0.3));
+}
+
+/* Catholic Elements Sidebar */
+.catholic-border {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+  padding: 15vh 0;
+}
+.left-border {
+  left: 3%;
+}
+.right-border {
+  right: 3%;
+}
+.holy-icon {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 0 10px rgba(91, 168, 157, 0.3)) drop-shadow(0 0 5px rgba(201, 168, 76, 0.3));
+  animation: holy-float 6s ease-in-out infinite;
+  opacity: 0.8;
+}
+.holy-icon:nth-child(2) {
+  animation-delay: 2s;
+}
+.holy-icon:nth-child(3) {
+  animation-delay: 4s;
+}
+
+@keyframes holy-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.05); filter: drop-shadow(0 0 20px rgba(91, 168, 157, 0.5)) drop-shadow(0 0 10px rgba(201, 168, 76, 0.5)); opacity: 1;}
+}
+
+@media (max-width: 768px) {
+  .left-border { left: 0px; }
+  .right-border { right: 0px; }
+  .holy-icon { width: 35px; height: 35px; }
+}
+
+/* === Church Architecture === */
+.church-wing {
+   position: absolute;
+   bottom: 0;
+   width: 100px;
+   height: 180px; 
+}
+.left-wing { left: 0; clip-path: polygon(0 100%, 0 15%, 100% 0, 100% 100%); }
+.right-wing { right: 0; clip-path: polygon(0 100%, 0 0, 100% 15%, 100% 100%); }
+
+.wing-top {
+   height: 90px;
+   width: 100%;
+   background: #EAE6DD;
+   border-top: 2px solid rgba(91,168,157,0.7);
+   box-shadow: inset 0 2px 10px rgba(0,0,0,0.08);
+}
+.windows-container {
+   display: flex; 
+   justify-content: space-evenly;
+   padding-top: 25px;
+}
+.arch-window {
+   width: 20px;
+   height: 40px;
+   background: rgba(91, 168, 157, 0.55);
+   border-radius: 10px 10px 0 0;
+   border: 2px solid rgba(91,168,157,0.8);
+   box-shadow: inset 0 0 10px rgba(91, 168, 157, 0.5), 0 0 6px rgba(201,168,76,0.2);
+}
+
+.wing-bottom {
+   height: 90px;
+   width: 100%;
+   background: linear-gradient(135deg, #86B5A8 0%, #5E9C8C 50%, #3D7A6B 100%);
+   position: relative;
+}
+.wing-bottom::after {
+   content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 90px;
+   background-image: repeating-linear-gradient(transparent, transparent 6px, rgba(0,0,0,0.12) 6px, rgba(0,0,0,0.12) 8px),
+                     repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(0,0,0,0.12) 14px, rgba(0,0,0,0.12) 16px);
+   opacity: 1; 
+   pointer-events: none;
+}
+.side-door-container {
+   width: 100%; height: 100%; position: relative; z-index: 2;
+}
+.side-door {
+   width: 46px; height: 62px;
+   background: linear-gradient(180deg, #4A8C7C 0%, #3D7A6B 100%);
+   border-radius: 23px 23px 0 0;
+   border: 2px solid rgba(214,234,224,0.9);
+   position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+   overflow: hidden;
+   box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.church-center {
+   position: absolute;
+   bottom: 0;
+   left: 100px;
+   width: 160px;
+   height: 260px;
+   clip-path: polygon(0 100%, 0 28%, 50% 0, 100% 28%, 100% 100%);
+   background: linear-gradient(160deg, #7EB5A6 0%, #4D8C7C 45%, #2E6B5A 100%);
+}
+.church-center::after {
+   content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+   background-image: repeating-linear-gradient(transparent, transparent 6px, rgba(0,0,0,0.1) 6px, rgba(0,0,0,0.1) 8px),
+                     repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(0,0,0,0.1) 14px, rgba(0,0,0,0.1) 16px);
+   opacity: 1;
+   pointer-events: none;
+   z-index: 0;
+}
+.church-center > * { position: relative; z-index: 1; }
+
+.stained-glass-wrapper {
+   position: absolute;
+   top: 85px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 50px; height: 50px;
+   border-radius: 50%;
+   border: 4px solid #D6EAE0;
+   background: conic-gradient(from 0deg, #5BA89D, #8FBC8F, #C9A84C, #B8D4CA, #6B7F4E, #5BA89D);
+   box-shadow: 0 0 15px rgba(91, 168, 157, 0.5);
+   animation: holy-glow-new 4s infinite alternate;
+}
+.stained-glass-wrapper::before {
+   content:''; position:absolute; top:0;left:0;right:0;bottom:0;
+   border-radius:50%;
+   background: radial-gradient(circle, rgba(255,255,255,0.5) 10%, transparent 40%);
+}
+.stained-glass-wrapper::after {
+   content:''; position:absolute; top:0;left:0;right:0;bottom:0;
+   border-radius:50%;
+   background-image: 
+    linear-gradient(to right, transparent 48%, rgba(0,0,0,0.4) 48%, rgba(0,0,0,0.4) 52%, transparent 52%),
+    linear-gradient(to bottom, transparent 48%, rgba(0,0,0,0.4) 48%, rgba(0,0,0,0.4) 52%, transparent 52%),
+    linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.4) 49%, rgba(0,0,0,0.4) 51%, transparent 51%),
+    linear-gradient(-45deg, transparent 49%, rgba(0,0,0,0.4) 49%, rgba(0,0,0,0.4) 51%, transparent 51%);
+}
+
+@keyframes holy-glow-new {
+   0% { filter: brightness(1) drop-shadow(0 0 10px rgba(91, 168, 157, 0.4)); }
+   100% { filter: brightness(1.15) drop-shadow(0 0 25px rgba(201, 168, 76, 0.6)); }
+}
+
+.balcony-frieze {
+   position: absolute;
+   bottom: 110px;
+   left: 0; width: 100%;
+   height: 18px;
+   background: #D6EAE0;
+   display: flex;
+   justify-content: space-evenly;
+   padding-top: 3px;
+   border-bottom: 2px solid var(--accent-mint);
+}
+.frieze-arch {
+   width: 8px; height: 10px;
+   background: #3D7A6B;
+   border-radius: 4px 4px 0 0;
+}
+
+.main-door-container {
+   position: absolute;
+   bottom: 0px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 88px;
+   height: 115px;
+   background: linear-gradient(180deg, #C5E0D2 0%, #A8CCB8 100%);
+   clip-path: polygon(0 100%, 0 40%, 50% 0, 100% 40%, 100% 100%);
+   display: flex;
+   justify-content: center;
+   align-items: flex-end;
+}
+.main-door {
+   width: 56px;
+   height: 78px;
+   background: linear-gradient(160deg, #3D7A6B 0%, #2A5E50 100%);
+   border-radius: 28px 28px 0 0;
+   border: 3px solid rgba(214,234,224,0.9);
+   position: relative;
+   overflow: hidden;
+   box-shadow: inset 0 2px 12px rgba(0,0,0,0.25);
+}
+.door-line {
+   position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+   background: rgba(0,0,0,0.35);
+   z-index: 2;
+}
+.door-grid {
+   position: absolute; top: 0; left: 0; right: 0; height: 25px;
+   background: linear-gradient(45deg, transparent 48%, rgba(0,0,0,0.5) 48%, rgba(0,0,0,0.5) 52%, transparent 52%),
+               linear-gradient(-45deg, transparent 48%, rgba(0,0,0,0.5) 48%, rgba(0,0,0,0.5) 52%, transparent 52%);
+   border-bottom: 2px solid rgba(0,0,0,0.4);
+   z-index: 1;
+}
+
+.bell-tower {
+   position: absolute;
+   bottom: 250px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 70px;
+   height: 140px;
+   z-index: 0;
+}
+.bell-tower-base {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   height: 100px;
+   overflow: hidden;
+}
+.bell-tower-hole {
+   position: absolute;
+   bottom: 0;
+   left: 18px;
+   width: 34px;
+   height: 70px;
+   border-radius: 17px 17px 0 0;
+   box-shadow: 0 0 0 50px #B5D4C4;
+   background: rgba(30,56,44,0.5);
+}
+.bell-tower-roof {
+   position: absolute;
+   top: 8px;
+   left: 0;
+   width: 0;
+   height: 0;
+   border-left: 35px solid transparent;
+   border-right: 35px solid transparent;
+   border-bottom: 34px solid #A8CCB8;
+   filter: drop-shadow(0 -2px 4px rgba(44,74,62,0.2));
+}
+.church-bell {
+   position: absolute;
+   bottom: 60px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 20px; height: 25px;
+   background: linear-gradient(to bottom, #9A8330, #C9A84C);
+   border-radius: 10px 10px 0 0;
+   animation: swing-bell 4s ease-in-out infinite;
+   transform-origin: 50% 0%;
+}
+.church-bell::after {
+   content:''; position:absolute; bottom:-4px; left:5px;
+   width: 10px; height: 8px;
+   background: #4A5A4E;
+   border-radius: 50%;
+}
+@keyframes swing-bell {
+   0% { transform: translateX(-50%) rotate(20deg); }
+   50% { transform: translateX(-50%) rotate(-20deg); }
+   100% { transform: translateX(-50%) rotate(20deg); }
+}
+.cross-top-new {
+   position: absolute;
+   top: -18px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 5px;
+   height: 40px;
+   background: linear-gradient(180deg, #fff 0%, #C5E0D2 100%);
+   box-shadow: 0 0 14px rgba(201,168,76,0.7), 0 0 6px rgba(255,255,255,0.8);
+   border-radius: 2px;
+}
+.cross-top-new::after {
+   content: ''; position: absolute;
+   top: 9px; left: -9px;
+   width: 23px; height: 5px;
+   background: linear-gradient(90deg, #C5E0D2 0%, #fff 50%, #C5E0D2 100%);
+   box-shadow: 0 0 14px rgba(201,168,76,0.7), 0 0 6px rgba(255,255,255,0.8);
+   border-radius: 2px;
+}
+
+/* ========================================
+   GOD RAYS — Verde Água Divino
+   ======================================== */
+.god-rays {
+  position: absolute;
+  top: -20%;
+  left: -50%;
+  width: 200%;
+  height: 150%;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(184, 212, 202, 0.08) 15%,
+    rgba(255, 255, 255, 0) 30%
+  );
+  transform-origin: top left;
+  animation: rays-move 30s linear infinite;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+@keyframes rays-move {
+  0% { transform: translateY(-10%) rotate(0deg) scale(1.2); opacity: 0.6; }
+  50% { transform: translateY(0%) rotate(5deg) scale(1.3); opacity: 0.9; }
+  100% { transform: translateY(-10%) rotate(0deg) scale(1.2); opacity: 0.6; }
+}
+
+/* ========================================
+   WATER WAVES — Verde Água
+   ======================================== */
+.ocean { 
+  height: 250px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: transparent;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wave {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%235BA89D" fill-opacity="0.35" d="M0,160L48,170.7C96,181,192,203,288,208C384,213,480,203,576,176C672,149,768,107,864,106.7C960,107,1056,149,1152,160C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+  width: 200%;
+  height: 250px;
+  position: absolute;
+  bottom: 0;
+  animation: wave 18s linear infinite;
+}
+
+.wave:nth-of-type(2) {
+  bottom: -20px;
+  animation: wave 25s linear infinite reverse;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23B8D4CA" fill-opacity="0.6" d="M0,224L48,229.3C96,235,192,245,288,218.7C384,192,480,128,576,122.7C672,117,768,171,864,197.3C960,224,1056,224,1152,202.7C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+}
+
+.wave:nth-of-type(3) {
+  bottom: -40px;
+  animation: wave 14s linear infinite;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23EDF5F0" fill-opacity="0.85" d="M0,96L60,112C120,128,240,160,360,165.3C480,171,600,149,720,128C840,107,960,85,1080,90.7C1200,96,1320,128,1380,144L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>') repeat-x;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ========================================
+   CSS 3D BOOK (Turning Pages)
+   ======================================== */
 :root {
     --book-angle: 60deg;
     --speed: 5s;
-    --book-border-color: rgba(64, 181, 160, 0.9); /* Verde Água do Tema */
+    --book-border-color: rgba(91, 168, 157, 0.9);
     
     /* Imagens do Casamento (Serão pré-carregadas) */
     --img-1: url('../img/foto.jpg');
@@ -1282,9 +1410,7 @@ body {
     position: relative;
     width: 100%;
     height: 500px;
-    margin: -20px auto 40px auto;
-    margin: 10px auto 40px auto; /* Ajusta a margem para um valor positivo padrão */
-    margin: -150px auto 40px auto; /* Puxa o livro para cima, colando ele no título */
+    margin: -150px auto 40px auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1296,7 +1422,7 @@ body {
     perspective: 630px;
     perspective-origin: center 50px; 
     transform: scale(1.5);
-    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.25));
+    filter: drop-shadow(0px 10px 15px rgba(44, 74, 62, 0.25));
 }
 
 .page {
@@ -1522,22 +1648,20 @@ body {
     93% { background-image: var(--img-1); background-position: -388px -2px; transform: rotateY(180deg); }
 }
 
-/* Responsividade Dinâmica para Telas Menores (Escala Mágica) */
+/* Responsividade Dinâmica para Telas Menores */
 @media (max-width: 768px) {
     .book { transform: scale(1.2); }
-    .css-book-wrapper { height: 400px; margin: -10px auto 20px auto; }
-    .css-book-wrapper { height: 400px; margin: 10px auto 20px auto; }
     .css-book-wrapper { height: 400px; margin: -40px auto 20px auto; }
 }
 
 @media (max-width: 480px) {
     .book { transform: scale(0.95); }
-    .css-book-wrapper { height: 320px; margin: -20px auto 10px auto; }
-    .css-book-wrapper { height: 320px; margin: 0 auto 10px auto; }
     .css-book-wrapper { height: 320px; margin: -30px auto 10px auto; }
 }
 
-/* === Toast Notifications === */
+/* ========================================
+   TOAST NOTIFICATIONS
+   ======================================== */
 .toast-notification-container {
   position: fixed;
   top: 20px;
@@ -1568,11 +1692,13 @@ body {
   transform: translateX(0);
 }
 
-.toast-notification.success { border-left-color: var(--primary-action, #40B5A0); }
+.toast-notification.success { border-left-color: var(--primary-action, #5BA89D); }
 .toast-notification.error { border-left-color: #ef4444; }
-.toast-notification.info { border-left-color: var(--secondary-action, #D4AF37); }
+.toast-notification.info { border-left-color: var(--secondary-action, #C9A84C); }
 
-/* === Confirmation Modal === */
+/* ========================================
+   CONFIRMATION MODAL
+   ======================================== */
 .confirm-modal-overlay {
   position: fixed;
   top: 0;
@@ -1584,7 +1710,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10001; /* Above toast notifications */
+  z-index: 10001;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -1639,13 +1765,13 @@ body {
 }
 
 .confirm-modal-btn.confirm {
-  background: var(--primary-action, #40B5A0);
+  background: var(--primary-action, #5BA89D);
   color: white;
 }
 
 .confirm-modal-btn.confirm:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(64, 181, 160, 0.4);
+  box-shadow: 0 5px 15px rgba(91, 168, 157, 0.4);
 }
 
 .confirm-modal-btn.cancel {
@@ -1656,3 +1782,1001 @@ body {
 .confirm-modal-btn.cancel:hover {
   background: #cbd5e1;
 }
+
+/* ========================================
+   SEÇÃO FOLHAGEM SACRA — Ornamentos de seção
+   ======================================== */
+.section-ornament {
+  text-align: center;
+  margin: 2rem 0;
+  opacity: 0.6;
+}
+
+.section-ornament svg {
+  color: var(--accent-sage);
+}
+
+/* Icon wrapper hover com glow verde-água */
+.icon-wrapper {
+  transition: all 0.3s ease;
+}
+
+.icon-wrapper:hover {
+  box-shadow: 0 12px 30px rgba(91, 168, 157, 0.25) !important;
+  transform: translateY(-3px);
+}
+
+/* ========================================
+   HEADER LITÚRGICO DO LIVRO (seção galeria)
+   ======================================== */
+
+.book-liturgical-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Mini vela do livro */
+.book-candle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+}
+
+.book-candle-flame-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -1px;
+}
+
+.book-candle-flame {
+  width: 8px;
+  height: 14px;
+  background: radial-gradient(ellipse at 50% 90%, #FFF1A0 0%, #FFCC00 40%, #FF8800 75%, transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: flame-flicker 0.9s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 4px rgba(255,180,0,0.7));
+}
+
+.book-candle-wax {
+  width: 8px;
+  height: 30px;
+  background: linear-gradient(180deg, #FEFDFB 0%, #EDE5D5 60%, #D8CEBA 100%);
+  border-radius: 2px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.book-candle-wax::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 6px;
+  background: #444;
+  border-radius: 1px;
+}
+
+.book-candle-holder {
+  width: 16px;
+  height: 5px;
+  background: linear-gradient(90deg, #9a7822, var(--secondary-action), #9a7822);
+  border-radius: 3px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* ========================================
+   ARCO LITÚRGICO DO CONTADOR
+   ======================================== */
+
+.countdown-arch-ornament {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Velas do arco */
+.arch-candle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22px;
+}
+
+.arch-candle-flame-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -1px;
+}
+
+.arch-candle-flame {
+  width: 9px;
+  height: 16px;
+  background: radial-gradient(ellipse at 50% 90%, #FFF1A0 0%, #FFCC00 40%, #FF8800 75%, transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: flame-flicker 0.85s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 5px rgba(255,180,0,0.7));
+}
+
+.arch-candle.right .arch-candle-flame {
+  animation-delay: 0.4s;
+}
+
+.arch-candle-body {
+  width: 9px;
+  height: 38px;
+  background: linear-gradient(180deg, #FEFDFB 0%, #EDE5D5 60%, #D8CEBA 100%);
+  border-radius: 2px;
+  position: relative;
+}
+
+.arch-candle-body::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 7px;
+  background: #444;
+  border-radius: 1px;
+}
+
+.arch-candle-body::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: -2px;
+  width: 4px;
+  height: 7px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 0 0 50% 50%;
+  animation: wax-drip 4s ease-in-out infinite;
+}
+
+.arch-candle-base {
+  width: 18px;
+  height: 6px;
+  background: linear-gradient(90deg, #9a7822, var(--secondary-action), #9a7822);
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* ========================================
+   MOLDURA ILUMINADA DO VERSÍCULO
+   ======================================== */
+
+.verse-frame {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.verse-inner {
+  flex: 1;
+  position: relative;
+}
+
+/* Velas laterais do versículo */
+.verse-candle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  width: 30px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.vc-flame-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -1px;
+}
+
+.vc-flame {
+  width: 10px;
+  height: 18px;
+  background: radial-gradient(ellipse at 50% 90%, #FFF1A0 0%, #FFCC00 40%, #FF8800 75%, transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: flame-flicker 1s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px rgba(255,180,0,0.8));
+}
+
+.verse-candle-right .vc-flame {
+  animation-delay: 0.5s;
+}
+
+.vc-wax {
+  width: 10px;
+  height: 70px;
+  background: linear-gradient(180deg, #FEFDFB 0%, #EDE5D5 55%, #D8CEBA 100%);
+  border-radius: 3px;
+  position: relative;
+}
+
+.vc-wax::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 8px;
+  background: #444;
+  border-radius: 1px;
+}
+
+.vc-wax::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: -2px;
+  width: 5px;
+  height: 8px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 0 0 50% 50%;
+  animation: wax-drip 4.5s ease-in-out infinite;
+}
+
+.vc-base {
+  width: 20px;
+  height: 7px;
+  background: linear-gradient(90deg, #9a7822, var(--secondary-action), #9a7822);
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Glow ambiental das velas laterais */
+.verse-candle-left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 40px;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 20%, rgba(255,200,50,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.verse-candle-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 40px;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 20%, rgba(255,200,50,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .verse-candle { display: none; }
+  .book-liturgical-header { gap: 10px; }
+  .countdown-arch-ornament { gap: 8px; }
+  .countdown-arch-ornament svg { width: 140px !important; }
+}
+
+
+/* ========================================
+   CASTIÇAIS — Pure CSS Candelabras
+   ======================================== */
+
+.candelabra {
+  position: absolute;
+  bottom: 240px;
+  width: 46px;
+  z-index: 4;
+  pointer-events: none;
+  animation: candle-sway 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.candelabra.left-candelabra  { left: calc(50% - 200px); animation-delay: 0s; }
+.candelabra.right-candelabra { right: calc(50% - 200px); animation-delay: 1.5s; }
+
+@keyframes candle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(0.6deg); }
+  75%       { transform: rotate(-0.6deg); }
+}
+
+/* --- Chama --- */
+.candle-flame-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 36px;
+  margin-bottom: -2px;
+}
+
+.candle-flame {
+  position: relative;
+  width: 14px;
+  height: 26px;
+  background: radial-gradient(ellipse at 50% 90%, #FFF1A0 0%, #FFCC00 40%, #FF8800 75%, transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: flame-flicker 0.9s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.8)) drop-shadow(0 0 20px rgba(255, 120, 0, 0.4));
+  transform-origin: bottom center;
+}
+
+.candle-flame::before {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 14px;
+  background: radial-gradient(ellipse, #FFF8D0 0%, rgba(255,220,100,0.5) 70%, transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+}
+
+.candle-flame::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 210, 80, 0.35) 0%, transparent 70%);
+  animation: flame-glow 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes flame-flicker {
+  0%   { transform: scaleX(1)    scaleY(1)    rotate(-1deg)  skewX(-1deg); opacity: 0.95; }
+  20%  { transform: scaleX(0.9)  scaleY(1.06) rotate(1.5deg) skewX(1deg);  opacity: 1; }
+  40%  { transform: scaleX(1.05) scaleY(0.96) rotate(-2deg)  skewX(-2deg); opacity: 0.9; }
+  60%  { transform: scaleX(0.92) scaleY(1.08) rotate(1deg)   skewX(2deg);  opacity: 1; }
+  80%  { transform: scaleX(1)    scaleY(1.03) rotate(-0.5deg)skewX(0deg);  opacity: 0.95; }
+  100% { transform: scaleX(0.96) scaleY(1.05) rotate(2deg)   skewX(1deg);  opacity: 0.88; }
+}
+
+@keyframes flame-glow {
+  0%   { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  100% { opacity: 1;   transform: translateX(-50%) scale(1.3); }
+}
+
+/* --- Vela --- */
+.candle-wax {
+  position: relative;
+  width: 14px;
+  height: 50px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #FEFDFB 0%, #EDE5D5 60%, #D8CEBA 100%);
+  border-radius: 3px 3px 2px 2px;
+  box-shadow: inset -3px 0 6px rgba(0,0,0,0.08), 1px 0 3px rgba(255,255,255,0.8);
+}
+
+.candle-wax::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: linear-gradient(180deg, #555 0%, #333 100%);
+  border-radius: 1px;
+}
+
+.candle-wax::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: -2px;
+  width: 5px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 0 0 50% 50%;
+  animation: wax-drip 4s ease-in-out infinite;
+}
+
+@keyframes wax-drip {
+  0%, 70%  { height: 9px;  opacity: 0.6; top: 6px; }
+  85%      { height: 15px; opacity: 0.8; top: 6px; }
+  95%      { height: 16px; opacity: 0.5; top: 7px; }
+  100%     { height: 9px;  opacity: 0.6; top: 6px; }
+}
+
+/* --- Castiçal estrutura --- */
+.candle-holder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.holder-cup {
+  width: 20px;
+  height: 9px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.3) 0%, var(--secondary-action) 100%);
+  border-radius: 3px 3px 6px 6px;
+  border: 1px solid rgba(201,168,76,0.6);
+  box-shadow: 0 2px 6px rgba(201,168,76,0.3);
+  margin-top: -1px;
+}
+
+.holder-stem {
+  width: 6px;
+  height: 34px;
+  background: linear-gradient(90deg, #b8952e, var(--secondary-action), #b8952e);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.25);
+}
+
+.holder-knot {
+  width: 14px;
+  height: 10px;
+  background: linear-gradient(180deg, var(--secondary-action) 0%, #9a7822 100%);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15), inset 0 1px 2px rgba(255,255,255,0.3);
+}
+
+.holder-base-top {
+  width: 26px;
+  height: 6px;
+  background: linear-gradient(180deg, var(--secondary-action) 0%, #9a7822 100%);
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.holder-base-mid {
+  width: 34px;
+  height: 5px;
+  background: linear-gradient(90deg, #9a7822, var(--secondary-action), #9a7822);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.holder-base-bottom {
+  width: 44px;
+  height: 8px;
+  background: linear-gradient(180deg, #9a7822 0%, #7a6018 100%);
+  border-radius: 4px 4px 6px 6px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.candle-reflection {
+  width: 30px;
+  height: 6px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  margin: 2px auto 0;
+}
+
+.candle-ambient-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 10%, rgba(255,200,50,0.15) 0%, transparent 65%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: ambient-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-pulse {
+  0%   { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+  100% { opacity: 1;   transform: translateX(-50%) scaleX(1.2); }
+}
+
+/* ========================================
+   QUERUBINS — Pure CSS Cherubs
+   ======================================== */
+
+.cherub {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  animation: cherub-float 7s ease-in-out infinite;
+}
+
+.cherub.cherub-left  { top: 12%; left: 7%;  animation-delay: 0s; }
+.cherub.cherub-right { top: 12%; right: 7%; animation-delay: 2s; }
+
+@keyframes cherub-float {
+  0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
+  35%      { transform: translateY(-16px) rotate(1deg); }
+  65%      { transform: translateY(-8px) rotate(-1deg); }
+}
+
+/* Querubim da direita fica espelhado */
+.cherub.cherub-right .cherub-body-group {
+  transform: scaleX(-1);
+}
+
+/* --- Halo dourado --- */
+.cherub-halo {
+  width: 36px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(201,168,76,0.9);
+  margin: 0 auto -6px;
+  box-shadow: 0 0 12px rgba(201,168,76,0.6), 0 0 25px rgba(201,168,76,0.25);
+  animation: halo-glow 2.5s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes halo-glow {
+  0%   { box-shadow: 0 0 8px rgba(201,168,76,0.5), 0 0 18px rgba(201,168,76,0.2); }
+  100% { box-shadow: 0 0 18px rgba(201,168,76,0.95), 0 0 36px rgba(201,168,76,0.45); }
+}
+
+/* --- Cabeça --- */
+.cherub-head {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #FDEBD0 0%, #F5C9A0 55%, #E8A878 100%);
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.18), inset -3px -3px 8px rgba(180,100,60,0.1);
+  margin: 0 auto;
+  z-index: 3;
+  position: relative;
+}
+
+/* cachos */
+.cherub-head::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 3px;
+  right: 3px;
+  height: 18px;
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(ellipse at 50% 0%, #D9A865 0%, #B07840 100%);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.25);
+}
+
+/* bochechas */
+.cherub-head::before {
+  content: '';
+  position: absolute;
+  bottom: 9px;
+  left: 5px;
+  width: 8px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(220,100,90,0.28);
+  box-shadow: 16px 0 0 rgba(220,100,90,0.28);
+  z-index: 4;
+}
+
+/* olhos */
+.cherub-eyes {
+  position: absolute;
+  top: 14px;
+  left: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4A2A18;
+  box-shadow: 12px 0 0 #4A2A18;
+  z-index: 5;
+}
+
+/* boca */
+.cherub-mouth {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 4px;
+  border-bottom: 2px solid rgba(180,70,50,0.35);
+  border-radius: 0 0 5px 5px;
+  z-index: 5;
+}
+
+/* --- Corpo --- */
+.cherub-body {
+  position: relative;
+  width: 30px;
+  height: 22px;
+  margin: -4px auto 0;
+  background: radial-gradient(circle at 40% 30%, #FDEBD0 0%, #F0C090 55%, #E0A870 100%);
+  border-radius: 40% 40% 50% 50%;
+  box-shadow: inset -2px -2px 6px rgba(180,100,60,0.12);
+  z-index: 2;
+}
+
+.cherub-body::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(200,130,80,0.18);
+}
+
+/* --- Asas principais --- */
+.cherub-wings {
+  position: relative;
+  height: 30px;
+  margin-top: -20px;
+  z-index: 1;
+}
+
+.cherub-wings::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -24px;
+  width: 32px;
+  height: 28px;
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.96) 0%, rgba(220,236,226,0.75) 50%, rgba(184,212,202,0.4) 100%);
+  border-radius: 80% 20% 60% 40%;
+  border: 1px solid rgba(91,168,157,0.28);
+  transform-origin: right center;
+  box-shadow: inset 2px 2px 6px rgba(255,255,255,0.8), 0 2px 8px rgba(91,168,157,0.2);
+  animation: wing-flap 1.9s ease-in-out infinite alternate;
+}
+
+.cherub-wings::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -24px;
+  width: 32px;
+  height: 28px;
+  background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.96) 0%, rgba(220,236,226,0.75) 50%, rgba(184,212,202,0.4) 100%);
+  border-radius: 20% 80% 40% 60%;
+  border: 1px solid rgba(91,168,157,0.28);
+  transform-origin: left center;
+  box-shadow: inset -2px 2px 6px rgba(255,255,255,0.8), 0 2px 8px rgba(91,168,157,0.2);
+  animation: wing-flap-r 1.9s ease-in-out infinite alternate;
+}
+
+@keyframes wing-flap {
+  0%   { transform: rotate(-28deg) scaleY(1); }
+  100% { transform: rotate(-20deg) scaleY(0.8); }
+}
+
+@keyframes wing-flap-r {
+  0%   { transform: rotate(28deg) scaleY(1); }
+  100% { transform: rotate(20deg) scaleY(0.8); }
+}
+
+/* Asas inferiores menores */
+.cherub-wings-lower {
+  position: relative;
+  height: 20px;
+  margin-top: -18px;
+  z-index: 0;
+}
+
+.cherub-wings-lower::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -16px;
+  width: 22px;
+  height: 18px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, rgba(184,212,202,0.4) 100%);
+  border-radius: 80% 20% 70% 30%;
+  border: 1px solid rgba(91,168,157,0.18);
+  transform-origin: right center;
+  animation: wing-flap 1.9s ease-in-out infinite alternate 0.4s;
+}
+
+.cherub-wings-lower::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -16px;
+  width: 22px;
+  height: 18px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, rgba(184,212,202,0.4) 100%);
+  border-radius: 20% 80% 30% 70%;
+  border: 1px solid rgba(91,168,157,0.18);
+  transform-origin: left center;
+  animation: wing-flap-r 1.9s ease-in-out infinite alternate 0.4s;
+}
+
+/* ========================================
+   ANJOS MAJESTOSOS — Redesign CSS
+   ======================================== */
+
+/* Remover estilos antigos do querubim gordinho e usar
+   novo visual de anjo alto, com manto e asas grandes */
+
+.cherub-head,
+.cherub-body,
+.cherub-wings,
+.cherub-wings-lower,
+.cherub-eyes,
+.cherub-mouth {
+  /* Reset - mantido apenas para compatibilidade */
+}
+
+/* Novo visual: Anjo esguio e majestoso */
+.angel-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  opacity: 0.82;
+}
+
+/* Halo brilhante maior */
+.angel-halo {
+  width: 44px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(201,168,76,0.95);
+  margin: 0 auto -7px;
+  position: relative;
+  z-index: 10;
+  box-shadow:
+    0 0 14px 3px rgba(201,168,76,0.7),
+    0 0 30px 6px rgba(201,168,76,0.3),
+    inset 0 0 8px rgba(255,240,180,0.4);
+  animation: angel-halo-pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes angel-halo-pulse {
+  0%   { box-shadow: 0 0 10px 2px rgba(201,168,76,0.6), 0 0 22px 4px rgba(201,168,76,0.25); }
+  100% { box-shadow: 0 0 22px 5px rgba(201,168,76,1), 0 0 45px 10px rgba(201,168,76,0.4), inset 0 0 10px rgba(255,240,180,0.5); }
+}
+
+/* Cabeça serena e alongada */
+.angel-head {
+  width: 32px;
+  height: 36px;
+  border-radius: 50% 50% 45% 45%;
+  background: radial-gradient(circle at 42% 38%, #FDF3E8 0%, #F2D9B8 55%, #E0BC90 100%);
+  box-shadow:
+    2px 4px 12px rgba(0,0,0,0.15),
+    inset -2px -3px 8px rgba(180,110,60,0.1),
+    0 0 8px rgba(255,240,200,0.3);
+  position: relative;
+  z-index: 5;
+  margin: 0 auto;
+}
+
+/* Cabelos suaves */
+.angel-head::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 3px;
+  right: 3px;
+  height: 16px;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(180deg, #C8935A 0%, #A06E38 100%);
+  box-shadow: inset 0 2px 5px rgba(255,200,140,0.3);
+}
+
+/* Feições suaves */
+.angel-head::before {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 6px;
+  width: 7px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(200,100,80,0.2);
+  box-shadow: 12px 0 0 rgba(200,100,80,0.2);
+  z-index: 6;
+}
+
+.angel-eyes {
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3A2012;
+  box-shadow: 11px 0 0 #3A2012;
+  z-index: 7;
+}
+
+/* Pescoço */
+.angel-neck {
+  width: 10px;
+  height: 8px;
+  background: linear-gradient(180deg, #F2D9B8 0%, #E8C89A 100%);
+  margin: 0 auto -2px;
+  border-radius: 0 0 3px 3px;
+  z-index: 4;
+  position: relative;
+}
+
+/* Asas GRANDES e majestosas — usando pseudo-elements em wrapper */
+.angel-wings-wrapper {
+  position: relative;
+  width: 110px;
+  height: 100px;
+  margin-top: -70px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Asa esquerda — grande, curvada para cima */
+.angel-wings-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 52px;
+  height: 85px;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.98) 0%,
+      rgba(225,240,232,0.85) 40%,
+      rgba(184,212,202,0.5) 75%,
+      transparent 100%);
+  border-radius: 80% 15% 35% 65% / 75% 20% 80% 25%;
+  border: 1px solid rgba(91,168,157,0.22);
+  box-shadow:
+    inset 3px 3px 10px rgba(255,255,255,0.9),
+    0 4px 15px rgba(91,168,157,0.15),
+    2px 0 8px rgba(201,168,76,0.1);
+  transform-origin: right 80%;
+  animation: angel-wing-l 2.5s ease-in-out infinite alternate;
+}
+
+/* Asa direita */
+.angel-wings-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52px;
+  height: 85px;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.98) 0%,
+      rgba(225,240,232,0.85) 40%,
+      rgba(184,212,202,0.5) 75%,
+      transparent 100%);
+  border-radius: 15% 80% 65% 35% / 20% 75% 25% 80%;
+  border: 1px solid rgba(91,168,157,0.22);
+  box-shadow:
+    inset -3px 3px 10px rgba(255,255,255,0.9),
+    0 4px 15px rgba(91,168,157,0.15),
+    -2px 0 8px rgba(201,168,76,0.1);
+  transform-origin: left 80%;
+  animation: angel-wing-r 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes angel-wing-l {
+  0%   { transform: rotate(-5deg) scaleX(1);    }
+  100% { transform: rotate(5deg) scaleX(0.88);  }
+}
+
+@keyframes angel-wing-r {
+  0%   { transform: rotate(5deg) scaleX(1);   }
+  100% { transform: rotate(-5deg) scaleX(0.88); }
+}
+
+/* Manto/robe — corpo principal do anjo */
+.angel-robe {
+  width: 38px;
+  height: 65px;
+  position: relative;
+  z-index: 3;
+  margin-top: -4px;
+}
+
+/* Robe shape — evasê, largo na base */
+.angel-robe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 65px;
+  background: linear-gradient(180deg,
+    rgba(220,238,230,0.92) 0%,
+    rgba(184,212,202,0.85) 40%,
+    rgba(140,190,170,0.75) 100%);
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  border: 1px solid rgba(91,168,157,0.2);
+  box-shadow: inset 0 5px 15px rgba(255,255,255,0.5), 0 5px 15px rgba(44,74,62,0.1);
+}
+
+/* Faixa dourada no meio do manto */
+.angel-robe::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.5) 0%, rgba(201,168,76,0.1) 100%);
+  border-radius: 1px;
+}
+
+/* Glória — círculo de luz ao redor do corpo */
+.angel-glory {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255,245,200,0.2) 0%,
+    rgba(201,168,76,0.06) 50%,
+    transparent 70%);
+  animation: glory-pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes glory-pulse {
+  0%   { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  100% { opacity: 1;   transform: translateX(-50%) scale(1.15); }
+}
+
+/* Partículas ao redor dos querubins */
+.cherub-sparkle {
+  position: absolute;
+  border-radius: 50%;
+  animation: cherub-sparkle-float 3s ease-in-out infinite;
+}
+
+.cherub-sparkle:nth-child(1) {
+  width: 4px; height: 4px; top: 10px; left: -10px;
+  background: rgba(201,168,76,0.8);
+  animation-delay: 0s;
+}
+.cherub-sparkle:nth-child(2) {
+  width: 3px; height: 3px; top: 25px; right: -8px;
+  background: rgba(201,168,76,0.7);
+  animation-delay: 0.9s;
+}
+.cherub-sparkle:nth-child(3) {
+  width: 3px; height: 3px; top: -4px; left: 45%;
+  background: rgba(91,168,157,0.9);
+  animation-delay: 1.8s;
+}
+.cherub-sparkle:nth-child(4) {
+  width: 2px; height: 2px; top: 40px; left: 20%;
+  background: rgba(255,230,100,0.9);
+  animation-delay: 0.5s;
+}
+
+@keyframes cherub-sparkle-float {
+  0%, 100% { opacity: 0.15; transform: scale(0.8) translateY(0); }
+  50%       { opacity: 1;   transform: scale(1.4) translateY(-6px); }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .cherub     { display: none; }
+  .candelabra { transform: scale(0.7); bottom: 200px; }
+}
+
+@media (max-width: 768px) {
+  .cherub.cherub-left  { left: 1%; }
+  .cherub.cherub-right { right: 1%; }
+  .candelabra.left-candelabra  { left: calc(50% - 160px); }
+  .candelabra.right-candelabra { right: calc(50% - 160px); }
+}
+

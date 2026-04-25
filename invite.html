@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/invite.css?v=20240415-2">
+  <link rel="stylesheet" href="css/invite.css?v=20240425-1">
   <style>
     @view-transition {
       navigation: auto;
@@ -36,6 +36,15 @@
   <!-- Intro Overlay -->
   <div id="intro-overlay">
     <div class="intro-content">
+      <!-- Eucalyptus Branch Decoration -->
+      <svg width="100" height="40" viewBox="0 0 100 40" fill="none" style="margin: 0 auto 20px; display: block; opacity: 0.5;">
+        <path d="M10 35C20 30 30 20 50 20C70 20 80 30 90 35" stroke="#5BA89D" stroke-width="1.5" fill="none"/>
+        <ellipse cx="25" cy="22" rx="6" ry="10" fill="#8FBC8F" opacity="0.5" transform="rotate(-20 25 22)"/>
+        <ellipse cx="40" cy="18" rx="5" ry="9" fill="#5BA89D" opacity="0.4" transform="rotate(-10 40 18)"/>
+        <ellipse cx="60" cy="18" rx="5" ry="9" fill="#5BA89D" opacity="0.4" transform="rotate(10 60 18)"/>
+        <ellipse cx="75" cy="22" rx="6" ry="10" fill="#8FBC8F" opacity="0.5" transform="rotate(20 75 22)"/>
+      </svg>
+
       <div class="dolls-container">
         <img src="img/noivo.png" alt="Noivo" class="doll doll-bride">
         <img src="img/noiva.png" alt="Noiva" class="doll doll-groom">
@@ -43,7 +52,7 @@
       <h1 class="intro-title">Evellyn & Guilherme</h1>
       <p class="intro-subtitle">Convite de Casamento</p>
       <button id="enter-invite-btn" class="enter-btn">
-        <span>💌</span> Abrir Convite
+        <span>🕊️</span> Abrir Convite
       </button>
     </div>
   </div>
@@ -66,58 +75,120 @@
         style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1; pointer-events: none;">
         <div class="god-rays"></div>
 
-        <!-- Catholic Borders -->
+        <!-- Catholic Borders — Left: Cruz + Cálice + Pomba -->
         <div class="catholic-border left-border">
-          <svg class="holy-icon" fill="currentColor" viewBox="0 0 100 100">
-            <!-- Crucifix -->
-            <path d="M48 10h4v80h-4z" fill="var(--secondary-action)" />
-            <path d="M25 35h50v4H25z" fill="var(--secondary-action)" />
-            <circle cx="50" cy="37" r="10" fill="none" stroke="var(--secondary-action)" stroke-width="1.5"
-              opacity="0.6" />
-            <circle cx="50" cy="37" r="14" fill="none" stroke="var(--secondary-action)" stroke-width="0.5"
-              opacity="0.3" />
+          <!-- Cruz Latina com Raios -->
+          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
+            <line x1="50" y1="10" x2="50" y2="90" stroke="var(--secondary-action)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="25" y1="35" x2="75" y2="35" stroke="var(--secondary-action)" stroke-width="4" stroke-linecap="round"/>
+            <!-- Raios de luz -->
+            <line x1="50" y1="35" x2="30" y2="15" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.4"/>
+            <line x1="50" y1="35" x2="70" y2="15" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.4"/>
+            <line x1="50" y1="35" x2="20" y2="35" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.3"/>
+            <line x1="50" y1="35" x2="80" y2="35" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.3"/>
+            <!-- Ramo de oliveira na base -->
+            <path d="M38 75C42 70 46 72 50 68C54 72 58 70 62 75" stroke="var(--accent-sage, #8FBC8F)" stroke-width="1" fill="none"/>
+            <ellipse cx="40" cy="72" rx="3" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(-15 40 72)"/>
+            <ellipse cx="60" cy="72" rx="3" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(15 60 72)"/>
           </svg>
-          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
-            <!-- Chalice / Hostia -->
-            <path d="M35 50 L25 25 H75 L65 50 Q50 65 50 75 L65 95 H35 L50 75 Q50 65 35 50 Z"
-              fill="rgba(212, 175, 55, 0.2)" stroke="var(--secondary-action)" stroke-width="2" />
-            <circle cx="50" cy="15" r="12" fill="#fff" opacity="0.9" stroke="var(--secondary-action)"
-              stroke-width="2" />
-            <path d="M45 15h10M50 10v10" stroke="var(--secondary-action)" stroke-width="1.5" />
+
+          <!-- Cálice Eucarístico -->
+          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
+            <!-- Hóstia -->
+            <circle cx="50" cy="18" r="12" fill="var(--accent-cream, #F5EFE6)" stroke="var(--secondary-action)" stroke-width="1.5"/>
+            <line x1="44" y1="18" x2="56" y2="18" stroke="var(--secondary-action)" stroke-width="1" opacity="0.7"/>
+            <line x1="50" y1="12" x2="50" y2="24" stroke="var(--secondary-action)" stroke-width="1" opacity="0.7"/>
+            <!-- Cálice -->
+            <path d="M30 40 Q30 30 50 30 Q70 30 70 40 L62 55 Q56 60 56 65 L56 72 L66 76 L66 80 L34 80 L34 76 L44 72 L44 65 Q44 60 38 55 Z" 
+              fill="rgba(201, 168, 76, 0.15)" stroke="var(--secondary-action)" stroke-width="1.5"/>
+            <!-- Raios do cálice -->
+            <line x1="50" y1="30" x2="50" y2="22" stroke="var(--secondary-action)" stroke-width="0.8" opacity="0.5"/>
+            <line x1="40" y1="32" x2="36" y2="26" stroke="var(--secondary-action)" stroke-width="0.5" opacity="0.3"/>
+            <line x1="60" y1="32" x2="64" y2="26" stroke="var(--secondary-action)" stroke-width="0.5" opacity="0.3"/>
           </svg>
-          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
-            <!-- Dove / Holy Spirit -->
-            <path d="M50 20 Q70 0 85 35 Q50 40 50 70 Q50 40 15 35 Q30 0 50 20 Z" fill="rgba(255,255,255,0.7)"
-              stroke="var(--secondary-action)" stroke-width="2" />
-            <circle cx="50" cy="50" r="3" fill="var(--secondary-action)" />
-            <path d="M50 70v15M42 75h16" stroke="var(--secondary-action)" stroke-width="1.5" />
+
+          <!-- Pomba do Espírito Santo com Ramo de Oliveira -->
+          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
+            <!-- Corpo da pomba -->
+            <path d="M55 50 Q65 42 72 35 Q78 28 70 32 Q62 36 58 42 L55 50Z" fill="rgba(254, 253, 251, 0.8)" stroke="var(--primary-action)" stroke-width="1.2"/>
+            <!-- Asa -->
+            <path d="M45 52 Q30 35 22 28 Q18 25 25 30 Q32 35 40 48 L45 52Z" fill="rgba(254, 253, 251, 0.8)" stroke="var(--primary-action)" stroke-width="1.2"/>
+            <!-- Corpo -->
+            <ellipse cx="52" cy="55" rx="14" ry="8" fill="rgba(254, 253, 251, 0.9)" stroke="var(--primary-action)" stroke-width="1.2"/>
+            <!-- Cauda -->
+            <path d="M38 55 Q32 52 28 48" stroke="var(--primary-action)" stroke-width="1.2" fill="none"/>
+            <!-- Olho -->
+            <circle cx="60" cy="52" r="1.5" fill="var(--text-color, #2C4A3E)"/>
+            <!-- Ramo de oliveira no bico -->
+            <line x1="66" y1="55" x2="78" y2="60" stroke="var(--accent-olive, #6B7F4E)" stroke-width="1"/>
+            <ellipse cx="72" cy="57" rx="2" ry="4" fill="var(--accent-sage, #8FBC8F)" opacity="0.6" transform="rotate(30 72 57)"/>
+            <ellipse cx="76" cy="59" rx="2" ry="3.5" fill="var(--accent-olive, #6B7F4E)" opacity="0.5" transform="rotate(35 76 59)"/>
+            <!-- Auréola sutil -->
+            <circle cx="52" cy="45" r="18" fill="none" stroke="var(--secondary-action)" stroke-width="0.5" opacity="0.25"/>
           </svg>
         </div>
 
+        <!-- Catholic Borders — Right: Rosário + Bíblia + Ramo de Oliveira -->
         <div class="catholic-border right-border">
-          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
-            <!-- Dove / Holy Spirit -->
-            <path d="M50 20 Q70 0 85 35 Q50 40 50 70 Q50 40 15 35 Q30 0 50 20 Z" fill="rgba(255,255,255,0.7)"
-              stroke="var(--secondary-action)" stroke-width="2" />
-            <circle cx="50" cy="50" r="3" fill="var(--secondary-action)" />
-            <path d="M50 70v15M42 75h16" stroke="var(--secondary-action)" stroke-width="1.5" />
+          <!-- Rosário/Terço -->
+          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
+            <!-- Corrente do terço (forma oval) -->
+            <ellipse cx="50" cy="45" rx="22" ry="28" fill="none" stroke="var(--secondary-action)" stroke-width="1" stroke-dasharray="3 4"/>
+            <!-- Contas do terço -->
+            <circle cx="50" cy="17" r="3" fill="var(--secondary-action)" opacity="0.7"/>
+            <circle cx="67" cy="28" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
+            <circle cx="72" cy="45" r="3" fill="var(--secondary-action)" opacity="0.7"/>
+            <circle cx="67" cy="62" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
+            <circle cx="50" cy="73" r="3" fill="var(--secondary-action)" opacity="0.7"/>
+            <circle cx="33" cy="62" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
+            <circle cx="28" cy="45" r="3" fill="var(--secondary-action)" opacity="0.7"/>
+            <circle cx="33" cy="28" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
+            <!-- Cruz pendente -->
+            <line x1="50" y1="73" x2="50" y2="95" stroke="var(--secondary-action)" stroke-width="1.5"/>
+            <line x1="43" y1="82" x2="57" y2="82" stroke="var(--secondary-action)" stroke-width="1.5"/>
+            <circle cx="50" cy="95" r="2" fill="var(--secondary-action)" opacity="0.5"/>
           </svg>
-          <svg class="holy-icon" fill="none" viewBox="0 0 100 100">
-            <!-- Chalice / Hostia -->
-            <path d="M35 50 L25 25 H75 L65 50 Q50 65 50 75 L65 95 H35 L50 75 Q50 65 35 50 Z"
-              fill="rgba(212, 175, 55, 0.2)" stroke="var(--secondary-action)" stroke-width="2" />
-            <circle cx="50" cy="15" r="12" fill="#fff" opacity="0.9" stroke="var(--secondary-action)"
-              stroke-width="2" />
-            <path d="M45 15h10M50 10v10" stroke="var(--secondary-action)" stroke-width="1.5" />
+
+          <!-- Bíblia Sagrada Aberta -->
+          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
+            <!-- Livro aberto -->
+            <path d="M10 20 Q10 75 15 80 Q25 82 50 75 Q75 82 85 80 Q90 75 90 20" fill="rgba(254, 253, 251, 0.6)" stroke="var(--secondary-action)" stroke-width="1.5"/>
+            <!-- Lombada -->
+            <path d="M50 75 L50 18" stroke="var(--secondary-action)" stroke-width="1"/>
+            <!-- Páginas esquerda -->
+            <path d="M15 25 Q15 70 18 74 Q28 76 48 70" fill="none" stroke="var(--primary-action)" stroke-width="0.5" opacity="0.3"/>
+            <!-- Páginas direita -->
+            <path d="M85 25 Q85 70 82 74 Q72 76 52 70" fill="none" stroke="var(--primary-action)" stroke-width="0.5" opacity="0.3"/>
+            <!-- Cruz na capa -->
+            <line x1="50" y1="30" x2="50" y2="55" stroke="var(--secondary-action)" stroke-width="1.5" opacity="0.6"/>
+            <line x1="40" y1="40" x2="60" y2="40" stroke="var(--secondary-action)" stroke-width="1.5" opacity="0.6"/>
+            <!-- Linhas de texto -->
+            <line x1="22" y1="35" x2="42" y2="35" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="22" y1="42" x2="40" y2="42" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="22" y1="49" x2="43" y2="49" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="58" y1="35" x2="78" y2="35" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="58" y1="42" x2="76" y2="42" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
+            <line x1="58" y1="49" x2="77" y2="49" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
           </svg>
-          <svg class="holy-icon" fill="currentColor" viewBox="0 0 100 100">
-            <!-- Crucifix -->
-            <path d="M48 10h4v80h-4z" fill="var(--secondary-action)" />
-            <path d="M25 35h50v4H25z" fill="var(--secondary-action)" />
-            <circle cx="50" cy="37" r="10" fill="none" stroke="var(--secondary-action)" stroke-width="1.5"
-              opacity="0.6" />
-            <circle cx="50" cy="37" r="14" fill="none" stroke="var(--secondary-action)" stroke-width="0.5"
-              opacity="0.3" />
+
+          <!-- Ramo de Oliveira Grande -->
+          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
+            <!-- Ramo principal -->
+            <path d="M20 85 Q35 60 50 45 Q65 30 80 15" stroke="var(--accent-olive, #6B7F4E)" stroke-width="1.5" fill="none"/>
+            <!-- Folhas -->
+            <ellipse cx="35" cy="65" rx="5" ry="10" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-30 35 65)"/>
+            <ellipse cx="30" cy="70" rx="4" ry="9" fill="var(--accent-olive, #6B7F4E)" opacity="0.4" transform="rotate(-45 30 70)"/>
+            <ellipse cx="45" cy="52" rx="5" ry="10" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-20 45 52)"/>
+            <ellipse cx="42" cy="58" rx="4" ry="8" fill="var(--accent-mint, #B8D4CA)" opacity="0.4" transform="rotate(-40 42 58)"/>
+            <ellipse cx="55" cy="40" rx="5" ry="10" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-15 55 40)"/>
+            <ellipse cx="52" cy="46" rx="4" ry="8" fill="var(--accent-olive, #6B7F4E)" opacity="0.4" transform="rotate(-35 52 46)"/>
+            <ellipse cx="65" cy="28" rx="5" ry="9" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-10 65 28)"/>
+            <ellipse cx="62" cy="34" rx="4" ry="8" fill="var(--accent-mint, #B8D4CA)" opacity="0.4" transform="rotate(-30 62 34)"/>
+            <ellipse cx="75" cy="20" rx="4" ry="8" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(0 75 20)"/>
+            <!-- Pequenas oliveiras (frutos) -->
+            <circle cx="38" cy="62" r="2.5" fill="var(--accent-olive, #6B7F4E)" opacity="0.6"/>
+            <circle cx="55" cy="44" r="2" fill="var(--accent-olive, #6B7F4E)" opacity="0.5"/>
+            <circle cx="68" cy="25" r="2" fill="var(--accent-olive, #6B7F4E)" opacity="0.5"/>
           </svg>
         </div>
 
@@ -194,33 +265,128 @@
           <div class="wave"></div>
         </div>
         <div id="hero-canvas-container"></div>
+
+        <!-- ========== CASTIÇAL ESQUERDO ========== -->
+        <div class="candelabra left-candelabra">
+          <div class="candle-ambient-glow"></div>
+          <!-- Chama -->
+          <div class="candle-flame-wrapper">
+            <div class="candle-flame"></div>
+          </div>
+          <!-- Vela de cera -->
+          <div class="candle-wax"></div>
+          <!-- Suporte dourado -->
+          <div class="candle-holder">
+            <div class="holder-cup"></div>
+            <div class="holder-stem"></div>
+            <div class="holder-knot"></div>
+            <div class="holder-stem" style="height:14px;"></div>
+            <div class="holder-base-top"></div>
+            <div class="holder-base-mid"></div>
+            <div class="holder-base-bottom"></div>
+          </div>
+          <div class="candle-reflection"></div>
+        </div>
+
+        <!-- ========== CASTIÇAL DIREITO ========== -->
+        <div class="candelabra right-candelabra">
+          <div class="candle-ambient-glow"></div>
+          <div class="candle-flame-wrapper">
+            <div class="candle-flame"></div>
+          </div>
+          <div class="candle-wax"></div>
+          <div class="candle-holder">
+            <div class="holder-cup"></div>
+            <div class="holder-stem"></div>
+            <div class="holder-knot"></div>
+            <div class="holder-stem" style="height:14px;"></div>
+            <div class="holder-base-top"></div>
+            <div class="holder-base-mid"></div>
+            <div class="holder-base-bottom"></div>
+          </div>
+          <div class="candle-reflection"></div>
+        </div>
+
+        <!-- ========== ANJO ESQUERDO ========== -->
+        <div class="cherub cherub-left">
+          <div class="cherub-sparkle"></div>
+          <div class="cherub-sparkle"></div>
+          <div class="cherub-sparkle"></div>
+          <div class="cherub-sparkle"></div>
+          <div class="angel-figure">
+            <div class="angel-glory"></div>
+            <div class="angel-halo"></div>
+            <div class="angel-head">
+              <div class="angel-eyes"></div>
+            </div>
+            <div class="angel-neck"></div>
+            <div class="angel-wings-wrapper"></div>
+            <div class="angel-robe"></div>
+          </div>
+        </div>
+
+        <!-- ========== ANJO DIREITO ========== -->
+        <div class="cherub cherub-right">
+          <div class="cherub-sparkle"></div>
+          <div class="cherub-sparkle"></div>
+          <div class="cherub-sparkle"></div>
+          <div class="cherub-sparkle"></div>
+          <div class="angel-figure" style="transform: scaleX(-1);">
+            <div class="angel-glory"></div>
+            <div class="angel-halo"></div>
+            <div class="angel-head">
+              <div class="angel-eyes"></div>
+            </div>
+            <div class="angel-neck"></div>
+            <div class="angel-wings-wrapper"></div>
+            <div class="angel-robe"></div>
+          </div>
+        </div>
+
       </div><!-- /Cover Art Wrapper -->
-      <!-- Decorative Leaves -->
+
+
+      <!-- Decorative Eucalyptus Leaves -->
       <svg class="leaf-decoration leaf-1" viewbox="0 0 100 100" fill="currentColor">
-        <path
-          d="M50 5C30 5 15 25 15 50c0 30 35 45 35 45s35-15 35-45C85 25 70 5 50 5zm0 10c15 0 25 15 25 35 0 20-25 35-25 35S25 70 25 50c0-20 10-35 25-35z" />
+        <!-- Folha de eucalipto -->
+        <ellipse cx="50" cy="50" rx="15" ry="40" opacity="0.5"/>
+        <path d="M50 10v80" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M40 25c10 5 10 15 0 20M60 25c-10 5-10 15 0 20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
+        <path d="M40 50c10 5 10 15 0 20M60 50c-10 5-10 15 0 20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3"/>
       </svg>
       <svg class="leaf-decoration leaf-2" viewbox="0 0 100 100" fill="currentColor">
-        <ellipse cx="50" cy="50" rx="30" ry="45" opacity="0.5" />
-        <path d="M50 10v80M30 30c20 10 20 30 0 40M70 30c-20 10-20 30 0 40" stroke="currentColor" stroke-width="2"
-          fill="none" />
+        <!-- Ramo de oliveira -->
+        <path d="M20 80 Q50 40 80 20" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <ellipse cx="35" cy="65" rx="6" ry="12" opacity="0.35" transform="rotate(-25 35 65)"/>
+        <ellipse cx="50" cy="48" rx="6" ry="12" opacity="0.3" transform="rotate(-15 50 48)"/>
+        <ellipse cx="65" cy="33" rx="6" ry="12" opacity="0.25" transform="rotate(-5 65 33)"/>
       </svg>
       <svg class="leaf-decoration leaf-3" viewbox="0 0 100 100" fill="currentColor">
-        <circle cx="50" cy="50" r="40" opacity="0.3" />
-        <circle cx="50" cy="50" r="25" opacity="0.4" />
+        <!-- Flor silvestre -->
+        <circle cx="50" cy="50" r="6" opacity="0.3"/>
+        <ellipse cx="50" cy="35" rx="5" ry="10" opacity="0.25"/>
+        <ellipse cx="50" cy="65" rx="5" ry="10" opacity="0.25"/>
+        <ellipse cx="35" cy="50" rx="10" ry="5" opacity="0.25"/>
+        <ellipse cx="65" cy="50" rx="10" ry="5" opacity="0.25"/>
+        <path d="M50 80v15" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
       </svg>
       <svg class="leaf-decoration leaf-4" viewbox="0 0 100 100" fill="currentColor">
-        <path d="M50 10c-20 0-35 20-35 40s35 40 35 40 35-20 35-40-15-40-35-40z" opacity="0.4" />
-      </svg><!-- Particles -->
+        <!-- Folha grande de eucalipto -->
+        <path d="M50 10c-20 0-35 20-35 40s35 40 35 40 35-20 35-40-15-40-35-40z" opacity="0.3" />
+        <path d="M50 15v75" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
+      </svg>
+
+      <!-- Particles -->
       <div class="particle" style="top: 20%; left: 15%;"></div>
       <div class="particle" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
       <div class="particle" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
       <div class="particle" style="top: 70%; right: 15%; animation-delay: 0.5s;"></div>
       <div class="particle" style="top: 40%; left: 40%; animation-delay: 1.5s;"></div>
       <div class="particle" style="top: 80%; right: 35%; animation-delay: 2.5s;"></div>
+
       <div class="names-container relative z-10 max-w-4xl mx-auto w-full p-8 rounded-3xl"
-        style="background: rgba(255,255,255,0.4); backdrop-filter: blur(2px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-shadow: 0 4px 15px rgba(255,255,255,0.8); margin-bottom: 20vh;">
-        <!-- Sparkles (Estrelas de Brilho) -->
+        style="background: rgba(254, 253, 251, 0.5); backdrop-filter: blur(4px); border: 1px solid rgba(184, 212, 202, 0.5); box-shadow: 0 10px 40px rgba(44, 74, 62, 0.08); text-shadow: 0 2px 10px rgba(255,255,255,0.5); margin-bottom: 20vh;">
+        <!-- Sparkles -->
         <svg class="sparkle-icon" style="top: 15%; left: 10%; width: 28px; height: 28px; animation-delay: 0.5s;"
           viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
@@ -234,36 +400,51 @@
           <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
         </svg>
 
-        <!-- Cross Icon -->
+        <!-- Cross with Olive Branch -->
         <div class="mb-6">
-          <svg class="w-12 h-12 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60"
-            fill="none" stroke="currentColor" stroke-width="1">
+          <svg class="w-12 h-12 mx-auto opacity-80" style="color: var(--primary-action);" viewbox="0 0 60 60"
+            fill="none" stroke="currentColor" stroke-width="1.2">
             <path d="M30 8v44M16 22h28" stroke-linecap="round" />
-            <circle cx="30" cy="8" r="2" fill="currentColor" opacity="0.5" />
+            <!-- Ramos de oliveira -->
+            <path d="M22 30c-4 2-8 1-10 4" stroke="var(--accent-sage, #8FBC8F)" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <path d="M38 30c4 2 8 1 10 4" stroke="var(--accent-sage, #8FBC8F)" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <ellipse cx="14" cy="33" rx="2" ry="4" fill="var(--accent-sage, #8FBC8F)" opacity="0.3" transform="rotate(-20 14 33)"/>
+            <ellipse cx="46" cy="33" rx="2" ry="4" fill="var(--accent-sage, #8FBC8F)" opacity="0.3" transform="rotate(20 46 33)"/>
           </svg>
-        </div><!-- Main Title -->
+        </div>
+
+        <!-- Main Title -->
         <p class="font-sans-elegant text-sm tracking-widest uppercase mb-4 opacity-90" style="letter-spacing: 4px;">Com
-          a bênção de Deus, convidamos você para celebrar</p><!-- Names -->
+          a bênção de Deus, convidamos você para celebrar</p>
+
+        <!-- Names -->
         <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-2" id="bride-name">Evellyn</h1>
-        <div class="ampersand my-4"><span class="font-serif-elegant text-4xl md:text-5xl italic"
-            style="color: var(--secondary-action);">&amp;</span>
+        <div class="ampersand my-4">
+          <span class="font-serif-elegant text-4xl md:text-5xl italic" style="color: var(--secondary-action);">&amp;</span>
         </div>
         <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-8" id="groom-name">Marcos</h1>
+
         <!-- Romantic Phrase -->
-        <div class="divider-ornament"><span class="divider-line"></span>
-          <svg class="w-6 h-6" style="color: var(--secondary-action);" viewbox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg><span class="divider-line"></span>
+        <div class="divider-ornament">
+          <span class="divider-line"></span>
+          <!-- Pomba pequena -->
+          <svg class="w-6 h-6" style="color: var(--primary-action);" viewbox="0 0 24 24" fill="currentColor" opacity="0.7">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <span class="divider-line"></span>
         </div>
         <p class="font-serif-elegant text-xl md:text-2xl italic opacity-95 mb-8 px-4" id="wedding-phrase">"Unidos pela
-          fé, amor e graça divina"</p><!-- Wedding Date -->
-        <div class="mt-8 p-6 rounded-2xl" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);">
+          fé, amor e graça divina"</p>
+
+        <!-- Wedding Date -->
+        <div class="mt-8 p-6 rounded-2xl" style="background: rgba(184, 212, 202, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(91, 168, 157, 0.2);">
           <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2">Cerimônia de Casamento</p>
           <p class="font-serif-elegant text-3xl md:text-4xl font-semibold">07 de novembro de 2026</p>
         </div>
       </div>
-    </section><!-- Gallery Section -->
+    </section>
+
+    <!-- Gallery Section -->
     <section class="gallery-section fade-in-section" id="gallery" style="position: relative;">
       <div class="section-bg-dynamic">
         <div class="blob blob-1"></div>
@@ -271,6 +452,38 @@
       </div>
       <div class="gallery-container">
         <div class="section-title text-center">
+          <!-- Ornamento: Cruz com duas velas flanqueando -->
+          <div class="book-liturgical-header">
+            <!-- Vela litúrgica esquerda (mini) -->
+            <div class="book-candle">
+              <div class="book-candle-flame-wrap"><div class="book-candle-flame"></div></div>
+              <div class="book-candle-wax"></div>
+              <div class="book-candle-holder"></div>
+            </div>
+            <!-- Cruz central com raios -->
+            <svg viewBox="0 0 60 70" fill="none" style="width:50px; height:60px; flex-shrink:0;">
+              <!-- Raios de luz -->
+              <line x1="30" y1="12" x2="30" y2="2" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
+              <line x1="22" y1="14" x2="16" y2="7" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
+              <line x1="38" y1="14" x2="44" y2="7" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
+              <!-- Cruz -->
+              <rect x="27" y="10" width="6" height="48" rx="2" fill="var(--secondary-action)" opacity="0.85"/>
+              <rect x="12" y="24" width="36" height="6" rx="2" fill="var(--secondary-action)" opacity="0.85"/>
+              <!-- Ramos de oliveira embaixo -->
+              <path d="M22 52 C18 48 14 46 12 50" stroke="#8FBC8F" stroke-width="1.2" fill="none"/>
+              <path d="M38 52 C42 48 46 46 48 50" stroke="#8FBC8F" stroke-width="1.2" fill="none"/>
+              <ellipse cx="15" cy="49" rx="2.5" ry="4" fill="#8FBC8F" opacity="0.4" transform="rotate(20 15 49)"/>
+              <ellipse cx="45" cy="49" rx="2.5" ry="4" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 45 49)"/>
+              <!-- Coração no centro -->
+              <circle cx="30" cy="27" r="4" fill="rgba(201,168,76,0.25)" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+            </svg>
+            <!-- Vela litúrgica direita (mini) -->
+            <div class="book-candle">
+              <div class="book-candle-flame-wrap"><div class="book-candle-flame"></div></div>
+              <div class="book-candle-wax"></div>
+              <div class="book-candle-holder"></div>
+            </div>
+          </div>
           <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
           <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2 opacity-70"
             style="color: var(--text-color);">Passe o mouse (ou toque) para folhear</p>
@@ -305,17 +518,46 @@
             </div>
           </div>
         </div>
-    </section><!-- Countdown Section -->
+    </section>
+
+    <!-- Countdown Section -->
     <section class="py-20 px-4 flex flex-col justify-center fade-in-section"
       style="background: var(--secondary-surface); position: relative;">
       <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.25), transparent);">
-        </div>
-        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);">
-        </div>
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent);"></div>
+        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(91, 168, 157, 0.2), transparent);"></div>
       </div>
       <div class="max-w-4xl mx-auto text-center">
-        <p class="font-sans-elegant text-sm tracking-widest uppercase mb-12 opacity-70"
+        <!-- Ornamento: Arco litúrgico com cruz -->
+        <div class="countdown-arch-ornament">
+          <div class="arch-candle left">
+            <div class="arch-candle-flame-wrap"><div class="arch-candle-flame"></div></div>
+            <div class="arch-candle-body"></div>
+            <div class="arch-candle-base"></div>
+          </div>
+          <!-- Arco SVG -->
+          <svg viewBox="0 0 180 80" fill="none" style="width:180px; height:80px;">
+            <!-- Arco principal -->
+            <path d="M10 75 Q10 10 90 10 Q170 10 170 75" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+            <!-- Cruz no topo -->
+            <rect x="86" y="2" width="8" height="22" rx="2" fill="rgba(201,168,76,0.7)"/>
+            <rect x="78" y="8" width="24" height="6" rx="2" fill="rgba(201,168,76,0.7)"/>
+            <!-- Oliveiras nos lados -->
+            <path d="M15 65 C12 55 8 50 5 55" stroke="#8FBC8F" stroke-width="1" fill="none" opacity="0.6"/>
+            <ellipse cx="7" cy="53" rx="2" ry="3.5" fill="#8FBC8F" opacity="0.4" transform="rotate(15 7 53)"/>
+            <path d="M165 65 C168 55 172 50 175 55" stroke="#8FBC8F" stroke-width="1" fill="none" opacity="0.6"/>
+            <ellipse cx="173" cy="53" rx="2" ry="3.5" fill="#8FBC8F" opacity="0.4" transform="rotate(-15 173 53)"/>
+            <!-- Pombas decorativas nos cantos -->
+            <path d="M30 35 Q36 28 40 32 Q36 33 34 38 Q32 33 26 33 Q28 28 30 35Z" fill="rgba(91,168,157,0.3)"/>
+            <path d="M150 35 Q144 28 140 32 Q144 33 146 38 Q148 33 154 33 Q152 28 150 35Z" fill="rgba(91,168,157,0.3)"/>
+          </svg>
+          <div class="arch-candle right">
+            <div class="arch-candle-flame-wrap"><div class="arch-candle-flame"></div></div>
+            <div class="arch-candle-body"></div>
+            <div class="arch-candle-base"></div>
+          </div>
+        </div>
+        <p class="font-sans-elegant text-sm tracking-widest uppercase mb-8 opacity-70"
           style="color: var(--text-color);">Para o grande dia</p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <div class="countdown-card p-6 md:p-8"><span
@@ -340,94 +582,141 @@
           </div>
         </div>
       </div>
-    </section><!-- Catholic Elements Section -->
+    </section>
+
+    <!-- Catholic Elements Section -->
     <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
       <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent);">
-        </div>
-        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.2), transparent);">
-        </div>
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent);"></div>
+        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(143, 188, 143, 0.2), transparent);"></div>
       </div>
       <div class="max-w-4xl mx-auto text-center">
-        <div class="icon-container mb-12" style="position: relative; z-index: 5;"><!-- Cross -->
+        <div class="icon-container mb-12" style="position: relative; z-index: 5;">
+          <!-- Cruz -->
           <div class="flex flex-col items-center">
             <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(91, 168, 157, 0.12); border: 1px solid rgba(91, 168, 157, 0.2);">
               <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                style="color: var(--primary-action); filter: drop-shadow(0 0 5px rgba(91, 168, 157, 0.3));">
                 <path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 <circle cx="30" cy="5" r="2" fill="currentColor" />
                 <circle cx="30" cy="55" r="2" fill="currentColor" />
                 <circle cx="15" cy="18" r="2" fill="currentColor" />
                 <circle cx="45" cy="18" r="2" fill="currentColor" />
               </svg>
-            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+            </div>
+            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
               style="color: var(--primary-action);">Fé</span>
-          </div><!-- Rings -->
+          </div>
+
+          <!-- Alianças -->
           <div class="flex flex-col items-center rings-container">
             <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(201, 168, 76, 0.12); border: 1px solid rgba(201, 168, 76, 0.2);">
               <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(201, 168, 76, 0.3));">
                 <circle cx="22" cy="30" r="14" stroke="currentColor" stroke-width="2" />
                 <circle cx="38" cy="30" r="14" stroke="currentColor" stroke-width="2" />
               </svg>
-            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
-              style="color: var(--primary-action);">Sagrado União</span>
-          </div><!-- Bible -->
+            </div>
+            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+              style="color: var(--primary-action);">Sagrada União</span>
+          </div>
+
+          <!-- Bíblia -->
           <div class="flex flex-col items-center">
             <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(91, 168, 157, 0.12); border: 1px solid rgba(91, 168, 157, 0.2);">
               <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                style="color: var(--primary-action); filter: drop-shadow(0 0 5px rgba(91, 168, 157, 0.3));">
                 <rect x="12" y="10" width="36" height="40" rx="3" stroke="currentColor" stroke-width="2" />
                 <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="2" />
                 <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="2" />
                 <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
               </svg>
-            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+            </div>
+            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
               style="color: var(--primary-action);">A Palavra</span>
-          </div><!-- Heart / Dove / Grace -->
+          </div>
+
+          <!-- Pomba -->
           <div class="flex flex-col items-center">
             <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(255,255,255,0.5); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3);">
+              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(91, 168, 157, 0.12); border: 1px solid rgba(91, 168, 157, 0.2);">
               <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4));">
+                style="color: var(--primary-action); filter: drop-shadow(0 0 5px rgba(91, 168, 157, 0.3));">
                 <path d="M30 50c-2-2-18-14-18-24 0-6 4-10 9-10 4 0 7 3 9 6 2-3 5-6 9-6 5 0 9 4 9 10 0 10-16 22-18 24z"
                   stroke="currentColor" stroke-width="2" fill="none" />
-                <circle cx="30" cy="10" r="1.5" fill="currentColor" opacity="0.6" />
-                <circle cx="15" cy="20" r="1.5" fill="currentColor" opacity="0.6" />
-                <circle cx="45" cy="20" r="1.5" fill="currentColor" opacity="0.6" />
+                <!-- Ramo de oliveira no coração -->
+                <path d="M25 38c-3 1-6 0-8 2" stroke="var(--accent-sage, #8FBC8F)" stroke-width="1" fill="none" opacity="0.5"/>
+                <ellipse cx="18" cy="39" rx="2" ry="3.5" fill="var(--accent-sage, #8FBC8F)" opacity="0.3" transform="rotate(-15 18 39)"/>
               </svg>
-            </div><span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
+            </div>
+            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
               style="color: var(--primary-action);">Graça e Amor</span>
           </div>
-        </div><!-- Bible Verse -->
-        <div class="max-w-2xl mx-auto p-8 rounded-2xl"
-          style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
-          <svg class="w-8 h-8 mx-auto mb-4" style="color: var(--secondary-action);" viewbox="0 0 24 24"
-            fill="currentColor" opacity="0.6">
-            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-          </svg>
-          <p class="font-serif-elegant text-lg md:text-xl italic leading-relaxed mb-4" style="color: var(--text-color);"
-            id="bible-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não
-            maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a
-            injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."</p>
-          <p class="font-sans-elegant text-sm tracking-widest" style="color: var(--primary-action);">— 1 Coríntios
-            13:4-7</p>
         </div>
+
+        <!-- Bible Verse — Moldura Iluminada de Manuscrito -->
+        <div class="verse-frame max-w-2xl mx-auto">
+          <!-- Velas decorativas laterais -->
+          <div class="verse-candle verse-candle-left">
+            <div class="vc-flame-wrap"><div class="vc-flame"></div></div>
+            <div class="vc-wax"></div>
+            <div class="vc-base"></div>
+          </div>
+          <div class="verse-candle verse-candle-right">
+            <div class="vc-flame-wrap"><div class="vc-flame"></div></div>
+            <div class="vc-wax"></div>
+            <div class="vc-base"></div>
+          </div>
+          <!-- Conteúdo -->
+          <div class="verse-inner p-8 rounded-2xl"
+            style="background: rgba(254, 253, 251, 0.88); backdrop-filter: blur(8px); box-shadow: 0 10px 40px rgba(44, 74, 62, 0.08); border: 1px solid rgba(91, 168, 157, 0.15);">
+            <!-- Cruz decorativa topo -->
+            <svg viewBox="0 0 60 30" fill="none" style="width:60px; height:30px; margin: 0 auto 12px; display:block; opacity:0.6;">
+              <line x1="30" y1="3" x2="30" y2="27" stroke="var(--secondary-action)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="18" y1="11" x2="42" y2="11" stroke="var(--secondary-action)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="30" cy="3" r="2" fill="rgba(201,168,76,0.5)"/>
+              <circle cx="30" cy="27" r="2" fill="rgba(201,168,76,0.5)"/>
+              <circle cx="18" cy="11" r="2" fill="rgba(201,168,76,0.5)"/>
+              <circle cx="42" cy="11" r="2" fill="rgba(201,168,76,0.5)"/>
+            </svg>
+            <!-- Aspas decorativas -->
+            <svg class="w-8 h-8 mx-auto mb-4" style="color: var(--secondary-action);" viewbox="0 0 24 24"
+              fill="currentColor" opacity="0.5">
+              <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+            </svg>
+            <p class="font-serif-elegant text-lg md:text-xl italic leading-relaxed mb-4" style="color: var(--text-color);"
+              id="bible-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não
+              maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a
+              injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."</p>
+            <p class="font-sans-elegant text-sm tracking-widest" style="color: var(--primary-action);">— 1 Coríntios
+              13:4-7</p>
+            <!-- Ornamento inferior: ramo de oliveira -->
+            <svg viewBox="0 0 120 30" fill="none" style="width:120px; height:30px; margin: 16px auto 0; display:block; opacity:0.4;">
+              <path d="M10 20 Q30 8 60 15 Q90 8 110 20" stroke="#8FBC8F" stroke-width="1.2" fill="none"/>
+              <ellipse cx="25" cy="13" rx="4" ry="7" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 25 13)"/>
+              <ellipse cx="45" cy="10" rx="4" ry="7" fill="#6B7F4E" opacity="0.35" transform="rotate(-8 45 10)"/>
+              <ellipse cx="60" cy="12" rx="3" ry="6" fill="#8FBC8F" opacity="0.3"/>
+              <ellipse cx="75" cy="10" rx="4" ry="7" fill="#6B7F4E" opacity="0.35" transform="rotate(8 75 10)"/>
+              <ellipse cx="95" cy="13" rx="4" ry="7" fill="#8FBC8F" opacity="0.4" transform="rotate(20 95 13)"/>
+            </svg>
+          </div>
+        </div>
+
       </div>
-    </section><!-- Invitation Message Section -->
+    </section>
+
+    <!-- Invitation Message Section -->
     <section class="py-20 px-4 fade-in-section" style="background: var(--secondary-surface); position: relative;">
       <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(64, 181, 160, 0.25), transparent);">
-        </div>
-        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent);">
-        </div>
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(91, 168, 157, 0.2), transparent);"></div>
+        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(201, 168, 76, 0.12), transparent);"></div>
       </div>
       <div class="max-w-2xl mx-auto text-center">
         <div class="divider-ornament"><span class="divider-line"></span>
-          <svg class="w-8 h-8" style="color: var(--secondary-action);" viewbox="0 0 60 60" fill="none">
+          <svg class="w-8 h-8" style="color: var(--primary-action);" viewbox="0 0 60 60" fill="none">
             <circle cx="22" cy="30" r="10" stroke="currentColor" stroke-width="2" />
             <circle cx="38" cy="30" r="10" stroke="currentColor" stroke-width="2" />
           </svg><span class="divider-line"></span>
@@ -441,21 +730,21 @@
           amigos.</p>
         <p class="font-sans-elegant text-base leading-relaxed mb-10" style="color: var(--text-color); opacity: 0.85;">
           Sua presença é o maior presente que podemos receber. Venha compartilhar conosco esse dia de alegria, fé e
-          esperança.</p><button class="save-date-btn"
-          style="background: linear-gradient(135deg, var(--primary-action), #2D8B7A); color: white;"> ✨ Save the Date ✨
+          esperança.</p>
+        <button class="save-date-btn"
+          style="background: linear-gradient(135deg, var(--primary-action), var(--accent-forest, #3D7A6B)); color: white; border: none;"> 🕊️ Save the Date 🕊️
         </button>
       </div>
-    </section><!-- RSVP Section -->
+    </section>
+
     <!-- Location Section -->
     <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
       <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent);">
-        </div>
+        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(143, 188, 143, 0.2), transparent);"></div>
       </div>
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="font-serif-elegant text-3xl md:text-4xl mb-8" style="color: var(--text-color);">Localização</h2>
-        <div class="map-container shadow-lg rounded-2xl overflow-hidden border-4 border-white">
-          <!-- Iframe do Google Maps (Apontando para Belo Jardim - PE como exemplo) -->
+        <div class="map-container shadow-lg rounded-2xl overflow-hidden" style="border: 3px solid rgba(91, 168, 157, 0.3);">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.39899874668!2d-36.46353566815646!3d-8.333555987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a98bb1e6a0b0b3%3A0x6a0b0b3b0b0b0b0b!2sBelo%20Jardim%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr"
             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
@@ -466,9 +755,11 @@
           class="save-date-btn mt-4 inline-block no-underline">Ver no Google Maps</a>
       </div>
     </section>
+
+    <!-- RSVP Section -->
     <section class="py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
       <div class="max-w-2xl mx-auto text-center p-8 rounded-2xl"
-        style="background: var(--secondary-surface); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+        style="background: rgba(254, 253, 251, 0.85); backdrop-filter: blur(8px); box-shadow: 0 10px 40px rgba(44, 74, 62, 0.08); border: 1px solid rgba(91, 168, 157, 0.15);">
         <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Confirmação de
           Presença</h2>
         <p class="font-sans-elegant text-sm mb-8" style="color: var(--text-color);">Por favor, confirme sua presença.
@@ -501,32 +792,35 @@
             </div>
           </div>
           <div class="flex flex-col md:flex-row justify-center gap-4 mt-8">
-            <button onclick="handleRsvp('Confirmado')" class="save-date-btn">Confirmar Presença</button> <button
-              onclick="handleRsvp('Recusado')" class="save-date-btn" style="background: #ef4444;">Não poderei
+            <button onclick="handleRsvp('Confirmado')" class="save-date-btn" style="background: linear-gradient(135deg, var(--primary-action), var(--accent-forest, #3D7A6B)); color: white; border: none;">Confirmar Presença</button>
+            <button onclick="handleRsvp('Recusado')" class="save-date-btn" style="background: #ef4444; color: white; border: none;">Não poderei
               ir</button>
           </div>
         </div>
         <div id="rsvp-message" class="mt-6 font-serif-elegant text-xl" style="display: none;"></div>
         <div id="gift-list-container" class="mt-8" style="display: none;">
           <a id="gift-list-link" href="#" class="save-date-btn"
-            style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, var(--secondary-action), #C99B2A);">🎁
+            style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, var(--secondary-action), #B8932E); color: white; border: none;">🎁
             Ver Lista de Presentes</a>
         </div>
       </div>
 
-      <!-- Footer movido para o final da página de RSVP -->
+      <!-- Footer -->
       <footer class="mt-20 py-12 px-4 text-center rounded-2xl mx-auto" style="max-width: 900px;">
         <div class="max-w-2xl mx-auto">
           <div class="mb-6">
-            <svg class="w-10 h-10 mx-auto opacity-80" style="color: var(--secondary-action);" viewbox="0 0 60 60"
-              fill="currentColor">
-              <path
-                d="M30 50l-2.5-2.3C15 36.5 8 30 8 22c0-6.5 5-11.5 11.5-11.5 3.7 0 7.2 1.7 9.5 4.4 2.3-2.7 5.8-4.4 9.5-4.4C45 10.5 50 15.5 50 22c0 8-7 14.5-19.5 25.7L30 50z" />
+            <!-- Pomba com ramo de oliveira -->
+            <svg class="w-10 h-10 mx-auto" style="color: var(--primary-action); opacity: 0.7;" viewbox="0 0 60 60"
+              fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M30 15 Q42 5 50 20 Q35 22 30 35 Q25 22 10 20 Q18 5 30 15Z" fill="rgba(91, 168, 157, 0.15)"/>
+              <line x1="30" y1="35" x2="30" y2="50" stroke="var(--accent-sage, #8FBC8F)" stroke-width="1"/>
+              <ellipse cx="26" cy="46" rx="2.5" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(-20 26 46)"/>
+              <ellipse cx="34" cy="46" rx="2.5" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(20 34 46)"/>
             </svg>
           </div>
           <p class="font-serif-elegant text-2xl md:text-3xl italic mb-2" id="footer-names">Evellyn &amp; Marcos</p>
           <p class="font-sans-elegant text-sm tracking-widest opacity-80">19 · 11 · 2026</p>
-          <div class="mt-8 pt-6 border-t border-white border-opacity-20">
+          <div class="mt-8 pt-6 border-t" style="border-color: rgba(91, 168, 157, 0.2);">
             <p class="font-serif-elegant text-base italic opacity-90">"Duas pessoas são melhores do que uma, porque
               podem ajudar uma à outra a vencer."</p>
             <p class="font-sans-elegant text-xs tracking-widest mt-2 opacity-70">— Eclesiastes 4:9</p>
