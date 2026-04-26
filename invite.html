@@ -1424,6 +1424,106 @@
         display: none;
       }
     }
+
+    /* ══════════════════════════════════════════
+       PERFECT RESPONSIVENESS OVERRIDES
+    ══════════════════════════════════════════ */
+    /* Dynamic Paddings for Sections */
+    #countdown,
+    #message,
+    #details,
+    #rsvp {
+      padding: clamp(60px, 8vh, 100px) 24px;
+    }
+
+    #hero {
+      padding: clamp(60px, 8vh, 80px) 20px clamp(80px, 10vh, 100px);
+    }
+
+    #footer {
+      padding: clamp(60px, 8vh, 80px) 24px clamp(40px, 6vh, 60px);
+    }
+
+    #gallery {
+      padding: clamp(60px, 8vh, 100px) 0 clamp(80px, 10vh, 120px);
+    }
+
+    /* Tablet & Mobile Adjustments */
+    @media (max-width: 768px) {
+      .detail-cards {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .scripture-card {
+        padding: 32px 24px;
+        margin-top: 32px;
+      }
+
+      .intro-names {
+        font-size: clamp(42px, 12vw, 60px);
+      }
+
+      .hero-names {
+        font-size: clamp(48px, 13vw, 80px);
+      }
+
+      .hero-union {
+        font-size: 12px;
+      }
+
+      .countdown-item {
+        padding: 20px 8px;
+      }
+
+      .countdown-num {
+        font-size: clamp(28px, 8vw, 40px);
+      }
+
+      .map-wrap iframe {
+        height: 300px;
+      }
+
+      .intro-subtitle {
+        font-size: 12px;
+      }
+    }
+
+    /* Very Small Screens Adjustments */
+    @media (max-width: 380px) {
+      .hero-date-box {
+        padding: 16px 20px;
+        margin-bottom: 24px;
+      }
+
+      .hero-date-text {
+        font-size: 16px;
+      }
+
+      .btn-open,
+      .btn-confirm,
+      .btn-decline {
+        padding: 12px 24px;
+        font-size: 9px;
+      }
+
+      .intro-inner {
+        padding: 32px 16px;
+      }
+
+      .radio-group {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .map-wrap iframe {
+        height: 240px;
+      }
+
+      .footer-names {
+        font-size: 36px;
+      }
+    }
   </style>
 </head>
 
