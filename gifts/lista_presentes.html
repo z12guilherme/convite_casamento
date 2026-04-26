@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Presentes - Evellyn & Guilherme</title>
-    
+
     <!-- Google Fonts (Mesmas do convite) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
@@ -26,18 +29,22 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/config.js"></script>
 </head>
+
 <body>
 
     <!-- Premium Vistas (Particles) -->
-    <canvas id="ambient-particles" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
+    <canvas id="ambient-particles"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../invite.html">
                 <!-- Pomba pequena -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 6px;">
-                    <path d="M12 6Q16 2 19 8Q14 9 12 14Q10 9 5 8Q8 2 12 6Z" fill="rgba(91, 168, 157, 0.4)" stroke="#5BA89D" stroke-width="0.8"/>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    style="vertical-align: middle; margin-right: 6px;">
+                    <path d="M12 6Q16 2 19 8Q14 9 12 14Q10 9 5 8Q8 2 12 6Z" fill="rgba(91, 168, 157, 0.4)"
+                        stroke="#5BA89D" stroke-width="0.8" />
                 </svg>
                 E & G
             </a>
@@ -64,33 +71,49 @@
                 </div>
 
                 <h2 class="premium-title">Lista de Presentes</h2>
-                <p class="section-subtitle">Sua presença é o nosso maior presente! Se desejar nos presentear, fique à vontade para escolher uma opção abaixo.</p>
-                
+                <p class="section-subtitle">Sua presença é o nosso maior presente! Se desejar nos presentear, fique à
+                    vontade para escolher uma opção abaixo.</p>
+
                 <!-- Instruction Box with Pix -->
-                <div class="pix-instruction-box mt-4 mb-4 p-4 rounded-3" style="background: rgba(91, 168, 157, 0.06); border: 1px solid rgba(91, 168, 157, 0.2); max-width: 600px; margin: 20px auto; text-align: left; font-family: var(--font-body); color: var(--c-text-dark); position: relative; z-index: 5;">
-                    <h4 style="font-family: var(--font-heading); color: var(--c-primary); font-size: 1.5rem; text-align: center; margin-bottom: 15px;">
+                <div class="pix-instruction-box mt-4 mb-4 p-4 rounded-3"
+                    style="background: rgba(91, 168, 157, 0.06); border: 1px solid rgba(91, 168, 157, 0.2); max-width: 600px; margin: 20px auto; text-align: left; font-family: var(--font-body); color: var(--c-text-dark); position: relative; z-index: 5;">
+                    <h4
+                        style="font-family: var(--font-heading); color: var(--c-primary); font-size: 1.5rem; text-align: center; margin-bottom: 15px;">
                         <!-- Cruz com ramos -->
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 8px;">
-                            <line x1="12" y1="3" x2="12" y2="21" stroke="#5BA89D" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="6" y1="9" x2="18" y2="9" stroke="#5BA89D" stroke-width="1.5" stroke-linecap="round"/>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            style="vertical-align: middle; margin-right: 8px;">
+                            <line x1="12" y1="3" x2="12" y2="21" stroke="#5BA89D" stroke-width="1.5"
+                                stroke-linecap="round" />
+                            <line x1="6" y1="9" x2="18" y2="9" stroke="#5BA89D" stroke-width="1.5"
+                                stroke-linecap="round" />
                         </svg>
                         Como funciona?
                     </h4>
                     <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.6;">
-                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2" style="color: var(--c-primary);"></i><strong>1.</strong> Escolha com carinho um ou mais itens na lista abaixo.</li>
-                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2" style="color: var(--c-primary);"></i><strong>2.</strong> Clique em confirmar e escolha o valor desejado (pode ser total ou uma cota do presente).</li>
-                        <li><i class="bi bi-check-circle me-2" style="color: var(--c-primary);"></i><strong>3.</strong> Realize a sua contribuição através de PIX para a chave informada.</li>
+                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2"
+                                style="color: var(--c-primary);"></i><strong>1.</strong> Escolha com carinho um ou mais
+                            itens na lista abaixo.</li>
+                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2"
+                                style="color: var(--c-primary);"></i><strong>2.</strong> Clique em confirmar e escolha o
+                            valor desejado (pode ser total ou uma cota do presente).</li>
+                        <li><i class="bi bi-check-circle me-2" style="color: var(--c-primary);"></i><strong>3.</strong>
+                            Realize a sua contribuição através de PIX para a chave informada.</li>
                     </ul>
-                    <div style="background: rgba(254, 253, 251, 0.9); padding: 15px; border-radius: 10px; text-align: center; border: 1px dashed rgba(91, 168, 157, 0.3); margin-top: 20px;">
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--c-text-light); text-transform: uppercase; letter-spacing: 1px;">Nossa Chave Pix (Celular):</p>
-                        <p style="margin: 5px 0 0; font-size: 1.5rem; font-weight: bold; color: var(--c-primary); user-select: all;">81989035561</p>
+                    <div
+                        style="background: rgba(254, 253, 251, 0.9); padding: 15px; border-radius: 10px; text-align: center; border: 1px dashed rgba(91, 168, 157, 0.3); margin-top: 20px;">
+                        <p
+                            style="margin: 0; font-size: 0.9rem; color: var(--c-text-light); text-transform: uppercase; letter-spacing: 1px;">
+                            Nossa Chave Pix (Celular):</p>
+                        <p
+                            style="margin: 5px 0 0; font-size: 1.5rem; font-weight: bold; color: var(--c-primary); user-select: all;">
+                            81989035561</p>
                     </div>
                 </div>
             </div>
 
             <!-- Guest Greeting -->
             <div id="guest-greeting" class="text-center mb-4 lead" data-aos="fade-up"></div>
-            
+
             <!-- Confirmation Message -->
             <div id="confirmation-message" class="alert text-center" role="alert"></div>
 
@@ -115,11 +138,13 @@
     <!-- Footer -->
     <footer class="footer text-center">
         <div class="container">
-            <svg width="40" height="40" viewBox="0 0 60 60" fill="none" style="margin: 0 auto 15px; display: block; opacity: 0.6;">
-                <path d="M30 15 Q42 5 50 20 Q35 22 30 35 Q25 22 10 20 Q18 5 30 15Z" fill="rgba(91, 168, 157, 0.15)" stroke="#5BA89D" stroke-width="1.2"/>
-                <line x1="30" y1="35" x2="30" y2="48" stroke="#8FBC8F" stroke-width="1"/>
-                <ellipse cx="26" cy="44" rx="2" ry="4.5" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 26 44)"/>
-                <ellipse cx="34" cy="44" rx="2" ry="4.5" fill="#8FBC8F" opacity="0.4" transform="rotate(20 34 44)"/>
+            <svg width="40" height="40" viewBox="0 0 60 60" fill="none"
+                style="margin: 0 auto 15px; display: block; opacity: 0.6;">
+                <path d="M30 15 Q42 5 50 20 Q35 22 30 35 Q25 22 10 20 Q18 5 30 15Z" fill="rgba(91, 168, 157, 0.15)"
+                    stroke="#5BA89D" stroke-width="1.2" />
+                <line x1="30" y1="35" x2="30" y2="48" stroke="#8FBC8F" stroke-width="1" />
+                <ellipse cx="26" cy="44" rx="2" ry="4.5" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 26 44)" />
+                <ellipse cx="34" cy="44" rx="2" ry="4.5" fill="#8FBC8F" opacity="0.4" transform="rotate(20 34 44)" />
             </svg>
             <h3 class="premium-footer-names">Evellyn & Guilherme</h3>
             <p style="color: var(--c-text-light);">Criando memórias eternas.</p>
@@ -137,7 +162,8 @@
                 <p>Valor total: <strong id="modalGiftPrice">R$ 0,00</strong></p>
             </div>
             <div id="modalProgressBar" class="progress-container-modal">
-                <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:5px; color:var(--c-text-dark);">
+                <div
+                    style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:5px; color:var(--c-text-dark);">
                     <span>Arrecadado: <strong id="modalContributedAmount">R$ 0,00</strong></span>
                     <span>Falta: <strong id="modalRemainingAmount">R$ 0,00</strong></span>
                 </div>
@@ -147,14 +173,56 @@
             </div>
             <div class="amount-input-group">
                 <label for="contributionAmount">R$</label>
-                <input type="number" id="contributionAmount" class="amount-input" step="0.01" min="0.01" placeholder="0,00">
+                <input type="number" id="contributionAmount" class="amount-input" step="0.01" min="0.01"
+                    placeholder="0,00">
             </div>
             <p class="pix-key-info" style="font-size: 0.9rem; color: var(--c-text-light);">
-                Para confirmar sua contribuição, faça um PIX para a chave abaixo. Após o Pix, clique em "Confirmar Contribuição".
+                Para confirmar sua contribuição, faça um PIX para a chave abaixo. Após o Pix, clique em "Confirmar
+                Contribuição".
             </p>
             <div class="pix-key-display">
                 Chave Pix: <strong id="modalPixKey">Carregando...</strong>
             </div>
+            <div id="pixPaymentArea" style="display: none; margin-top: 15px; text-align: center;">
+                <!-- Estado 1: QR Code sendo exibido -->
+                <div id="pixQrArea">
+                    <h4 style="color: var(--c-primary); margin-bottom: 8px; font-size: 1rem;">📱 Escaneie o QR Code</h4>
+                    <img id="pixQrCode" src="" alt="QR Code Pix"
+                        style="max-width: 190px; margin: 0 auto; display: block; border: 2px solid var(--c-primary); border-radius: 10px; padding: 10px;">
+                    <p style="margin-top: 10px; font-size: 0.82rem; color: var(--c-text-light);">Ou copie o código abaixo:</p>
+                    <div style="display: flex; gap: 5px; margin-top: 5px;">
+                        <input type="text" id="pixCopiaECola" class="elegant-input" style="flex: 1; font-size: 0.78rem;" readonly>
+                        <button id="copyPixBtn" class="btn btn-outline-primary btn-sm" style="min-width: 80px;">
+                            <i class="bi bi-clipboard"></i> Copiar
+                        </button>
+                    </div>
+
+                    <!-- Botão principal: convidado confirma que pagou -->
+                    <button id="guestConfirmPaymentBtn"
+                        style="margin-top: 20px; width: 100%; padding: 14px; background: linear-gradient(135deg, var(--c-primary), #2E6B5A); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(61,122,108,0.3); transition: all 0.3s;">
+                        ✅ Já realizei o pagamento!
+                    </button>
+                    <p style="margin-top: 8px; font-size: 0.78rem; color: var(--c-text-light); opacity: 0.8;">
+                        Clique após concluir o PIX para notificar o casal.
+                    </p>
+                </div>
+
+                <!-- Estado 2: Confirmação enviada com sucesso -->
+                <div id="pixConfirmedArea" style="display: none; padding: 20px 10px;">
+                    <div style="width: 70px; height: 70px; background: rgba(61,122,108,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                        <svg viewBox="0 0 24 24" fill="none" style="width: 36px; height: 36px;">
+                            <circle cx="12" cy="12" r="10" stroke="#3D7A6C" stroke-width="1.5"/>
+                            <path d="M7 12.5l3.5 3.5 6.5-7" stroke="#3D7A6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4 style="color: var(--c-primary); margin-bottom: 8px;">Pagamento registrado! 💚</h4>
+                    <p style="font-size: 0.9rem; color: var(--c-text-light); line-height: 1.5;">
+                        Obrigado! Sua contribuição foi enviada para confirmação.<br>
+                        O casal irá verificar e confirmar o recebimento em breve.
+                    </p>
+                </div>
+            </div>
+
             <div class="modal-actions">
                 <button id="confirmContributionBtn" class="modal-btn modal-btn-confirm">Confirmar Contribuição</button>
                 <button id="cancelContributionBtn" class="modal-btn modal-btn-cancel">Cancelar</button>
@@ -165,11 +233,11 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <!-- Lógica da Lista de Presentes -->
     <script src="../js/utils.js"></script>
     <script src="../js/gift-list.js"></script>
-    
+
     <!-- Efeitos Premium WebGL/GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -190,7 +258,7 @@
 
         if (guestName) {
             backLink.href = `../invite.html?name=${encodeURIComponent(guestName)}`;
-            if(greetingDiv) {
+            if (greetingDiv) {
                 greetingDiv.innerHTML = `Olá, <span style="color: var(--c-primary); font-weight: 700;">${guestName}</span>!`;
             }
         } else {
@@ -211,4 +279,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // CONFIGURAÇÃO DO PIX
     const PIX_KEY = "81989035561";
 
@@ -14,9 +14,17 @@
     const modalPixKey = document.getElementById('modalPixKey');
     const confirmContributionBtn = document.getElementById('confirmContributionBtn');
     const cancelContributionBtn = document.getElementById('cancelContributionBtn');
+    const pixPaymentArea = document.getElementById('pixPaymentArea');
+    const pixQrCode = document.getElementById('pixQrCode');
+    const pixCopiaECola = document.getElementById('pixCopiaECola');
+    const copyPixBtn = document.getElementById('copyPixBtn');
+    const guestConfirmPaymentBtn = document.getElementById('guestConfirmPaymentBtn');
+    const pixQrArea = document.getElementById('pixQrArea');
+    const pixConfirmedArea = document.getElementById('pixConfirmedArea');
 
-    let currentGift = null; // Armazena o presente selecionado no modal
-    let currentGuestName = ''; // Armazena o nome do convidado
+    let currentGift = null;       // Presente selecionado no modal
+    let currentGuestName = '';    // Nome do convidado
+    let currentTxId = null;       // ID da transação PIX gerada
 
     // Helper para formatar moeda
     const formatCurrency = (value) => {
@@ -28,7 +36,7 @@
         currentGuestName = guestName; // Atualiza o nome do convidado atual
         const container = document.getElementById('gifts-container');
         if (!container) return;
-        
+
         // Mostra loading apenas se estiver vazio (primeira carga)
         if (!container.hasChildNodes()) {
             container.innerHTML = '<div style="color:var(--c-primary); text-align:center; width: 100%;">Carregando presentes...</div>';
@@ -43,16 +51,16 @@
             if (error) throw error;
 
             container.innerHTML = ''; // Limpa o loading
-            
-            if (!data || !data.length) { 
-                container.innerHTML = '<div style="text-align:center; width:100%;">Nenhum presente disponível.</div>'; 
-                return; 
+
+            if (!data || !data.length) {
+                container.innerHTML = '<div style="text-align:center; width:100%;">Nenhum presente disponível.</div>';
+                return;
             }
 
             // ================== Criação dos Cards ==================
             data.forEach((gift) => {
                 const card = document.createElement('div');
-                card.className = 'gift-item'; 
+                card.className = 'gift-item';
 
                 const innerContent = document.createElement('div');
                 innerContent.className = 'gift-card';
@@ -79,14 +87,16 @@
 
                 const btn = document.createElement('button');
                 btn.className = 'confirm-btn';
-                
+
                 // Lógica de Cotas vs Presente Único
                 let isFullyTaken = false;
                 let totalContributed = 0;
 
-                // Calcula total arrecadado se houver contribuições
+                // Calcula total arrecadado se houver contribuições CONFIRMADAS
                 if (gift.contributions && Array.isArray(gift.contributions)) {
-                    totalContributed = gift.contributions.reduce((acc, curr) => acc + (curr.amount || 0), 0);
+                    totalContributed = gift.contributions
+                        .filter(c => c.status === 'confirmed')
+                        .reduce((acc, curr) => acc + (curr.amount || 0), 0);
                 }
 
                 // Verifica se está completo (seja por taken_by antigo ou preço atingido)
@@ -98,7 +108,7 @@
                 if (gift.price && !isFullyTaken) {
                     const progressContainer = document.createElement('div');
                     progressContainer.style.cssText = "padding: 0 20px 10px; width: 100%;";
-                    
+
                     const percent = Math.min(100, (totalContributed / gift.price) * 100);
                     const remaining = gift.price - totalContributed;
 
@@ -119,7 +129,7 @@
                 }
 
                 if (isFullyTaken) {
-                    btn.innerHTML = `<i class="bi bi-heart-fill me-2"></i> Presenteado`; 
+                    btn.innerHTML = `<i class="bi bi-heart-fill me-2"></i> Presenteado`;
                     btn.disabled = true;
                     btn.style.opacity = '0.8';
                     btn.style.cursor = 'not-allowed';
@@ -165,7 +175,9 @@
 
     function openContributionModal(gift) {
         currentGift = gift;
-        const totalContributed = (gift.contributions || []).reduce((acc, c) => acc + (c.amount || 0), 0);
+        const totalContributed = (gift.contributions || [])
+            .filter(c => c.status === 'confirmed')
+            .reduce((acc, c) => acc + (c.amount || 0), 0);
         const remaining = gift.price - totalContributed;
         const percent = Math.min(100, (totalContributed / gift.price) * 100);
         modalGiftName.textContent = gift.name;
@@ -178,7 +190,8 @@
         contributionAmountInput.value = '';
         contributionAmountInput.placeholder = remaining.toFixed(2).replace('.', ',');
         contributionAmountInput.max = remaining.toFixed(2);
-        
+
+        pixPaymentArea.style.display = 'none';
         // Esconde a barra de progresso se o presente já foi totalmente pago
         modalProgressBar.style.display = remaining > 0.01 ? 'block' : 'none';
 
@@ -188,13 +201,21 @@
     function closeContributionModal() {
         modal.classList.remove('show');
         currentGift = null;
-        confirmContributionBtn.disabled = false;
+        currentTxId = null;
+        pixPaymentArea.style.display = 'none';
+        // Restaura os sub-painéis do PIX para o estado inicial
+        if (pixQrArea)       pixQrArea.style.display       = 'block';
+        if (pixConfirmedArea) pixConfirmedArea.style.display = 'none';
+        confirmContributionBtn.disabled    = false;
+        confirmContributionBtn.style.display = 'inline-block';
         confirmContributionBtn.textContent = 'Confirmar Contribuição';
     }
 
     async function handleConfirmContribution() {
         const amount = parseFloat(contributionAmountInput.value.replace(',', '.'));
-        const remaining = currentGift.price - (currentGift.contributions || []).reduce((acc, c) => acc + (c.amount || 0), 0);
+        const remaining = currentGift.price - (currentGift.contributions || [])
+            .filter(c => c.status === 'confirmed')
+            .reduce((acc, c) => acc + (c.amount || 0), 0);
 
         if (isNaN(amount) || amount <= 0) {
             return showToast('Por favor, insira um valor de contribuição válido.', 'error');
@@ -204,26 +225,36 @@
         }
 
         confirmContributionBtn.disabled = true;
-        confirmContributionBtn.textContent = 'Registrando...';
+        confirmContributionBtn.textContent = 'Gerando Pix...';
 
-        const newContribution = {
-            name: currentGuestName,
-            amount: amount,
-            date: new Date().toISOString()
-        };
+        try {
+            // Chama a Edge Function do Supabase para gerar o PIX
+            const { data, error } = await supabaseClient.functions.invoke('create-pix', {
+                body: {
+                    title: `Presente: ${currentGift.name}`,
+                    amount: amount,
+                    guestName: currentGuestName,
+                    giftId: currentGift.id
+                }
+            });
 
-        const { error } = await supabaseClient
-            .from('gifts')
-            .update({ contributions: [...(currentGift.contributions || []), newContribution] })
-            .eq('id', currentGift.id);
+            if (error) throw error;
 
-        if (error) {
-            showToast('Erro ao registrar contribuição: ' + error.message, 'error');
+            // Mostra o QR Code na tela (formato PNG gerado pela Edge Function)
+            pixQrCode.src = `data:image/png;base64,${data.qr_code_base64}`;
+            pixCopiaECola.value = data.qr_code;
+            currentTxId = data.payment_id; // Salva o tx_id para a confirmação do convidado
+            pixPaymentArea.style.display = 'block';
+            if (pixQrArea)       pixQrArea.style.display       = 'block';
+            if (pixConfirmedArea) pixConfirmedArea.style.display = 'none';
+            confirmContributionBtn.style.display = 'none';
+
+            showToast('PIX gerado! Escaneie o QR Code ou copie o código.', 'success');
+        } catch (error) {
+            const msg = error?.message || 'Erro desconhecido';
+            showToast(`Erro ao gerar PIX: ${msg}`, 'error');
             confirmContributionBtn.disabled = false;
             confirmContributionBtn.textContent = 'Confirmar Contribuição';
-        } else {
-            showToast(`Obrigado, <strong>${currentGuestName}</strong>! Sua contribuição de ${formatCurrency(amount)} para <em>${currentGift.name}</em> foi registrada! 💖`, 'success');
-            closeContributionModal();
         }
     }
 
@@ -241,6 +272,58 @@
         // ================== Event Listeners do Modal ==================
         cancelContributionBtn.addEventListener('click', closeContributionModal);
         confirmContributionBtn.addEventListener('click', handleConfirmContribution);
+
+        // ── Botão: convidado confirma que realizou o pagamento ──
+        if (guestConfirmPaymentBtn) {
+            guestConfirmPaymentBtn.addEventListener('click', async () => {
+                if (!currentGift || !currentTxId) return;
+
+                guestConfirmPaymentBtn.disabled = true;
+                guestConfirmPaymentBtn.textContent = 'Registrando...';
+
+                // Busca o estado atual do presente e atualiza status da contribuição
+                const { data: giftData, error: fetchErr } = await supabaseClient
+                    .from('gifts').select('contributions').eq('id', currentGift.id).single();
+
+                if (fetchErr) {
+                    showToast('Erro ao registrar confirmação. Tente novamente.', 'error');
+                    guestConfirmPaymentBtn.disabled = false;
+                    guestConfirmPaymentBtn.textContent = '✅ Já realizei o pagamento!';
+                    return;
+                }
+
+                const txId = currentTxId;
+                const updatedContributions = (giftData.contributions || []).map(c =>
+                    c.tx_id === txId ? { ...c, status: 'guest_confirmed' } : c
+                );
+
+                const { error: updateErr } = await supabaseClient
+                    .from('gifts')
+                    .update({ contributions: updatedContributions })
+                    .eq('id', currentGift.id);
+
+                if (updateErr) {
+                    showToast('Erro ao registrar. Tente novamente.', 'error');
+                    guestConfirmPaymentBtn.disabled = false;
+                    guestConfirmPaymentBtn.textContent = '✅ Já realizei o pagamento!';
+                    return;
+                }
+
+                // Mostra estado de sucesso
+                if (pixQrArea)       pixQrArea.style.display       = 'none';
+                if (pixConfirmedArea) pixConfirmedArea.style.display = 'block';
+            });
+        }
+
+        if (copyPixBtn) {
+            copyPixBtn.addEventListener('click', () => {
+                pixCopiaECola.select();
+                document.execCommand('copy');
+                showToast('Código Copia e Cola copiado!', 'success');
+                copyPixBtn.innerHTML = '<i class="bi bi-check-lg"></i> Copiado';
+                setTimeout(() => { copyPixBtn.innerHTML = '<i class="bi bi-clipboard"></i> Copiar'; }, 2000);
+            });
+        }
         modal.addEventListener('click', (e) => {
             if (e.target === modal) { // Fecha se clicar no overlay
                 closeContributionModal();
@@ -253,7 +336,7 @@
             searchInput.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
                 const items = document.querySelectorAll('.gift-item');
-                
+
                 items.forEach(item => {
                     const name = item.querySelector('.gift-name').textContent.toLowerCase();
                     // Se o termo estiver no nome, mostra; senão, esconde

@@ -1,4 +1,26 @@
 {
-    "CodeGPT.apiKey": "Perplexity",
-    "liveServer.settings.port": 5501
+  "CodeGPT.apiKey": "Perplexity",
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": [
+    "bare-node-builtins",
+    "byonm",
+    "sloppy-imports",
+    "unsafe-proto",
+    "webgpu",
+    "broadcast-channel",
+    "worker-options",
+    "cron",
+    "kv",
+    "ffi",
+    "fs",
+    "http",
+    "net"
+  ],
+  "liveServer.settings.port": 5501
 }

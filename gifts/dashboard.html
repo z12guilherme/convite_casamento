@@ -404,6 +404,28 @@
     </table>
   </div>
 
+  <!-- ===== NOVA SEÇÃO: Pagamentos Pendentes ===== -->
+  <div class="gifts-section">
+    <h2>⏳ Aguardando Confirmação <span id="pending-badge" style="font-size:1rem; font-family:var(--font-sans); font-weight:600; margin-left:8px;"></span></h2>
+    <p style="font-size:0.88rem; opacity:0.7; margin-top:-10px; margin-bottom:15px; font-family:var(--font-sans);">
+      Contribuições via PIX registradas pelos convidados. Verifique seu app bancário e confirme os recebidos.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Convidado</th>
+          <th>Presente</th>
+          <th>Valor</th>
+          <th>Data/Hora</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="pending-payments">
+        <tr><td colspan="5" style="text-align:center;">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="gifts-section">
     <h2>💝 Presentes Confirmados</h2>
     <table>
@@ -421,6 +443,7 @@
       </tbody>
     </table>
   </div>
+
 
   <form id="add-gift-form">
     <input type="text" id="gift-name" placeholder="Nome do presente" required />
