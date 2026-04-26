@@ -64,7 +64,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(ellipse at 50% 30%, #FDF7EE 0%, #EDE0C8 55%, #D5C4A0 100%);
+      background: 
+        radial-gradient(ellipse at 50% 30%, rgba(253, 247, 238, 0.75) 0%, rgba(237, 224, 200, 0.85) 55%, rgba(213, 196, 160, 0.95) 100%),
+        url('img/igreja.jpg') center/cover no-repeat;
       transition: opacity 1.2s ease, transform 1.2s ease;
       overflow: hidden;
     }
@@ -330,9 +332,10 @@
       align-items: center;
       justify-content: center;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(107, 158, 134, 0.1) 0%, transparent 60%),
-        linear-gradient(180deg, #FEFCF7 0%, var(--ivory) 50%, #EDE5D0 100%);
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201, 168, 76, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(107, 158, 134, 0.15) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(254, 252, 247, 0.75) 0%, rgba(249, 244, 236, 0.85) 50%, rgba(237, 229, 208, 0.95) 100%),
+        url('img/igreja.jpg') center/cover no-repeat fixed;
       padding: 80px 20px 100px;
     }
 
