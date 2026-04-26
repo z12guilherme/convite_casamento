@@ -1,837 +1,1998 @@
-<!doctype html>
-<html lang="pt-BR" class="h-full">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Evellyn &amp; Marcos - Convite de Casamento</title>
-  <link rel="icon" href="data:image/x-icon;base64,">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Evellyn & Marcos — Convite de Casamento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/invite.css?v=20240425-1">
   <style>
-    @view-transition {
-      navigation: auto;
+    :root {
+      --ivory: #F9F4EC;
+      --parchment: #F2EAD8;
+      --gold: #C9A84C;
+      --gold-light: #E8D69A;
+      --gold-dark: #A07830;
+      --emerald: #1E4035;
+      --sage: #6B9E86;
+      --rose: #C9877A;
+      --blush: #F0D8D0;
+      --text: #2A3828;
+      --text-soft: #4A5E44;
     }
-  </style>
 
-  <!-- Mantendo scripts originais caso queira reativar o backend -->
-  <script type="importmap">
-    {
-      "imports": {      
-        "three": "https://unpkg.com/three@0.177.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.177.0/examples/jsm/"
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--ivory);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ══════════════════════════════════════════
+       INTRO OVERLAY
+    ══════════════════════════════════════════ */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at 50% 30%, #FDF7EE 0%, #EDE0C8 55%, #D5C4A0 100%);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      overflow: hidden;
+    }
+
+    #intro.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.04);
+    }
+
+    /* Petals */
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 16px;
+      border-radius: 60% 40% 50% 50% / 70% 60% 40% 50%;
+      opacity: 0;
+      animation: petalFall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes petalFall {
+      0% {
+        opacity: 0;
+        transform: translateY(-40px) rotate(0deg) scale(0.6);
+      }
+
+      10% {
+        opacity: 0.7;
+      }
+
+      90% {
+        opacity: 0.4;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(105vh) rotate(360deg) translateX(60px) scale(1.1);
       }
     }
-  </script>
-  <!-- Biblioteca de Confete -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/config.js"></script>
+
+    .intro-inner {
+      position: relative;
+      text-align: center;
+      padding: 60px 40px;
+      max-width: 520px;
+      width: 90%;
+    }
+
+    /* Botanical frame SVG */
+    .intro-frame {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .intro-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .intro-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(52px, 13vw, 82px);
+      color: var(--emerald);
+      line-height: 1.1;
+      margin-bottom: 6px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.7s forwards;
+      text-shadow: 0 2px 20px rgba(30, 64, 53, 0.12);
+    }
+
+    .intro-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-style: italic;
+      letter-spacing: 0.2em;
+      color: var(--text-soft);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+
+    .intro-date-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .intro-date-line span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--gold-dark);
+    }
+
+    .date-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .intro-seal {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 32px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.9s forwards;
+    }
+
+    .btn-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 40px;
+      background: var(--emerald);
+      color: var(--ivory);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, transform 0.2s;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.5s forwards;
+    }
+
+    .btn-open::before {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 1px;
+      pointer-events: none;
+    }
+
+    .btn-open:hover {
+      background: #2C5A47;
+      transform: translateY(-2px);
+    }
+
+    .btn-open svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       MUSIC CONTROL
+    ══════════════════════════════════════════ */
+    #music-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 500;
+      width: 46px;
+      height: 46px;
+      background: var(--emerald);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: 50%;
+      color: var(--gold-light);
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(30, 64, 53, 0.3);
+      transition: transform 0.2s;
+    }
+
+    #music-btn:hover {
+      transform: scale(1.08);
+    }
+
+    #music-btn.visible {
+      display: flex;
+    }
+
+    /* ══════════════════════════════════════════
+       GLOBAL SECTION STYLES
+    ══════════════════════════════════════════ */
+    section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fade-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gold-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 auto 28px;
+      max-width: 320px;
+    }
+
+    .gold-divider::before,
+    .gold-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .gold-divider svg {
+      flex-shrink: 0;
+    }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 12px;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 1 — HERO
+    ══════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(107, 158, 134, 0.1) 0%, transparent 60%),
+        linear-gradient(180deg, #FEFCF7 0%, var(--ivory) 50%, #EDE5D0 100%);
+      padding: 80px 20px 100px;
+    }
+
+    .hero-inner {
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Floating botanicals */
+    .botanical-left,
+    .botanical-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 130px;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .botanical-left {
+      left: -30px;
+    }
+
+    .botanical-right {
+      right: -30px;
+      transform: translateY(-50%) scaleX(-1);
+    }
+
+    @media (max-width: 700px) {
+
+      .botanical-left,
+      .botanical-right {
+        display: none;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .hero-badge-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-badge span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .hero-cross {
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .hero-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(60px, 14vw, 100px);
+      color: var(--emerald);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 30px rgba(30, 64, 53, 0.1);
+    }
+
+    .hero-union {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-style: italic;
+      letter-spacing: 0.25em;
+      color: var(--text-soft);
+      margin-bottom: 36px;
+    }
+
+    .hero-date-box {
+      display: inline-block;
+      padding: 22px 48px;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      position: relative;
+      margin-bottom: 36px;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-date-box::before,
+    .hero-date-box::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+
+    .hero-date-box::before {
+      top: -1px;
+      left: -1px;
+      border-width: 2px 0 0 2px;
+    }
+
+    .hero-date-box::after {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .hero-date-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 6px;
+    }
+
+    .hero-date-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 4vw, 26px);
+      font-weight: 400;
+      color: var(--emerald);
+      letter-spacing: 0.05em;
+    }
+
+    .hero-phrase {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--text-soft);
+      opacity: 0.9;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 2 — COUNTDOWN
+    ══════════════════════════════════════════ */
+    #countdown {
+      padding: 80px 24px;
+      background: var(--emerald);
+      position: relative;
+    }
+
+    #countdown::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    #countdown .inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    #countdown .label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.8;
+      margin-bottom: 40px;
+    }
+
+    #countdown h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 5vw, 34px);
+      font-style: italic;
+      color: var(--ivory);
+      margin-bottom: 48px;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 480px) {
+      .countdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .countdown-item {
+      padding: 28px 10px;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .countdown-item::before,
+    .countdown-item::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-color: rgba(201, 168, 76, 0.5);
+      border-style: solid;
+    }
+
+    .countdown-item::before {
+      top: -1px;
+      left: -1px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .countdown-item::after {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 1px 1px 0;
+    }
+
+    .countdown-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 9vw, 56px);
+      font-weight: 400;
+      color: var(--gold-light);
+      display: block;
+      line-height: 1;
+    }
+
+    .countdown-unit {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(249, 244, 236, 0.5);
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 3 — MESSAGE
+    ══════════════════════════════════════════ */
+    #message {
+      padding: 100px 24px;
+      background: var(--parchment);
+      position: relative;
+    }
+
+    #message::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+    }
+
+    #message .inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    #message h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 6vw, 40px);
+      font-weight: 400;
+      color: var(--emerald);
+      margin-bottom: 10px;
+    }
+
+    #message .subtitle {
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-soft);
+      margin-bottom: 40px;
+    }
+
+    #message p {
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    /* Scripture card */
+    .scripture-card {
+      margin: 48px auto 0;
+      max-width: 520px;
+      padding: 36px 40px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      position: relative;
+      backdrop-filter: blur(4px);
+    }
+
+    .scripture-card::before,
+    .scripture-card::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+
+    .scripture-card::before {
+      top: 6px;
+      left: 6px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .scripture-card::after {
+      bottom: 6px;
+      right: 6px;
+      border-width: 0 1px 1px 0;
+    }
+
+    .scripture-card .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      line-height: 0.5;
+      color: var(--gold);
+      opacity: 0.4;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .scripture-card blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .scripture-card cite {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      font-style: normal;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 4 — DETAILS
+    ══════════════════════════════════════════ */
+    #details {
+      padding: 100px 24px;
+      background: var(--ivory);
+      position: relative;
+    }
+
+    #details .inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    #details h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 6vw, 40px);
+      font-weight: 400;
+      color: var(--emerald);
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .detail-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+    }
+
+    .detail-card {
+      padding: 36px 28px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .detail-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(30, 64, 53, 0.1);
+    }
+
+    .detail-card::before,
+    .detail-card::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+
+    .detail-card::before {
+      top: 6px;
+      left: 6px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .detail-card::after {
+      bottom: 6px;
+      right: 6px;
+      border-width: 0 1px 1px 0;
+    }
+
+    .detail-card .icon-wrap {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.04));
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 12px;
+    }
+
+    .detail-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .detail-card .detail-note {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: var(--text-soft);
+      opacity: 0.7;
+      margin-top: 8px;
+    }
+
+    /* Map */
+    .map-wrap {
+      margin-top: 48px;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-wrap::before,
+    .map-wrap::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: var(--gold);
+      border-style: solid;
+      z-index: 2;
+    }
+
+    .map-wrap::before {
+      top: 6px;
+      left: 6px;
+      border-width: 2px 0 0 2px;
+    }
+
+    .map-wrap::after {
+      bottom: 6px;
+      right: 6px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 360px;
+      border: 0;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .map-link:hover {
+      color: var(--gold-dark);
+      border-color: var(--gold-dark);
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 5 — RSVP
+    ══════════════════════════════════════════ */
+    #rsvp {
+      padding: 100px 24px;
+      background: var(--parchment);
+      position: relative;
+    }
+
+    #rsvp::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(255, 255, 255, 0.55) 0%, transparent 70%);
+    }
+
+    #rsvp .inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    #rsvp h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 6vw, 40px);
+      font-weight: 400;
+      color: var(--emerald);
+      margin-bottom: 10px;
+    }
+
+    #rsvp .subtitle {
+      font-style: italic;
+      font-size: 16px;
+      color: var(--text-soft);
+      margin-bottom: 48px;
+    }
+
+    .rsvp-card {
+      padding: 48px 40px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      position: relative;
+      backdrop-filter: blur(6px);
+    }
+
+    .rsvp-card::before,
+    .rsvp-card::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+
+    .rsvp-card::before {
+      top: 8px;
+      left: 8px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .rsvp-card::after {
+      bottom: 8px;
+      right: 8px;
+      border-width: 0 1px 1px 0;
+    }
+
+    @media (max-width: 500px) {
+      .rsvp-card {
+        padding: 32px 20px;
+      }
+    }
+
+    .field-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      display: block;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .radio-label input[type="radio"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .radio-label input[type="radio"]:checked::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .children-group {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .children-group.visible {
+      display: grid;
+    }
+
+    @media (max-width: 400px) {
+      .children-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .elegant-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 0;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .elegant-input:focus {
+      border-color: var(--gold);
+    }
+
+    .rsvp-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn-confirm,
+    .btn-decline {
+      padding: 14px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      position: relative;
+    }
+
+    .btn-confirm {
+      background: var(--emerald);
+      color: var(--ivory);
+    }
+
+    .btn-confirm::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
+    .btn-decline {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-confirm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 64, 53, 0.25);
+    }
+
+    .btn-decline:hover {
+      border-color: rgba(0, 0, 0, 0.4);
+    }
+
+    #rsvp-message {
+      display: none;
+      padding: 24px;
+      background: rgba(30, 64, 53, 0.06);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      margin-top: 24px;
+    }
+
+    #rsvp-message p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--emerald);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION 6 — FOOTER
+    ══════════════════════════════════════════ */
+    #footer {
+      padding: 80px 24px 60px;
+      background: var(--emerald);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    #footer .inner {
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(44px, 11vw, 68px);
+      color: var(--gold-light);
+      line-height: 1.1;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 20px rgba(201, 168, 76, 0.3);
+    }
+
+    .footer-date {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: rgba(249, 244, 236, 0.55);
+      margin-bottom: 40px;
+    }
+
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201, 168, 76, 0.4), transparent);
+      margin: 32px 0;
+    }
+
+    .footer-verse {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.75;
+      color: rgba(249, 244, 236, 0.7);
+      margin-bottom: 10px;
+    }
+
+    .footer-ref {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.7;
+    }
+
+    .footer-credit {
+      margin-top: 48px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: rgba(249, 244, 236, 0.25);
+    }
+
+    /* ══════════════════════════════════════════
+       GOLD SHIMMER ANIMATION
+    ══════════════════════════════════════════ */
+    @keyframes shimmer {
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .gold-shimmer {
+      background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-light) 40%, var(--gold) 60%, var(--gold-dark) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* ══════════════════════════════════════════
+       FLOATING PARTICLES
+    ══════════════════════════════════════════ */
+    .particle-field {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .spark {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      animation: sparkFloat linear infinite;
+    }
+
+    @keyframes sparkFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0);
+      }
+
+      20% {
+        opacity: 0.7;
+        transform: translateY(-20px) scale(1);
+      }
+
+      80% {
+        opacity: 0.4;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(0.5);
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .intro-inner {
+        padding: 50px 28px;
+      }
+
+      .rsvp-btns {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-confirm,
+      .btn-decline {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       RADIAL FAN GALLERY
+    ═══════════════════════════════════════ */
+    #gallery {
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--parchment) 100%);
+      padding: 100px 0 120px;
+      overflow: hidden;
+    }
+
+    .radial-gallery {
+      --card-w: clamp(120px, 18vw, 200px);
+      --card-h: clamp(160px, 24vw, 280px);
+      --radius: clamp(300px, 50vw, 600px);
+      --arc-spread: 8deg;
+      --shift-amount: 6deg;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: clamp(280px, 40vw, 420px);
+      perspective: 1200px;
+    }
+
+    .radial-card {
+      --i: 0;
+      --shift: 0deg;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: var(--card-w);
+      height: var(--card-h);
+      margin-left: calc(var(--card-w) / -2);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transform-origin: center calc(var(--radius) + var(--card-h));
+      transform:
+        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift)))
+        translateY(calc(var(--radius) * -0.02));
+      transition:
+        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.4s ease,
+        filter 0.4s ease;
+      box-shadow:
+        0 8px 32px rgba(30, 64, 53, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(201, 168, 76, 0.15);
+      filter: brightness(0.92) saturate(0.9);
+      z-index: calc(10 - abs(var(--i) - 2));
+    }
+
+    .radial-card:nth-child(1) { --i: 0; }
+    .radial-card:nth-child(2) { --i: 1; }
+    .radial-card:nth-child(3) { --i: 2; }
+    .radial-card:nth-child(4) { --i: 3; }
+    .radial-card:nth-child(5) { --i: 4; }
+
+    .radial-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .radial-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      border: 1.5px solid rgba(201, 168, 76, 0.25);
+      pointer-events: none;
+      transition: border-color 0.4s ease;
+    }
+
+    .radial-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(30, 64, 53, 0.4) 100%);
+      z-index: 1;
+      border-radius: 12px;
+      opacity: 0.6;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Hover – active card rises */
+    .radial-card:hover {
+      transform:
+        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift)))
+        translateY(calc(var(--radius) * -0.06))
+        scale(1.08);
+      box-shadow:
+        0 20px 60px rgba(30, 64, 53, 0.3),
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 0 0 2px rgba(201, 168, 76, 0.5);
+      filter: brightness(1.05) saturate(1.15);
+      z-index: 20;
+    }
+    .radial-card:hover::after {
+      border-color: rgba(201, 168, 76, 0.7);
+    }
+    .radial-card:hover::before {
+      opacity: 0;
+    }
+    .radial-card:hover img {
+      transform: scale(1.06);
+    }
+
+    /* Push right neighbors away */
+    .radial-card:hover + .radial-card {
+      --shift: calc(var(--shift-amount) * 2.5);
+    }
+    .radial-card:hover + .radial-card + .radial-card {
+      --shift: calc(var(--shift-amount) * 1.5);
+    }
+    .radial-card:hover + .radial-card + .radial-card + .radial-card {
+      --shift: calc(var(--shift-amount) * 0.8);
+    }
+
+    /* Push left neighbors away using :has() */
+    .radial-card:has(+ .radial-card:hover) {
+      --shift: calc(var(--shift-amount) * -2.5);
+    }
+    .radial-card:has(+ .radial-card + .radial-card:hover) {
+      --shift: calc(var(--shift-amount) * -1.5);
+    }
+    .radial-card:has(+ .radial-card + .radial-card + .radial-card:hover) {
+      --shift: calc(var(--shift-amount) * -0.8);
+    }
+
+    /* Mobile — horizontal scroll fallback */
+    @media (max-width: 600px) {
+      .radial-gallery {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 20px 32px 32px;
+        height: auto;
+        align-items: center;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        perspective: none;
+      }
+      .radial-gallery::after {
+        content: '';
+        min-width: 1px;
+        flex-shrink: 0;
+      }
+      .radial-card {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        margin-left: 0;
+        flex: 0 0 auto;
+        width: 200px;
+        height: 260px;
+        scroll-snap-align: center;
+        transform: none !important;
+        filter: brightness(1) saturate(1);
+        transform-origin: center center;
+      }
+      .radial-card:hover {
+        transform: scale(1.04) !important;
+      }
+      #gallery .inner > p:last-of-type {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
-<body class="h-full">
-  <!-- Intro Overlay -->
-  <div id="intro-overlay">
-    <div class="intro-content">
-      <!-- Eucalyptus Branch Decoration -->
-      <svg width="100" height="40" viewBox="0 0 100 40" fill="none" style="margin: 0 auto 20px; display: block; opacity: 0.5;">
-        <path d="M10 35C20 30 30 20 50 20C70 20 80 30 90 35" stroke="#5BA89D" stroke-width="1.5" fill="none"/>
-        <ellipse cx="25" cy="22" rx="6" ry="10" fill="#8FBC8F" opacity="0.5" transform="rotate(-20 25 22)"/>
-        <ellipse cx="40" cy="18" rx="5" ry="9" fill="#5BA89D" opacity="0.4" transform="rotate(-10 40 18)"/>
-        <ellipse cx="60" cy="18" rx="5" ry="9" fill="#5BA89D" opacity="0.4" transform="rotate(10 60 18)"/>
-        <ellipse cx="75" cy="22" rx="6" ry="10" fill="#8FBC8F" opacity="0.5" transform="rotate(20 75 22)"/>
+<body>
+
+  <!-- ═══════════════════════════════════════
+     INTRO OVERLAY
+═══════════════════════════════════════ -->
+  <div id="intro">
+
+    <!-- Falling petals -->
+    <div id="petal-container"></div>
+
+    <div class="intro-inner">
+
+      <!-- Botanical SVG frame -->
+      <svg class="intro-frame" viewBox="0 0 520 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <!-- Top-left branch -->
+        <g opacity="0.55">
+          <path d="M0,0 Q30,60 80,80" stroke="#6B9E86" stroke-width="1.2" fill="none" />
+          <ellipse cx="28" cy="30" rx="5" ry="11" fill="#8FBC8F" opacity="0.5" transform="rotate(-40 28 30)" />
+          <ellipse cx="48" cy="50" rx="5" ry="11" fill="#6B9E86" opacity="0.45" transform="rotate(-30 48 50)" />
+          <ellipse cx="65" cy="66" rx="4" ry="9" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 65 66)" />
+          <!-- Roses -->
+          <circle cx="15" cy="16" r="6" fill="rgba(201,135,122,0.35)" />
+          <circle cx="15" cy="16" r="3.5" fill="rgba(201,135,122,0.5)" />
+          <circle cx="13" cy="14" r="1.5" fill="rgba(201,135,122,0.7)" />
+        </g>
+        <!-- Top-right branch -->
+        <g opacity="0.55" transform="translate(520,0) scale(-1,1)">
+          <path d="M0,0 Q30,60 80,80" stroke="#6B9E86" stroke-width="1.2" fill="none" />
+          <ellipse cx="28" cy="30" rx="5" ry="11" fill="#8FBC8F" opacity="0.5" transform="rotate(-40 28 30)" />
+          <ellipse cx="48" cy="50" rx="5" ry="11" fill="#6B9E86" opacity="0.45" transform="rotate(-30 48 50)" />
+          <ellipse cx="65" cy="66" rx="4" ry="9" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 65 66)" />
+          <circle cx="15" cy="16" r="6" fill="rgba(201,135,122,0.35)" />
+          <circle cx="15" cy="16" r="3.5" fill="rgba(201,135,122,0.5)" />
+          <circle cx="13" cy="14" r="1.5" fill="rgba(201,135,122,0.7)" />
+        </g>
+        <!-- Bottom-left branch -->
+        <g opacity="0.55" transform="translate(0,560) scale(1,-1)">
+          <path d="M0,0 Q30,60 100,90" stroke="#6B9E86" stroke-width="1.2" fill="none" />
+          <ellipse cx="28" cy="30" rx="5" ry="11" fill="#8FBC8F" opacity="0.5" transform="rotate(-40 28 30)" />
+          <ellipse cx="55" cy="58" rx="5" ry="11" fill="#6B9E86" opacity="0.45" transform="rotate(-25 55 58)" />
+          <ellipse cx="80" cy="76" rx="4" ry="9" fill="#8FBC8F" opacity="0.4" transform="rotate(-15 80 76)" />
+          <circle cx="15" cy="16" r="6" fill="rgba(201,168,76,0.35)" />
+          <circle cx="15" cy="16" r="3.5" fill="rgba(201,168,76,0.55)" />
+        </g>
+        <!-- Bottom-right branch -->
+        <g opacity="0.55" transform="translate(520,560) scale(-1,-1)">
+          <path d="M0,0 Q30,60 100,90" stroke="#6B9E86" stroke-width="1.2" fill="none" />
+          <ellipse cx="28" cy="30" rx="5" ry="11" fill="#8FBC8F" opacity="0.5" transform="rotate(-40 28 30)" />
+          <ellipse cx="55" cy="58" rx="5" ry="11" fill="#6B9E86" opacity="0.45" transform="rotate(-25 55 58)" />
+          <ellipse cx="80" cy="76" rx="4" ry="9" fill="#8FBC8F" opacity="0.4" transform="rotate(-15 80 76)" />
+          <circle cx="15" cy="16" r="6" fill="rgba(201,168,76,0.35)" />
+          <circle cx="15" cy="16" r="3.5" fill="rgba(201,168,76,0.55)" />
+        </g>
+        <!-- Thin border frame -->
+        <rect x="14" y="14" width="492" height="532" stroke="rgba(201,168,76,0.3)" stroke-width="0.8" fill="none" />
+        <rect x="18" y="18" width="484" height="524" stroke="rgba(201,168,76,0.15)" stroke-width="0.5" fill="none" />
       </svg>
 
-      <div class="dolls-container">
-        <img src="img/noivo.png" alt="Noivo" class="doll doll-bride">
-        <img src="img/noiva.png" alt="Noiva" class="doll doll-groom">
+      <p class="intro-tag">Convite de Casamento</p>
+
+      <!-- Wax seal -->
+      <svg class="intro-seal" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="35" cy="35" r="32" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.5)" stroke-width="1" />
+        <circle cx="35" cy="35" r="26" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.3)" stroke-width="0.7" />
+        <!-- Cross -->
+        <line x1="35" y1="20" x2="35" y2="50" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="22" y1="30" x2="48" y2="30" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+
+      <h1 class="intro-names">Evellyn &amp; Marcos</h1>
+      <p class="intro-subtitle">Casamento · 19 de Novembro de 2026</p>
+
+      <div class="intro-date-line">
+        <div class="date-dot"></div>
+        <span>Belo Jardim · Pernambuco</span>
+        <div class="date-dot"></div>
       </div>
-      <h1 class="intro-title">Evellyn & Guilherme</h1>
-      <p class="intro-subtitle">Convite de Casamento</p>
-      <button id="enter-invite-btn" class="enter-btn">
-        <span>🕊️</span> Abrir Convite
+
+      <button class="btn-open" id="open-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+        Abrir Convite
       </button>
     </div>
   </div>
-  <audio id="wedding-music" loop>
+
+  <!-- Music control -->
+  <button id="music-btn" title="Pausar/Tocar música">♪</button>
+  <audio id="bgm" loop>
     <source src="audio/musica.mp4" type="audio/mp4">
   </audio>
-  <!-- Music Control (Floating) -->
-  <button id="music-control" class="music-btn hidden" title="Pausar/Tocar Música">🔊</button>
 
-  <div class="app-wrapper" style="background: var(--primary-bg);"><!-- Hero Section -->
-    <section class="hero-section flex items-center justify-center text-center px-4 py-16"
-      style="min-height: 100%; position: relative; color: var(--text-color);"><!-- Dynamic Background Layer -->
-      <div class="dynamic-bg"><!-- Floating Orbs -->
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+  <!-- ═══════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════ -->
+  <section id="hero">
+
+    <!-- Botanical left -->
+    <svg class="botanical-left" viewBox="0 0 130 340" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <path d="M65,330 Q40,260 50,200 Q60,140 40,80 Q25,30 60,10" stroke="#6B9E86" stroke-width="1.5" fill="none"
+        opacity="0.6" />
+      <ellipse cx="52" cy="290" rx="7" ry="14" fill="#8FBC8F" opacity="0.35" transform="rotate(20 52 290)" />
+      <ellipse cx="42" cy="260" rx="7" ry="15" fill="#6B9E86" opacity="0.4" transform="rotate(35 42 260)" />
+      <ellipse cx="55" cy="220" rx="6" ry="13" fill="#8FBC8F" opacity="0.35" transform="rotate(15 55 220)" />
+      <ellipse cx="44" cy="185" rx="7" ry="14" fill="#6B9E86" opacity="0.38" transform="rotate(28 44 185)" />
+      <ellipse cx="50" cy="150" rx="6" ry="13" fill="#8FBC8F" opacity="0.32" transform="rotate(10 50 150)" />
+      <ellipse cx="42" cy="110" rx="7" ry="15" fill="#6B9E86" opacity="0.35" transform="rotate(20 42 110)" />
+      <ellipse cx="52" cy="70" rx="6" ry="13" fill="#8FBC8F" opacity="0.3" transform="rotate(8 52 70)" />
+      <!-- Rose -->
+      <g transform="translate(30,40)" opacity="0.7">
+        <circle cx="0" cy="0" r="9" fill="rgba(201,135,122,0.3)" stroke="rgba(201,135,122,0.5)" stroke-width="0.8" />
+        <circle cx="0" cy="0" r="5.5" fill="rgba(201,135,122,0.45)" />
+        <circle cx="-1" cy="-1" r="2.5" fill="rgba(201,135,122,0.7)" />
+      </g>
+      <g transform="translate(60,160)" opacity="0.6">
+        <circle cx="0" cy="0" r="8" fill="rgba(201,168,76,0.25)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8" />
+        <circle cx="0" cy="0" r="4.5" fill="rgba(201,168,76,0.4)" />
+      </g>
+    </svg>
+
+    <svg class="botanical-right" viewBox="0 0 130 340" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <path d="M65,330 Q40,260 50,200 Q60,140 40,80 Q25,30 60,10" stroke="#6B9E86" stroke-width="1.5" fill="none"
+        opacity="0.6" />
+      <ellipse cx="52" cy="290" rx="7" ry="14" fill="#8FBC8F" opacity="0.35" transform="rotate(20 52 290)" />
+      <ellipse cx="42" cy="260" rx="7" ry="15" fill="#6B9E86" opacity="0.4" transform="rotate(35 42 260)" />
+      <ellipse cx="55" cy="220" rx="6" ry="13" fill="#8FBC8F" opacity="0.35" transform="rotate(15 55 220)" />
+      <ellipse cx="44" cy="185" rx="7" ry="14" fill="#6B9E86" opacity="0.38" transform="rotate(28 44 185)" />
+      <ellipse cx="50" cy="150" rx="6" ry="13" fill="#8FBC8F" opacity="0.32" transform="rotate(10 50 150)" />
+      <ellipse cx="42" cy="110" rx="7" ry="15" fill="#6B9E86" opacity="0.35" transform="rotate(20 42 110)" />
+      <ellipse cx="52" cy="70" rx="6" ry="13" fill="#8FBC8F" opacity="0.3" transform="rotate(8 52 70)" />
+      <g transform="translate(30,40)" opacity="0.7">
+        <circle cx="0" cy="0" r="9" fill="rgba(201,135,122,0.3)" stroke="rgba(201,135,122,0.5)" stroke-width="0.8" />
+        <circle cx="0" cy="0" r="5.5" fill="rgba(201,135,122,0.45)" />
+        <circle cx="-1" cy="-1" r="2.5" fill="rgba(201,135,122,0.7)" />
+      </g>
+      <g transform="translate(60,160)" opacity="0.6">
+        <circle cx="0" cy="0" r="8" fill="rgba(201,168,76,0.25)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8" />
+        <circle cx="0" cy="0" r="4.5" fill="rgba(201,168,76,0.4)" />
+      </g>
+    </svg>
+
+    <div class="hero-inner fade-section">
+
+      <div class="hero-badge">
+        <div class="hero-badge-line"></div>
+        <span>Cerimônia Religiosa</span>
+        <div class="hero-badge-line"></div>
       </div>
 
-      <div class="cover-art-wrapper"
-        style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1; pointer-events: none;">
-        <div class="god-rays"></div>
-
-        <!-- Catholic Borders — Left: Cruz + Cálice + Pomba -->
-        <div class="catholic-border left-border">
-          <!-- Cruz Latina com Raios -->
-          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
-            <line x1="50" y1="10" x2="50" y2="90" stroke="var(--secondary-action)" stroke-width="4" stroke-linecap="round"/>
-            <line x1="25" y1="35" x2="75" y2="35" stroke="var(--secondary-action)" stroke-width="4" stroke-linecap="round"/>
-            <!-- Raios de luz -->
-            <line x1="50" y1="35" x2="30" y2="15" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.4"/>
-            <line x1="50" y1="35" x2="70" y2="15" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.4"/>
-            <line x1="50" y1="35" x2="20" y2="35" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.3"/>
-            <line x1="50" y1="35" x2="80" y2="35" stroke="var(--primary-action)" stroke-width="0.8" opacity="0.3"/>
-            <!-- Ramo de oliveira na base -->
-            <path d="M38 75C42 70 46 72 50 68C54 72 58 70 62 75" stroke="var(--accent-sage, #8FBC8F)" stroke-width="1" fill="none"/>
-            <ellipse cx="40" cy="72" rx="3" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(-15 40 72)"/>
-            <ellipse cx="60" cy="72" rx="3" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(15 60 72)"/>
-          </svg>
-
-          <!-- Cálice Eucarístico -->
-          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
-            <!-- Hóstia -->
-            <circle cx="50" cy="18" r="12" fill="var(--accent-cream, #F5EFE6)" stroke="var(--secondary-action)" stroke-width="1.5"/>
-            <line x1="44" y1="18" x2="56" y2="18" stroke="var(--secondary-action)" stroke-width="1" opacity="0.7"/>
-            <line x1="50" y1="12" x2="50" y2="24" stroke="var(--secondary-action)" stroke-width="1" opacity="0.7"/>
-            <!-- Cálice -->
-            <path d="M30 40 Q30 30 50 30 Q70 30 70 40 L62 55 Q56 60 56 65 L56 72 L66 76 L66 80 L34 80 L34 76 L44 72 L44 65 Q44 60 38 55 Z" 
-              fill="rgba(201, 168, 76, 0.15)" stroke="var(--secondary-action)" stroke-width="1.5"/>
-            <!-- Raios do cálice -->
-            <line x1="50" y1="30" x2="50" y2="22" stroke="var(--secondary-action)" stroke-width="0.8" opacity="0.5"/>
-            <line x1="40" y1="32" x2="36" y2="26" stroke="var(--secondary-action)" stroke-width="0.5" opacity="0.3"/>
-            <line x1="60" y1="32" x2="64" y2="26" stroke="var(--secondary-action)" stroke-width="0.5" opacity="0.3"/>
-          </svg>
-
-          <!-- Pomba do Espírito Santo com Ramo de Oliveira -->
-          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
-            <!-- Corpo da pomba -->
-            <path d="M55 50 Q65 42 72 35 Q78 28 70 32 Q62 36 58 42 L55 50Z" fill="rgba(254, 253, 251, 0.8)" stroke="var(--primary-action)" stroke-width="1.2"/>
-            <!-- Asa -->
-            <path d="M45 52 Q30 35 22 28 Q18 25 25 30 Q32 35 40 48 L45 52Z" fill="rgba(254, 253, 251, 0.8)" stroke="var(--primary-action)" stroke-width="1.2"/>
-            <!-- Corpo -->
-            <ellipse cx="52" cy="55" rx="14" ry="8" fill="rgba(254, 253, 251, 0.9)" stroke="var(--primary-action)" stroke-width="1.2"/>
-            <!-- Cauda -->
-            <path d="M38 55 Q32 52 28 48" stroke="var(--primary-action)" stroke-width="1.2" fill="none"/>
-            <!-- Olho -->
-            <circle cx="60" cy="52" r="1.5" fill="var(--text-color, #2C4A3E)"/>
-            <!-- Ramo de oliveira no bico -->
-            <line x1="66" y1="55" x2="78" y2="60" stroke="var(--accent-olive, #6B7F4E)" stroke-width="1"/>
-            <ellipse cx="72" cy="57" rx="2" ry="4" fill="var(--accent-sage, #8FBC8F)" opacity="0.6" transform="rotate(30 72 57)"/>
-            <ellipse cx="76" cy="59" rx="2" ry="3.5" fill="var(--accent-olive, #6B7F4E)" opacity="0.5" transform="rotate(35 76 59)"/>
-            <!-- Auréola sutil -->
-            <circle cx="52" cy="45" r="18" fill="none" stroke="var(--secondary-action)" stroke-width="0.5" opacity="0.25"/>
-          </svg>
-        </div>
-
-        <!-- Catholic Borders — Right: Rosário + Bíblia + Ramo de Oliveira -->
-        <div class="catholic-border right-border">
-          <!-- Rosário/Terço -->
-          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
-            <!-- Corrente do terço (forma oval) -->
-            <ellipse cx="50" cy="45" rx="22" ry="28" fill="none" stroke="var(--secondary-action)" stroke-width="1" stroke-dasharray="3 4"/>
-            <!-- Contas do terço -->
-            <circle cx="50" cy="17" r="3" fill="var(--secondary-action)" opacity="0.7"/>
-            <circle cx="67" cy="28" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
-            <circle cx="72" cy="45" r="3" fill="var(--secondary-action)" opacity="0.7"/>
-            <circle cx="67" cy="62" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
-            <circle cx="50" cy="73" r="3" fill="var(--secondary-action)" opacity="0.7"/>
-            <circle cx="33" cy="62" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
-            <circle cx="28" cy="45" r="3" fill="var(--secondary-action)" opacity="0.7"/>
-            <circle cx="33" cy="28" r="2.5" fill="var(--primary-action)" opacity="0.5"/>
-            <!-- Cruz pendente -->
-            <line x1="50" y1="73" x2="50" y2="95" stroke="var(--secondary-action)" stroke-width="1.5"/>
-            <line x1="43" y1="82" x2="57" y2="82" stroke="var(--secondary-action)" stroke-width="1.5"/>
-            <circle cx="50" cy="95" r="2" fill="var(--secondary-action)" opacity="0.5"/>
-          </svg>
-
-          <!-- Bíblia Sagrada Aberta -->
-          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
-            <!-- Livro aberto -->
-            <path d="M10 20 Q10 75 15 80 Q25 82 50 75 Q75 82 85 80 Q90 75 90 20" fill="rgba(254, 253, 251, 0.6)" stroke="var(--secondary-action)" stroke-width="1.5"/>
-            <!-- Lombada -->
-            <path d="M50 75 L50 18" stroke="var(--secondary-action)" stroke-width="1"/>
-            <!-- Páginas esquerda -->
-            <path d="M15 25 Q15 70 18 74 Q28 76 48 70" fill="none" stroke="var(--primary-action)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Páginas direita -->
-            <path d="M85 25 Q85 70 82 74 Q72 76 52 70" fill="none" stroke="var(--primary-action)" stroke-width="0.5" opacity="0.3"/>
-            <!-- Cruz na capa -->
-            <line x1="50" y1="30" x2="50" y2="55" stroke="var(--secondary-action)" stroke-width="1.5" opacity="0.6"/>
-            <line x1="40" y1="40" x2="60" y2="40" stroke="var(--secondary-action)" stroke-width="1.5" opacity="0.6"/>
-            <!-- Linhas de texto -->
-            <line x1="22" y1="35" x2="42" y2="35" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
-            <line x1="22" y1="42" x2="40" y2="42" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
-            <line x1="22" y1="49" x2="43" y2="49" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
-            <line x1="58" y1="35" x2="78" y2="35" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
-            <line x1="58" y1="42" x2="76" y2="42" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
-            <line x1="58" y1="49" x2="77" y2="49" stroke="var(--text-color, #2C4A3E)" stroke-width="0.5" opacity="0.2"/>
-          </svg>
-
-          <!-- Ramo de Oliveira Grande -->
-          <svg class="holy-icon" viewBox="0 0 100 100" fill="none">
-            <!-- Ramo principal -->
-            <path d="M20 85 Q35 60 50 45 Q65 30 80 15" stroke="var(--accent-olive, #6B7F4E)" stroke-width="1.5" fill="none"/>
-            <!-- Folhas -->
-            <ellipse cx="35" cy="65" rx="5" ry="10" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-30 35 65)"/>
-            <ellipse cx="30" cy="70" rx="4" ry="9" fill="var(--accent-olive, #6B7F4E)" opacity="0.4" transform="rotate(-45 30 70)"/>
-            <ellipse cx="45" cy="52" rx="5" ry="10" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-20 45 52)"/>
-            <ellipse cx="42" cy="58" rx="4" ry="8" fill="var(--accent-mint, #B8D4CA)" opacity="0.4" transform="rotate(-40 42 58)"/>
-            <ellipse cx="55" cy="40" rx="5" ry="10" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-15 55 40)"/>
-            <ellipse cx="52" cy="46" rx="4" ry="8" fill="var(--accent-olive, #6B7F4E)" opacity="0.4" transform="rotate(-35 52 46)"/>
-            <ellipse cx="65" cy="28" rx="5" ry="9" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(-10 65 28)"/>
-            <ellipse cx="62" cy="34" rx="4" ry="8" fill="var(--accent-mint, #B8D4CA)" opacity="0.4" transform="rotate(-30 62 34)"/>
-            <ellipse cx="75" cy="20" rx="4" ry="8" fill="var(--accent-sage, #8FBC8F)" opacity="0.5" transform="rotate(0 75 20)"/>
-            <!-- Pequenas oliveiras (frutos) -->
-            <circle cx="38" cy="62" r="2.5" fill="var(--accent-olive, #6B7F4E)" opacity="0.6"/>
-            <circle cx="55" cy="44" r="2" fill="var(--accent-olive, #6B7F4E)" opacity="0.5"/>
-            <circle cx="68" cy="25" r="2" fill="var(--accent-olive, #6B7F4E)" opacity="0.5"/>
-          </svg>
-        </div>
-
-        <div class="holy-church-container">
-          <!-- Left Wing -->
-          <div class="church-wing left-wing">
-            <div class="wing-top">
-              <div class="windows-container">
-                <div class="arch-window"></div>
-                <div class="arch-window"></div>
-              </div>
-            </div>
-            <div class="wing-bottom">
-              <div class="side-door-container">
-                <div class="side-door">
-                  <div class="door-grid"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Wing -->
-          <div class="church-wing right-wing">
-            <div class="wing-top">
-              <div class="windows-container">
-                <div class="arch-window"></div>
-                <div class="arch-window"></div>
-              </div>
-            </div>
-            <div class="wing-bottom">
-              <div class="side-door-container">
-                <div class="side-door">
-                  <div class="door-grid"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Center Body -->
-          <div class="church-center">
-            <div class="stained-glass-wrapper"></div>
-            <div class="balcony-frieze">
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-              <div class="frieze-arch"></div>
-            </div>
-            <div class="main-door-container">
-              <div class="main-door">
-                <div class="door-grid"></div>
-                <div class="door-line"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bell Tower -->
-          <div class="bell-tower">
-            <div class="cross-top-new"></div>
-            <div class="bell-tower-roof"></div>
-            <div class="bell-tower-base">
-              <div class="bell-tower-hole"></div>
-            </div>
-            <div class="church-bell"></div>
-          </div>
-        </div>
-        <div class="ocean">
-          <div class="wave"></div>
-          <div class="wave"></div>
-          <div class="wave"></div>
-        </div>
-        <div id="hero-canvas-container"></div>
-
-        <!-- ========== CASTIÇAL ESQUERDO ========== -->
-        <div class="candelabra left-candelabra">
-          <div class="candle-ambient-glow"></div>
-          <!-- Chama -->
-          <div class="candle-flame-wrapper">
-            <div class="candle-flame"></div>
-          </div>
-          <!-- Vela de cera -->
-          <div class="candle-wax"></div>
-          <!-- Suporte dourado -->
-          <div class="candle-holder">
-            <div class="holder-cup"></div>
-            <div class="holder-stem"></div>
-            <div class="holder-knot"></div>
-            <div class="holder-stem" style="height:14px;"></div>
-            <div class="holder-base-top"></div>
-            <div class="holder-base-mid"></div>
-            <div class="holder-base-bottom"></div>
-          </div>
-          <div class="candle-reflection"></div>
-        </div>
-
-        <!-- ========== CASTIÇAL DIREITO ========== -->
-        <div class="candelabra right-candelabra">
-          <div class="candle-ambient-glow"></div>
-          <div class="candle-flame-wrapper">
-            <div class="candle-flame"></div>
-          </div>
-          <div class="candle-wax"></div>
-          <div class="candle-holder">
-            <div class="holder-cup"></div>
-            <div class="holder-stem"></div>
-            <div class="holder-knot"></div>
-            <div class="holder-stem" style="height:14px;"></div>
-            <div class="holder-base-top"></div>
-            <div class="holder-base-mid"></div>
-            <div class="holder-base-bottom"></div>
-          </div>
-          <div class="candle-reflection"></div>
-        </div>
-
-        <!-- ========== ANJO ESQUERDO ========== -->
-        <div class="cherub cherub-left">
-          <div class="cherub-sparkle"></div>
-          <div class="cherub-sparkle"></div>
-          <div class="cherub-sparkle"></div>
-          <div class="cherub-sparkle"></div>
-          <div class="angel-figure">
-            <div class="angel-glory"></div>
-            <div class="angel-halo"></div>
-            <div class="angel-head">
-              <div class="angel-eyes"></div>
-            </div>
-            <div class="angel-neck"></div>
-            <div class="angel-wings-wrapper"></div>
-            <div class="angel-robe"></div>
-          </div>
-        </div>
-
-        <!-- ========== ANJO DIREITO ========== -->
-        <div class="cherub cherub-right">
-          <div class="cherub-sparkle"></div>
-          <div class="cherub-sparkle"></div>
-          <div class="cherub-sparkle"></div>
-          <div class="cherub-sparkle"></div>
-          <div class="angel-figure" style="transform: scaleX(-1);">
-            <div class="angel-glory"></div>
-            <div class="angel-halo"></div>
-            <div class="angel-head">
-              <div class="angel-eyes"></div>
-            </div>
-            <div class="angel-neck"></div>
-            <div class="angel-wings-wrapper"></div>
-            <div class="angel-robe"></div>
-          </div>
-        </div>
-
-      </div><!-- /Cover Art Wrapper -->
-
-
-      <!-- Decorative Eucalyptus Leaves -->
-      <svg class="leaf-decoration leaf-1" viewbox="0 0 100 100" fill="currentColor">
-        <!-- Folha de eucalipto -->
-        <ellipse cx="50" cy="50" rx="15" ry="40" opacity="0.5"/>
-        <path d="M50 10v80" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.7"/>
-        <path d="M40 25c10 5 10 15 0 20M60 25c-10 5-10 15 0 20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
-        <path d="M40 50c10 5 10 15 0 20M60 50c-10 5-10 15 0 20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3"/>
-      </svg>
-      <svg class="leaf-decoration leaf-2" viewbox="0 0 100 100" fill="currentColor">
-        <!-- Ramo de oliveira -->
-        <path d="M20 80 Q50 40 80 20" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-        <ellipse cx="35" cy="65" rx="6" ry="12" opacity="0.35" transform="rotate(-25 35 65)"/>
-        <ellipse cx="50" cy="48" rx="6" ry="12" opacity="0.3" transform="rotate(-15 50 48)"/>
-        <ellipse cx="65" cy="33" rx="6" ry="12" opacity="0.25" transform="rotate(-5 65 33)"/>
-      </svg>
-      <svg class="leaf-decoration leaf-3" viewbox="0 0 100 100" fill="currentColor">
-        <!-- Flor silvestre -->
-        <circle cx="50" cy="50" r="6" opacity="0.3"/>
-        <ellipse cx="50" cy="35" rx="5" ry="10" opacity="0.25"/>
-        <ellipse cx="50" cy="65" rx="5" ry="10" opacity="0.25"/>
-        <ellipse cx="35" cy="50" rx="10" ry="5" opacity="0.25"/>
-        <ellipse cx="65" cy="50" rx="10" ry="5" opacity="0.25"/>
-        <path d="M50 80v15" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-      </svg>
-      <svg class="leaf-decoration leaf-4" viewbox="0 0 100 100" fill="currentColor">
-        <!-- Folha grande de eucalipto -->
-        <path d="M50 10c-20 0-35 20-35 40s35 40 35 40 35-20 35-40-15-40-35-40z" opacity="0.3" />
-        <path d="M50 15v75" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
+      <!-- Elegant cross -->
+      <svg class="hero-cross" width="44" height="52" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="19" y="2" width="6" height="48" rx="2" fill="#C9A84C" opacity="0.8" />
+        <rect x="6" y="14" width="32" height="6" rx="2" fill="#C9A84C" opacity="0.8" />
+        <circle cx="22" cy="2" r="2.5" fill="#C9A84C" opacity="0.6" />
+        <circle cx="22" cy="50" r="2.5" fill="#C9A84C" opacity="0.6" />
+        <circle cx="6" cy="17" r="2.5" fill="#C9A84C" opacity="0.6" />
+        <circle cx="38" cy="17" r="2.5" fill="#C9A84C" opacity="0.6" />
+        <!-- rays -->
+        <line x1="22" y1="14" x2="10" y2="2" stroke="rgba(201,168,76,0.3)" stroke-width="0.8" />
+        <line x1="22" y1="14" x2="34" y2="2" stroke="rgba(201,168,76,0.3)" stroke-width="0.8" />
       </svg>
 
-      <!-- Particles -->
-      <div class="particle" style="top: 20%; left: 15%;"></div>
-      <div class="particle" style="top: 30%; right: 20%; animation-delay: 1s;"></div>
-      <div class="particle" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
-      <div class="particle" style="top: 70%; right: 15%; animation-delay: 0.5s;"></div>
-      <div class="particle" style="top: 40%; left: 40%; animation-delay: 1.5s;"></div>
-      <div class="particle" style="top: 80%; right: 35%; animation-delay: 2.5s;"></div>
+      <h1 class="hero-names gold-shimmer">Evellyn &amp; Marcos</h1>
+      <p class="hero-union">Unidos pela Fé · Pelo Amor · Pela Graça Divina</p>
 
-      <div class="names-container relative z-10 max-w-4xl mx-auto w-full p-8 rounded-3xl"
-        style="background: rgba(254, 253, 251, 0.5); backdrop-filter: blur(4px); border: 1px solid rgba(184, 212, 202, 0.5); box-shadow: 0 10px 40px rgba(44, 74, 62, 0.08); text-shadow: 0 2px 10px rgba(255,255,255,0.5); margin-bottom: 20vh;">
-        <!-- Sparkles -->
-        <svg class="sparkle-icon" style="top: 15%; left: 10%; width: 28px; height: 28px; animation-delay: 0.5s;"
-          viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+      <div class="gold-divider" style="margin-bottom: 32px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="5" stroke="#C9A84C" stroke-width="1" />
+          <circle cx="12" cy="12" r="2" fill="#C9A84C" opacity="0.6" />
         </svg>
-        <svg class="sparkle-icon" style="top: 45%; right: 12%; width: 20px; height: 20px; animation-delay: 1.5s;"
-          viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+      </div>
+
+      <div class="hero-date-box">
+        <p class="hero-date-label">Cerimônia de Casamento</p>
+        <p class="hero-date-text">19 de Novembro de 2026</p>
+      </div>
+
+      <p class="hero-phrase">"Duas pessoas são melhores do que uma"</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+     COUNTDOWN
+═══════════════════════════════════════ -->
+  <section id="countdown">
+    <div class="inner fade-section">
+      <p class="label">Contagem Regressiva</p>
+      <h2>Para o Grande Dia</h2>
+
+      <div class="countdown-grid">
+        <div class="countdown-item">
+          <span class="countdown-num" id="days">000</span>
+          <span class="countdown-unit">Dias</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="hours">00</span>
+          <span class="countdown-unit">Horas</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="minutes">00</span>
+          <span class="countdown-unit">Minutos</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="seconds">00</span>
+          <span class="countdown-unit">Segundos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+     MESSAGE
+═══════════════════════════════════════ -->
+  <section id="message">
+    <div class="inner fade-section">
+      <p class="section-label">Com muito amor</p>
+
+      <div class="gold-divider">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#C9A84C" opacity="0.7">
+          <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z" />
         </svg>
-        <svg class="sparkle-icon" style="bottom: 10%; left: 20%; width: 24px; height: 24px; animation-delay: 2.5s;"
-          viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+      </div>
+
+      <h2>Nosso Convite Especial</h2>
+      <p class="subtitle">Evellyn &amp; Marcos</p>
+
+      <p>Convidamos você para celebrar conosco este momento tão especial em nossas vidas. Será uma honra imensa ter a
+        sua presença em nossa cerimônia de casamento, onde uniremos nossas vidas diante de Deus e de nossos queridos
+        familiares e amigos.</p>
+      <p>Sua presença é o maior presente que poderíamos receber. Venha compartilhar conosco esse dia de alegria, de fé e
+        de esperança eterna.</p>
+
+      <div class="scripture-card">
+        <span class="quote-mark">&ldquo;</span>
+        <blockquote>O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Tudo sofre, tudo
+          crê, tudo espera, tudo suporta.</blockquote>
+        <cite>— 1 Coríntios 13:4-7</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+     GALLERY — RADIAL FAN
+═══════════════════════════════════════ -->
+  <section id="gallery">
+    <div class="inner fade-section">
+      <p class="section-label" style="text-align:center;">Nossa História</p>
+      <div class="gold-divider" style="margin-bottom: 16px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#C9A84C" opacity="0.7">
+          <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z" />
         </svg>
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,40px);font-weight:400;color:var(--emerald);text-align:center;margin-bottom:16px;">Momentos Especiais</h2>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);text-align:center;margin-bottom:48px;">Passe o mouse para explorar</p>
 
-        <!-- Cross with Olive Branch -->
-        <div class="mb-6">
-          <svg class="w-12 h-12 mx-auto opacity-80" style="color: var(--primary-action);" viewbox="0 0 60 60"
-            fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M30 8v44M16 22h28" stroke-linecap="round" />
-            <!-- Ramos de oliveira -->
-            <path d="M22 30c-4 2-8 1-10 4" stroke="var(--accent-sage, #8FBC8F)" stroke-width="0.8" fill="none" opacity="0.5"/>
-            <path d="M38 30c4 2 8 1 10 4" stroke="var(--accent-sage, #8FBC8F)" stroke-width="0.8" fill="none" opacity="0.5"/>
-            <ellipse cx="14" cy="33" rx="2" ry="4" fill="var(--accent-sage, #8FBC8F)" opacity="0.3" transform="rotate(-20 14 33)"/>
-            <ellipse cx="46" cy="33" rx="2" ry="4" fill="var(--accent-sage, #8FBC8F)" opacity="0.3" transform="rotate(20 46 33)"/>
+      <div class="radial-gallery">
+        <div class="radial-card"><img src="img/foto.jpg" alt="Nosso momento"></div>
+        <div class="radial-card"><img src="img/noiva.jpg" alt="A noiva"></div>
+        <div class="radial-card"><img src="img/igreja.jpg" alt="A igreja"></div>
+        <div class="radial-card"><img src="img/pio.jpg" alt="Padre Pio"></div>
+        <div class="radial-card"><img src="img/sagrada.jpg" alt="Sagrada Família"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+     DETAILS
+═══════════════════════════════════════ -->
+  <section id="details">
+    <div class="inner fade-section">
+      <p class="section-label" style="text-align:center; margin-bottom: 12px;">Informações</p>
+      <div class="gold-divider" style="margin-bottom: 16px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="#C9A84C" stroke-width="1" />
+          <circle cx="12" cy="12" r="4" stroke="#C9A84C" stroke-width="0.8" />
+        </svg>
+      </div>
+      <h2>Detalhes do Grande Dia</h2>
+
+      <div class="detail-cards">
+        <div class="detail-card">
+          <div class="icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+          </div>
+          <h3>Data</h3>
+          <p>19 de Novembro<br>de 2026</p>
+          <p class="detail-note">Quinta-feira</p>
+        </div>
+
+        <div class="detail-card">
+          <div class="icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <h3>Horário</h3>
+          <p>Igreja às 15h00<br>Cerimônia às 16h00</p>
+          <p class="detail-note">Chegada até 14h30</p>
+        </div>
+
+        <div class="detail-card">
+          <div class="icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h3>Localização</h3>
+          <p>Paraíso Particular<br>Belo Jardim — PE</p>
+          <p class="detail-note">@paraiso__particular</p>
+        </div>
+
+        <div class="detail-card">
+          <div class="icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+          </div>
+          <h3>Dress Code</h3>
+          <p>Traje Social<br>Passeio Completo</p>
+          <p class="detail-note">Cores claras são bem-vindas</p>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-wrap" style="margin-top: 48px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.0!2d-36.42!3d-8.34!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sPara%C3%ADso%20Particular%20-%20Belo%20Jardim%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+        </iframe>
+      </div>
+      <div style="text-align:center; margin-top: 20px;">
+        <a href="https://www.google.com/maps/search/Para%C3%ADso+Particular+Belo+Jardim+PE" target="_blank" class="map-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
           </svg>
-        </div>
-
-        <!-- Main Title -->
-        <p class="font-sans-elegant text-sm tracking-widest uppercase mb-4 opacity-90" style="letter-spacing: 4px;">Com
-          a bênção de Deus, convidamos você para celebrar</p>
-
-        <!-- Names -->
-        <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-2" id="bride-name">Evellyn</h1>
-        <div class="ampersand my-4">
-          <span class="font-serif-elegant text-4xl md:text-5xl italic" style="color: var(--secondary-action);">&amp;</span>
-        </div>
-        <h1 class="font-serif-elegant text-6xl md:text-8xl font-semibold mb-8" id="groom-name">Marcos</h1>
-
-        <!-- Romantic Phrase -->
-        <div class="divider-ornament">
-          <span class="divider-line"></span>
-          <!-- Pomba pequena -->
-          <svg class="w-6 h-6" style="color: var(--primary-action);" viewbox="0 0 24 24" fill="currentColor" opacity="0.7">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          Ver no Google Maps
+        </a>
+        <a href="https://www.instagram.com/paraiso__particular/" target="_blank" class="map-link" style="margin-left: 20px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="5" />
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
           </svg>
-          <span class="divider-line"></span>
-        </div>
-        <p class="font-serif-elegant text-xl md:text-2xl italic opacity-95 mb-8 px-4" id="wedding-phrase">"Unidos pela
-          fé, amor e graça divina"</p>
-
-        <!-- Wedding Date -->
-        <div class="mt-8 p-6 rounded-2xl" style="background: rgba(184, 212, 202, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(91, 168, 157, 0.2);">
-          <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2">Cerimônia de Casamento</p>
-          <p class="font-serif-elegant text-3xl md:text-4xl font-semibold">07 de novembro de 2026</p>
-        </div>
+          Ver no Instagram
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery-section fade-in-section" id="gallery" style="position: relative;">
-      <div class="section-bg-dynamic">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
+  <!-- ═══════════════════════════════════════
+     RSVP
+═══════════════════════════════════════ -->
+  <section id="rsvp">
+    <div class="inner fade-section">
+      <p class="section-label">Confirmação</p>
+      <div class="gold-divider" style="margin-bottom: 16px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#C9A84C" opacity="0.7">
+          <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z" />
+        </svg>
       </div>
-      <div class="gallery-container">
-        <div class="section-title text-center">
-          <!-- Ornamento: Cruz com duas velas flanqueando -->
-          <div class="book-liturgical-header">
-            <!-- Vela litúrgica esquerda (mini) -->
-            <div class="book-candle">
-              <div class="book-candle-flame-wrap"><div class="book-candle-flame"></div></div>
-              <div class="book-candle-wax"></div>
-              <div class="book-candle-holder"></div>
-            </div>
-            <!-- Cruz central com raios -->
-            <svg viewBox="0 0 60 70" fill="none" style="width:50px; height:60px; flex-shrink:0;">
-              <!-- Raios de luz -->
-              <line x1="30" y1="12" x2="30" y2="2" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
-              <line x1="22" y1="14" x2="16" y2="7" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
-              <line x1="38" y1="14" x2="44" y2="7" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
-              <!-- Cruz -->
-              <rect x="27" y="10" width="6" height="48" rx="2" fill="var(--secondary-action)" opacity="0.85"/>
-              <rect x="12" y="24" width="36" height="6" rx="2" fill="var(--secondary-action)" opacity="0.85"/>
-              <!-- Ramos de oliveira embaixo -->
-              <path d="M22 52 C18 48 14 46 12 50" stroke="#8FBC8F" stroke-width="1.2" fill="none"/>
-              <path d="M38 52 C42 48 46 46 48 50" stroke="#8FBC8F" stroke-width="1.2" fill="none"/>
-              <ellipse cx="15" cy="49" rx="2.5" ry="4" fill="#8FBC8F" opacity="0.4" transform="rotate(20 15 49)"/>
-              <ellipse cx="45" cy="49" rx="2.5" ry="4" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 45 49)"/>
-              <!-- Coração no centro -->
-              <circle cx="30" cy="27" r="4" fill="rgba(201,168,76,0.25)" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
-            </svg>
-            <!-- Vela litúrgica direita (mini) -->
-            <div class="book-candle">
-              <div class="book-candle-flame-wrap"><div class="book-candle-flame"></div></div>
-              <div class="book-candle-wax"></div>
-              <div class="book-candle-holder"></div>
+      <h2>Confirmar Presença</h2>
+      <p class="subtitle">Confirme até 31 de Outubro de 2026</p>
+
+      <div class="rsvp-card">
+        <div id="rsvp-form-inner">
+          <span class="field-label" style="text-align:center; display:block;">Você irá comparecer?</span>
+
+          <div class="radio-group" style="margin-top: 16px;">
+            <label class="radio-label">
+              <input type="radio" name="attend" value="yes" checked> Sim, estarei lá
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attend" value="no"> Infelizmente não poderei
+            </label>
+          </div>
+
+          <div style="margin-top: 4px;">
+            <span class="field-label">Levará crianças?</span>
+            <div class="radio-group" style="margin-top: 8px;">
+              <label class="radio-label">
+                <input type="radio" name="children" value="yes" id="children-yes"> Sim
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="children" value="no" checked> Não
+              </label>
             </div>
           </div>
-          <h2 class="font-serif-elegant text-3xl md:text-4xl mb-4" style="color: var(--text-color);">Nossa História</h2>
-          <p class="font-sans-elegant text-sm tracking-widest uppercase mb-2 opacity-70"
-            style="color: var(--text-color);">Passe o mouse (ou toque) para folhear</p>
-        </div>
-        <!-- Novo Álbum CSS 3D (Turning Pages Automático) -->
-        <div class="imgLoader"></div>
-        <div class="css-book-wrapper">
-          <div class="book">
-            <div class="gap"></div>
-            <div class="pages">
-              <div class="page"></div>
-              <div class="page"></div>
-              <div class="page"></div>
-              <div class="page"></div>
-              <div class="page"></div>
-              <div class="page"></div>
+
+          <div class="children-group" id="children-details">
+            <div>
+              <span class="field-label">Quantidade</span>
+              <input type="number" id="children-count" class="elegant-input" placeholder="0" min="0">
             </div>
-            <div class="flips">
-              <div class="flip flip1">
-                <div class="flip flip2">
-                  <div class="flip flip3">
-                    <div class="flip flip4">
-                      <div class="flip flip5">
-                        <div class="flip flip6">
-                          <div class="flip flip7"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <span class="field-label">Idades</span>
+              <input type="text" id="children-ages" class="elegant-input" placeholder="Ex: 2, 5">
             </div>
           </div>
-        </div>
-    </section>
 
-    <!-- Countdown Section -->
-    <section class="py-20 px-4 flex flex-col justify-center fade-in-section"
-      style="background: var(--secondary-surface); position: relative;">
-      <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent);"></div>
-        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(91, 168, 157, 0.2), transparent);"></div>
+          <div class="rsvp-btns">
+            <button class="btn-confirm" onclick="handleRsvp()">Confirmar Presença</button>
+            <button class="btn-decline" onclick="handleDecline()">Não poderei ir</button>
+          </div>
+        </div>
+
+        <div id="rsvp-message"></div>
       </div>
-      <div class="max-w-4xl mx-auto text-center">
-        <!-- Ornamento: Arco litúrgico com cruz -->
-        <div class="countdown-arch-ornament">
-          <div class="arch-candle left">
-            <div class="arch-candle-flame-wrap"><div class="arch-candle-flame"></div></div>
-            <div class="arch-candle-body"></div>
-            <div class="arch-candle-base"></div>
-          </div>
-          <!-- Arco SVG -->
-          <svg viewBox="0 0 180 80" fill="none" style="width:180px; height:80px;">
-            <!-- Arco principal -->
-            <path d="M10 75 Q10 10 90 10 Q170 10 170 75" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
-            <!-- Cruz no topo -->
-            <rect x="86" y="2" width="8" height="22" rx="2" fill="rgba(201,168,76,0.7)"/>
-            <rect x="78" y="8" width="24" height="6" rx="2" fill="rgba(201,168,76,0.7)"/>
-            <!-- Oliveiras nos lados -->
-            <path d="M15 65 C12 55 8 50 5 55" stroke="#8FBC8F" stroke-width="1" fill="none" opacity="0.6"/>
-            <ellipse cx="7" cy="53" rx="2" ry="3.5" fill="#8FBC8F" opacity="0.4" transform="rotate(15 7 53)"/>
-            <path d="M165 65 C168 55 172 50 175 55" stroke="#8FBC8F" stroke-width="1" fill="none" opacity="0.6"/>
-            <ellipse cx="173" cy="53" rx="2" ry="3.5" fill="#8FBC8F" opacity="0.4" transform="rotate(-15 173 53)"/>
-            <!-- Pombas decorativas nos cantos -->
-            <path d="M30 35 Q36 28 40 32 Q36 33 34 38 Q32 33 26 33 Q28 28 30 35Z" fill="rgba(91,168,157,0.3)"/>
-            <path d="M150 35 Q144 28 140 32 Q144 33 146 38 Q148 33 154 33 Q152 28 150 35Z" fill="rgba(91,168,157,0.3)"/>
-          </svg>
-          <div class="arch-candle right">
-            <div class="arch-candle-flame-wrap"><div class="arch-candle-flame"></div></div>
-            <div class="arch-candle-body"></div>
-            <div class="arch-candle-base"></div>
-          </div>
-        </div>
-        <p class="font-sans-elegant text-sm tracking-widest uppercase mb-8 opacity-70"
-          style="color: var(--text-color);">Para o grande dia</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          <div class="countdown-card p-6 md:p-8"><span
-              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="days">000</span>
-            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
-              style="color: var(--text-color); opacity: 0.7;">Dias</span>
-          </div>
-          <div class="countdown-card p-6 md:p-8"><span
-              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="hours">00</span>
-            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
-              style="color: var(--text-color); opacity: 0.7;">Horas</span>
-          </div>
-          <div class="countdown-card p-6 md:p-8"><span
-              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="minutes">00</span>
-            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
-              style="color: var(--text-color); opacity: 0.7;">Minutos</span>
-          </div>
-          <div class="countdown-card p-6 md:p-8"><span
-              class="countdown-number font-serif-elegant text-5xl md:text-6xl font-bold block" id="seconds">00</span>
-            <span class="font-sans-elegant text-xs tracking-widest uppercase mt-2 block"
-              style="color: var(--text-color); opacity: 0.7;">Segundos</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Catholic Elements Section -->
-    <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
-      <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent);"></div>
-        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(143, 188, 143, 0.2), transparent);"></div>
-      </div>
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="icon-container mb-12" style="position: relative; z-index: 5;">
-          <!-- Cruz -->
-          <div class="flex flex-col items-center">
-            <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(91, 168, 157, 0.12); border: 1px solid rgba(91, 168, 157, 0.2);">
-              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--primary-action); filter: drop-shadow(0 0 5px rgba(91, 168, 157, 0.3));">
-                <path d="M30 5v50M15 18h30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <circle cx="30" cy="5" r="2" fill="currentColor" />
-                <circle cx="30" cy="55" r="2" fill="currentColor" />
-                <circle cx="15" cy="18" r="2" fill="currentColor" />
-                <circle cx="45" cy="18" r="2" fill="currentColor" />
-              </svg>
-            </div>
-            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
-              style="color: var(--primary-action);">Fé</span>
-          </div>
+  <!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+  <footer id="footer">
+    <!-- Botanical corners decorations -->
+    <svg style="position:absolute;top:0;left:0;width:120px;opacity:0.18;pointer-events:none" viewBox="0 0 120 120"
+      fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 Q40,30 80,80" stroke="#8FBC8F" stroke-width="1.5" />
+      <ellipse cx="25" cy="22" rx="5" ry="11" fill="#8FBC8F" transform="rotate(-35 25 22)" />
+      <ellipse cx="48" cy="45" rx="5" ry="11" fill="#6B9E86" transform="rotate(-25 48 45)" />
+      <ellipse cx="68" cy="68" rx="4" ry="10" fill="#8FBC8F" transform="rotate(-15 68 68)" />
+    </svg>
+    <svg style="position:absolute;top:0;right:0;width:120px;opacity:0.18;pointer-events:none;transform:scaleX(-1)"
+      viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 Q40,30 80,80" stroke="#8FBC8F" stroke-width="1.5" />
+      <ellipse cx="25" cy="22" rx="5" ry="11" fill="#8FBC8F" transform="rotate(-35 25 22)" />
+      <ellipse cx="48" cy="45" rx="5" ry="11" fill="#6B9E86" transform="rotate(-25 48 45)" />
+      <ellipse cx="68" cy="68" rx="4" ry="10" fill="#8FBC8F" transform="rotate(-15 68 68)" />
+    </svg>
 
-          <!-- Alianças -->
-          <div class="flex flex-col items-center rings-container">
-            <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(201, 168, 76, 0.12); border: 1px solid rgba(201, 168, 76, 0.2);">
-              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--secondary-action); filter: drop-shadow(0 0 5px rgba(201, 168, 76, 0.3));">
-                <circle cx="22" cy="30" r="14" stroke="currentColor" stroke-width="2" />
-                <circle cx="38" cy="30" r="14" stroke="currentColor" stroke-width="2" />
-              </svg>
-            </div>
-            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
-              style="color: var(--primary-action);">Sagrada União</span>
-          </div>
+    <div class="inner fade-section">
 
-          <!-- Bíblia -->
-          <div class="flex flex-col items-center">
-            <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(91, 168, 157, 0.12); border: 1px solid rgba(91, 168, 157, 0.2);">
-              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--primary-action); filter: drop-shadow(0 0 5px rgba(91, 168, 157, 0.3));">
-                <rect x="12" y="10" width="36" height="40" rx="3" stroke="currentColor" stroke-width="2" />
-                <path d="M12 10c4 0 6 2 6 5v30c0-3 2-5 6-5" stroke="currentColor" stroke-width="2" />
-                <path d="M48 10c-4 0-6 2-6 5v30c0-3-2-5-6-5" stroke="currentColor" stroke-width="2" />
-                <path d="M30 18v12M24 24h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-              </svg>
-            </div>
-            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
-              style="color: var(--primary-action);">A Palavra</span>
-          </div>
+      <!-- Dove SVG -->
+      <svg width="52" height="44" viewBox="0 0 52 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="margin: 0 auto 28px; display:block; opacity:0.65;">
+        <path d="M26 38 Q38 26 44 18 Q50 12 42 16 Q34 20 30 28 L26 38Z" fill="rgba(249,244,236,0.7)"
+          stroke="rgba(201,168,76,0.7)" stroke-width="1" />
+        <path d="M20 40 Q6 22 2 14 Q-2 8 6 14 Q14 20 18 34 L20 40Z" fill="rgba(249,244,236,0.7)"
+          stroke="rgba(201,168,76,0.7)" stroke-width="1" />
+        <ellipse cx="26" cy="34" rx="12" ry="7" fill="rgba(249,244,236,0.85)" stroke="rgba(201,168,76,0.6)"
+          stroke-width="1" />
+        <circle cx="34" cy="30" r="1.5" fill="rgba(30,64,53,0.6)" />
+        <!-- Olive branch -->
+        <line x1="38" y1="34" x2="50" y2="40" stroke="#6B9E86" stroke-width="1" />
+        <ellipse cx="44" cy="37" rx="2" ry="4" fill="#8FBC8F" opacity="0.6" transform="rotate(30 44 37)" />
+        <ellipse cx="48" cy="39" rx="2" ry="3.5" fill="#6B9E86" opacity="0.5" transform="rotate(35 48 39)" />
+      </svg>
 
-          <!-- Pomba -->
-          <div class="flex flex-col items-center">
-            <div class="icon-wrapper p-4 rounded-full"
-              style="background: rgba(254, 253, 251, 0.6); box-shadow: 0 10px 25px rgba(91, 168, 157, 0.12); border: 1px solid rgba(91, 168, 157, 0.2);">
-              <svg class="catholic-icon w-12 h-12" viewbox="0 0 60 60" fill="none"
-                style="color: var(--primary-action); filter: drop-shadow(0 0 5px rgba(91, 168, 157, 0.3));">
-                <path d="M30 50c-2-2-18-14-18-24 0-6 4-10 9-10 4 0 7 3 9 6 2-3 5-6 9-6 5 0 9 4 9 10 0 10-16 22-18 24z"
-                  stroke="currentColor" stroke-width="2" fill="none" />
-                <!-- Ramo de oliveira no coração -->
-                <path d="M25 38c-3 1-6 0-8 2" stroke="var(--accent-sage, #8FBC8F)" stroke-width="1" fill="none" opacity="0.5"/>
-                <ellipse cx="18" cy="39" rx="2" ry="3.5" fill="var(--accent-sage, #8FBC8F)" opacity="0.3" transform="rotate(-15 18 39)"/>
-              </svg>
-            </div>
-            <span class="font-sans-elegant text-xs mt-4 uppercase tracking-widest font-bold"
-              style="color: var(--primary-action);">Graça e Amor</span>
-          </div>
-        </div>
+      <h2 class="footer-names">Evellyn &amp; Marcos</h2>
+      <p class="footer-date">19 · 11 · 2026 · Belo Jardim</p>
 
-        <!-- Bible Verse — Moldura Iluminada de Manuscrito -->
-        <div class="verse-frame max-w-2xl mx-auto">
-          <!-- Velas decorativas laterais -->
-          <div class="verse-candle verse-candle-left">
-            <div class="vc-flame-wrap"><div class="vc-flame"></div></div>
-            <div class="vc-wax"></div>
-            <div class="vc-base"></div>
-          </div>
-          <div class="verse-candle verse-candle-right">
-            <div class="vc-flame-wrap"><div class="vc-flame"></div></div>
-            <div class="vc-wax"></div>
-            <div class="vc-base"></div>
-          </div>
-          <!-- Conteúdo -->
-          <div class="verse-inner p-8 rounded-2xl"
-            style="background: rgba(254, 253, 251, 0.88); backdrop-filter: blur(8px); box-shadow: 0 10px 40px rgba(44, 74, 62, 0.08); border: 1px solid rgba(91, 168, 157, 0.15);">
-            <!-- Cruz decorativa topo -->
-            <svg viewBox="0 0 60 30" fill="none" style="width:60px; height:30px; margin: 0 auto 12px; display:block; opacity:0.6;">
-              <line x1="30" y1="3" x2="30" y2="27" stroke="var(--secondary-action)" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="18" y1="11" x2="42" y2="11" stroke="var(--secondary-action)" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="30" cy="3" r="2" fill="rgba(201,168,76,0.5)"/>
-              <circle cx="30" cy="27" r="2" fill="rgba(201,168,76,0.5)"/>
-              <circle cx="18" cy="11" r="2" fill="rgba(201,168,76,0.5)"/>
-              <circle cx="42" cy="11" r="2" fill="rgba(201,168,76,0.5)"/>
-            </svg>
-            <!-- Aspas decorativas -->
-            <svg class="w-8 h-8 mx-auto mb-4" style="color: var(--secondary-action);" viewbox="0 0 24 24"
-              fill="currentColor" opacity="0.5">
-              <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-            </svg>
-            <p class="font-serif-elegant text-lg md:text-xl italic leading-relaxed mb-4" style="color: var(--text-color);"
-              id="bible-verse">"O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha. Não
-              maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor. O amor não se alegra com a
-              injustiça, mas se alegra com a verdade. Tudo sofre, tudo crê, tudo espera, tudo suporta."</p>
-            <p class="font-sans-elegant text-sm tracking-widest" style="color: var(--primary-action);">— 1 Coríntios
-              13:4-7</p>
-            <!-- Ornamento inferior: ramo de oliveira -->
-            <svg viewBox="0 0 120 30" fill="none" style="width:120px; height:30px; margin: 16px auto 0; display:block; opacity:0.4;">
-              <path d="M10 20 Q30 8 60 15 Q90 8 110 20" stroke="#8FBC8F" stroke-width="1.2" fill="none"/>
-              <ellipse cx="25" cy="13" rx="4" ry="7" fill="#8FBC8F" opacity="0.4" transform="rotate(-20 25 13)"/>
-              <ellipse cx="45" cy="10" rx="4" ry="7" fill="#6B7F4E" opacity="0.35" transform="rotate(-8 45 10)"/>
-              <ellipse cx="60" cy="12" rx="3" ry="6" fill="#8FBC8F" opacity="0.3"/>
-              <ellipse cx="75" cy="10" rx="4" ry="7" fill="#6B7F4E" opacity="0.35" transform="rotate(8 75 10)"/>
-              <ellipse cx="95" cy="13" rx="4" ry="7" fill="#8FBC8F" opacity="0.4" transform="rotate(20 95 13)"/>
-            </svg>
-          </div>
-        </div>
+      <div class="footer-divider"></div>
 
-      </div>
-    </section>
+      <p class="footer-verse">"Duas pessoas são melhores do que uma, porque podem ajudar uma à outra a vencer. Se uma
+        cair, a outra pode ajudá-la a se levantar."</p>
+      <p class="footer-ref">— Eclesiastes 4:9-10</p>
 
-    <!-- Invitation Message Section -->
-    <section class="py-20 px-4 fade-in-section" style="background: var(--secondary-surface); position: relative;">
-      <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(91, 168, 157, 0.2), transparent);"></div>
-        <div class="blob blob-2" style="background: radial-gradient(circle, rgba(201, 168, 76, 0.12), transparent);"></div>
-      </div>
-      <div class="max-w-2xl mx-auto text-center">
-        <div class="divider-ornament"><span class="divider-line"></span>
-          <svg class="w-8 h-8" style="color: var(--primary-action);" viewbox="0 0 60 60" fill="none">
-            <circle cx="22" cy="30" r="10" stroke="currentColor" stroke-width="2" />
-            <circle cx="38" cy="30" r="10" stroke="currentColor" stroke-width="2" />
-          </svg><span class="divider-line"></span>
-        </div>
-        <p id="guest-greeting" class="font-serif-elegant text-2xl md:text-3xl mb-6 font-bold"
-          style="color: var(--primary-action);"></p>
-        <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Com muito amor</h2>
-        <p class="font-sans-elegant text-base leading-relaxed mb-8" style="color: var(--text-color); opacity: 0.85;">
-          Convidamos você para celebrar conosco este momento tão especial em nossas vidas. Será uma honra ter sua
-          presença em nossa cerimônia de casamento, onde uniremos nossas vidas diante de Deus e de nossos familiares e
-          amigos.</p>
-        <p class="font-sans-elegant text-base leading-relaxed mb-10" style="color: var(--text-color); opacity: 0.85;">
-          Sua presença é o maior presente que podemos receber. Venha compartilhar conosco esse dia de alegria, fé e
-          esperança.</p>
-        <button class="save-date-btn"
-          style="background: linear-gradient(135deg, var(--primary-action), var(--accent-forest, #3D7A6B)); color: white; border: none;"> 🕊️ Save the Date 🕊️
-        </button>
-      </div>
-    </section>
+      <div class="footer-divider"></div>
+      <p class="footer-credit">com amor · 2026</p>
+    </div>
+  </footer>
 
-    <!-- Location Section -->
-    <section class="py-20 px-4 fade-in-section" style="background: var(--primary-bg); position: relative;">
-      <div class="section-bg-dynamic">
-        <div class="blob blob-1" style="background: radial-gradient(circle, rgba(143, 188, 143, 0.2), transparent);"></div>
-      </div>
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="font-serif-elegant text-3xl md:text-4xl mb-8" style="color: var(--text-color);">Localização</h2>
-        <div class="map-container shadow-lg rounded-2xl overflow-hidden" style="border: 3px solid rgba(91, 168, 157, 0.3);">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.39899874668!2d-36.46353566815646!3d-8.333555987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7a98bb1e6a0b0b3%3A0x6a0b0b3b0b0b0b0b!2sBelo%20Jardim%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr"
-            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <p class="font-sans-elegant text-sm mt-6 opacity-80">Belo Jardim - PE</p>
-        <a href="https://maps.google.com/?q=Belo+Jardim+PE" target="_blank"
-          class="save-date-btn mt-4 inline-block no-underline">Ver no Google Maps</a>
-      </div>
-    </section>
+  <script>
+    // ── INTRO ──────────────────────────────────────────────
+    const intro = document.getElementById('intro');
+    const openBtn = document.getElementById('open-btn');
+    const musicBtn = document.getElementById('music-btn');
+    const bgm = document.getElementById('bgm');
 
-    <!-- RSVP Section -->
-    <section class="py-20 px-4 fade-in-section" id="rsvp" style="background: var(--primary-bg); position: relative;">
-      <div class="max-w-2xl mx-auto text-center p-8 rounded-2xl"
-        style="background: rgba(254, 253, 251, 0.85); backdrop-filter: blur(8px); box-shadow: 0 10px 40px rgba(44, 74, 62, 0.08); border: 1px solid rgba(91, 168, 157, 0.15);">
-        <h2 class="font-serif-elegant text-3xl md:text-4xl mb-6" style="color: var(--text-color);">Confirmação de
-          Presença</h2>
-        <p class="font-sans-elegant text-sm mb-8" style="color: var(--text-color);">Por favor, confirme sua presença.
-        </p>
-        <div id="rsvp-form-container">
-          <div class="mb-6">
-            <label class="block font-sans-elegant text-sm font-bold mb-2" style="color: var(--text-color);">Levará
-              crianças?</label>
-            <div class="flex justify-center gap-4">
-              <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children"
-                  value="yes" class="custom-radio"
-                  onchange="document.getElementById('children-details').classList.remove('hidden')"> <span
-                  class="ml-2">Sim</span></label>
-              <label class="inline-flex items-center cursor-pointer"><input type="radio" name="bringing_children"
-                  value="no" class="custom-radio" checked
-                  onchange="document.getElementById('children-details').classList.add('hidden')"> <span
-                  class="ml-2">Não</span></label>
-            </div>
-          </div>
-          <div id="children-details" class="hidden mb-6 text-left">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Quantidade</label> <input
-                  type="number" id="children_count" class="w-full elegant-input" placeholder="0">
-              </div>
-              <div>
-                <label class="block text-xs uppercase tracking-wide mb-1 opacity-70">Idades</label> <input type="text"
-                  id="children_ages" class="w-full elegant-input" placeholder="Ex: 2, 5">
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-col md:flex-row justify-center gap-4 mt-8">
-            <button onclick="handleRsvp('Confirmado')" class="save-date-btn" style="background: linear-gradient(135deg, var(--primary-action), var(--accent-forest, #3D7A6B)); color: white; border: none;">Confirmar Presença</button>
-            <button onclick="handleRsvp('Recusado')" class="save-date-btn" style="background: #ef4444; color: white; border: none;">Não poderei
-              ir</button>
-          </div>
-        </div>
-        <div id="rsvp-message" class="mt-6 font-serif-elegant text-xl" style="display: none;"></div>
-        <div id="gift-list-container" class="mt-8" style="display: none;">
-          <a id="gift-list-link" href="#" class="save-date-btn"
-            style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, var(--secondary-action), #B8932E); color: white; border: none;">🎁
-            Ver Lista de Presentes</a>
-        </div>
-      </div>
+    // Generate petals
+    const petalContainer = document.getElementById('petal-container');
+    const petalColors = [
+      'rgba(201,135,122,0.55)', 'rgba(201,168,76,0.45)',
+      'rgba(107,158,134,0.4)', 'rgba(249,244,236,0.6)',
+      'rgba(232,214,154,0.5)'
+    ];
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${-20 - Math.random() * 20}px;
+      background: ${petalColors[Math.floor(Math.random() * petalColors.length)]};
+      animation-duration: ${5 + Math.random() * 8}s;
+      animation-delay: ${Math.random() * 6}s;
+      transform: rotate(${Math.random() * 360}deg);
+      width: ${8 + Math.random() * 8}px;
+      height: ${13 + Math.random() * 10}px;
+    `;
+      petalContainer.appendChild(p);
+    }
 
-      <!-- Footer -->
-      <footer class="mt-20 py-12 px-4 text-center rounded-2xl mx-auto" style="max-width: 900px;">
-        <div class="max-w-2xl mx-auto">
-          <div class="mb-6">
-            <!-- Pomba com ramo de oliveira -->
-            <svg class="w-10 h-10 mx-auto" style="color: var(--primary-action); opacity: 0.7;" viewbox="0 0 60 60"
-              fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M30 15 Q42 5 50 20 Q35 22 30 35 Q25 22 10 20 Q18 5 30 15Z" fill="rgba(91, 168, 157, 0.15)"/>
-              <line x1="30" y1="35" x2="30" y2="50" stroke="var(--accent-sage, #8FBC8F)" stroke-width="1"/>
-              <ellipse cx="26" cy="46" rx="2.5" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(-20 26 46)"/>
-              <ellipse cx="34" cy="46" rx="2.5" ry="5" fill="var(--accent-sage, #8FBC8F)" opacity="0.4" transform="rotate(20 34 46)"/>
-            </svg>
-          </div>
-          <p class="font-serif-elegant text-2xl md:text-3xl italic mb-2" id="footer-names">Evellyn &amp; Marcos</p>
-          <p class="font-sans-elegant text-sm tracking-widest opacity-80">19 · 11 · 2026</p>
-          <div class="mt-8 pt-6 border-t" style="border-color: rgba(91, 168, 157, 0.2);">
-            <p class="font-serif-elegant text-base italic opacity-90">"Duas pessoas são melhores do que uma, porque
-              podem ajudar uma à outra a vencer."</p>
-            <p class="font-sans-elegant text-xs tracking-widest mt-2 opacity-70">— Eclesiastes 4:9</p>
-          </div>
-        </div>
-      </footer>
-    </section>
-  </div>
-  <script src="js/utils.js"></script>
-  <script src="js/invite.js"></script>
-  <script type="module" src="js/hearts-3d.js"></script>
+    openBtn.addEventListener('click', () => {
+      intro.classList.add('hidden');
+      musicBtn.classList.add('visible');
+      // Try to play music
+      bgm.play().catch(() => { });
+      setTimeout(() => { intro.style.display = 'none'; }, 1300);
+    });
+
+    // Music toggle
+    let playing = false;
+    musicBtn.addEventListener('click', () => {
+      if (playing) { bgm.pause(); musicBtn.textContent = '♪'; }
+      else { bgm.play().catch(() => { }); musicBtn.textContent = '♬'; }
+      playing = !playing;
+    });
+    bgm.addEventListener('play', () => { playing = true; musicBtn.textContent = '♬'; });
+
+    // ── COUNTDOWN ─────────────────────────────────────────
+    function updateCountdown() {
+      const target = new Date('2026-11-19T15:00:00');
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        ['days', 'hours', 'minutes', 'seconds'].forEach(id => document.getElementById(id).textContent = '00');
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('days').textContent = String(d).padStart(3, '0');
+      document.getElementById('hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── FADE SECTIONS ─────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+
+    // ── CHILDREN DETAILS ──────────────────────────────────
+    document.querySelectorAll('[name="children"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const d = document.getElementById('children-details');
+        d.classList.toggle('visible', radio.value === 'yes' && radio.checked);
+      });
+    });
+
+    // ── RSVP ──────────────────────────────────────────────
+    function handleRsvp() {
+      const attend = document.querySelector('[name="attend"]:checked')?.value;
+      const children = document.querySelector('[name="children"]:checked')?.value;
+      const count = document.getElementById('children-count').value;
+      const ages = document.getElementById('children-ages').value;
+
+      const form = document.getElementById('rsvp-form-inner');
+      const msg = document.getElementById('rsvp-message');
+
+      form.style.display = 'none';
+      msg.style.display = 'block';
+
+      if (attend === 'yes') {
+        let text = '🕊️ <strong>Presença confirmada!</strong><br><br>';
+        text += 'Estamos muito felizes em ter você conosco neste dia especial.';
+        if (children === 'yes' && count) {
+          text += `<br><br>Crianças: ${count}${ages ? ' (idades: ' + ages + ')' : ''}.`;
+        }
+        text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#1E4035;color:#F9F4EC;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;">🎁 Ver Lista de Presentes</a>';
+        msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#1E4035;">${text}</p>`;
+      } else {
+        msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A5E44;">Sentiremos muito a sua falta, mas entendemos. Obrigado pelo carinho! 💛</p>`;
+      }
+    }
+
+    function handleDecline() {
+      const form = document.getElementById('rsvp-form-inner');
+      const msg = document.getElementById('rsvp-message');
+      form.style.display = 'none';
+      msg.style.display = 'block';
+      msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A5E44;">Sentiremos muito a sua falta. Obrigado pelo carinho e por nos avisar! 💛</p>`;
+    }
+  </script>
 </body>
 
 </html>
