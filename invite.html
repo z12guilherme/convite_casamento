@@ -1265,8 +1265,7 @@
       cursor: pointer;
       transform-origin: center calc(var(--radius) + var(--card-h));
       transform:
-        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift)))
-        translateY(calc(var(--radius) * -0.02));
+        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift))) translateY(calc(var(--radius) * -0.02));
       transition:
         transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
         box-shadow 0.4s ease,
@@ -1279,11 +1278,25 @@
       z-index: calc(10 - abs(var(--i) - 2));
     }
 
-    .radial-card:nth-child(1) { --i: 0; }
-    .radial-card:nth-child(2) { --i: 1; }
-    .radial-card:nth-child(3) { --i: 2; }
-    .radial-card:nth-child(4) { --i: 3; }
-    .radial-card:nth-child(5) { --i: 4; }
+    .radial-card:nth-child(1) {
+      --i: 0;
+    }
+
+    .radial-card:nth-child(2) {
+      --i: 1;
+    }
+
+    .radial-card:nth-child(3) {
+      --i: 2;
+    }
+
+    .radial-card:nth-child(4) {
+      --i: 3;
+    }
+
+    .radial-card:nth-child(5) {
+      --i: 4;
+    }
 
     .radial-card img {
       width: 100%;
@@ -1317,9 +1330,7 @@
     /* Hover – active card rises */
     .radial-card:hover {
       transform:
-        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift)))
-        translateY(calc(var(--radius) * -0.06))
-        scale(1.08);
+        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift))) translateY(calc(var(--radius) * -0.06)) scale(1.08);
       box-shadow:
         0 20px 60px rgba(30, 64, 53, 0.3),
         0 4px 16px rgba(0, 0, 0, 0.12),
@@ -1327,24 +1338,29 @@
       filter: brightness(1.05) saturate(1.15);
       z-index: 20;
     }
+
     .radial-card:hover::after {
       border-color: rgba(201, 168, 76, 0.7);
     }
+
     .radial-card:hover::before {
       opacity: 0;
     }
+
     .radial-card:hover img {
       transform: scale(1.06);
     }
 
     /* Push right neighbors away */
-    .radial-card:hover + .radial-card {
+    .radial-card:hover+.radial-card {
       --shift: calc(var(--shift-amount) * 2.5);
     }
-    .radial-card:hover + .radial-card + .radial-card {
+
+    .radial-card:hover+.radial-card+.radial-card {
       --shift: calc(var(--shift-amount) * 1.5);
     }
-    .radial-card:hover + .radial-card + .radial-card + .radial-card {
+
+    .radial-card:hover+.radial-card+.radial-card+.radial-card {
       --shift: calc(var(--shift-amount) * 0.8);
     }
 
@@ -1352,9 +1368,11 @@
     .radial-card:has(+ .radial-card:hover) {
       --shift: calc(var(--shift-amount) * -2.5);
     }
+
     .radial-card:has(+ .radial-card + .radial-card:hover) {
       --shift: calc(var(--shift-amount) * -1.5);
     }
+
     .radial-card:has(+ .radial-card + .radial-card + .radial-card:hover) {
       --shift: calc(var(--shift-amount) * -0.8);
     }
@@ -1374,11 +1392,13 @@
         -webkit-overflow-scrolling: touch;
         perspective: none;
       }
+
       .radial-gallery::after {
         content: '';
         min-width: 1px;
         flex-shrink: 0;
       }
+
       .radial-card {
         position: relative;
         left: auto;
@@ -1392,10 +1412,12 @@
         filter: brightness(1) saturate(1);
         transform-origin: center center;
       }
+
       .radial-card:hover {
         transform: scale(1.04) !important;
       }
-      #gallery .inner > p:last-of-type {
+
+      #gallery .inner>p:last-of-type {
         display: none;
       }
     }
@@ -1472,7 +1494,7 @@
       </svg>
 
       <h1 class="intro-names">Evellyn &amp; Marcos</h1>
-      <p class="intro-subtitle">Casamento · 19 de Novembro de 2026</p>
+      <p class="intro-subtitle">Casamento · 07 de Novembro de 2026</p>
 
       <div class="intro-date-line">
         <div class="date-dot"></div>
@@ -1656,8 +1678,12 @@
           <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z" />
         </svg>
       </div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,40px);font-weight:400;color:var(--emerald);text-align:center;margin-bottom:16px;">Momentos Especiais</h2>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);text-align:center;margin-bottom:48px;">Passe o mouse para explorar</p>
+      <h2
+        style="font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,40px);font-weight:400;color:var(--emerald);text-align:center;margin-bottom:16px;">
+        Momentos Especiais</h2>
+      <p
+        style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);text-align:center;margin-bottom:48px;">
+        Passe o mouse para explorar</p>
 
       <div class="radial-gallery">
         <div class="radial-card"><img src="img/foto.jpg" alt="Nosso momento"></div>
@@ -1743,14 +1769,16 @@
         </iframe>
       </div>
       <div style="text-align:center; margin-top: 20px;">
-        <a href="https://www.google.com/maps/search/Para%C3%ADso+Particular+Belo+Jardim+PE" target="_blank" class="map-link">
+        <a href="https://www.google.com/maps/search/Para%C3%ADso+Particular+Belo+Jardim+PE" target="_blank"
+          class="map-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
             <circle cx="12" cy="10" r="3" />
           </svg>
           Ver no Google Maps
         </a>
-        <a href="https://www.instagram.com/paraiso__particular/" target="_blank" class="map-link" style="margin-left: 20px;">
+        <a href="https://www.instagram.com/paraiso__particular/" target="_blank" class="map-link"
+          style="margin-left: 20px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
             <circle cx="12" cy="12" r="5" />
