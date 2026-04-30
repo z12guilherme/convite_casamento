@@ -15,21 +15,21 @@ let config = { ...defaultConfig };
 
 // Countdown
 function updateCountdown() {
-  const weddingDate = new Date('November 19, 2026 00:00:00').getTime();
+  const weddingDate = new Date('November 7, 2026 00:00:00').getTime();
   const now = new Date().getTime();
   const distance = weddingDate - now;
-  
+
   if (distance > 0) {
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
-    
+
     if (daysEl) daysEl.textContent = days.toString().padStart(3, '0');
     if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
     if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
@@ -40,23 +40,23 @@ function updateCountdown() {
 // Update UI based on config
 async function onConfigChange(newConfig) {
   config = { ...config, ...newConfig };
-  
+
   // Update names
   const brideEl = document.getElementById('bride-name');
   const groomEl = document.getElementById('groom-name');
   const footerNames = document.getElementById('footer-names');
-  
+
   if (brideEl) brideEl.textContent = config.bride_name || defaultConfig.bride_name;
   if (groomEl) groomEl.textContent = config.groom_name || defaultConfig.groom_name;
   if (footerNames) footerNames.textContent = `${config.bride_name || defaultConfig.bride_name} & ${config.groom_name || defaultConfig.groom_name}`;
-  
+
   // Update phrases
   const phraseEl = document.getElementById('wedding-phrase');
   const verseEl = document.getElementById('bible-verse');
-  
+
   if (phraseEl) phraseEl.textContent = config.wedding_phrase || defaultConfig.wedding_phrase;
   if (verseEl) verseEl.textContent = config.bible_verse || defaultConfig.bible_verse;
-  
+
   // Update colors
   document.documentElement.style.setProperty('--primary-bg', config.primary_bg || defaultConfig.primary_bg);
   document.documentElement.style.setProperty('--secondary-surface', config.secondary_surface || defaultConfig.secondary_surface);
@@ -74,7 +74,7 @@ function handleScrollAnimation() {
       }
     });
   }, { threshold: 0.1 });
-  
+
   sections.forEach(section => observer.observe(section));
 }
 
@@ -82,11 +82,11 @@ function handleScrollAnimation() {
 document.addEventListener('mousemove', (e) => {
   const x = (e.clientX / window.innerWidth - 0.5) * 100;
   const y = (e.clientY / window.innerHeight - 0.5) * 100;
-  
+
   const orb1 = document.querySelector('.orb-1');
   const orb2 = document.querySelector('.orb-2');
   const orb3 = document.querySelector('.orb-3');
-  
+
   if (orb1) orb1.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
   if (orb2) orb2.style.transform = `translate(${x * -0.4}px, ${y * -0.4}px)`;
   if (orb3) orb3.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
@@ -96,7 +96,7 @@ document.addEventListener('mousemove', (e) => {
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   const sections = document.querySelectorAll('.section-bg-dynamic');
-  
+
   sections.forEach((section, index) => {
     const blobs = section.querySelectorAll('.blob');
     blobs.forEach((blob, blobIndex) => {
@@ -113,7 +113,7 @@ async function handleRsvp(status) {
   if (!name) return showToast('Nome do convidado não identificado na URL.', 'error');
 
   const updateData = { status };
-  
+
   if (status === 'Confirmado') {
     const bringingChildren = document.querySelector('input[name="bringing_children"]:checked')?.value === 'yes';
     updateData.bringing_children = bringingChildren;
@@ -124,16 +124,16 @@ async function handleRsvp(status) {
   }
 
   const { error } = await supabaseClient.from('guests').update(updateData).eq('name', name);
-  
+
   if (error) {
     showToast('Erro ao confirmar: ' + error.message, 'error');
   } else {
     const formContainer = document.getElementById('rsvp-form-container');
     const messageContainer = document.getElementById('rsvp-message');
-    
+
     if (formContainer) formContainer.style.display = 'none';
     if (messageContainer) {
-      messageContainer.innerHTML = status === 'Confirmado' 
+      messageContainer.innerHTML = status === 'Confirmado'
         ? '<span style="color: var(--primary-action)">Presença confirmada! Obrigado! 🎉</span>'
         : 'Obrigado por responder. Sentiremos sua falta.';
       messageContainer.style.display = 'block';
@@ -146,7 +146,7 @@ async function handleRsvp(status) {
           origin: { y: 0.6 }
         });
       }
-      
+
       // Show gift list link if confirmed
       const giftContainer = document.getElementById('gift-list-container');
       const giftLink = document.getElementById('gift-list-link');
@@ -241,7 +241,7 @@ function initHorizontalBook() {
     const touchEndX = e.changedTouches[0].screenX;
     const activePage = pages[currentPage];
     if (!activePage) return;
-    
+
     const threshold = 50; // Quão longo tem que ser o deslize
     if (touchEndX < touchStartX - threshold) {
       // Arrastou para a esquerda (Avança a página)
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         introOverlay.classList.add('hidden');
         setTimeout(() => introOverlay.remove(), 1000); // Remove do DOM após transição
       }
-      
+
       // Play music
       if (music) {
         music.volume = 0.5;
