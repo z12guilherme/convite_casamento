@@ -167,6 +167,20 @@
       animation: fadeUp 1s ease 1.2s forwards;
     }
 
+    .intro-greeting {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--emerald);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.35s forwards;
+    }
+
+    .intro-greeting:empty {
+      display: none;
+    }
+
     .intro-date-line span {
       font-family: 'Montserrat', sans-serif;
       font-size: 11px;
@@ -1605,6 +1619,8 @@
         <div class="date-dot"></div>
       </div>
 
+      <div id="guest-greeting-intro" class="intro-greeting"></div>
+
       <button class="btn-open" id="open-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path
@@ -2012,6 +2028,16 @@
     const openBtn = document.getElementById('open-btn');
     const musicBtn = document.getElementById('music-btn');
     const bgm = document.getElementById('bgm');
+
+    // ── NOME DO CONVIDADO (URL) ────────────────────────────
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('name');
+    if (guestName) {
+      const greetingIntro = document.getElementById('guest-greeting-intro');
+      if (greetingIntro) {
+        greetingIntro.textContent = `para ${guestName}`;
+      }
+    }
 
     // Generate petals
     const petalContainer = document.getElementById('petal-container');

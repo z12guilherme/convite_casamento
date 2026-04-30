@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const guestName = urlParams.get('name');
   if (guestName) {
     const greetingEl = document.getElementById('guest-greeting');
-    if (greetingEl) greetingEl.textContent = `Olá, ${guestName}!`;
+    if (greetingEl) greetingEl.textContent = `para ${guestName}`;
   }
 
   // Intro & Music Logic
