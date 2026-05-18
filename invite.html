@@ -1246,7 +1246,7 @@
     }
 
     /* ═══════════════════════════════════════
-       RADIAL FAN GALLERY
+       POLAROID GALLERY
     ═══════════════════════════════════════ */
     #gallery {
       background: linear-gradient(180deg, var(--ivory) 0%, var(--parchment) 100%);
@@ -1254,188 +1254,92 @@
       overflow: hidden;
     }
 
-    .radial-gallery {
-      --card-w: clamp(120px, 18vw, 200px);
-      --card-h: clamp(160px, 24vw, 280px);
-      --radius: clamp(300px, 50vw, 600px);
-      --arc-spread: 8deg;
-      --shift-amount: 6deg;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: clamp(280px, 40vw, 420px);
-      perspective: 1200px;
+    .polaroid-gallery {
+      --d: 10s;
+      /* Duração completa da animação */
+      display: grid;
+      width: clamp(200px, 50vw, 280px);
+      margin: 40px auto;
     }
 
-    .radial-card {
-      --i: 0;
-      --shift: 0deg;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: var(--card-w);
-      height: var(--card-h);
-      margin-left: calc(var(--card-w) / -2);
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transform-origin: center calc(var(--radius) + var(--card-h));
-      transform:
-        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift))) translateY(calc(var(--radius) * -0.02));
-      transition:
-        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 0.4s ease,
-        filter 0.4s ease;
-      box-shadow:
-        0 8px 32px rgba(30, 64, 53, 0.15),
-        0 2px 8px rgba(0, 0, 0, 0.08),
-        inset 0 0 0 1px rgba(201, 168, 76, 0.15);
-      filter: brightness(0.92) saturate(0.9);
-      z-index: calc(10 - abs(var(--i) - 2));
-    }
-
-    .radial-card:nth-child(1) {
-      --i: 0;
-    }
-
-    .radial-card:nth-child(2) {
-      --i: 1;
-    }
-
-    .radial-card:nth-child(3) {
-      --i: 2;
-    }
-
-    .radial-card:nth-child(4) {
-      --i: 3;
-    }
-
-    .radial-card:nth-child(5) {
-      --i: 4;
-    }
-
-    .radial-card img {
+    .polaroid-gallery>img {
+      grid-area: 1/1;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 1;
       object-fit: cover;
-      display: block;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 12px solid #fdfcfc;
+      border-bottom-width: 40px;
+      /* Sensação de borda de Polaroide */
+      box-shadow: 0 4px 15px rgba(30, 64, 53, 0.2);
+      z-index: 2;
+      border-radius: 2px;
+      animation:
+        polaroid-slide var(--d) infinite,
+        polaroid-z-order var(--d) infinite steps(1);
     }
 
-    .radial-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      border: 1.5px solid rgba(201, 168, 76, 0.25);
-      pointer-events: none;
-      transition: border-color 0.4s ease;
+    .polaroid-gallery img:last-child {
+      animation-name: polaroid-slide, polaroid-z-order-last;
     }
 
-    .radial-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(30, 64, 53, 0.4) 100%);
-      z-index: 1;
-      border-radius: 12px;
-      opacity: 0.6;
-      transition: opacity 0.4s ease;
+    .polaroid-gallery>img:nth-child(1) {
+      animation-delay: calc(0s);
+      --r: -12deg;
     }
 
-    /* Hover – active card rises */
-    .radial-card:hover {
-      transform:
-        rotate(calc((var(--i) - 2) * var(--arc-spread) + var(--shift))) translateY(calc(var(--radius) * -0.06)) scale(1.08);
-      box-shadow:
-        0 20px 60px rgba(30, 64, 53, 0.3),
-        0 4px 16px rgba(0, 0, 0, 0.12),
-        inset 0 0 0 2px rgba(201, 168, 76, 0.5);
-      filter: brightness(1.05) saturate(1.15);
-      z-index: 20;
+    .polaroid-gallery>img:nth-child(2) {
+      animation-delay: calc(-2s);
+      --r: 8deg;
     }
 
-    .radial-card:hover::after {
-      border-color: rgba(201, 168, 76, 0.7);
+    .polaroid-gallery>img:nth-child(3) {
+      animation-delay: calc(-4s);
+      --r: -5deg;
     }
 
-    .radial-card:hover::before {
-      opacity: 0;
+    .polaroid-gallery>img:nth-child(4) {
+      animation-delay: calc(-6s);
+      --r: 15deg;
     }
 
-    .radial-card:hover img {
-      transform: scale(1.06);
+    .polaroid-gallery>img:nth-child(5) {
+      animation-delay: calc(-8s);
+      --r: -18deg;
     }
 
-    /* Push right neighbors away */
-    .radial-card:hover+.radial-card {
-      --shift: calc(var(--shift-amount) * 2.5);
-    }
-
-    .radial-card:hover+.radial-card+.radial-card {
-      --shift: calc(var(--shift-amount) * 1.5);
-    }
-
-    .radial-card:hover+.radial-card+.radial-card+.radial-card {
-      --shift: calc(var(--shift-amount) * 0.8);
-    }
-
-    /* Push left neighbors away using :has() */
-    .radial-card:has(+ .radial-card:hover) {
-      --shift: calc(var(--shift-amount) * -2.5);
-    }
-
-    .radial-card:has(+ .radial-card + .radial-card:hover) {
-      --shift: calc(var(--shift-amount) * -1.5);
-    }
-
-    .radial-card:has(+ .radial-card + .radial-card + .radial-card:hover) {
-      --shift: calc(var(--shift-amount) * -0.8);
-    }
-
-    /* Mobile — horizontal scroll fallback */
-    @media (max-width: 600px) {
-      .radial-gallery {
-        display: flex;
-        flex-direction: row;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding: 20px 32px 32px;
-        height: auto;
-        align-items: center;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        perspective: none;
+    @keyframes polaroid-slide {
+      10% {
+        transform: translateX(120%) rotate(var(--r));
       }
 
-      .radial-gallery::after {
-        content: '';
-        min-width: 1px;
-        flex-shrink: 0;
+      0%,
+      100%,
+      20% {
+        transform: translateX(0%) rotate(var(--r));
+      }
+    }
+
+    @keyframes polaroid-z-order {
+
+      10%,
+      20% {
+        z-index: 1;
       }
 
-      .radial-card {
-        position: relative;
-        left: auto;
-        bottom: auto;
-        margin-left: 0;
-        flex: 0 0 auto;
-        width: 200px;
-        height: 260px;
-        scroll-snap-align: center;
-        transform: none !important;
-        filter: brightness(1) saturate(1);
-        transform-origin: center center;
+      80% {
+        z-index: 2;
+      }
+    }
+
+    @keyframes polaroid-z-order-last {
+
+      10%,
+      20% {
+        z-index: 1;
       }
 
-      .radial-card:hover {
-        transform: scale(1.04) !important;
-      }
-
-      #gallery .inner>p:last-of-type {
-        display: none;
+      90% {
+        z-index: 2;
       }
     }
 
@@ -1802,14 +1706,14 @@
         Momentos Especiais</h2>
       <p
         style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);text-align:center;margin-bottom:48px;">
-        Passe o mouse para explorar</p>
+        Nossas lembranças</p>
 
-      <div class="radial-gallery">
-        <div class="radial-card"><img src="img/foto.jpg" alt="Nosso momento"></div>
-        <div class="radial-card"><img src="img/noiva.jpg" alt="A noiva"></div>
-        <div class="radial-card"><img src="img/igreja.jpg" alt="A igreja"></div>
-        <div class="radial-card"><img src="img/pio.jpg" alt="Padre Pio"></div>
-        <div class="radial-card"><img src="img/sagrada.jpg" alt="Sagrada Família"></div>
+      <div class="polaroid-gallery">
+        <img src="img/foto.jpg" alt="Nosso momento">
+        <img src="img/noiva.jpg" alt="A noiva">
+        <img src="img/igreja.jpg" alt="A igreja">
+        <img src="img/pio.jpg" alt="Padre Pio">
+        <img src="img/sagrada.jpg" alt="Sagrada Família">
       </div>
     </div>
   </section>
