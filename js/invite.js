@@ -297,10 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Intro & Music Logic
-  const introOverlay = document.getElementById('intro-overlay');
+  const introOverlay = document.getElementById('intro');
   const enterBtn = document.getElementById('enter-invite-btn');
-  const music = document.getElementById('wedding-music');
-  const musicBtn = document.getElementById('music-control');
+  const music = document.getElementById('bgm');
+  const musicBtn = document.getElementById('music-btn');
 
   if (enterBtn) {
     enterBtn.addEventListener('click', () => {
