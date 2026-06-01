@@ -1,0 +1,32 @@
+name: Supabase Schema Backup
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' # Roda todo dia à meia-noite
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Supabase CLI
+        run: npm install -g supabase
+
+      - name: Dump Database Schema
+        run: supabase db dump --project-ref ccaycdgjpmffkkrpppwv --linked -f supabase/schema.sql
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add supabase/schema.sql
+          git commit -m "chore: auto-update database schema" || echo "No changes to commit"
+          git push

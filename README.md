@@ -85,6 +85,28 @@ Pronto! Seus convites em PDF estão gerados e prontos para serem enviados.
 
 ---
 
+## 🛠️ Manutenção (Backup do Banco)
+
+Este projeto possui um **GitHub Action** que faz o backup automático do schema do banco de dados.
+
+Para que a automação funcione, adicione em **Settings > Secrets and variables > Actions**:
+
+1. `SUPABASE_ACCESS_TOKEN`: Token gerado no painel (Access Tokens).
+2. `SUPABASE_DB_PASSWORD`: Senha que você definiu ao criar o projeto no Supabase.
+
+### Backup Manual (Via Terminal)
+1. Faça login na CLI (uma vez): `npx supabase login`
+2. Vincule o projeto: `npx supabase link --project-ref ccaycdgjpmffkkrpppwv`
+3. Execute o backup definindo a senha do banco:
+
+**No PowerShell:**
+```powershell
+$env:SUPABASE_DB_PASSWORD = "sua-senha-do-banco"
+npx supabase db dump --linked -f supabase/schema.sql
+```
+
+---
+
 ## 📁 Estrutura do Projeto
 
 ```
