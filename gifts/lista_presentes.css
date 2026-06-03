@@ -110,6 +110,44 @@ h1 {
     line-height: 1.6;
 }
 
+/* === Instruções em Steps === */
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.instruction-step {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(91, 168, 157, 0.1);
+    transition: all 0.3s ease;
+}
+
+.instruction-step:hover {
+    background: white;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(91, 168, 157, 0.1);
+}
+
+.step-number {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: rgba(91, 168, 157, 0.2);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.instruction-step h5 {
+    color: var(--c-primary);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
 #guest-greeting {
     font-family: var(--font-body);
     font-size: 1.1rem;
@@ -305,6 +343,82 @@ h1 {
     color: var(--c-secondary) !important;
     border-bottom-color: var(--c-secondary);
     transform: translateY(-1px);
+}
+
+/* === Dashboard de Arrecadação === */
+.total-fundraising-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.fundraising-card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(91, 168, 157, 0.1);
+    border: 1px solid rgba(91, 168, 157, 0.1);
+}
+
+.fundraising-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(91, 168, 157, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-primary);
+    font-size: 1.8rem;
+}
+
+.fundraising-label {
+    font-size: 0.85rem;
+    color: var(--c-text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+}
+
+#total-collected-amount {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin: 5px 0;
+    color: var(--c-primary);
+}
+
+/* Pix Info Display Styles */
+.pix-info-display {
+    background: rgba(254, 253, 251, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px dashed rgba(91, 168, 157, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pix-qr-container {
+    text-align: center;
+}
+
+.pix-static-qr {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    border: 2px solid var(--c-primary);
+    margin-bottom: 5px;
+}
+
+@media (max-width: 480px) {
+    .pix-info-display {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 /* Badge de Sugestão de Loja */
@@ -659,6 +773,30 @@ h1 {
 .amount-input:focus {
     border-color: var(--c-primary);
     box-shadow: 0 0 0 3px rgba(91, 168, 157, 0.15);
+}
+
+.fixed-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.fixed-value-btn {
+    background: white;
+    border: 1px solid var(--c-accent);
+    color: var(--c-secondary);
+    padding: 8px 5px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.fixed-value-btn:hover {
+    background: var(--c-accent);
+    color: var(--c-secondary);
 }
 
 .pix-key-display {

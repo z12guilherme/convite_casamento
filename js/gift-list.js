@@ -52,6 +52,31 @@
 
             container.innerHTML = ''; // Limpa o loading
 
+            // ================== Cálculo do Contador Real-time ==================
+            let totalGeralArrecadado = 0;
+            let metaTotal = 0;
+
+            data.forEach(gift => {
+                if (gift.price) {
+                    metaTotal += gift.price;
+                    const confirmadoNoItem = (gift.contributions || [])
+                        .filter(c => c.status === 'confirmed')
+                        .reduce((sum, c) => sum + (c.amount || 0), 0);
+                    totalGeralArrecadado += confirmadoNoItem;
+                }
+            });
+
+            const totalCollectedEl = document.getElementById('total-collected-amount');
+            if (totalCollectedEl) {
+                totalCollectedEl.textContent = formatCurrency(totalGeralArrecadado);
+            }
+
+            const totalProgressFill = document.getElementById('total-progress-fill');
+            if (totalProgressFill && metaTotal > 0) {
+                const totalPercent = Math.min(100, (totalGeralArrecadado / metaTotal) * 100);
+                totalProgressFill.style.width = `${totalPercent}%`;
+            }
+
             if (!data || !data.length) {
                 container.innerHTML = '<div style="text-align:center; width:100%;">Nenhum presente disponível.</div>';
                 return;
@@ -145,15 +170,8 @@
                     btn.style.cursor = 'not-allowed';
                     btn.style.background = 'linear-gradient(45deg, #6c757d, #495057)';
                 } else {
-                    btn.textContent = gift.price ? 'Contribuir (Pix) 💸' : 'Presentear 🎁';
-                    btn.onclick = async () => {
-                        if (gift.price) {
-                            openContributionModal(gift);
-                        } else {
-                            // Lógica antiga para presentes únicos
-                            handleUniqueGift(gift);
-                        }
-                    };
+                    btn.textContent = 'Contribuir (Pix) 💸';
+                    btn.onclick = () => openContributionModal(gift);
                 }
                 innerContent.appendChild(btn);
                 card.appendChild(innerContent);
@@ -166,44 +184,34 @@
         }
     }
 
-    async function handleUniqueGift(gift) {
-        const confirmed = await showConfirm(`Você confirma que irá nos presentear com "<strong>${gift.name}</strong>"? <br><br>Ao confirmar, o item será marcado como escolhido em seu nome.`);
-        if (!confirmed) return;
-
-        const { error } = await supabaseClient
-            .from('gifts')
-            .update({ taken_by: currentGuestName, confirmed_at: new Date().toISOString() })
-            .eq('id', gift.id);
-
-        if (error) {
-            showToast('Erro ao registrar presente: ' + error.message, 'error');
-        } else {
-            showToast(`Obrigado, <strong>${currentGuestName}</strong>! Você escolheu: <em>${gift.name}</em> 💖`, 'success');
-            // A lista será atualizada pelo listener em tempo real
-        }
-    }
-
     function openContributionModal(gift) {
         currentGift = gift;
         const totalContributed = (gift.contributions || [])
             .filter(c => c.status === 'confirmed')
             .reduce((acc, c) => acc + (c.amount || 0), 0);
-        const remaining = gift.price - totalContributed;
-        const percent = Math.min(100, (totalContributed / gift.price) * 100);
+        const remaining = gift.price ? gift.price - totalContributed : 0;
+        const percent = gift.price ? Math.min(100, (totalContributed / gift.price) * 100) : 0;
+
         modalGiftName.textContent = gift.name;
-        modalGiftPrice.textContent = formatCurrency(gift.price);
+        modalGiftPrice.textContent = gift.price ? formatCurrency(gift.price) : 'Valor Livre';
         modalContributedAmount.textContent = formatCurrency(totalContributed);
         modalRemainingAmount.textContent = formatCurrency(remaining);
         modalProgressFill.style.width = `${percent}%`;
         modalPixKey.textContent = PIX_KEY;
 
-        contributionAmountInput.value = '';
-        contributionAmountInput.placeholder = remaining.toFixed(2).replace('.', ',');
-        contributionAmountInput.max = remaining.toFixed(2);
+        if (gift.price) {
+            contributionAmountInput.value = remaining.toFixed(2);
+            contributionAmountInput.max = remaining.toFixed(2);
+        } else {
+            contributionAmountInput.value = "100.00";
+            contributionAmountInput.removeAttribute('max');
+        }
+
+        contributionAmountInput.placeholder = "0,00";
 
         pixPaymentArea.style.display = 'none';
-        // Esconde a barra de progresso se o presente já foi totalmente pago
-        modalProgressBar.style.display = remaining > 0.01 ? 'block' : 'none';
+        // Esconde a barra de progresso se o item não tem meta definida ou se já foi totalmente pago
+        modalProgressBar.style.display = (gift.price && remaining > 0.01) ? 'block' : 'none';
 
         modal.classList.add('show');
     }
@@ -223,14 +231,15 @@
 
     async function handleConfirmContribution() {
         const amount = parseFloat(contributionAmountInput.value.replace(',', '.'));
-        const remaining = currentGift.price - (currentGift.contributions || [])
+        const totalConfirmed = (currentGift.contributions || [])
             .filter(c => c.status === 'confirmed')
             .reduce((acc, c) => acc + (c.amount || 0), 0);
+        const remaining = currentGift.price ? currentGift.price - totalConfirmed : Infinity;
 
         if (isNaN(amount) || amount <= 0) {
             return showToast('Por favor, insira um valor de contribuição válido.', 'error');
         }
-        if (amount > remaining + 0.01) { // 0.01 de margem para erros de float
+        if (currentGift.price && amount > remaining + 0.01) {
             return showToast(`O valor de ${formatCurrency(amount)} excede o restante de ${formatCurrency(remaining)}.`, 'error');
         }
 
@@ -267,6 +276,27 @@
             confirmContributionBtn.textContent = 'Confirmar Contribuição';
         }
     }
+
+    // Função global para copiar texto (usada no botão da chave geral)
+    window.copyToClipboard = (text, successMsg) => {
+        navigator.clipboard.writeText(text).then(() => {
+            if (typeof showToast === 'function') {
+                showToast(successMsg || 'Copiado com sucesso!', 'success');
+            } else {
+                alert(successMsg || 'Copiado!');
+            }
+        }).catch(err => {
+            console.error('Erro ao copiar: ', err);
+        });
+    };
+
+    // Função para os botões de valor fixo
+    window.setContributionAmount = (val) => {
+        const input = document.getElementById('contributionAmount');
+        if (input) {
+            input.value = val.toFixed(2);
+        }
+    };
 
     window.addEventListener('DOMContentLoaded', () => {
         const guestName = new URLSearchParams(window.location.search).get('name')?.trim() || 'Convidado';

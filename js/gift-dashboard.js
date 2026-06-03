@@ -1,8 +1,8 @@
-const availableBody  = document.getElementById('available-gifts');
-const confirmedBody  = document.getElementById('confirmed-gifts');
-const pendingBody    = document.getElementById('pending-payments');
-const pendingBadge   = document.getElementById('pending-badge');
-const addGiftForm    = document.getElementById('add-gift-form');
+const availableBody = document.getElementById('available-gifts');
+const confirmedBody = document.getElementById('confirmed-gifts');
+const pendingBody = document.getElementById('pending-payments');
+const pendingBadge = document.getElementById('pending-badge');
+const addGiftForm = document.getElementById('add-gift-form');
 
 const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const fmtDate = (d) => new Date(d).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
@@ -14,15 +14,20 @@ function createAvailableRow(gift) {
         .reduce((acc, c) => acc + (c.amount || 0), 0);
 
     let priceInfo = '';
-    if (gift.price) {
+    if (gift.price !== null && gift.price !== undefined) {
         const pct = Math.min(100, (confirmedTotal / gift.price) * 100).toFixed(0);
         const color = confirmedTotal >= gift.price ? 'color:#3D7A6C; font-weight:bold;' : 'color:#999;';
         priceInfo = `
             <div style="font-size:0.82rem; margin-top:5px; ${color}">
-                Meta: ${fmt(gift.price)} | Confirmado: ${fmt(confirmedTotal)}
+                Meta Fixa: ${fmt(gift.price)} | Confirmado: ${fmt(confirmedTotal)}
             </div>
             <div style="background:#eee; border-radius:6px; height:5px; margin-top:4px; overflow:hidden;">
                 <div style="background:#3D7A6C; width:${pct}%; height:100%; transition:width .4s;"></div>
+            </div>`;
+    } else {
+        priceInfo = `
+            <div style="font-size:0.82rem; margin-top:5px; color:#999; font-style: italic;">
+                Contribuição Livre (Sem meta fixa)
             </div>`;
     }
 
@@ -35,7 +40,7 @@ function createAvailableRow(gift) {
         <td><img class="gift-img" src="${gift.image || ''}" onerror="this.style.display='none'" alt=""></td>
         <td>${nameHTML}${priceInfo}</td>
         <td>
-            <button class="btn btn-danger" onclick="deleteGift('${gift.id}', '${gift.name.replace(/'/g,"\\'")}')">Excluir</button>
+            <button class="btn btn-danger" onclick="deleteGift('${gift.id}', '${gift.name.replace(/'/g, "\\'")}')">Excluir</button>
         </td>`;
     return tr;
 }
@@ -43,7 +48,7 @@ function createAvailableRow(gift) {
 // ─── Tabela de Presentes Confirmados ────────────────────────────────────────
 function createConfirmedRow(gift) {
     let takenBy = gift.taken_by || '';
-    let dateStr  = gift.confirmed_at ? fmtDate(gift.confirmed_at) : '';
+    let dateStr = gift.confirmed_at ? fmtDate(gift.confirmed_at) : '';
 
     if (!gift.taken_by && gift.contributions?.length) {
         const names = [...new Set(
@@ -65,7 +70,7 @@ function createConfirmedRow(gift) {
         <td>${nameHTML}</td>
         <td>${dateStr}</td>
         <td>
-            <button class="btn" onclick="releaseGift('${gift.id}', '${gift.name.replace(/'/g,"\\'")}')">Liberar</button>
+            <button class="btn" onclick="releaseGift('${gift.id}', '${gift.name.replace(/'/g, "\\'")}')">Liberar</button>
         </td>`;
     return tr;
 }
@@ -204,13 +209,13 @@ async function loadGifts() {
     if (error) {
         availableBody.innerHTML = `<tr><td colspan="3">Erro ao carregar</td></tr>`;
         confirmedBody.innerHTML = `<tr><td colspan="5">Erro ao carregar</td></tr>`;
-        pendingBody.innerHTML   = `<tr><td colspan="5">Erro ao carregar</td></tr>`;
+        pendingBody.innerHTML = `<tr><td colspan="5">Erro ao carregar</td></tr>`;
         return;
     }
 
     availableBody.innerHTML = '';
     confirmedBody.innerHTML = '';
-    pendingBody.innerHTML   = '';
+    pendingBody.innerHTML = '';
 
     let hasAvailable = false, hasConfirmed = false;
 
@@ -252,12 +257,17 @@ async function loadGifts() {
 // ─── Formulário Adicionar Presente ───────────────────────────────────────────
 addGiftForm.onsubmit = async (e) => {
     e.preventDefault();
-    const name       = document.getElementById('gift-name').value.trim();
+    const name = document.getElementById('gift-name').value.trim();
     const productUrl = document.getElementById('gift-link').value.trim();
-    const price      = document.getElementById('gift-price')?.value || null;
-    const file       = document.getElementById('gift-image').files[0];
+    const priceInput = document.getElementById('gift-price');
+    const priceValue = priceInput ? priceInput.value.trim() : "";
+    const file = document.getElementById('gift-image').files[0];
 
     if (!name || !file) return showToast('Nome e imagem são obrigatórios.', 'error');
+
+    // Converte o valor para número, aceitando vírgula ou ponto. 
+    // Se estiver vazio, salva como null (habilitando a contribuição livre).
+    const finalPrice = priceValue !== "" ? parseFloat(priceValue.replace(',', '.')) : null;
 
     const reader = new FileReader();
     reader.onload = async () => {
@@ -265,7 +275,7 @@ addGiftForm.onsubmit = async (e) => {
             name,
             image: reader.result,
             product_url: productUrl || null,
-            price: price ? parseFloat(price) : null,
+            price: finalPrice,
         }]);
         if (error) return showToast('Erro ao adicionar: ' + error.message, 'error');
         showToast(`"${name}" adicionado com sucesso! 🎁`, 'success');

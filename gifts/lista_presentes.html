@@ -74,42 +74,62 @@
                 <p class="section-subtitle">Sua presença é o nosso maior presente! Se desejar nos presentear, fique à
                     vontade para escolher uma opção abaixo.</p>
 
-                <!-- Instruction Box with Pix -->
-                <div class="pix-instruction-box mt-4 mb-4 p-4 rounded-3"
-                    style="background: rgba(91, 168, 157, 0.06); border: 1px solid rgba(91, 168, 157, 0.2); max-width: 600px; margin: 20px auto; text-align: left; font-family: var(--font-body); color: var(--c-text-dark); position: relative; z-index: 5;">
-                    <h4
-                        style="font-family: var(--font-heading); color: var(--c-primary); font-size: 1.5rem; text-align: center; margin-bottom: 15px;">
-                        <!-- Cruz com ramos -->
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            style="vertical-align: middle; margin-right: 8px;">
-                            <line x1="12" y1="3" x2="12" y2="21" stroke="#5BA89D" stroke-width="1.5"
-                                stroke-linecap="round" />
-                            <line x1="6" y1="9" x2="18" y2="9" stroke="#5BA89D" stroke-width="1.5"
-                                stroke-linecap="round" />
-                        </svg>
-                        Como funciona?
-                    </h4>
-                    <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.6;">
-                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2"
-                                style="color: var(--c-primary);"></i><strong>1.</strong> Escolha com carinho um ou mais
-                            itens na lista abaixo.</li>
-                        <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2"
-                                style="color: var(--c-primary);"></i><strong>2.</strong> Clique em confirmar e escolha o
-                            valor desejado (pode ser total ou uma cota do presente).</li>
-                        <li style="margin-bottom: 10px;"><i class="bi bi-info-circle me-2"
-                                style="color: var(--c-primary);"></i><strong>Dica:</strong> Para ver o item em uma loja
-                            ou ter referência de modelo, <u>clique no nome do presente</u>.</li>
-                        <li><i class="bi bi-check-circle me-2" style="color: var(--c-primary);"></i><strong>3.</strong>
-                            Realize a sua contribuição através de PIX para a chave informada.</li>
-                    </ul>
-                    <div
-                        style="background: rgba(254, 253, 251, 0.9); padding: 15px; border-radius: 10px; text-align: center; border: 1px dashed rgba(91, 168, 157, 0.3); margin-top: 20px;">
-                        <p
-                            style="margin: 0; font-size: 0.9rem; color: var(--c-text-light); text-transform: uppercase; letter-spacing: 1px;">
-                            Nossa Chave Pix (Celular):</p>
-                        <p
-                            style="margin: 5px 0 0; font-size: 1.5rem; font-weight: bold; color: var(--c-primary); user-select: all;">
-                            81989035561</p>
+                <!-- Instruções Modernas -->
+                <div class="instructions-grid mt-5 mb-5" data-aos="fade-up">
+                    <div class="instruction-step">
+                        <div class="step-number">01</div>
+                        <h5>Escolha</h5>
+                        <p>Navegue pela lista e selecione o presente que mais combina com você.</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">02</div>
+                        <h5>Contribua</h5>
+                        <p>Clique em contribuir. Você pode dar o valor total ou apenas uma cota.</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">03</div>
+                        <h5>Confirme</h5>
+                        <p>Realize o Pix e confirme no botão. O casal será notificado na hora!</p>
+                    </div>
+                </div>
+
+                <!-- Pix Info Quick Access -->
+                <div class="pix-instruction-box mb-5 p-4 rounded-4"
+                    style="max-width: 600px; margin: 0 auto; z-index: 5;">
+                    <div class="pix-info-display mt-4">
+                        <div class="pix-qr-container">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data=81989035561&size=150x150&margin=10"
+                                alt="QR Code Pix" class="pix-static-qr">
+                            <small>Escaneie para pagar</small>
+                        </div>
+                        <div class="pix-text-container">
+                            <p class="pix-label">Nossa Chave Pix (Celular):</p>
+                            <div class="d-flex align-items-center gap-2">
+                                <p class="pix-key-value mb-0">81989035561</p>
+                                <button onclick="copyToClipboard('81989035561', 'Chave Pix copiada!')"
+                                    class="btn btn-sm btn-outline-primary"
+                                    style="padding: 2px 8px; font-size: 0.7rem; border-radius: 4px;">
+                                    <i class="bi bi-clipboard"></i> Copiar
+                                </button>
+                            </div>
+                            <p class="pix-hint">Evellyn & Guilherme</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Fundraising Counter -->
+            <div class="total-fundraising-container mb-5" data-aos="fade-up">
+                <div class="fundraising-card">
+                    <div class="fundraising-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <div class="fundraising-details">
+                        <span class="fundraising-label">Total Arrecadado</span>
+                        <h3 id="total-collected-amount">R$ 0,00</h3>
+                        <div class="progress-mini">
+                            <div id="total-progress-fill" class="progress-mini-fill"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,6 +194,14 @@
                     <div id="modalProgressFill" class="progress-fill-elegant" style="width:0%;"></div>
                 </div>
             </div>
+
+            <div class="fixed-values-grid mb-3">
+                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(50)">R$ 50</button>
+                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(100)">R$ 100</button>
+                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(200)">R$ 200</button>
+                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(500)">R$ 500</button>
+            </div>
+
             <div class="amount-input-group">
                 <label for="contributionAmount">R$</label>
                 <input type="number" id="contributionAmount" class="amount-input" step="0.01" min="0.01"
