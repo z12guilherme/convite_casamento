@@ -72,13 +72,23 @@
                     innerContent.appendChild(img);
                 }
 
+                // Adiciona um selo se houver URL do produto
+                if (gift.product_url) {
+                    const badge = document.createElement('span');
+                    badge.className = 'store-badge';
+                    badge.innerHTML = '<i class="bi bi-cart3 me-1"></i> Sugestão';
+                    innerContent.appendChild(badge);
+                }
+
                 const nameDiv = document.createElement('div');
                 nameDiv.className = 'gift-name';
                 if (gift.product_url) {
                     const a = document.createElement('a');
                     a.href = gift.product_url;
                     a.target = '_blank';
-                    a.textContent = gift.name;
+                    a.className = 'gift-name-link';
+                    a.innerHTML = `${gift.name} <i class="bi bi-box-arrow-up-right" style="font-size: 0.8rem;"></i>`;
+                    a.title = "Ver referência na loja";
                     nameDiv.appendChild(a);
                 } else {
                     nameDiv.textContent = gift.name;
@@ -204,9 +214,9 @@
         currentTxId = null;
         pixPaymentArea.style.display = 'none';
         // Restaura os sub-painéis do PIX para o estado inicial
-        if (pixQrArea)       pixQrArea.style.display       = 'block';
+        if (pixQrArea) pixQrArea.style.display = 'block';
         if (pixConfirmedArea) pixConfirmedArea.style.display = 'none';
-        confirmContributionBtn.disabled    = false;
+        confirmContributionBtn.disabled = false;
         confirmContributionBtn.style.display = 'inline-block';
         confirmContributionBtn.textContent = 'Confirmar Contribuição';
     }
@@ -245,7 +255,7 @@
             pixCopiaECola.value = data.qr_code;
             currentTxId = data.payment_id; // Salva o tx_id para a confirmação do convidado
             pixPaymentArea.style.display = 'block';
-            if (pixQrArea)       pixQrArea.style.display       = 'block';
+            if (pixQrArea) pixQrArea.style.display = 'block';
             if (pixConfirmedArea) pixConfirmedArea.style.display = 'none';
             confirmContributionBtn.style.display = 'none';
 
@@ -310,7 +320,7 @@
                 }
 
                 // Mostra estado de sucesso
-                if (pixQrArea)       pixQrArea.style.display       = 'none';
+                if (pixQrArea) pixQrArea.style.display = 'none';
                 if (pixConfirmedArea) pixConfirmedArea.style.display = 'block';
             });
         }

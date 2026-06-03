@@ -96,6 +96,9 @@
                         <li style="margin-bottom: 10px;"><i class="bi bi-check-circle me-2"
                                 style="color: var(--c-primary);"></i><strong>2.</strong> Clique em confirmar e escolha o
                             valor desejado (pode ser total ou uma cota do presente).</li>
+                        <li style="margin-bottom: 10px;"><i class="bi bi-info-circle me-2"
+                                style="color: var(--c-primary);"></i><strong>Dica:</strong> Para ver o item em uma loja
+                            ou ter referência de modelo, <u>clique no nome do presente</u>.</li>
                         <li><i class="bi bi-check-circle me-2" style="color: var(--c-primary);"></i><strong>3.</strong>
                             Realize a sua contribuição através de PIX para a chave informada.</li>
                     </ul>
@@ -189,9 +192,11 @@
                     <h4 style="color: var(--c-primary); margin-bottom: 8px; font-size: 1rem;">📱 Escaneie o QR Code</h4>
                     <img id="pixQrCode" src="" alt="QR Code Pix"
                         style="max-width: 190px; margin: 0 auto; display: block; border: 2px solid var(--c-primary); border-radius: 10px; padding: 10px;">
-                    <p style="margin-top: 10px; font-size: 0.82rem; color: var(--c-text-light);">Ou copie o código abaixo:</p>
+                    <p style="margin-top: 10px; font-size: 0.82rem; color: var(--c-text-light);">Ou copie o código
+                        abaixo:</p>
                     <div style="display: flex; gap: 5px; margin-top: 5px;">
-                        <input type="text" id="pixCopiaECola" class="elegant-input" style="flex: 1; font-size: 0.78rem;" readonly>
+                        <input type="text" id="pixCopiaECola" class="elegant-input" style="flex: 1; font-size: 0.78rem;"
+                            readonly>
                         <button id="copyPixBtn" class="btn btn-outline-primary btn-sm" style="min-width: 80px;">
                             <i class="bi bi-clipboard"></i> Copiar
                         </button>
@@ -209,10 +214,12 @@
 
                 <!-- Estado 2: Confirmação enviada com sucesso -->
                 <div id="pixConfirmedArea" style="display: none; padding: 20px 10px;">
-                    <div style="width: 70px; height: 70px; background: rgba(61,122,108,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <div
+                        style="width: 70px; height: 70px; background: rgba(61,122,108,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
                         <svg viewBox="0 0 24 24" fill="none" style="width: 36px; height: 36px;">
-                            <circle cx="12" cy="12" r="10" stroke="#3D7A6C" stroke-width="1.5"/>
-                            <path d="M7 12.5l3.5 3.5 6.5-7" stroke="#3D7A6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="12" r="10" stroke="#3D7A6C" stroke-width="1.5" />
+                            <path d="M7 12.5l3.5 3.5 6.5-7" stroke="#3D7A6C" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                     </div>
                     <h4 style="color: var(--c-primary); margin-bottom: 8px;">Pagamento registrado! 💚</h4>
