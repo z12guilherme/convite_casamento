@@ -165,7 +165,7 @@ async function handleDecline() {
   if (form) form.style.display = 'none';
   if (msg) {
     msg.style.display = 'block';
-    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A4A4A;">Sentiremos muito a sua falta. Obrigado pelo carinho e por nos avisar! 💛</p>`;
+    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#5C524B;">Sentiremos muito a sua falta. Obrigado pelo carinho e por nos avisar! 💛</p>`;
   }
 }
 
@@ -177,9 +177,9 @@ function showSuccessMessage() {
   if (msg) {
     msg.style.display = 'block';
     let text = '✨ <strong>O "SIM" de vocês nos transborda de alegria!</strong><br><br>';
-    text += 'Ter vocês como nossos padrinhos é a confirmação de que Deus cuida de cada detalhe da nossa caminhada. Mal podemos esperar para vivermos esse sonho juntos! 💚';
-    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8CCFC7;color:#FFFFFF;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;border-radius:50px;">🎁 Ver Lista de Presentes</a>';
-    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A4A4A;">${text}</p>`;
+    text += 'Ter vocês como nossos padrinhos é a confirmação de que Deus cuida de cada detalhe da nossa caminhada. Mal podemos esperar para vivermos esse sonho juntos! ✨';
+    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8FD5CC;color:#5C524B;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;border-radius:50px;">🎁 Ver Lista de Presentes</a>';
+    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#5C524B;">${text}</p>`;
   }
 
   // Trigger Confetti se disponível
@@ -188,7 +188,7 @@ function showSuccessMessage() {
       particleCount: 200,
       spread: 80,
       origin: { y: 0.6 },
-      colors: ['#8CCFC7', '#A8B8A5', '#C9A86A', '#FFFFFF'] // Paleta Delicate & Romantic
+      colors: ['#8FD5CC', '#E7D6CC', '#D8B67A', '#FFFFFF'] // Paleta Luxo Pinterest
     });
   }
 }

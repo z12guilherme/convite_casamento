@@ -45,7 +45,7 @@ html {
 body {
   font-family: 'Cormorant Garamond', Georgia, serif;
   background: var(--ivory);
-  color: var(--emerald-deep);
+  color: var(--text);
   overflow-x: hidden;
 }
 
@@ -576,7 +576,7 @@ section {
   color: var(--emerald-deep);
   line-height: 1.05;
   margin-bottom: 16px;
-  text-shadow: 0 2px 15px rgba(74, 74, 74, 0.05);
+  text-shadow: 0 2px 15px rgba(92, 82, 75, 0.05);
 }
 
 .hero-union {
@@ -884,7 +884,7 @@ section {
 ══════════════════════════════════════════ */
 #countdown {
   padding: 80px 24px;
-  background: #F8FAF9;
+  background: #FAF8F3;
   position: relative;
 }
 
@@ -892,7 +892,7 @@ section {
   content: '';
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238CCFC7' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E7D6CC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Burgundy glow for countdown section */
@@ -917,7 +917,7 @@ section {
   font-size: 10px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--gold);
   opacity: 1;
   margin-bottom: 40px;
 }
@@ -946,7 +946,7 @@ section {
 
 .countdown-item {
   padding: 28px 10px;
-  border: 1px solid rgba(168, 184, 165, 0.3);
+  border: 1px solid rgba(231, 214, 204, 0.5);
   position: relative;
   background: #FFFFFF;
 }
@@ -980,6 +980,7 @@ section {
   color: var(--emerald);
   display: block;
   line-height: 1;
+  text-shadow: 0 2px 10px rgba(143, 213, 204, 0.2);
 }
 
 .countdown-unit {
@@ -997,7 +998,7 @@ section {
 ══════════════════════════════════════════ */
 #message {
   padding: 100px 24px;
-  background: #F8FAF9;
+  background: #FAF8F3;
   position: relative;
 }
 
@@ -1225,7 +1226,7 @@ section {
 .detail-card {
   padding: 36px 28px;
   background: #FFFFFF;
-  border: 1px solid rgba(168, 184, 165, 0.3);
+  border: 1px solid rgba(231, 214, 204, 0.4);
   text-align: center;
   position: relative;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -1263,8 +1264,8 @@ section {
   height: 56px;
   margin: 0 auto 20px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: linear-gradient(135deg, rgba(216, 182, 122, 0.1), rgba(231, 214, 204, 0.2));
+  border: 1px solid rgba(216, 182, 122, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1360,7 +1361,7 @@ section {
 ══════════════════════════════════════════ */
 #rsvp {
   padding: 100px 24px;
-  background: #F8FAF9;
+  background: #FAF8F3;
   position: relative;
 }
 
@@ -1598,7 +1599,7 @@ section {
   color: var(--gold);
   line-height: 1.1;
   margin-bottom: 10px;
-  text-shadow: 0 2px 15px rgba(74, 74, 74, 0.1);
+  text-shadow: 0 2px 15px rgba(92, 82, 75, 0.05);
 }
 
 .footer-date {
@@ -1640,7 +1641,7 @@ section {
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--gold);
   opacity: 0.7;
 }
 
