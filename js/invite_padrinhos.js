@@ -114,13 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
 
-  // ── CHILDREN DETAILS ──────────────────────────────────
-  document.querySelectorAll('[name="children"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      const d = document.getElementById('children-details');
-      if (d) d.classList.toggle('visible', radio.value === 'yes' && radio.checked);
-    });
-  });
 });
 
 // ── RSVP ──────────────────────────────────────────────
@@ -138,15 +131,7 @@ async function handleRsvp() {
   }
 
   const status = 'Confirmado';
-  const bringing_children = document.querySelector('[name="children"]:checked')?.value === 'yes';
-  const children_count = document.getElementById('children-count')?.value || null;
-  const children_ages = document.getElementById('children-ages')?.value || null;
-
-  const updateData = { status, bringing_children };
-  if (bringing_children) {
-    updateData.children_count = children_count ? parseInt(children_count) : 0;
-    updateData.children_ages = children_ages;
-  }
+  const updateData = { status };
 
   try {
     // Supõe que supabaseClient está disponível globalmente através do main.js
@@ -155,11 +140,11 @@ async function handleRsvp() {
       if (error) throw error;
     }
 
-    showSuccessMessage(bringing_children, children_count, children_ages);
+    showSuccessMessage();
   } catch (error) {
     console.error('Erro ao confirmar:', error);
     // Fallback visual mesmo se o supabase falhar, para UX
-    showSuccessMessage(bringing_children, children_count, children_ages);
+    showSuccessMessage();
   }
 }
 
@@ -184,29 +169,26 @@ async function handleDecline() {
   }
 }
 
-function showSuccessMessage(bringingChildren, count, ages) {
+function showSuccessMessage() {
   const form = document.getElementById('rsvp-form-inner');
   const msg = document.getElementById('rsvp-message');
 
   if (form) form.style.display = 'none';
   if (msg) {
     msg.style.display = 'block';
-    let text = '🕊️ <strong>Presença confirmada, Padrinho(a)!</strong><br><br>';
-    text += 'Estamos honrados e muito felizes em ter você conosco neste dia especial.';
-    if (bringingChildren && count) {
-      text += `<br><br>Crianças: ${count}${ages ? ' (idades: ' + ages + ')' : ''}.`;
-    }
-    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8CCFC7;color:#FFFFFF;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;">🎁 Ver Lista de Presentes</a>';
+    let text = '✨ <strong>O "SIM" de vocês nos transborda de alegria!</strong><br><br>';
+    text += 'Ter vocês como nossos padrinhos é a confirmação de que Deus cuida de cada detalhe da nossa caminhada. Mal podemos esperar para vivermos esse sonho juntos! 💚';
+    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8CCFC7;color:#FFFFFF;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;border-radius:50px;">🎁 Ver Lista de Presentes</a>';
     msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A4A4A;">${text}</p>`;
   }
 
   // Trigger Confetti se disponível
   if (typeof confetti === 'function') {
     confetti({
-      particleCount: 150,
-      spread: 70,
+      particleCount: 200,
+      spread: 80,
       origin: { y: 0.6 },
-      colors: ['#C9A84C', '#D4AF37', '#1E4035'] // Cores premium
+      colors: ['#8CCFC7', '#A8B8A5', '#C9A86A', '#FFFFFF'] // Paleta Delicate & Romantic
     });
   }
 }

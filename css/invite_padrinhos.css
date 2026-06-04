@@ -515,12 +515,14 @@ section {
 /* Floating botanicals */
 .botanical-left,
 .botanical-right {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  width: 130px;
-  opacity: 0.55;
+  width: clamp(100px, 18vw, 160px);
+  opacity: 0.3;
   pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.5s ease;
 }
 
 .botanical-left {
@@ -532,11 +534,12 @@ section {
   transform: translateY(-50%) scaleX(-1);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1024px) {
 
   .botanical-left,
   .botanical-right {
-    display: none;
+    width: 80px;
+    opacity: 0.2;
   }
 }
 
@@ -1473,18 +1476,6 @@ section {
   inset: 3px;
   background: var(--gold-intense);
   border-radius: 50%;
-}
-
-.children-group {
-  display: none;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-  text-align: left;
-}
-
-.children-group.visible {
-  display: grid;
 }
 
 @media (max-width: 400px) {
