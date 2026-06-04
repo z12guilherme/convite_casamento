@@ -180,7 +180,7 @@ async function handleDecline() {
   if (form) form.style.display = 'none';
   if (msg) {
     msg.style.display = 'block';
-    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#E6D6C6;">Sentiremos muito a sua falta. Obrigado pelo carinho e por nos avisar! 💛</p>`;
+    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A4A4A;">Sentiremos muito a sua falta. Obrigado pelo carinho e por nos avisar! 💛</p>`;
   }
 }
 
@@ -196,8 +196,8 @@ function showSuccessMessage(bringingChildren, count, ages) {
     if (bringingChildren && count) {
       text += `<br><br>Crianças: ${count}${ages ? ' (idades: ' + ages + ')' : ''}.`;
     }
-    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#7DC9C3;color:#0F2E2B;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;">🎁 Ver Lista de Presentes</a>';
-    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#F7F3EC;">${text}</p>`;
+    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8CCFC7;color:#FFFFFF;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;">🎁 Ver Lista de Presentes</a>';
+    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#4A4A4A;">${text}</p>`;
   }
 
   // Trigger Confetti se disponível

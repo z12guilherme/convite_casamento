@@ -4,29 +4,30 @@
 ══════════════════════════════════════════ */
 
 :root {
-  --ivory: #F7F3EC;
-  /* Marfim suave */
-  --parchment: #E6D6C6;
-  /* Bege rosado */
-  --gold: #D4B06A;
-  /* Dourado champagne */
+  --ivory: #F5F7F4;
+  /* Fundo principal clarinho */
+  --parchment: #FFFFFF;
+  /* Cor dos Cards */
+  --gold: #C9A86A;
+  /* Dourado champagne suave */
   --gold-light: #E8D69A;
   --gold-dark: #A07830;
-  --gold-intense: #D4B06A;
-  --emerald: #7DC9C3;
+  --gold-intense: #C9A86A;
+  --emerald: #8CCFC7;
   /* Verde-água principal */
-  --emerald-deep: #0F2E2B;
-  /* Verde profundo (fundo) */
-  --moss-green: #2E5D58;
-  /* Verde musgo sofisticado */
-  --sage: #7DC9C3;
+  --emerald-deep: #4A4A4A;
+  /* Texto e títulos (Cinza escuro elegante) */
+  --moss-green: #A8B8A5;
+  /* Verde sálvia */
+  --sage: #A8B8A5;
+  /* Verde sálvia */
   --rose: #C9877A;
   --blush: #F0D8D0;
-  --burgundy: #D4B06A;
-  --text: #F7F3EC;
-  /* Texto principal (Marfim) */
-  --text-soft: #E6D6C6;
-  /* Versículos e frases (Bege rosado) */
+  --burgundy: #A8B8A5;
+  --text: #4A4A4A;
+  /* Texto principal */
+  --text-soft: #6D6D6D;
+  /* Versículos e frases */
 }
 
 *,
@@ -43,8 +44,8 @@ html {
 
 body {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  background: var(--emerald-deep);
-  color: var(--text);
+  background: var(--ivory);
+  color: var(--emerald-deep);
   overflow-x: hidden;
 }
 
@@ -414,10 +415,10 @@ body::before {
   z-index: 500;
   width: 46px;
   height: 46px;
-  background: var(--emerald);
+  background: #FFFFFF;
   border: 1px solid rgba(212, 175, 55, 0.5);
   border-radius: 50%;
-  color: var(--emerald-deep);
+  color: var(--moss-green);
   font-size: 18px;
   cursor: pointer;
   display: none;
@@ -498,7 +499,7 @@ section {
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212, 175, 55, 0.18) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 80% 80%, rgba(107, 45, 62, 0.1) 0%, transparent 60%),
     radial-gradient(ellipse 50% 40% at 20% 70%, rgba(107, 158, 134, 0.12) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(15, 46, 43, 0.8) 0%, rgba(15, 46, 43, 0.9) 50%, var(--emerald-deep) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 247, 244, 0.9) 50%, var(--ivory) 100%),
     url('img/igreja.jpg') center/cover no-repeat fixed;
   padding: 80px 20px 100px;
 }
@@ -569,10 +570,10 @@ section {
 .hero-names {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(60px, 14vw, 100px);
-  color: var(--emerald);
+  color: var(--emerald-deep);
   line-height: 1.05;
   margin-bottom: 16px;
-  text-shadow: 0 2px 30px rgba(30, 64, 53, 0.1);
+  text-shadow: 0 2px 15px rgba(74, 74, 74, 0.05);
 }
 
 .hero-union {
@@ -590,7 +591,7 @@ section {
   border: 1px solid rgba(212, 175, 55, 0.5);
   position: relative;
   margin-bottom: 36px;
-  background: rgba(15, 46, 43, 0.4);
+  background: #FFFFFF;
   backdrop-filter: blur(4px);
 }
 
@@ -629,7 +630,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(18px, 4vw, 26px);
   font-weight: 400;
-  color: var(--ivory);
+  color: var(--emerald-deep);
   letter-spacing: 0.05em;
 }
 
@@ -647,7 +648,7 @@ section {
 ══════════════════════════════════════════ */
 #padrinho-honor {
   padding: 100px 24px;
-  background: linear-gradient(180deg, var(--emerald-deep) 0%, var(--moss-green) 100%);
+  background: linear-gradient(180deg, var(--ivory) 0%, #FFFFFF 100%);
   position: relative;
 }
 
@@ -692,10 +693,10 @@ section {
 .honor-card {
   position: relative;
   padding: 48px 40px;
-  background: rgba(46, 93, 88, 0.25);
+  background: #FFFFFF;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 176, 106, 0.3);
+  border: 1px solid rgba(168, 184, 165, 0.3);
   border-radius: 2px;
   margin-top: 20px;
   overflow: hidden;
@@ -825,7 +826,7 @@ section {
   font-size: 17px;
   font-style: italic;
   line-height: 1.8;
-  color: var(--text-soft);
+  color: var(--text);
   margin-bottom: 16px;
 }
 
@@ -880,7 +881,7 @@ section {
 ══════════════════════════════════════════ */
 #countdown {
   padding: 80px 24px;
-  background: var(--emerald-deep);
+  background: #F8FAF9;
   position: relative;
 }
 
@@ -888,7 +889,7 @@ section {
   content: '';
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238CCFC7' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Burgundy glow for countdown section */
@@ -896,7 +897,7 @@ section {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(107, 45, 62, 0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201, 168, 106, 0.05) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -913,8 +914,8 @@ section {
   font-size: 10px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--gold-light);
-  opacity: 0.8;
+  color: var(--gold-dark);
+  opacity: 1;
   margin-bottom: 40px;
 }
 
@@ -922,7 +923,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(22px, 5vw, 34px);
   font-style: italic;
-  color: var(--ivory);
+  color: var(--emerald-deep);
   margin-bottom: 48px;
 }
 
@@ -942,9 +943,9 @@ section {
 
 .countdown-item {
   padding: 28px 10px;
-  border: 1px solid rgba(212, 176, 106, 0.35);
+  border: 1px solid rgba(168, 184, 165, 0.3);
   position: relative;
-  background: rgba(46, 93, 88, 0.1);
+  background: #FFFFFF;
 }
 
 .countdown-item::before,
@@ -973,7 +974,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(38px, 9vw, 56px);
   font-weight: 400;
-  color: var(--gold-light);
+  color: var(--emerald);
   display: block;
   line-height: 1;
 }
@@ -983,7 +984,7 @@ section {
   font-size: 9px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(249, 244, 236, 0.5);
+  color: var(--text-soft);
   margin-top: 8px;
   display: block;
 }
@@ -993,7 +994,7 @@ section {
 ══════════════════════════════════════════ */
 #message {
   padding: 100px 24px;
-  background: var(--moss-green);
+  background: #F8FAF9;
   position: relative;
 }
 
@@ -1016,7 +1017,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 6vw, 40px);
   font-weight: 400;
-  color: var(--text);
+  color: var(--emerald-deep);
   margin-bottom: 10px;
 }
 
@@ -1039,8 +1040,8 @@ section {
   margin: 48px auto 0;
   max-width: 520px;
   padding: 36px 40px;
-  background: rgba(15, 46, 43, 0.35);
-  border: 1px solid rgba(212, 176, 106, 0.3);
+  background: #FFFFFF;
+  border: 1px solid rgba(168, 184, 165, 0.3);
   position: relative;
   backdrop-filter: blur(4px);
 }
@@ -1099,7 +1100,7 @@ section {
    GALLERY — POLAROID
 ══════════════════════════════════════════ */
 #gallery {
-  background: linear-gradient(180deg, var(--emerald-deep) 0%, var(--moss-green) 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--ivory) 100%);
   padding: 100px 0 120px;
   overflow: hidden;
 }
@@ -1194,7 +1195,7 @@ section {
 ══════════════════════════════════════════ */
 #details {
   padding: 100px 24px;
-  background: var(--emerald-deep);
+  background: var(--ivory);
   position: relative;
 }
 
@@ -1207,7 +1208,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 6vw, 40px);
   font-weight: 400;
-  color: var(--text);
+  color: var(--emerald-deep);
   text-align: center;
   margin-bottom: 60px;
 }
@@ -1220,8 +1221,8 @@ section {
 
 .detail-card {
   padding: 36px 28px;
-  background: rgba(46, 93, 88, 0.2);
-  border: 1px solid rgba(212, 176, 106, 0.25);
+  background: #FFFFFF;
+  border: 1px solid rgba(168, 184, 165, 0.3);
   text-align: center;
   position: relative;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -1356,7 +1357,7 @@ section {
 ══════════════════════════════════════════ */
 #rsvp {
   padding: 100px 24px;
-  background: var(--moss-green);
+  background: #F8FAF9;
   position: relative;
 }
 
@@ -1379,7 +1380,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 6vw, 40px);
   font-weight: 400;
-  color: var(--text);
+  color: var(--emerald-deep);
   margin-bottom: 10px;
 }
 
@@ -1392,8 +1393,8 @@ section {
 
 .rsvp-card {
   padding: 48px 40px;
-  background: rgba(15, 46, 43, 0.35);
-  border: 1px solid rgba(212, 176, 106, 0.3);
+  background: #FFFFFF;
+  border: 1px solid rgba(168, 184, 165, 0.3);
   position: relative;
   backdrop-filter: blur(6px);
 }
@@ -1547,7 +1548,7 @@ section {
 .btn-decline {
   background: transparent;
   color: var(--text-soft);
-  border: 1px solid rgba(247, 243, 236, 0.3);
+  border: 1px solid rgba(168, 184, 165, 0.5);
 }
 
 .btn-confirm:hover {
@@ -1571,7 +1572,7 @@ section {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
   font-style: italic;
-  color: var(--text);
+  color: var(--emerald-deep);
   line-height: 1.6;
 }
 
@@ -1580,7 +1581,7 @@ section {
 ══════════════════════════════════════════ */
 #footer {
   padding: 80px 24px 60px;
-  background: var(--emerald-deep);
+  background: var(--ivory);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1603,10 +1604,10 @@ section {
 .footer-names {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(44px, 11vw, 68px);
-  color: var(--gold-light);
+  color: var(--gold);
   line-height: 1.1;
   margin-bottom: 10px;
-  text-shadow: 0 2px 20px rgba(212, 175, 55, 0.35);
+  text-shadow: 0 2px 15px rgba(74, 74, 74, 0.1);
 }
 
 .footer-date {
@@ -1614,7 +1615,7 @@ section {
   font-size: 11px;
   letter-spacing: 0.45em;
   text-transform: uppercase;
-  color: rgba(249, 244, 236, 0.55);
+  color: var(--text-soft);
   margin-bottom: 40px;
 }
 
@@ -1639,7 +1640,7 @@ section {
   font-size: 16px;
   font-style: italic;
   line-height: 1.75;
-  color: rgba(249, 244, 236, 0.7);
+  color: var(--text-soft);
   margin-bottom: 10px;
 }
 
@@ -1648,7 +1649,7 @@ section {
   font-size: 10px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--gold-light);
+  color: var(--gold-dark);
   opacity: 0.7;
 }
 
@@ -1657,7 +1658,8 @@ section {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
   letter-spacing: 0.2em;
-  color: rgba(249, 244, 236, 0.25);
+  color: var(--text-soft);
+  opacity: 0.5;
 }
 
 /* ══════════════════════════════════════════
@@ -1674,7 +1676,7 @@ section {
 }
 
 .gold-shimmer {
-  background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-light) 30%, var(--gold-intense) 50%, var(--gold-light) 70%, var(--gold-dark) 100%);
+  background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
