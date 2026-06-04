@@ -141,6 +141,74 @@
         min-width: 200px;
     }
 
+    /* Tabs Styling */
+    .tabs-nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid rgba(197, 160, 89, 0.2);
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: none;
+        color: var(--c-text);
+        opacity: 0.6;
+        padding: 10px 20px;
+        font-family: var(--font-serif);
+        font-size: 1.3rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        border-radius: 0;
+        letter-spacing: 0.05em;
+    }
+
+    .tab-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--c-gold);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .tab-btn.active {
+        opacity: 1;
+        color: var(--c-primary);
+    }
+
+    .tab-btn.active::after {
+        transform: scaleX(1);
+    }
+
+    .tab-btn:hover {
+        opacity: 1;
+        background: transparent;
+        color: var(--c-primary);
+        box-shadow: none;
+        transform: none;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     input::placeholder {
         color: rgba(35, 53, 42, 0.4);
         font-style: italic;
@@ -210,7 +278,7 @@
         border-radius: 10px;
     }
 
-    #listaConvidados li {
+    #listaConvidados li, #listaPadrinhos li {
         background: transparent;
         border: none;
         border-bottom: 1px solid rgba(197, 160, 89, 0.2);
@@ -222,22 +290,22 @@
         transition: background 0.3s ease;
     }
     
-    #listaConvidados li:hover {
+    #listaConvidados li:hover, #listaPadrinhos li:hover {
         background: rgba(197, 160, 89, 0.05);
     }
     
-    #listaConvidados li .guest-info {
+    #listaConvidados li .guest-info, #listaPadrinhos li .guest-info {
         flex-grow: 1;
     }
 
-    #listaConvidados li .guest-info span {
+    #listaConvidados li .guest-info span, #listaPadrinhos li .guest-info span {
         font-family: var(--font-serif);
         font-size: 1.2rem;
         font-weight: 600;
         color: var(--c-text);
     }
 
-    #listaConvidados li .guest-info strong {
+    #listaConvidados li .guest-info strong, #listaPadrinhos li .guest-info strong {
         font-family: var(--font-sans);
         font-size: 0.8rem;
         text-transform: uppercase;
@@ -247,7 +315,7 @@
         margin-left: 5px;
     }
 
-    #listaConvidados li .guest-details {
+    #listaConvidados li .guest-details, #listaPadrinhos li .guest-details {
         font-size: 0.85rem; 
         color: var(--c-text); 
         opacity: 0.7;
@@ -255,14 +323,14 @@
         font-family: var(--font-sans);
     }
 
-    #listaConvidados li .guest-actions {
+    #listaConvidados li .guest-actions, #listaPadrinhos li .guest-actions {
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
         justify-content: flex-end;
     }
 
-    #listaConvidados li a {
+    #listaConvidados li a, #listaPadrinhos li a {
         text-decoration: none;
         padding: 6px 12px;
         border-radius: 50px;
@@ -277,16 +345,18 @@
     }
 
     #listaConvidados li a:first-child:hover,
-    #listaConvidados li .info-btn:hover {
+    #listaConvidados li .info-btn:hover,
+    #listaPadrinhos li a:first-child:hover,
+    #listaPadrinhos li .info-btn:hover {
         background: var(--c-primary);
         color: white;
     }
 
-    #listaConvidados li .delete-btn {
+    #listaConvidados li .delete-btn, #listaPadrinhos li .delete-btn {
         border-color: #e57373;
         color: #e57373;
     }
-    #listaConvidados li .delete-btn:hover {
+    #listaConvidados li .delete-btn:hover, #listaPadrinhos li .delete-btn:hover {
         background: #e57373;
         color: white;
     }
@@ -315,35 +385,56 @@
         <ellipse cx="60" cy="12" rx="10" ry="3" opacity="0.6"/>
     </svg>
 
-    <h1>Gestão de Convidados</h1>
-    <div class="form">
-        <div class="form-row">
-            <input type="text" id="nome" placeholder="Nome do convidado">
-            <button onclick="adicionarConvidado()">Adicionar</button>
+    <h1>Gestão de Presenças</h1>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab('convidados')">Convidados</button>
+        <button class="tab-btn" onclick="switchTab('padrinhos')">Padrinhos</button>
+    </div>
+
+    <div id="tab-convidados" class="tab-content active">
+        <div class="form">
+            <div class="form-row">
+                <input type="text" id="nome-convidado" placeholder="Nome do convidado">
+                <button onclick="adicionarConvidado('convidado')">Adicionar Convidado</button>
+            </div>
         </div>
+        <div class="form-row" style="margin-top: 20px; border-top: 1px solid rgba(197, 160, 89, 0.2); padding-top: 25px;">
+            <span style="font-family: var(--font-serif); font-size: 1.2rem; color: var(--c-text); width: 100%; text-align: center;">Ou importe de uma planilha Excel</span>
+            <input type="file" id="xlsx_file" accept=".xlsx, .xls">
+            <button onclick="importarConvidados('convidado')">Importar</button>
+            <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.8rem; width: 100%; text-align: center; margin-top: 5px;">Baixar planilha de exemplo</a>
+        </div>
+        
+        <h2>Lista de Convidados</h2>
+        <ul id="listaConvidados"></ul>
     </div>
-    <div class="form-row" style="margin-top: 20px; border-top: 1px solid rgba(197, 160, 89, 0.2); padding-top: 25px;">
-        <span style="font-family: var(--font-serif); font-size: 1.2rem; color: var(--c-text); width: 100%; text-align: center;">Ou importe de uma planilha Excel</span>
-        <input type="file" id="xlsx_file" accept=".xlsx, .xls">
-        <button onclick="importarConvidados()">Importar</button>
-        <a href="#" onclick="baixarExemploPlanilha(event)" style="font-size: 0.8rem; width: 100%; text-align: center; margin-top: 5px;">Baixar planilha de exemplo</a>
+
+    <div id="tab-padrinhos" class="tab-content">
+        <div class="form">
+            <div class="form-row">
+                <input type="text" id="nome-padrinho" placeholder="Nome do padrinho/madrinha">
+                <button onclick="adicionarConvidado('padrinho')">Adicionar Padrinho</button>
+            </div>
+        </div>
+        
+        <h2>Lista de Padrinhos</h2>
+        <ul id="listaPadrinhos"></ul>
     </div>
-    <div class="form" style="margin-top: 10px;">
+
+    <div class="form" style="margin-top: 10px; border-top: 1px solid rgba(197, 160, 89, 0.2); padding-top: 20px;">
         <button onclick="exportarConvidados(this)">📥 Baixar Lista Completa (.xlsx)</button>
     </div>
-    <h2>Lista de Convidados</h2>
-    <ul id="listaConvidados"></ul>
-    <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
-    <div style="margin-top: 20px;">
-        <button onclick="logout()" class="btn-danger">
-        Sair do Painel
-        </button>
+
+    <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px; align-items: center;">
+        <a href="gifts/dashboard.html" class="dashboard-link">Ver Dashboard de Presentes</a>
+        <button onclick="logout()" class="btn-danger">Sair do Painel</button>
     </div>
 </div>
 <script>
     // A lógica principal agora está em js/main.js
     // As funções abaixo foram adaptadas para usar o Supabase
-    function importarConvidados() {
+    function importarConvidados(tipo = 'convidado') {
         const fileInput = document.getElementById('xlsx_file');
         const file = fileInput.files[0];
 
@@ -370,13 +461,14 @@
                 const row = json[i];
                 const nome = row[0] ? String(row[0]).trim() : '';
                 if (nome) {
-                    document.getElementById('nome').value = nome;
-                    await adicionarConvidado(); // Usando a função de main.js
+                    const inputId = tipo === 'padrinho' ? 'nome-padrinho' : 'nome-convidado';
+                    document.getElementById(inputId).value = nome;
+                    await adicionarConvidado(tipo); // Usando a função de main.js
                     // Adiciona um pequeno delay para não sobrecarregar o browser/localStorage de uma vez
                     await new Promise(resolve => setTimeout(resolve, 100));
                 }
             }
-            alert(`${json.length - 1} convidados foram processados para importação.`);
+            alert(`${json.length - 1} ${tipo === 'padrinho' ? 'padrinhos' : 'convidados'} foram processados para importação.`);
             fileInput.value = ''; // Limpa o input
         };
         reader.readAsArrayBuffer(file);
@@ -418,6 +510,17 @@
             btn.innerText = originalText;
             btn.disabled = false;
         }
+    }
+
+    // Tabs logic
+    function switchTab(tabId) {
+        // Atualiza botões
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Atualiza painéis
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(`tab-${tabId}`).classList.add('active');
     }
 </script>
 </body>
