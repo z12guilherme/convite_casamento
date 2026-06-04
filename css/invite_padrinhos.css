@@ -4,29 +4,29 @@
 ══════════════════════════════════════════ */
 
 :root {
-  --ivory: #F5F7F4;
-  /* Fundo principal clarinho */
+  --ivory: #FAF8F3;
+  /* Tom de papel fino */
   --parchment: #FFFFFF;
   /* Cor dos Cards */
-  --gold: #C9A86A;
-  /* Dourado champagne suave */
-  --gold-light: #E8D69A;
-  --gold-dark: #A07830;
-  --gold-intense: #C9A86A;
+  --gold: #B58E4B;
+  /* Dourado com mais presença */
+  --gold-light: #D4B688;
+  --gold-dark: #8C6A2F;
+  --gold-intense: #B58E4B;
   --emerald: #8CCFC7;
-  /* Verde-água principal */
-  --emerald-deep: #4A4A4A;
-  /* Texto e títulos (Cinza escuro elegante) */
-  --moss-green: #A8B8A5;
-  /* Verde sálvia */
-  --sage: #A8B8A5;
+  /* Verde-água para destaques */
+  --emerald-deep: #2F4F4F;
+  /* Títulos e textos fortes */
+  --moss-green: #8CCFC7;
+  /* Harmonizado com emerald */
+  --sage: #9AB2A5;
   /* Verde sálvia */
   --rose: #C9877A;
   --blush: #F0D8D0;
-  --burgundy: #A8B8A5;
-  --text: #4A4A4A;
+  --burgundy: #2F4F4F;
+  --text: #5F5F5F;
   /* Texto principal */
-  --text-soft: #6D6D6D;
+  --text-soft: #6A6A6A;
   /* Versículos e frases */
 }
 
@@ -415,10 +415,10 @@ body::before {
   z-index: 500;
   width: 46px;
   height: 46px;
-  background: #FFFFFF;
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  background: var(--emerald);
+  border: 1px solid rgba(181, 142, 75, 0.4);
   border-radius: 50%;
-  color: var(--moss-green);
+  color: var(--ivory);
   font-size: 18px;
   cursor: pointer;
   display: none;
@@ -460,7 +460,7 @@ section {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin: 0 auto 28px;
+  margin: 0 auto 18px;
   max-width: 320px;
 }
 
@@ -501,7 +501,7 @@ section {
     radial-gradient(ellipse 50% 40% at 20% 70%, rgba(107, 158, 134, 0.12) 0%, transparent 60%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 247, 244, 0.9) 50%, var(--ivory) 100%),
     url('img/igreja.jpg') center/cover no-repeat fixed;
-  padding: 80px 20px 100px;
+  padding: 60px 20px 80px;
 }
 
 .hero-inner {
@@ -561,7 +561,7 @@ section {
   font-size: 10px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--burgundy);
+  color: var(--gold-dark);
   font-weight: 600;
 }
 
@@ -584,16 +584,16 @@ section {
   font-size: 13px;
   font-style: italic;
   letter-spacing: 0.25em;
-  color: var(--text-soft);
-  margin-bottom: 36px;
+  color: var(--text);
+  margin-bottom: 24px;
 }
 
 .hero-date-box {
   display: inline-block;
   padding: 22px 48px;
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  border: 1px solid rgba(181, 142, 75, 0.5);
   position: relative;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   background: #FFFFFF;
   backdrop-filter: blur(4px);
 }
@@ -641,7 +641,7 @@ section {
   font-family: 'Cormorant Garamond', serif;
   font-size: 19px;
   font-style: italic;
-  color: var(--burgundy);
+  color: var(--text-soft);
   opacity: 0.85;
   font-weight: 600;
 }
@@ -650,7 +650,7 @@ section {
    PADRINHO HONOR SECTION — EXCLUSIVE
 ══════════════════════════════════════════ */
 #padrinho-honor {
-  padding: 100px 24px;
+  padding: 70px 24px;
   background: linear-gradient(180deg, var(--ivory) 0%, #FFFFFF 100%);
   position: relative;
 }
@@ -674,20 +674,20 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 6vw, 42px);
   font-weight: 400;
-  color: var(--text);
+  color: var(--emerald-deep);
   margin-bottom: 10px;
 }
 
 #padrinho-honor .subtitle {
   font-style: italic;
   font-size: 19px;
-  color: var(--text-soft);
-  margin-bottom: 48px;
+  color: var(--text);
+  margin-bottom: 36px;
   opacity: 0.85;
 }
 
 .highlight-name {
-  color: var(--gold-intense);
+  color: var(--emerald);
   font-family: 'Great Vibes', cursive;
   font-size: 1.3em;
 }
@@ -695,7 +695,7 @@ section {
 /* Honor Card — Glassmorphism */
 .honor-card {
   position: relative;
-  padding: 48px 40px;
+  padding: 40px 32px;
   background: #FFFFFF;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -785,8 +785,8 @@ section {
 
 /* Honor scripture */
 .honor-scripture {
-  margin-top: 36px;
-  padding: 32px 28px;
+  margin-top: 28px;
+  padding: 24px 20px;
   background: rgba(30, 64, 53, 0.04);
   border: 1px solid rgba(212, 175, 55, 0.25);
   position: relative;
@@ -883,7 +883,7 @@ section {
    COUNTDOWN
 ══════════════════════════════════════════ */
 #countdown {
-  padding: 80px 24px;
+  padding: 60px 24px;
   background: #FAF8F3;
   position: relative;
 }
@@ -917,9 +917,9 @@ section {
   font-size: 10px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
   opacity: 1;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 #countdown h2 {
@@ -927,7 +927,7 @@ section {
   font-size: clamp(22px, 5vw, 34px);
   font-style: italic;
   color: var(--emerald-deep);
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 
 .countdown-grid {
@@ -945,7 +945,7 @@ section {
 }
 
 .countdown-item {
-  padding: 28px 10px;
+  padding: 20px 10px;
   border: 1px solid rgba(231, 214, 204, 0.5);
   position: relative;
   background: #FFFFFF;
@@ -980,7 +980,7 @@ section {
   color: var(--emerald);
   display: block;
   line-height: 1;
-  text-shadow: 0 2px 10px rgba(143, 213, 204, 0.2);
+  text-shadow: 0 2px 8px rgba(140, 207, 199, 0.15);
 }
 
 .countdown-unit {
@@ -997,7 +997,7 @@ section {
    MESSAGE SECTION
 ══════════════════════════════════════════ */
 #message {
-  padding: 100px 24px;
+  padding: 70px 24px;
   background: #FAF8F3;
   position: relative;
 }
@@ -1035,15 +1035,15 @@ section {
 #message p {
   font-size: 17px;
   line-height: 1.85;
-  color: var(--text-soft);
-  margin-bottom: 20px;
+  color: var(--text);
+  margin-bottom: 16px;
 }
 
 /* Scripture card */
 .scripture-card {
-  margin: 48px auto 0;
+  margin: 36px auto 0;
   max-width: 520px;
-  padding: 36px 40px;
+  padding: 32px 36px;
   background: #FFFFFF;
   border: 1px solid rgba(168, 184, 165, 0.3);
   position: relative;
@@ -1105,7 +1105,7 @@ section {
 ══════════════════════════════════════════ */
 #gallery {
   background: linear-gradient(180deg, #FFFFFF 0%, var(--ivory) 100%);
-  padding: 100px 0 120px;
+  padding: 70px 0 90px;
   overflow: hidden;
 }
 
@@ -1198,7 +1198,7 @@ section {
    DETAILS SECTION
 ══════════════════════════════════════════ */
 #details {
-  padding: 100px 24px;
+  padding: 70px 24px;
   background: var(--ivory);
   position: relative;
 }
@@ -1214,7 +1214,7 @@ section {
   font-weight: 400;
   color: var(--emerald-deep);
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .detail-cards {
@@ -1224,7 +1224,7 @@ section {
 }
 
 .detail-card {
-  padding: 36px 28px;
+  padding: 28px 24px;
   background: #FFFFFF;
   border: 1px solid rgba(231, 214, 204, 0.4);
   text-align: center;
@@ -1298,7 +1298,7 @@ section {
 
 /* Map */
 .map-wrap {
-  margin-top: 48px;
+  margin-top: 36px;
   border: 1px solid rgba(212, 175, 55, 0.3);
   position: relative;
   overflow: hidden;
@@ -1360,7 +1360,7 @@ section {
    RSVP
 ══════════════════════════════════════════ */
 #rsvp {
-  padding: 100px 24px;
+  padding: 70px 24px;
   background: #FAF8F3;
   position: relative;
 }
@@ -1392,11 +1392,11 @@ section {
   font-style: italic;
   font-size: 16px;
   color: var(--text-soft);
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 
 .rsvp-card {
-  padding: 48px 40px;
+  padding: 40px 32px;
   background: #FFFFFF;
   border: 1px solid rgba(168, 184, 165, 0.3);
   position: relative;
@@ -1512,7 +1512,7 @@ section {
 
 .btn-confirm,
 .btn-decline {
-  padding: 14px 36px;
+  padding: 12px 32px;
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
   font-weight: 600;
@@ -1572,7 +1572,7 @@ section {
    FOOTER
 ══════════════════════════════════════════ */
 #footer {
-  padding: 80px 24px 60px;
+  padding: 60px 24px 40px;
   background: var(--ivory);
   text-align: center;
   position: relative;
@@ -1632,7 +1632,7 @@ section {
   font-size: 16px;
   font-style: italic;
   line-height: 1.75;
-  color: var(--text-soft);
+  color: var(--text);
   margin-bottom: 10px;
 }
 
@@ -1646,7 +1646,7 @@ section {
 }
 
 .footer-credit {
-  margin-top: 48px;
+  margin-top: 32px;
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -1683,19 +1683,19 @@ section {
 #message,
 #details,
 #rsvp {
-  padding: clamp(60px, 8vh, 100px) 24px;
+  padding: clamp(40px, 6vh, 70px) 24px;
 }
 
 #hero {
-  padding: clamp(60px, 8vh, 80px) 20px clamp(80px, 10vh, 100px);
+  padding: clamp(40px, 6vh, 60px) 20px clamp(60px, 8vh, 80px);
 }
 
 #footer {
-  padding: clamp(60px, 8vh, 80px) 24px clamp(40px, 6vh, 60px);
+  padding: clamp(40px, 6vh, 60px) 24px clamp(30px, 4vh, 40px);
 }
 
 #gallery {
-  padding: clamp(60px, 8vh, 100px) 0 clamp(80px, 10vh, 120px);
+  padding: clamp(50px, 7vh, 80px) 0 clamp(60px, 8vh, 100px);
 }
 
 @media (max-width: 768px) {

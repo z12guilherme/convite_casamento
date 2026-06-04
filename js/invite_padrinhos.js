@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         height: ${size}px;
         animation-duration: ${4 + Math.random() * 6}s;
         animation-delay: ${Math.random() * 5}s;
-        background: ${Math.random() > 0.5 ? '#D4AF37' : '#E8D69A'};
+        background: ${Math.random() > 0.5 ? '#B58E4B' : '#D4B688'};
       `;
       introDust.appendChild(p);
     }
@@ -170,6 +170,9 @@ async function handleDecline() {
 }
 
 function showSuccessMessage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get('name') || 'Convidado';
+
   const form = document.getElementById('rsvp-form-inner');
   const msg = document.getElementById('rsvp-message');
 
@@ -178,8 +181,8 @@ function showSuccessMessage() {
     msg.style.display = 'block';
     let text = '✨ <strong>O "SIM" de vocês nos transborda de alegria!</strong><br><br>';
     text += 'Ter vocês como nossos padrinhos é a confirmação de que Deus cuida de cada detalhe da nossa caminhada. Mal podemos esperar para vivermos esse sonho juntos! ✨';
-    text += '<br><br><a href="gifts/lista_presentes.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8FD5CC;color:#5C524B;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;border-radius:50px;">🎁 Ver Lista de Presentes</a>';
-    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#5C524B;">${text}</p>`;
+    text += `<br><br><a href="gifts/lista_presentes.html?name=${encodeURIComponent(name)}" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 28px;background:#8CCFC7;color:#2F4F4F;font-family:Montserrat,sans-serif;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;border-radius:50px;">🎁 Ver Lista de Presentes</a>`;
+    msg.innerHTML = `<p style="font-size:18px;line-height:1.7;font-style:italic;color:#5F5F5F;">${text}</p>`;
   }
 
   // Trigger Confetti se disponível
@@ -188,7 +191,7 @@ function showSuccessMessage() {
       particleCount: 200,
       spread: 80,
       origin: { y: 0.6 },
-      colors: ['#8FD5CC', '#E7D6CC', '#D8B67A', '#FFFFFF'] // Paleta Luxo Pinterest
+      colors: ['#8CCFC7', '#FAF8F3', '#B58E4B', '#FFFFFF'] // Paleta Emerald & Gold
     });
   }
 }
