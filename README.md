@@ -40,9 +40,19 @@
 
 ---
 
-## 🤖 Gerador de Convites em PDF (Tutorial)
+## 🤖✨ Gerador de Convites Físicos em PDF (Uma Joia da Automação)
 
-Esta é a funcionalidade para criar os convites físicos em PDF, cada um com um QR Code que leva ao convite online personalizado.
+Esta é a joia da coroa do projeto. Um poderoso script em Python que transforma uma simples planilha de convidados em uma coleção de convites em PDF prontos para impressão. Chega de trabalho manual! Cada convite é gerado com um toque único e pessoal.
+
+### Principais Destaques da Automação:
+
+-   ✒️ **Personalização em Massa**: Lê os nomes diretamente de um arquivo `convidados.xlsx`.
+-   🔗 **QR Code Único**: Gera um QR Code exclusivo para cada convidado, que leva diretamente ao seu convite online personalizado.
+-   🎨 **Design Profissional**: Sobrepõe o nome e o QR Code em um template de design (`Convite_Template.pdf`), mantendo a identidade visual do casamento.
+-   ✍️ **Fontes Elegantes**: Utiliza fontes cursivas customizadas para o nome do convidado, com fallback para fontes padrão, garantindo que o script nunca falhe.
+-   🗂️ **Organização Automática**: Salva cada convite em um arquivo PDF separado na pasta `convites/`, com o nome do convidado para fácil identificação.
+
+### Tutorial de Como Usar
 
 ### Passo 1: Prepare o Ambiente
 
