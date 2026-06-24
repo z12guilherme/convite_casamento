@@ -55,8 +55,10 @@
     }
 
     /* ══════════════════════════════════════════
-       INTRO OVERLAY (ENVELOPE DESIGN)
+       INTRO OVERLAY — ENVELOPE LUXUOSO
     ══════════════════════════════════════════ */
+
+    /* ── Fundo principal ── */
     #intro {
       position: fixed;
       inset: 0;
@@ -64,289 +66,465 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FAF7F2;
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      background:
+        radial-gradient(ellipse at 30% 20%, #2A1F0E 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 80%, #1A2B1E 0%, transparent 55%),
+        linear-gradient(160deg, #1C1408 0%, #0E1A10 40%, #12100A 100%);
+      transition: opacity 1.6s cubic-bezier(0.4,0,0.2,1), transform 1.6s cubic-bezier(0.4,0,0.2,1);
       overflow: hidden;
+      cursor: default;
     }
 
     #intro.hidden {
       opacity: 0;
       pointer-events: none;
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
 
-    /* Fundo texturizado floral */
-    .envelope-texture {
+    /* ── Luz ambiente dourada ── */
+    #intro::before {
+      content: '';
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23E8E3DB' stroke-width='0.5' opacity='0.7'%3E%3Cpath d='M50 0 Q60 20 50 50 T50 100 M0 50 Q20 40 50 50 T100 50' /%3E%3Ccircle cx='50' cy='50' r='20' stroke-dasharray='2,2'/%3E%3Cpath d='M30 30 Q50 50 70 30 M30 70 Q50 50 70 70' /%3E%3Cpath d='M50 20 C60 10 70 20 60 30 Z' /%3E%3Cpath d='M50 80 C40 90 30 80 40 70 Z' /%3E%3Cpath d='M20 50 C10 40 20 30 30 40 Z' /%3E%3Cpath d='M80 50 C90 60 80 70 70 60 Z' /%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
       pointer-events: none;
+      z-index: 0;
+      animation: ambientPulse 5s ease-in-out infinite alternate;
     }
 
-    /* Flaps do Envelope */
-    .envelope-flaps {
+    @keyframes ambientPulse {
+      0%   { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* ── Partículas douradas flutuantes ── */
+    #intro-particles {
       position: absolute;
       inset: 0;
-      z-index: 10;
       pointer-events: none;
+      z-index: 2;
       overflow: hidden;
     }
 
-    .flap-wrapper {
+    .gold-particle {
       position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #E8D080, #C9A84C);
       pointer-events: none;
+      animation: goldFloat linear infinite;
     }
 
-    .flap-inner {
-      width: 100%;
-      height: 100%;
-      background: #FCFBF8;
+    @keyframes goldFloat {
+      0%   { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 0; }
+      5%   { opacity: 0.8; }
+      95%  { opacity: 0.3; }
+      100% { transform: translateY(-20px) translateX(30px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── Pétalas ── */
+    #petal-container {
+      position: absolute;
+      inset: 0;
       pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23E8E3DB' stroke-width='0.5' opacity='0.7'%3E%3Cpath d='M50 0 Q60 20 50 50 T50 100 M0 50 Q20 40 50 50 T100 50' /%3E%3Ccircle cx='50' cy='50' r='20' stroke-dasharray='2,2'/%3E%3Cpath d='M30 30 Q50 50 70 30 M30 70 Q50 50 70 70' /%3E%3Cpath d='M50 20 C60 10 70 20 60 30 Z' /%3E%3Cpath d='M50 80 C40 90 30 80 40 70 Z' /%3E%3Cpath d='M20 50 C10 40 20 30 30 40 Z' /%3E%3Cpath d='M80 50 C90 60 80 70 70 60 Z' /%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    .left-flap {
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      filter: drop-shadow(4px 0 15px rgba(0, 0, 0, 0.06));
-    }
-
-    .left-flap .flap-inner {
-      clip-path: polygon(0 0, 100% 50%, 0 100%);
-      background: #F8F5EE;
-    }
-
-    .right-flap {
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      filter: drop-shadow(-4px 0 15px rgba(0, 0, 0, 0.06));
-    }
-
-    .right-flap .flap-inner {
-      clip-path: polygon(100% 0, 0 50%, 100% 100%);
-      background: #F8F5EE;
-    }
-
-    .bottom-flap {
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60%;
-      filter: drop-shadow(0 -6px 15px rgba(0, 0, 0, 0.08));
-      z-index: 2;
-    }
-
-    .bottom-flap .flap-inner {
-      clip-path: polygon(0 100%, 50% 0, 100% 100%);
-      background: #FDFBF8;
-    }
-
-    .top-flap {
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 55%;
-      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
       z-index: 3;
+      overflow: hidden;
     }
 
-    .top-flap .flap-inner {
-      clip-path: polygon(0 0, 50% 100%, 100% 0);
-      background: #FFFFFF;
-    }
-
-    /* Gold symbols on the envelope */
-    .envelope-gold-symbol {
+    .petal {
       position: absolute;
-      color: #C9A84C;
-      opacity: 0.85;
+      border-radius: 60% 40% 60% 40% / 50% 50% 50% 50%;
+      animation: petalFall linear infinite;
       pointer-events: none;
     }
 
-    .left-flap-symbol {
-      top: 50%;
-      left: 12%;
-      transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
-      opacity: 0.6;
-      animation: holyBreath 4s ease-in-out infinite alternate;
+    @keyframes petalFall {
+      0%   { transform: translateY(-30px) translateX(0) rotate(0deg) scale(1);   opacity: 0; }
+      8%   { opacity: 0.85; }
+      92%  { opacity: 0.4; }
+      100% { transform: translateY(110vh) translateX(80px) rotate(600deg) scale(0.8); opacity: 0; }
     }
 
-    .right-flap-symbol {
-      top: 50%;
-      right: 12%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      opacity: 0.6;
-      animation: holyBreath 4s ease-in-out infinite alternate-reverse;
-    }
-
-    @keyframes holyBreath {
-      0% {
-        opacity: 0.4;
-        filter: drop-shadow(0 0 6px rgba(201, 168, 76, 0.2));
-        transform: translateY(-50%) scale(0.98);
-      }
-
-      100% {
-        opacity: 0.95;
-        filter: drop-shadow(0 0 15px rgba(201, 168, 76, 0.8));
-        transform: translateY(-50%) scale(1.02);
-      }
-    }
-
-    /* Cantos florais */
+    /* ── Cantos botânicos do overlay ── */
     .floral-corner {
       position: absolute;
-      width: clamp(140px, 38vw, 240px);
-      height: clamp(140px, 38vw, 240px);
-      z-index: 15;
+      width: clamp(120px, 28vw, 220px);
+      height: clamp(120px, 28vw, 220px);
+      z-index: 8;
       pointer-events: none;
-      opacity: 1;
+      opacity: 0;
+      animation: floralAppear 1.8s ease 0.3s forwards;
     }
 
-    .floral-corner.top-left {
-      top: -10px;
-      left: -10px;
-      transform: rotate(0deg);
+    @keyframes floralAppear {
+      to { opacity: 0.65; }
     }
 
-    .floral-corner.top-right {
-      top: -10px;
-      right: -10px;
-      transform: scaleX(-1);
-    }
+    .floral-corner.top-left     { top: -8px;    left: -8px; }
+    .floral-corner.top-right    { top: -8px;    right: -8px;  transform: scaleX(-1); }
+    .floral-corner.bottom-left  { bottom: -8px; left: -8px;   transform: scaleY(-1); }
+    .floral-corner.bottom-right { bottom: -8px; right: -8px;  transform: scale(-1,-1); }
 
-    .floral-corner.bottom-left {
-      bottom: -10px;
-      left: -10px;
-      transform: scaleY(-1);
-    }
-
-    .floral-corner.bottom-right {
-      bottom: -10px;
-      right: -10px;
-      transform: scale(-1, -1);
-    }
-
-    .envelope-content {
+    /* ══════════════════════════════════════════
+       ENVELOPE WRAPPER
+    ══════════════════════════════════════════ */
+    .envelope-scene {
       position: relative;
       z-index: 20;
-      text-align: center;
+      width: clamp(300px, 90vw, 520px);
+      perspective: 1200px;
+      animation: sceneAppear 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+    }
+
+    @keyframes sceneAppear {
+      from { opacity: 0; transform: translateY(60px) scale(0.94); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+
+    /* ── Corpo do envelope ── */
+    .envelope-body {
+      position: relative;
+      width: 100%;
+      padding-bottom: 62%; /* proporção envelope */
+      background: #D4C39B; /* Cor interna do envelope */
+      border-radius: 4px;
+      box-shadow:
+        0 40px 100px rgba(0,0,0,0.7),
+        0 15px 35px  rgba(0,0,0,0.5),
+        inset 0 0 40px rgba(0,0,0,0.1);
+      overflow: visible;
+    }
+
+    /* Frente do Envelope (bolso) */
+    .envelope-front {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #FDF8EE 0%, #F5EDD8 50%, #EDE0C4 100%);
+      border-radius: 4px;
+      z-index: 20;
+      pointer-events: none;
+      clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.25);
+    }
+
+    /* Borda interna dourada do bolso */
+    .envelope-front::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(201,168,76,0.22);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* Linhas diagonais internas do bolso */
+    .envelope-front::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, transparent 49.5%, rgba(180,150,90,0.15) 49.5%, rgba(180,150,90,0.15) 50.5%, transparent 50.5%),
+        linear-gradient(225deg, transparent 49.5%, rgba(180,150,90,0.15) 49.5%, rgba(180,150,90,0.15) 50.5%, transparent 50.5%);
+      pointer-events: none;
+    }
+
+    /* ── Tampa do envelope (flap superior) ── */
+    .env-flap-wrapper {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 55%;
+      transform-origin: top center;
+      z-index: 30;
+      transition: transform 1.2s cubic-bezier(0.4,0,0.2,1), z-index 0s 0.6s;
+    }
+
+    .env-flap-wrapper.open {
+      transform: rotateX(180deg);
+      z-index: 5;
+    }
+
+    .env-flap-svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35));
+    }
+
+    /* ── Conteúdo dentro do envelope ── */
+    .envelope-inner {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: clamp(80px, 15vh, 120px);
+      justify-content: flex-end;
+      padding-bottom: 6%;
+      z-index: 5;
     }
 
-    /* O botão principal (Selo + Texto) */
+    /* ── Carta que sobe do envelope ── */
+    .letter-card {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      width: 86%;
+      height: 85%;
+      background:
+        linear-gradient(160deg, #FEFCF7 0%, #FAF5E8 60%, #F4EDD6 100%);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 2px;
+      padding: clamp(14px,3.5vw,28px) clamp(14px,4.5vw,36px);
+      text-align: center;
+      box-shadow:
+        0 -4px 15px rgba(0,0,0,0.2),
+        0 2px 0 rgba(255,255,255,0.9) inset;
+      z-index: 10;
+      transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .letter-card.rise {
+      transform: translateX(-50%) translateY(-50%);
+      box-shadow:
+        0 -8px 30px rgba(0,0,0,0.4),
+        0 20px 40px rgba(0,0,0,0.2),
+        0 2px 0 rgba(255,255,255,0.9) inset;
+    }
+
+    /* Borda interna da carta */
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(201,168,76,0.18);
+      pointer-events: none;
+    }
+
+    /* Textura de papel na carta */
+    .letter-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      border-radius: 2px;
+    }
+
+    /* ── Cabeçalho ornamental da carta ── */
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .letter-header-line {
+      flex: 1;
+      height: 1px;
+      max-width: 40px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.7));
+    }
+    .letter-header-line:last-child {
+      background: linear-gradient(to left, transparent, rgba(201,168,76,0.7));
+    }
+
+    .letter-header-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(6px, 1.4vw, 8px);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: #9A7A40;
+    }
+
+    /* ── Nomes dos noivos na carta ── */
+    .letter-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(34px, 10vw, 64px);
+      color: #2C4A30;
+      line-height: 1.05;
+      text-align: center;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 16px rgba(30,64,30,0.12);
+    }
+
+    /* ── Data na carta ── */
+    .letter-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(11px, 2.5vw, 14px);
+      font-style: italic;
+      color: #7A6030;
+      letter-spacing: 0.1em;
+      margin-bottom: 15px;
+    }
+
+    /* ── Linha divisora ── */
+    .letter-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
+      margin: 0 auto 15px;
+    }
+
+    /* ── Nome do convidado ── */
+    .letter-to-wrap {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .letter-to-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(6px, 1.3vw, 7.5px);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #B09050;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .letter-to-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(20px, 5.5vw, 32px);
+      color: #C9A84C;
+      line-height: 1.2;
+    }
+
+    /* ══════════════════════════════════════════
+       SELO DE CERA DOURADO
+    ══════════════════════════════════════════ */
+    .seal-area {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 40;
+      opacity: 0;
+      animation: floralAppear 1s ease 1s forwards;
+      transition: opacity 0.5s ease;
+    }
+
     .seal-button {
       background: transparent;
       border: none;
       cursor: pointer;
+      outline: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      outline: none;
-      transition: transform 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease 0.5s forwards;
+      gap: 10px;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .seal-button:hover {
-      transform: scale(1.05);
-    }
+    .seal-button:hover  { transform: scale(1.1) rotate(-2deg); }
+    .seal-button:active { transform: scale(0.96); }
 
-    /* Selo de Cera */
+    /* Cera dourada */
     .wax-seal {
-      width: clamp(90px, 20vw, 120px);
-      height: clamp(90px, 20vw, 120px);
-      background: #B6C3AC;
+      width: clamp(80px, 19vw, 114px);
+      height: clamp(80px, 19vw, 114px);
+      background: radial-gradient(circle at 35% 30%,
+        #F0D470 0%, #C9A84C 45%, #8A6820 100%);
       border-radius: 50%;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
       box-shadow:
-        0 8px 15px rgba(0, 0, 0, 0.15),
-        inset 0 0 10px rgba(0, 0, 0, 0.1),
-        inset 0 4px 8px rgba(255, 255, 255, 0.5),
-        inset 0 -4px 8px rgba(0, 0, 0, 0.15);
-      border: 1px solid #A4B29A;
+        0 0 0 3px rgba(201,168,76,0.25),
+        0 8px 30px rgba(0,0,0,0.6),
+        0 3px 8px  rgba(0,0,0,0.4),
+        inset 0 4px 10px rgba(255,235,150,0.45),
+        inset 0 -4px 10px rgba(80,50,10,0.4);
+      animation: sealPulse 3s ease-in-out 4s infinite;
     }
 
-    /* Irregularidade da cera */
+    @keyframes sealPulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(201,168,76,0.25), 0 8px 30px rgba(0,0,0,0.6), 0 3px 8px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,235,150,0.45), inset 0 -4px 10px rgba(80,50,10,0.4); }
+      50%      { box-shadow: 0 0 0 6px rgba(201,168,76,0.15), 0 0 40px rgba(201,168,76,0.3), 0 8px 30px rgba(0,0,0,0.6), 0 3px 8px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,235,150,0.45), inset 0 -4px 10px rgba(80,50,10,0.4); }
+    }
+
+    /* Forma irregular da cera */
+    .wax-seal::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #E8C850, #A87828);
+      z-index: -1;
+      clip-path: polygon(50% 0%,61% 2%,71% 0%,81% 4%,90% 10%,96% 20%,100% 31%,99% 42%,100% 53%,97% 63%,92% 72%,84% 81%,74% 89%,62% 95%,51% 98%,40% 97%,29% 93%,19% 87%,11% 79%,5% 69%,1% 58%,0% 47%,1% 36%,5% 25%,11% 16%,19% 8%,29% 3%,39% 1%);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Anel interno */
     .wax-seal::after {
       content: '';
       position: absolute;
-      inset: -4px;
+      inset: 10px;
       border-radius: 50%;
-      background: #B6C3AC;
-      z-index: -1;
-      clip-path: polygon(50% 0%, 61% 2%, 72% 0%, 82% 5%, 90% 12%, 96% 22%, 100% 33%, 98% 44%, 100% 55%, 96% 66%, 90% 75%, 83% 85%, 72% 95%, 60% 98%, 50% 100%, 38% 98%, 28% 95%, 18% 85%, 10% 75%, 4% 66%, 0% 55%, 2% 44%, 0% 33%, 4% 22%, 10% 12%, 18% 5%, 28% 0%, 38% 2%);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255,240,180,0.3);
+      pointer-events: none;
     }
 
     .wax-seal-inner {
       position: absolute;
-      inset: 8px;
+      inset: 10px;
       border-radius: 50%;
-      border: 1.5px solid rgba(178, 142, 90, 0.6);
-      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255,240,180,0.3);
     }
 
     .seal-initials {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(40px, 10vw, 56px);
-      color: #B28E5A;
+      font-size: clamp(32px, 8.5vw, 50px);
+      color: #FEFCE8;
       line-height: 1;
       text-shadow:
-        -1px -1px 1px rgba(255, 255, 255, 0.4),
-        1px 1px 2px rgba(0, 0, 0, 0.2);
+        0 1px 3px rgba(100,60,0,0.5),
+        0 -1px 2px rgba(255,250,200,0.3);
       z-index: 2;
+      position: relative;
     }
 
+    /* ── Texto e seta ── */
     .click-text {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(14px, 4vw, 18px);
-      font-weight: 400;
-      color: #A38A59;
-      margin-bottom: 8px;
+      font-size: clamp(8px, 2vw, 10px);
+      font-weight: 500;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.8);
     }
 
     .click-icon {
-      color: #A38A59;
-      animation: pointUp 1.5s ease-in-out infinite;
+      color: rgba(201,168,76,0.75);
+      animation: arrowBounce 1.8s ease-in-out infinite;
     }
 
-    @keyframes pointUp {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-8px);
-      }
+    @keyframes arrowBounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ══════════════════════════════════════════
-       MUSIC CONTROL
-    ══════════════════════════════════════════ */
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ── Linha de borda lateral do envelope ── */
+    .env-side-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+
     #music-btn {
       position: fixed;
       bottom: 28px;
@@ -1561,69 +1739,35 @@
 <body>
 
   <!-- ═══════════════════════════════════════
-       INTRO OVERLAY
+       INTRO OVERLAY — ENVELOPE LUXUOSO
   ═══════════════════════════════════════ -->
   <div id="intro">
-    <!-- Fundo texturizado floral -->
-    <div class="envelope-texture"></div>
 
-    <!-- Cinematic lighting -->
-    <div class="light-rays"></div>
-    <div class="cinematic-glow"></div>
+    <!-- Partículas douradas -->
+    <div id="intro-particles"></div>
 
-    <!-- Floating golden dust -->
-    <div class="cinematic-dust">
-      <div class="dust-particle d1"></div>
-      <div class="dust-particle d2"></div>
-      <div class="dust-particle d3"></div>
-      <div class="dust-particle d4"></div>
-      <div class="dust-particle d5"></div>
-      <div class="dust-particle d6"></div>
-      <div class="dust-particle d7"></div>
-      <div class="dust-particle d8"></div>
-    </div>
+    <!-- Pétalas caindo -->
+    <div id="petal-container"></div>
 
-    <!-- Definição SVG (invisible, just defs) -->
+    <!-- SVG defs -->
     <svg width="0" height="0" style="position:absolute;">
       <defs>
-        <!-- ══ BOTANICAL CORNER ══ -->
         <g id="botanical-corner">
           <path d="M5,5 C25,30 55,55 100,120" fill="none" stroke="#7a9e7a" stroke-width="1.8" stroke-linecap="round" />
           <path d="M30,28 C55,20 80,28 95,20" fill="none" stroke="#7a9e7a" stroke-width="1.2" stroke-linecap="round" />
           <path d="M55,58 C75,48 95,55 115,45" fill="none" stroke="#7a9e7a" stroke-width="1.2" stroke-linecap="round" />
-          <path d="M78,88 C95,78 118,82 130,70" fill="none" stroke="#7a9e7a" stroke-width="1.1"
-            stroke-linecap="round" />
-          <path d="M18,16 C22,8 30,10 34,6" fill="none" stroke="#8fbc8f" stroke-width="0.9" stroke-linecap="round" />
-          <path d="M45,44 C50,36 58,37 62,32" fill="none" stroke="#8fbc8f" stroke-width="0.9" stroke-linecap="round" />
-          <path d="M88,100 C93,92 102,93 106,87" fill="none" stroke="#8fbc8f" stroke-width="0.9"
-            stroke-linecap="round" />
+          <path d="M78,88 C95,78 118,82 130,70" fill="none" stroke="#7a9e7a" stroke-width="1.1" stroke-linecap="round" />
           <ellipse cx="44" cy="14" rx="6" ry="13" fill="#8fbc8f" opacity="0.85" transform="rotate(-50 44 14)" />
           <ellipse cx="56" cy="10" rx="5" ry="11" fill="#a4c4a4" opacity="0.8" transform="rotate(-30 56 10)" />
-          <ellipse cx="34" cy="8" rx="5" ry="10" fill="#7a9e7a" opacity="0.75" transform="rotate(-65 34 8)" />
           <ellipse cx="75" cy="22" rx="6" ry="14" fill="#8fbc8f" opacity="0.85" transform="rotate(-20 75 22)" />
-          <ellipse cx="88" cy="16" rx="5" ry="11" fill="#a4c4a4" opacity="0.8" transform="rotate(-5 88 16)" />
-          <ellipse cx="65" cy="26" rx="5" ry="12" fill="#7a9e7a" opacity="0.75" transform="rotate(-40 65 26)" />
           <ellipse cx="90" cy="48" rx="6" ry="14" fill="#8fbc8f" opacity="0.85" transform="rotate(-10 90 48)" />
-          <ellipse cx="106" cy="42" rx="5" ry="12" fill="#a4c4a4" opacity="0.78" transform="rotate(5 106 42)" />
-          <ellipse cx="80" cy="54" rx="5" ry="11" fill="#7a9e7a" opacity="0.75" transform="rotate(-28 80 54)" />
           <ellipse cx="112" cy="72" rx="6" ry="13" fill="#8fbc8f" opacity="0.82" transform="rotate(5 112 72)" />
-          <ellipse cx="126" cy="65" rx="5" ry="11" fill="#a4c4a4" opacity="0.75" transform="rotate(18 126 65)" />
-          <ellipse cx="30" cy="36" rx="4" ry="9" fill="#9cb890" opacity="0.7" transform="rotate(30 30 36)" />
-          <ellipse cx="58" cy="70" rx="4" ry="9" fill="#9cb890" opacity="0.7" transform="rotate(40 58 70)" />
-          <ellipse cx="82" cy="98" rx="4" ry="9" fill="#9cb890" opacity="0.65" transform="rotate(48 82 98)" />
           <g transform="translate(48,4)">
             <circle cx="0" cy="-5" r="3.5" fill="#FEFCF8" opacity="0.95" />
             <circle cx="5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
             <circle cx="0" cy="5" r="3.5" fill="#FEFCF8" opacity="0.95" />
             <circle cx="-5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
             <circle cx="0" cy="0" r="2.5" fill="#E8D080" opacity="0.9" />
-          </g>
-          <g transform="translate(82,12)">
-            <circle cx="0" cy="-4" r="3" fill="#FEFCF8" opacity="0.92" />
-            <circle cx="4" cy="0" r="3" fill="#FEFCF8" opacity="0.92" />
-            <circle cx="0" cy="4" r="3" fill="#FEFCF8" opacity="0.92" />
-            <circle cx="-4" cy="0" r="3" fill="#FEFCF8" opacity="0.92" />
-            <circle cx="0" cy="0" r="2" fill="#DFC870" opacity="0.85" />
           </g>
           <g transform="translate(100,38)">
             <circle cx="0" cy="-5" r="3.5" fill="#FEFCF8" opacity="0.95" />
@@ -1632,112 +1776,89 @@
             <circle cx="-5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
             <circle cx="0" cy="0" r="2.5" fill="#E8D080" opacity="0.9" />
           </g>
-          <g transform="translate(120,62)">
-            <circle cx="0" cy="-4" r="3" fill="#FEFCF8" opacity="0.9" />
-            <circle cx="4" cy="0" r="3" fill="#FEFCF8" opacity="0.9" />
-            <circle cx="0" cy="4" r="3" fill="#FEFCF8" opacity="0.9" />
-            <circle cx="-4" cy="0" r="3" fill="#FEFCF8" opacity="0.9" />
-            <circle cx="0" cy="0" r="2" fill="#DFC870" opacity="0.85" />
-          </g>
-          <circle cx="40" cy="30" r="2.5" fill="#c9a46a" opacity="0.55" />
-          <circle cx="68" cy="62" r="2" fill="#c9a46a" opacity="0.5" />
-          <circle cx="96" cy="106" r="2" fill="#c9a46a" opacity="0.45" />
-          <circle cx="22" cy="20" r="2" fill="#c9a46a" opacity="0.5" />
-        </g>
-
-        <g id="holy-spirit">
-          <path d="M26 38 Q38 26 44 18 Q50 12 42 16 Q34 20 30 28 L26 38Z" fill="#C9A84C" opacity="0.95" />
-          <path d="M20 40 Q6 22 2 14 Q-2 8 6 14 Q14 20 18 34 L20 40Z" fill="#C9A84C" opacity="0.95" />
-          <ellipse cx="26" cy="34" rx="12" ry="7" fill="#C9A84C" opacity="1" />
-          <path d="M26 44 L22 50 L30 50 Z" fill="#C9A84C" opacity="0.9" />
-        </g>
-
-        <g id="chi-rho">
-          <line x1="20" y1="5" x2="20" y2="35" stroke="#C9A84C" stroke-width="1.5" />
-          <path d="M20 5 C26 5 26 13 20 13" fill="none" stroke="#C9A84C" stroke-width="1.5" />
-          <line x1="12" y1="12" x2="28" y2="28" stroke="#C9A84C" stroke-width="1.5" />
-          <line x1="12" y1="28" x2="28" y2="12" stroke="#C9A84C" stroke-width="1.5" />
         </g>
       </defs>
     </svg>
 
     <!-- Cantos Botânicos -->
     <div class="floral-corner top-left">
-      <svg viewBox="0 0 160 160" width="100%" height="100%">
-        <use href="#botanical-corner" />
-      </svg>
+      <svg viewBox="0 0 160 160" width="100%" height="100%"><use href="#botanical-corner" /></svg>
     </div>
     <div class="floral-corner top-right">
-      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scaleX(-1);">
-        <use href="#botanical-corner" />
-      </svg>
+      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scaleX(-1);"><use href="#botanical-corner" /></svg>
     </div>
     <div class="floral-corner bottom-left">
-      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scaleY(-1);">
-        <use href="#botanical-corner" />
-      </svg>
+      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scaleY(-1);"><use href="#botanical-corner" /></svg>
     </div>
     <div class="floral-corner bottom-right">
-      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scale(-1,-1);">
-        <use href="#botanical-corner" />
-      </svg>
+      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scale(-1,-1);"><use href="#botanical-corner" /></svg>
     </div>
 
-    <!-- Flaps do Envelope -->
-    <div class="envelope-flaps">
-      <div class="flap-wrapper left-flap">
-        <div class="flap-inner">
-          <svg class="envelope-gold-symbol left-flap-symbol" viewBox="0 0 40 40">
-            <use href="#chi-rho" />
-            <text x="6" y="24" fill="#C9A84C" font-family="Georgia, serif" font-size="9" opacity="0.8">A</text>
-            <text x="26" y="24" fill="#C9A84C" font-family="Georgia, serif" font-size="9" opacity="0.8">Ω</text>
+    <!-- ENVELOPE SCENE -->
+    <div class="envelope-scene">
+      <div class="envelope-body">
+
+        <!-- Tampa animada -->
+        <div class="env-flap-wrapper" id="env-flap">
+          <svg class="env-flap-svg" viewBox="0 0 520 340" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="flapG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FEFAF0"/>
+                <stop offset="1" stop-color="#E8D9B8"/>
+              </linearGradient>
+            </defs>
+            <polygon points="0,0 520,0 260,340" fill="url(#flapG)"/>
+            <polygon points="0,0 260,340 0,340" fill="#EAD8B0" opacity="0.4"/>
+            <polygon points="520,0 260,340 520,340" fill="#EAD8B0" opacity="0.4"/>
+            <line x1="0" y1="0" x2="260" y2="340" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+            <line x1="520" y1="0" x2="260" y2="340" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
           </svg>
         </div>
-      </div>
-      <div class="flap-wrapper right-flap">
-        <div class="flap-inner">
-          <svg class="envelope-gold-symbol right-flap-symbol" viewBox="0 0 52 56">
-            <use href="#holy-spirit" />
-            <!-- Light rays above the dove -->
-            <line x1="26" y1="2" x2="26" y2="12" stroke="#C9A84C" stroke-width="1" opacity="0.7" />
-            <line x1="14" y1="8" x2="20" y2="14" stroke="#C9A84C" stroke-width="1" opacity="0.7" />
-            <line x1="38" y1="8" x2="32" y2="14" stroke="#C9A84C" stroke-width="1" opacity="0.7" />
-          </svg>
-        </div>
-      </div>
-      <div class="flap-wrapper bottom-flap">
-        <div class="flap-inner"></div>
-      </div>
-      <div class="flap-wrapper top-flap">
-        <div class="flap-inner"></div>
-      </div>
-    </div>
 
-    <div class="envelope-content">
-      <!-- Guest Name on Envelope -->
-      <div id="guest-greeting-intro" class="guest-greeting-intro"></div>
+        <!-- Carta que sobe -->
+        <div class="letter-card" id="letter-card">
+          <div class="letter-header">
+            <div class="letter-header-line"></div>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(201,168,76,0.8)"><path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/></svg>
+            <span class="letter-header-label">Convite de Casamento</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(201,168,76,0.8)"><path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/></svg>
+            <div class="letter-header-line"></div>
+          </div>
 
-      <button id="open-btn" class="seal-button">
-        <div class="wax-seal">
-          <div class="wax-seal-inner">
+          <h1 class="letter-names">Evellyn &amp; Guilherme</h1>
+          <p class="letter-date">07 de novembro de 2026 &nbsp;·&nbsp; Belo Jardim, PE</p>
+          <div class="letter-divider"></div>
+
+          <div class="letter-to-wrap" id="env-to-wrap">
+            <span class="letter-to-label">Para</span>
+            <div class="letter-to-name" id="guest-greeting-intro"></div>
+          </div>
+        </div><!-- /.letter-card -->
+
+        <!-- Frente do Envelope (bolso) -->
+        <div class="envelope-front"></div>
+
+      </div><!-- /.envelope-body -->
+
+      <!-- Selo que tranca o envelope -->
+      <div class="seal-area" id="seal-area">
+        <button id="open-btn" class="seal-button">
+          <div class="wax-seal">
+            <div class="wax-seal-inner"></div>
             <span class="seal-initials">EG</span>
           </div>
-        </div>
-        <div class="click-text">Clique para abrir</div>
-        <div class="click-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 11V4a1.5 1.5 0 0 1 3 0v6" />
-            <path d="M15 10v-1a1.5 1.5 0 0 1 3 0v1" />
-            <path
-              d="M18 10.5v-1a1.5 1.5 0 0 1 3 0v6.5a6.5 6.5 0 0 1-12.72 2.12l-1.84-3.68a2.5 2.5 0 0 1 1.76-3.41l2.8-1A1.5 1.5 0 0 1 12 11Z" />
-            <path d="M12 1v1.5" />
-            <path d="M9 2.5l1 1" />
-            <path d="M15 2.5l-1 1" />
-          </svg>
-        </div>
-      </button>
-    </div>
+          <span class="click-text">Toque para abrir</span>
+          <div class="click-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+
+    </div><!-- /.envelope-scene -->
+
+  </div><!-- /#intro -->
   </div>
 
   <!-- Music control -->
@@ -2144,15 +2265,19 @@
     // ── NOME DO CONVIDADO (URL) ────────────────────────────
     const urlParams = new URLSearchParams(window.location.search);
     const guestName = urlParams.get('name');
+    const envToWrap = document.getElementById('env-to-wrap');
     if (guestName) {
       const greetingIntro = document.getElementById('guest-greeting-intro');
       if (greetingIntro) {
-        greetingIntro.textContent = `para ${guestName}`;
+        greetingIntro.textContent = guestName;
       }
       const greetingHero = document.getElementById('guest-greeting');
       if (greetingHero) {
         greetingHero.textContent = `para ${guestName}`;
       }
+    } else {
+      // No guest name — hide the addressing block
+      if (envToWrap) envToWrap.style.display = 'none';
     }
 
     // Generate petals
@@ -2180,12 +2305,51 @@
       }
     }
 
+    // ── INTERAÇÃO DO ENVELOPE ──────────────────────────────
+    const envFlap = document.getElementById('env-flap');
+    const letterCard = document.getElementById('letter-card');
+    const sealArea = document.getElementById('seal-area');
+
+    // ── PARTÍCULAS DOURADAS ────────────────────────────────
+    const particlesContainer = document.getElementById('intro-particles');
+    if (particlesContainer) {
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'gold-particle';
+        const size = 2 + Math.random() * 4;
+        p.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${Math.random() * 100}%;
+          bottom: -10px;
+          animation-duration: ${8 + Math.random() * 10}s;
+          animation-delay: ${Math.random() * 8}s;
+          opacity: ${0.3 + Math.random() * 0.5};
+        `;
+        particlesContainer.appendChild(p);
+      }
+    }
+
     openBtn.addEventListener('click', () => {
-      intro.classList.add('hidden');
+      // 1. Oculta o selo
+      sealArea.style.opacity = '0';
+      sealArea.style.pointerEvents = 'none';
+
+      // 2. Abre a aba do envelope
+      if (envFlap) envFlap.classList.add('open');
+
+      // 3. A carta sobe
+      if (letterCard) letterCard.classList.add('rise');
+
+      // 4. Inicia a música
       musicBtn.classList.add('visible');
-      // Try to play music
       bgm.play().catch(() => { });
-      setTimeout(() => { intro.style.display = 'none'; }, 1300);
+
+      // 5. Após a carta subir, esconde o intro e libera a página
+      setTimeout(() => {
+        intro.classList.add('hidden');
+        setTimeout(() => { intro.style.display = 'none'; }, 1600);
+      }, 2500);
     });
 
     // Music toggle
