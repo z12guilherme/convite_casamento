@@ -1,15 +1,22 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase.ttfonts import TTFont, TTFError
 from reportlab.lib.colors import HexColor
 from reportlab.lib.utils import ImageReader
 from openpyxl import load_workbook
 from PyPDF2 import PdfReader, PdfWriter
 import io
 import os
+import sys
 import qrcode
 from urllib.parse import quote
+
+# Configurar saída do console para UTF-8 (evita erros com emojis no Windows)
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
 
 # =================================================================================
 # ⚙️ CONFIGURAÇÕES
@@ -21,7 +28,25 @@ URL_BASE_DO_SITE = "https://casamento-evellyn-e-guilherme.netlify.app"
 os.makedirs("convites", exist_ok=True)
 
 # 🔹 Registrar fontes
-pdfmetrics.registerFont(TTFont("Byriani", "byrani.ttf"))
+nome_fonte_cursiva = "FonteCursiva"
+
+# Para usar uma fonte nova e mais desenhada (cursiva):
+# 1. Baixe o arquivo da fonte (ex: .ttf) e coloque nesta pasta 'gerar_convites'.
+#    Sugestão: "Dancing Script" do Google Fonts.
+try:
+    # Tenta registrar a fonte cursiva personalizada que dá um toque especial
+    pdfmetrics.registerFont(TTFont("FonteCursiva", "DancingScript-Regular.ttf"))
+except TTFError:
+    # Se não encontrar DancingScript, tenta byrani.ttf que está na pasta
+    try:
+        pdfmetrics.registerFont(TTFont("FonteCursiva", "byrani.ttf"))
+        print("\nℹ️  INFO: Usando a fonte 'byrani.ttf' para os nomes.\n")
+    except TTFError:
+        # Se nenhuma das fontes cursivas .ttf for encontrada, usa Helvetica-Bold (padrão do PDF)
+        print("\n⚠️  AVISO: Nenhuma fonte cursiva personalizada (.ttf) foi encontrada.")
+        print("   -> Usando a fonte padrão 'Helvetica-Bold' para os nomes.\n")
+        nome_fonte_cursiva = "Helvetica-Bold"
+
 pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf')) # Fonte padrão para o texto do QR Code
 
 # Carregar planilha do Excel
@@ -54,19 +79,6 @@ for linha in sheet.iter_rows(min_row=2, values_only=True):
     packet = io.BytesIO()
     c = canvas.Canvas(packet, pagesize=(largura, altura))
 
-    # 🔴 Nome com a fonte Byriani
-    if len(nome) <= 15:
-        tamanho = 20
-    elif len(nome) <= 22:
-        tamanho = 18
-    else:
-        tamanho = 14
-
-    c.setFont("Byriani", tamanho)
-    c.setFillColor(HexColor("#54a0a0"))
-    posicao_y_nome = 210
-    c.drawCentredString(largura / 2, posicao_y_nome, nome)
-
     # 🔳 Adiciona o QR Code e o texto
     qr_size = 80
     left_margin = 20  # Margem da esquerda para o alinhamento
@@ -80,6 +92,13 @@ for linha in sheet.iter_rows(min_row=2, values_only=True):
     # Adiciona um link clicável sobre o QR Code
     link_rect = (left_margin, posicao_y_qr, left_margin + qr_size, posicao_y_qr + qr_size)
     c.linkURL(url_personalizada, link_rect, relative=1)
+
+    # Adiciona o texto informativo ao lado do QR Code
+    text_x = left_margin + qr_size + 10  # Posição X do texto
+    text_y_start = posicao_y_qr + (qr_size / 2) + 10 # Começa um pouco acima do meio
+    c.drawString(text_x, text_y_start, "QR code para o seu")
+    c.drawString(text_x, text_y_start - 12, "convite virtual e")
+    c.drawString(text_x, text_y_start - 24, "lista de presentes.")
     
     c.save()
     packet.seek(0)
@@ -93,6 +112,10 @@ for linha in sheet.iter_rows(min_row=2, values_only=True):
 
     writer = PdfWriter()
     writer.add_page(pagina_base)
+
+    # Adiciona as demais páginas do template sem alterações (ex: a 2ª página)
+    for i in range(1, len(template.pages)):
+        writer.add_page(template.pages[i])
 
     # Salva o arquivo final
     nome_arquivo = "".join(c for c in nome if c.isalnum() or c in (' ',)).rstrip()

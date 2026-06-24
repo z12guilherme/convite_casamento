@@ -294,6 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (guestName) {
     const greetingEl = document.getElementById('guest-greeting');
     if (greetingEl) greetingEl.textContent = `para ${guestName}`;
+    const greetingIntroEl = document.getElementById('guest-greeting-intro');
+    if (greetingIntroEl) greetingIntroEl.textContent = `para ${guestName}`;
   }
 
   // Intro & Music Logic

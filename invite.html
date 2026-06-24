@@ -1536,6 +1536,25 @@
       height: 180px;
       opacity: 0.8;
     }
+
+    .guest-greeting-intro {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(28px, 6vw, 42px);
+      color: #C9A84C;
+      margin-bottom: 20px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 1.2s ease 0.3s forwards;
+      opacity: 0;
+      text-align: center;
+    }
+
+    .guest-greeting {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(24px, 5vw, 36px);
+      color: #C9A84C;
+      margin: 15px 0;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -1695,6 +1714,9 @@
     </div>
 
     <div class="envelope-content">
+      <!-- Guest Name on Envelope -->
+      <div id="guest-greeting-intro" class="guest-greeting-intro"></div>
+
       <button id="open-btn" class="seal-button">
         <div class="wax-seal">
           <div class="wax-seal-inner">
@@ -1796,6 +1818,9 @@
 
       <h1 class="hero-names gold-shimmer">Evellyn &amp; Guilherme</h1>
       <p class="hero-union">Unidos pela Fé · Pelo Amor · Pela Graça Divina</p>
+      
+      <!-- Guest Name on Hero Page -->
+      <div id="guest-greeting" class="guest-greeting"></div>
 
       <div class="gold-divider" style="margin-bottom: 32px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -2123,6 +2148,10 @@
       const greetingIntro = document.getElementById('guest-greeting-intro');
       if (greetingIntro) {
         greetingIntro.textContent = `para ${guestName}`;
+      }
+      const greetingHero = document.getElementById('guest-greeting');
+      if (greetingHero) {
+        greetingHero.textContent = `para ${guestName}`;
       }
     }
 
