@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -52,477 +52,6 @@
       pointer-events: none;
       z-index: 1000;
       opacity: 0.4;
-    }
-
-    /* ══════════════════════════════════════════
-       INTRO OVERLAY — ENVELOPE LUXUOSO
-    ══════════════════════════════════════════ */
-
-    /* ── Fundo principal ── */
-    #intro {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(ellipse at 30% 20%, #2A1F0E 0%, transparent 55%),
-        radial-gradient(ellipse at 70% 80%, #1A2B1E 0%, transparent 55%),
-        linear-gradient(160deg, #1C1408 0%, #0E1A10 40%, #12100A 100%);
-      transition: opacity 1.6s cubic-bezier(0.4,0,0.2,1), transform 1.6s cubic-bezier(0.4,0,0.2,1);
-      overflow: hidden;
-      cursor: default;
-    }
-
-    #intro.hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(1.05);
-    }
-
-    /* ── Luz ambiente dourada ── */
-    #intro::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-      animation: ambientPulse 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes ambientPulse {
-      0%   { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-
-    /* ── Partículas douradas flutuantes ── */
-    #intro-particles {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
-    }
-
-    .gold-particle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, #E8D080, #C9A84C);
-      pointer-events: none;
-      animation: goldFloat linear infinite;
-    }
-
-    @keyframes goldFloat {
-      0%   { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 0; }
-      5%   { opacity: 0.8; }
-      95%  { opacity: 0.3; }
-      100% { transform: translateY(-20px) translateX(30px) rotate(360deg); opacity: 0; }
-    }
-
-    /* ── Pétalas ── */
-    #petal-container {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 3;
-      overflow: hidden;
-    }
-
-    .petal {
-      position: absolute;
-      border-radius: 60% 40% 60% 40% / 50% 50% 50% 50%;
-      animation: petalFall linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes petalFall {
-      0%   { transform: translateY(-30px) translateX(0) rotate(0deg) scale(1);   opacity: 0; }
-      8%   { opacity: 0.85; }
-      92%  { opacity: 0.4; }
-      100% { transform: translateY(110vh) translateX(80px) rotate(600deg) scale(0.8); opacity: 0; }
-    }
-
-    /* ── Cantos botânicos do overlay ── */
-    .floral-corner {
-      position: absolute;
-      width: clamp(120px, 28vw, 220px);
-      height: clamp(120px, 28vw, 220px);
-      z-index: 8;
-      pointer-events: none;
-      opacity: 0;
-      animation: floralAppear 1.8s ease 0.3s forwards;
-    }
-
-    @keyframes floralAppear {
-      to { opacity: 0.65; }
-    }
-
-    .floral-corner.top-left     { top: -8px;    left: -8px; }
-    .floral-corner.top-right    { top: -8px;    right: -8px;  transform: scaleX(-1); }
-    .floral-corner.bottom-left  { bottom: -8px; left: -8px;   transform: scaleY(-1); }
-    .floral-corner.bottom-right { bottom: -8px; right: -8px;  transform: scale(-1,-1); }
-
-    /* ══════════════════════════════════════════
-       ENVELOPE WRAPPER
-    ══════════════════════════════════════════ */
-    .envelope-scene {
-      position: relative;
-      z-index: 20;
-      width: clamp(300px, 90vw, 520px);
-      perspective: 1200px;
-      animation: sceneAppear 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s both;
-    }
-
-    @keyframes sceneAppear {
-      from { opacity: 0; transform: translateY(60px) scale(0.94); }
-      to   { opacity: 1; transform: translateY(0)   scale(1); }
-    }
-
-    /* ── Corpo do envelope ── */
-    .envelope-body {
-      position: relative;
-      width: 100%;
-      padding-bottom: 62%; /* proporção envelope */
-      background: #D4C39B; /* Cor interna do envelope */
-      border-radius: 4px;
-      box-shadow:
-        0 40px 100px rgba(0,0,0,0.7),
-        0 15px 35px  rgba(0,0,0,0.5),
-        inset 0 0 40px rgba(0,0,0,0.1);
-      overflow: visible;
-    }
-
-    /* Frente do Envelope (bolso) */
-    .envelope-front {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(145deg, #FDF8EE 0%, #F5EDD8 50%, #EDE0C4 100%);
-      border-radius: 4px;
-      z-index: 20;
-      pointer-events: none;
-      clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
-      box-shadow: 0 0 0 1px rgba(201,168,76,0.25);
-    }
-
-    /* Borda interna dourada do bolso */
-    .envelope-front::before {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 1px solid rgba(201,168,76,0.22);
-      border-radius: 2px;
-      pointer-events: none;
-    }
-
-    /* Linhas diagonais internas do bolso */
-    .envelope-front::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, transparent 49.5%, rgba(180,150,90,0.15) 49.5%, rgba(180,150,90,0.15) 50.5%, transparent 50.5%),
-        linear-gradient(225deg, transparent 49.5%, rgba(180,150,90,0.15) 49.5%, rgba(180,150,90,0.15) 50.5%, transparent 50.5%);
-      pointer-events: none;
-    }
-
-    /* ── Tampa do envelope (flap superior) ── */
-    .env-flap-wrapper {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 55%;
-      transform-origin: top center;
-      z-index: 30;
-      transition: transform 1.2s cubic-bezier(0.4,0,0.2,1), z-index 0s 0.6s;
-    }
-
-    .env-flap-wrapper.open {
-      transform: rotateX(180deg);
-      z-index: 5;
-    }
-
-    .env-flap-svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35));
-    }
-
-    /* ── Conteúdo dentro do envelope ── */
-    .envelope-inner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 6%;
-      z-index: 5;
-    }
-
-    /* ── Carta que sobe do envelope ── */
-    .letter-card {
-      position: absolute;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%) translateY(0);
-      width: 86%;
-      height: 85%;
-      background:
-        linear-gradient(160deg, #FEFCF7 0%, #FAF5E8 60%, #F4EDD6 100%);
-      border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 2px;
-      padding: clamp(14px,3.5vw,28px) clamp(14px,4.5vw,36px);
-      text-align: center;
-      box-shadow:
-        0 -4px 15px rgba(0,0,0,0.2),
-        0 2px 0 rgba(255,255,255,0.9) inset;
-      z-index: 10;
-      transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
-    }
-
-    .letter-card.rise {
-      transform: translateX(-50%) translateY(-50%);
-      box-shadow:
-        0 -8px 30px rgba(0,0,0,0.4),
-        0 20px 40px rgba(0,0,0,0.2),
-        0 2px 0 rgba(255,255,255,0.9) inset;
-    }
-
-    /* Borda interna da carta */
-    .letter-card::before {
-      content: '';
-      position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(201,168,76,0.18);
-      pointer-events: none;
-    }
-
-    /* Textura de papel na carta */
-    .letter-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none;
-      border-radius: 2px;
-    }
-
-    /* ── Cabeçalho ornamental da carta ── */
-    .letter-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-
-    .letter-header-line {
-      flex: 1;
-      height: 1px;
-      max-width: 40px;
-      background: linear-gradient(to right, transparent, rgba(201,168,76,0.7));
-    }
-    .letter-header-line:last-child {
-      background: linear-gradient(to left, transparent, rgba(201,168,76,0.7));
-    }
-
-    .letter-header-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(6px, 1.4vw, 8px);
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      color: #9A7A40;
-    }
-
-    /* ── Nomes dos noivos na carta ── */
-    .letter-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(34px, 10vw, 64px);
-      color: #2C4A30;
-      line-height: 1.05;
-      text-align: center;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 16px rgba(30,64,30,0.12);
-    }
-
-    /* ── Data na carta ── */
-    .letter-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(11px, 2.5vw, 14px);
-      font-style: italic;
-      color: #7A6030;
-      letter-spacing: 0.1em;
-      margin-bottom: 15px;
-    }
-
-    /* ── Linha divisora ── */
-    .letter-divider {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
-      margin: 0 auto 15px;
-    }
-
-    /* ── Nome do convidado ── */
-    .letter-to-wrap {
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    .letter-to-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(6px, 1.3vw, 7.5px);
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: #B09050;
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .letter-to-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(20px, 5.5vw, 32px);
-      color: #C9A84C;
-      line-height: 1.2;
-    }
-
-    /* ══════════════════════════════════════════
-       SELO DE CERA DOURADO
-    ══════════════════════════════════════════ */
-    .seal-area {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      z-index: 40;
-      opacity: 0;
-      animation: floralAppear 1s ease 1s forwards;
-      transition: opacity 0.5s ease;
-    }
-
-    .seal-button {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .seal-button:hover  { transform: scale(1.1) rotate(-2deg); }
-    .seal-button:active { transform: scale(0.96); }
-
-    /* Cera dourada */
-    .wax-seal {
-      width: clamp(80px, 19vw, 114px);
-      height: clamp(80px, 19vw, 114px);
-      background: radial-gradient(circle at 35% 30%,
-        #F0D470 0%, #C9A84C 45%, #8A6820 100%);
-      border-radius: 50%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 0 0 3px rgba(201,168,76,0.25),
-        0 8px 30px rgba(0,0,0,0.6),
-        0 3px 8px  rgba(0,0,0,0.4),
-        inset 0 4px 10px rgba(255,235,150,0.45),
-        inset 0 -4px 10px rgba(80,50,10,0.4);
-      animation: sealPulse 3s ease-in-out 4s infinite;
-    }
-
-    @keyframes sealPulse {
-      0%,100% { box-shadow: 0 0 0 3px rgba(201,168,76,0.25), 0 8px 30px rgba(0,0,0,0.6), 0 3px 8px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,235,150,0.45), inset 0 -4px 10px rgba(80,50,10,0.4); }
-      50%      { box-shadow: 0 0 0 6px rgba(201,168,76,0.15), 0 0 40px rgba(201,168,76,0.3), 0 8px 30px rgba(0,0,0,0.6), 0 3px 8px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,235,150,0.45), inset 0 -4px 10px rgba(80,50,10,0.4); }
-    }
-
-    /* Forma irregular da cera */
-    .wax-seal::before {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #E8C850, #A87828);
-      z-index: -1;
-      clip-path: polygon(50% 0%,61% 2%,71% 0%,81% 4%,90% 10%,96% 20%,100% 31%,99% 42%,100% 53%,97% 63%,92% 72%,84% 81%,74% 89%,62% 95%,51% 98%,40% 97%,29% 93%,19% 87%,11% 79%,5% 69%,1% 58%,0% 47%,1% 36%,5% 25%,11% 16%,19% 8%,29% 3%,39% 1%);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-    }
-
-    /* Anel interno */
-    .wax-seal::after {
-      content: '';
-      position: absolute;
-      inset: 10px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,240,180,0.3);
-      pointer-events: none;
-    }
-
-    .wax-seal-inner {
-      position: absolute;
-      inset: 10px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,240,180,0.3);
-    }
-
-    .seal-initials {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(32px, 8.5vw, 50px);
-      color: #FEFCE8;
-      line-height: 1;
-      text-shadow:
-        0 1px 3px rgba(100,60,0,0.5),
-        0 -1px 2px rgba(255,250,200,0.3);
-      z-index: 2;
-      position: relative;
-    }
-
-    /* ── Texto e seta ── */
-    .click-text {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(8px, 2vw, 10px);
-      font-weight: 500;
-      letter-spacing: 0.38em;
-      text-transform: uppercase;
-      color: rgba(201,168,76,0.8);
-    }
-
-    .click-icon {
-      color: rgba(201,168,76,0.75);
-      animation: arrowBounce 1.8s ease-in-out infinite;
-    }
-
-    @keyframes arrowBounce {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(6px); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* ── Linha de borda lateral do envelope ── */
-    .env-side-lines {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 4;
     }
 
     #music-btn {
@@ -1733,132 +1262,66 @@
       margin: 15px 0;
       text-align: center;
     }
+
+    /* ── VIDEO OVERLAY ── */
+    #video-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    #video-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #skip-video-btn {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    #skip-video-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
   </style>
 </head>
 
 <body>
 
   <!-- ═══════════════════════════════════════
-       INTRO OVERLAY — ENVELOPE LUXUOSO
+       VIDEO OVERLAY
   ═══════════════════════════════════════ -->
-  <div id="intro">
-
-    <!-- Partículas douradas -->
-    <div id="intro-particles"></div>
-
-    <!-- Pétalas caindo -->
-    <div id="petal-container"></div>
-
-    <!-- SVG defs -->
-    <svg width="0" height="0" style="position:absolute;">
-      <defs>
-        <g id="botanical-corner">
-          <path d="M5,5 C25,30 55,55 100,120" fill="none" stroke="#7a9e7a" stroke-width="1.8" stroke-linecap="round" />
-          <path d="M30,28 C55,20 80,28 95,20" fill="none" stroke="#7a9e7a" stroke-width="1.2" stroke-linecap="round" />
-          <path d="M55,58 C75,48 95,55 115,45" fill="none" stroke="#7a9e7a" stroke-width="1.2" stroke-linecap="round" />
-          <path d="M78,88 C95,78 118,82 130,70" fill="none" stroke="#7a9e7a" stroke-width="1.1" stroke-linecap="round" />
-          <ellipse cx="44" cy="14" rx="6" ry="13" fill="#8fbc8f" opacity="0.85" transform="rotate(-50 44 14)" />
-          <ellipse cx="56" cy="10" rx="5" ry="11" fill="#a4c4a4" opacity="0.8" transform="rotate(-30 56 10)" />
-          <ellipse cx="75" cy="22" rx="6" ry="14" fill="#8fbc8f" opacity="0.85" transform="rotate(-20 75 22)" />
-          <ellipse cx="90" cy="48" rx="6" ry="14" fill="#8fbc8f" opacity="0.85" transform="rotate(-10 90 48)" />
-          <ellipse cx="112" cy="72" rx="6" ry="13" fill="#8fbc8f" opacity="0.82" transform="rotate(5 112 72)" />
-          <g transform="translate(48,4)">
-            <circle cx="0" cy="-5" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="0" cy="5" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="-5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="0" cy="0" r="2.5" fill="#E8D080" opacity="0.9" />
-          </g>
-          <g transform="translate(100,38)">
-            <circle cx="0" cy="-5" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="0" cy="5" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="-5" cy="0" r="3.5" fill="#FEFCF8" opacity="0.95" />
-            <circle cx="0" cy="0" r="2.5" fill="#E8D080" opacity="0.9" />
-          </g>
-        </g>
-      </defs>
-    </svg>
-
-    <!-- Cantos Botânicos -->
-    <div class="floral-corner top-left">
-      <svg viewBox="0 0 160 160" width="100%" height="100%"><use href="#botanical-corner" /></svg>
-    </div>
-    <div class="floral-corner top-right">
-      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scaleX(-1);"><use href="#botanical-corner" /></svg>
-    </div>
-    <div class="floral-corner bottom-left">
-      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scaleY(-1);"><use href="#botanical-corner" /></svg>
-    </div>
-    <div class="floral-corner bottom-right">
-      <svg viewBox="0 0 160 160" width="100%" height="100%" style="transform:scale(-1,-1);"><use href="#botanical-corner" /></svg>
-    </div>
-
-    <!-- ENVELOPE SCENE -->
-    <div class="envelope-scene">
-      <div class="envelope-body">
-
-        <!-- Tampa animada -->
-        <div class="env-flap-wrapper" id="env-flap">
-          <svg class="env-flap-svg" viewBox="0 0 520 340" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="flapG" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#FEFAF0"/>
-                <stop offset="1" stop-color="#E8D9B8"/>
-              </linearGradient>
-            </defs>
-            <polygon points="0,0 520,0 260,340" fill="url(#flapG)"/>
-            <polygon points="0,0 260,340 0,340" fill="#EAD8B0" opacity="0.4"/>
-            <polygon points="520,0 260,340 520,340" fill="#EAD8B0" opacity="0.4"/>
-            <line x1="0" y1="0" x2="260" y2="340" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
-            <line x1="520" y1="0" x2="260" y2="340" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
-          </svg>
-        </div>
-
-        <!-- Carta que sobe -->
-        <div class="letter-card" id="letter-card">
-          <div class="letter-header">
-            <div class="letter-header-line"></div>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(201,168,76,0.8)"><path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/></svg>
-            <span class="letter-header-label">Convite de Casamento</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(201,168,76,0.8)"><path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/></svg>
-            <div class="letter-header-line"></div>
-          </div>
-
-          <h1 class="letter-names">Evellyn &amp; Guilherme</h1>
-          <p class="letter-date">07 de novembro de 2026 &nbsp;·&nbsp; Belo Jardim, PE</p>
-          <div class="letter-divider"></div>
-
-          <div class="letter-to-wrap" id="env-to-wrap">
-            <span class="letter-to-label">Para</span>
-            <div class="letter-to-name" id="guest-greeting-intro"></div>
-          </div>
-        </div><!-- /.letter-card -->
-
-        <!-- Frente do Envelope (bolso) -->
-        <div class="envelope-front"></div>
-
-      </div><!-- /.envelope-body -->
-
-      <!-- Selo que tranca o envelope -->
-      <div class="seal-area" id="seal-area">
-        <button id="open-btn" class="seal-button">
-          <div class="wax-seal">
-            <div class="wax-seal-inner"></div>
-            <span class="seal-initials">EG</span>
-          </div>
-          <span class="click-text">Toque para abrir</span>
-          <div class="click-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </div>
-        </button>
-      </div>
-
-    </div><!-- /.envelope-scene -->
-
-  </div><!-- /#intro -->
+  <div id="video-overlay">
+    <video id="intro-video" autoplay playsinline>
+      <source src="video/video_introducao.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos.
+    </video>
+    <button id="skip-video-btn">Pular Vídeo</button>
   </div>
 
   <!-- Music control -->
@@ -1939,7 +1402,7 @@
 
       <h1 class="hero-names gold-shimmer">Evellyn &amp; Guilherme</h1>
       <p class="hero-union">Unidos pela Fé · Pelo Amor · Pela Graça Divina</p>
-      
+
       <!-- Guest Name on Hero Page -->
       <div id="guest-greeting" class="guest-greeting"></div>
 
@@ -2073,7 +1536,7 @@
           </div>
           <h3>Data</h3>
           <p>07 de novembro<br>de 2026</p>
-          <p class="detail-note">Quinta-feira</p>
+          <p class="detail-note">Sábado</p>
         </div>
 
         <div class="detail-card">
@@ -2256,103 +1719,78 @@
   </footer>
 
   <script>
-    // ── INTRO ──────────────────────────────────────────────
-    const intro = document.getElementById('intro');
-    const openBtn = document.getElementById('open-btn');
-    const musicBtn = document.getElementById('music-btn');
-    const bgm = document.getElementById('bgm');
+    // ── VIDEO OVERLAY ──────────────────────────────────────
+    const videoOverlay = document.getElementById('video-overlay');
+    const introVideo = document.getElementById('intro-video');
+    const skipVideoBtn = document.getElementById('skip-video-btn');
+
+    function hideVideo() {
+      if (videoOverlay) {
+        videoOverlay.classList.add('hidden');
+        setTimeout(() => { videoOverlay.style.display = 'none'; }, 1000);
+      }
+      const musicBtn = document.getElementById('music-btn');
+      const bgm = document.getElementById('bgm');
+      if (musicBtn && bgm) {
+        musicBtn.classList.add('visible');
+        bgm.play().catch(() => { });
+      }
+    }
+    if (introVideo) {
+      introVideo.addEventListener('ended', () => {
+        if (skipVideoBtn) skipVideoBtn.style.display = 'none';
+
+        const continueOverlay = document.createElement('div');
+        continueOverlay.style.cssText = 'position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:10002; cursor:pointer; background:rgba(0,0,0,0.1);';
+
+        const continueText = document.createElement('span');
+        continueText.innerHTML = 'Toque para acessar o convite';
+        continueText.style.cssText = 'padding: 15px 30px; border: 1px solid rgba(255,255,255,0.6); border-radius: 30px; font-family: Montserrat, sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); animation: fadeUp 0.8s ease; text-align: center;';
+
+        continueOverlay.appendChild(continueText);
+        continueOverlay.addEventListener('click', hideVideo);
+        videoOverlay.appendChild(continueOverlay);
+      });
+      // Caso o vídeo não carregue ou dê erro, pula para o envelope
+      introVideo.addEventListener('error', hideVideo);
+
+      // Tenta iniciar o vídeo (como removemos o 'muted', navegadores podem bloquear)
+      const playPromise = introVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay com som foi bloqueado. Toca mudo e mostra botão de ativar som.
+          introVideo.muted = true;
+          introVideo.play();
+
+          const unmuteBtn = document.createElement('button');
+          unmuteBtn.innerHTML = '🔊 Ativar Som';
+          unmuteBtn.style.cssText = 'position:absolute; top:30px; left:50%; transform:translateX(-50%); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: rgba(255,255,255,0.9); padding: 12px 24px; border-radius: 30px; font-family: Montserrat, sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(4px); z-index: 10001; animation: fadeUp 0.8s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);';
+
+          unmuteBtn.addEventListener('click', () => {
+            introVideo.muted = false;
+            introVideo.currentTime = 0; // Reinicia o vídeo com som
+            unmuteBtn.style.display = 'none';
+          });
+          videoOverlay.appendChild(unmuteBtn);
+        });
+      }
+    }
+    if (skipVideoBtn) {
+      skipVideoBtn.addEventListener('click', hideVideo);
+    }
 
     // ── NOME DO CONVIDADO (URL) ────────────────────────────
     const urlParams = new URLSearchParams(window.location.search);
     const guestName = urlParams.get('name');
-    const envToWrap = document.getElementById('env-to-wrap');
     if (guestName) {
-      const greetingIntro = document.getElementById('guest-greeting-intro');
-      if (greetingIntro) {
-        greetingIntro.textContent = guestName;
-      }
       const greetingHero = document.getElementById('guest-greeting');
       if (greetingHero) {
         greetingHero.textContent = `para ${guestName}`;
       }
-    } else {
-      // No guest name — hide the addressing block
-      if (envToWrap) envToWrap.style.display = 'none';
     }
-
-    // Generate petals
-    const petalContainer = document.getElementById('petal-container');
-    const petalColors = [
-      'rgba(201,135,122,0.55)', 'rgba(201,168,76,0.45)',
-      'rgba(107,158,134,0.4)', 'rgba(249,244,236,0.6)',
-      'rgba(232,214,154,0.5)'
-    ];
-    if (petalContainer) {
-      for (let i = 0; i < 22; i++) {
-        const p = document.createElement('div');
-        p.className = 'petal';
-        p.style.cssText = `
-        left: ${Math.random() * 100}%;
-        top: ${-20 - Math.random() * 20}px;
-        background: ${petalColors[Math.floor(Math.random() * petalColors.length)]};
-        animation-duration: ${5 + Math.random() * 8}s;
-        animation-delay: ${Math.random() * 6}s;
-        transform: rotate(${Math.random() * 360}deg);
-        width: ${8 + Math.random() * 8}px;
-        height: ${13 + Math.random() * 10}px;
-      `;
-        petalContainer.appendChild(p);
-      }
-    }
-
-    // ── INTERAÇÃO DO ENVELOPE ──────────────────────────────
-    const envFlap = document.getElementById('env-flap');
-    const letterCard = document.getElementById('letter-card');
-    const sealArea = document.getElementById('seal-area');
-
-    // ── PARTÍCULAS DOURADAS ────────────────────────────────
-    const particlesContainer = document.getElementById('intro-particles');
-    if (particlesContainer) {
-      for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
-        p.className = 'gold-particle';
-        const size = 2 + Math.random() * 4;
-        p.style.cssText = `
-          width: ${size}px;
-          height: ${size}px;
-          left: ${Math.random() * 100}%;
-          bottom: -10px;
-          animation-duration: ${8 + Math.random() * 10}s;
-          animation-delay: ${Math.random() * 8}s;
-          opacity: ${0.3 + Math.random() * 0.5};
-        `;
-        particlesContainer.appendChild(p);
-      }
-    }
-
-    openBtn.addEventListener('click', () => {
-      // 1. Oculta o selo
-      sealArea.style.opacity = '0';
-      sealArea.style.pointerEvents = 'none';
-
-      // 2. Abre a aba do envelope
-      if (envFlap) envFlap.classList.add('open');
-
-      // 3. A carta sobe
-      if (letterCard) letterCard.classList.add('rise');
-
-      // 4. Inicia a música
-      musicBtn.classList.add('visible');
-      bgm.play().catch(() => { });
-
-      // 5. Após a carta subir, esconde o intro e libera a página
-      setTimeout(() => {
-        intro.classList.add('hidden');
-        setTimeout(() => { intro.style.display = 'none'; }, 1600);
-      }, 2500);
-    });
-
     // Music toggle
+    const musicBtn = document.getElementById('music-btn');
+    const bgm = document.getElementById('bgm');
     let playing = false;
     musicBtn.addEventListener('click', () => {
       if (playing) { bgm.pause(); musicBtn.textContent = '♪'; }
