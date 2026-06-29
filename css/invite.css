@@ -3084,602 +3084,101 @@ body {
 }
 
 /* ========================================
-   QUERUBINS — Pure CSS Cherubs
+   QUERUBINS FLUTUANTES (IMAGENS)
    ======================================== */
-
-.cherub {
+.hero-cherub {
   position: absolute;
-  z-index: 3;
+  z-index: 1;
+  /* Abaixo do texto principal (z-index: 2) */
   pointer-events: none;
-  animation: cherub-float 7s ease-in-out infinite;
+  opacity: 0.65;
+  filter: drop-shadow(0 4px 10px rgba(44, 74, 62, 0.15));
+  animation: hero-cherub-float 10s ease-in-out infinite;
 }
 
-.cherub.cherub-left {
-  top: 12%;
-  left: 7%;
-  animation-delay: 0s;
-}
-
-.cherub.cherub-right {
-  top: 12%;
-  right: 7%;
-  animation-delay: 2s;
-}
-
-@keyframes cherub-float {
+@keyframes hero-cherub-float {
 
   0%,
   100% {
-    transform: translateY(0px) rotate(-1.5deg);
-  }
-
-  35% {
-    transform: translateY(-16px) rotate(1deg);
-  }
-
-  65% {
-    transform: translateY(-8px) rotate(-1deg);
-  }
-}
-
-/* Querubim da direita fica espelhado */
-.cherub.cherub-right .cherub-body-group {
-  transform: scaleX(-1);
-}
-
-/* --- Halo dourado --- */
-.cherub-halo {
-  width: 36px;
-  height: 11px;
-  border-radius: 50%;
-  border: 2.5px solid rgba(201, 168, 76, 0.9);
-  margin: 0 auto -6px;
-  box-shadow: 0 0 12px rgba(201, 168, 76, 0.6), 0 0 25px rgba(201, 168, 76, 0.25);
-  animation: halo-glow 2.5s ease-in-out infinite alternate;
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes halo-glow {
-  0% {
-    box-shadow: 0 0 8px rgba(201, 168, 76, 0.5), 0 0 18px rgba(201, 168, 76, 0.2);
-  }
-
-  100% {
-    box-shadow: 0 0 18px rgba(201, 168, 76, 0.95), 0 0 36px rgba(201, 168, 76, 0.45);
-  }
-}
-
-/* --- Cabeça --- */
-.cherub-head {
-  position: relative;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #FDEBD0 0%, #F5C9A0 55%, #E8A878 100%);
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.18), inset -3px -3px 8px rgba(180, 100, 60, 0.1);
-  margin: 0 auto;
-  z-index: 3;
-  position: relative;
-}
-
-/* cachos */
-.cherub-head::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: 3px;
-  right: 3px;
-  height: 18px;
-  border-radius: 50% 50% 0 0;
-  background: radial-gradient(ellipse at 50% 0%, #D9A865 0%, #B07840 100%);
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.25);
-}
-
-/* bochechas */
-.cherub-head::before {
-  content: '';
-  position: absolute;
-  bottom: 9px;
-  left: 5px;
-  width: 8px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(220, 100, 90, 0.28);
-  box-shadow: 16px 0 0 rgba(220, 100, 90, 0.28);
-  z-index: 4;
-}
-
-/* olhos */
-.cherub-eyes {
-  position: absolute;
-  top: 14px;
-  left: 9px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #4A2A18;
-  box-shadow: 12px 0 0 #4A2A18;
-  z-index: 5;
-}
-
-/* boca */
-.cherub-mouth {
-  position: absolute;
-  bottom: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 4px;
-  border-bottom: 2px solid rgba(180, 70, 50, 0.35);
-  border-radius: 0 0 5px 5px;
-  z-index: 5;
-}
-
-/* --- Corpo --- */
-.cherub-body {
-  position: relative;
-  width: 30px;
-  height: 22px;
-  margin: -4px auto 0;
-  background: radial-gradient(circle at 40% 30%, #FDEBD0 0%, #F0C090 55%, #E0A870 100%);
-  border-radius: 40% 40% 50% 50%;
-  box-shadow: inset -2px -2px 6px rgba(180, 100, 60, 0.12);
-  z-index: 2;
-}
-
-.cherub-body::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(200, 130, 80, 0.18);
-}
-
-/* --- Asas principais --- */
-.cherub-wings {
-  position: relative;
-  height: 30px;
-  margin-top: -20px;
-  z-index: 1;
-}
-
-.cherub-wings::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -24px;
-  width: 32px;
-  height: 28px;
-  background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.96) 0%, rgba(220, 236, 226, 0.75) 50%, rgba(184, 212, 202, 0.4) 100%);
-  border-radius: 80% 20% 60% 40%;
-  border: 1px solid rgba(91, 168, 157, 0.28);
-  transform-origin: right center;
-  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(91, 168, 157, 0.2);
-  animation: wing-flap 1.9s ease-in-out infinite alternate;
-}
-
-.cherub-wings::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -24px;
-  width: 32px;
-  height: 28px;
-  background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.96) 0%, rgba(220, 236, 226, 0.75) 50%, rgba(184, 212, 202, 0.4) 100%);
-  border-radius: 20% 80% 40% 60%;
-  border: 1px solid rgba(91, 168, 157, 0.28);
-  transform-origin: left center;
-  box-shadow: inset -2px 2px 6px rgba(255, 255, 255, 0.8), 0 2px 8px rgba(91, 168, 157, 0.2);
-  animation: wing-flap-r 1.9s ease-in-out infinite alternate;
-}
-
-@keyframes wing-flap {
-  0% {
-    transform: rotate(-28deg) scaleY(1);
-  }
-
-  100% {
-    transform: rotate(-20deg) scaleY(0.8);
-  }
-}
-
-@keyframes wing-flap-r {
-  0% {
-    transform: rotate(28deg) scaleY(1);
-  }
-
-  100% {
-    transform: rotate(20deg) scaleY(0.8);
-  }
-}
-
-/* Asas inferiores menores */
-.cherub-wings-lower {
-  position: relative;
-  height: 20px;
-  margin-top: -18px;
-  z-index: 0;
-}
-
-.cherub-wings-lower::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -16px;
-  width: 22px;
-  height: 18px;
-  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.75) 0%, rgba(184, 212, 202, 0.4) 100%);
-  border-radius: 80% 20% 70% 30%;
-  border: 1px solid rgba(91, 168, 157, 0.18);
-  transform-origin: right center;
-  animation: wing-flap 1.9s ease-in-out infinite alternate 0.4s;
-}
-
-.cherub-wings-lower::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -16px;
-  width: 22px;
-  height: 18px;
-  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.75) 0%, rgba(184, 212, 202, 0.4) 100%);
-  border-radius: 20% 80% 30% 70%;
-  border: 1px solid rgba(91, 168, 157, 0.18);
-  transform-origin: left center;
-  animation: wing-flap-r 1.9s ease-in-out infinite alternate 0.4s;
-}
-
-/* ========================================
-   ANJOS MAJESTOSOS — Redesign CSS
-   ======================================== */
-
-/* Remover estilos antigos do querubim gordinho e usar
-   novo visual de anjo alto, com manto e asas grandes */
-
-.cherub-head,
-.cherub-body,
-.cherub-wings,
-.cherub-wings-lower,
-.cherub-eyes,
-.cherub-mouth {
-  /* Reset - mantido apenas para compatibilidade */
-}
-
-/* Novo visual: Anjo esguio e majestoso */
-.angel-figure {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  opacity: 0.82;
-}
-
-/* Halo brilhante maior */
-.angel-halo {
-  width: 44px;
-  height: 13px;
-  border-radius: 50%;
-  border: 2.5px solid rgba(201, 168, 76, 0.95);
-  margin: 0 auto -7px;
-  position: relative;
-  z-index: 10;
-  box-shadow:
-    0 0 14px 3px rgba(201, 168, 76, 0.7),
-    0 0 30px 6px rgba(201, 168, 76, 0.3),
-    inset 0 0 8px rgba(255, 240, 180, 0.4);
-  animation: angel-halo-pulse 3s ease-in-out infinite alternate;
-}
-
-@keyframes angel-halo-pulse {
-  0% {
-    box-shadow: 0 0 10px 2px rgba(201, 168, 76, 0.6), 0 0 22px 4px rgba(201, 168, 76, 0.25);
-  }
-
-  100% {
-    box-shadow: 0 0 22px 5px rgba(201, 168, 76, 1), 0 0 45px 10px rgba(201, 168, 76, 0.4), inset 0 0 10px rgba(255, 240, 180, 0.5);
-  }
-}
-
-/* Cabeça serena e alongada */
-.angel-head {
-  width: 32px;
-  height: 36px;
-  border-radius: 50% 50% 45% 45%;
-  background: radial-gradient(circle at 42% 38%, #FDF3E8 0%, #F2D9B8 55%, #E0BC90 100%);
-  box-shadow:
-    2px 4px 12px rgba(0, 0, 0, 0.15),
-    inset -2px -3px 8px rgba(180, 110, 60, 0.1),
-    0 0 8px rgba(255, 240, 200, 0.3);
-  position: relative;
-  z-index: 5;
-  margin: 0 auto;
-}
-
-/* Cabelos suaves */
-.angel-head::after {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: 3px;
-  right: 3px;
-  height: 16px;
-  border-radius: 50% 50% 0 0;
-  background: linear-gradient(180deg, #C8935A 0%, #A06E38 100%);
-  box-shadow: inset 0 2px 5px rgba(255, 200, 140, 0.3);
-}
-
-/* Feições suaves */
-.angel-head::before {
-  content: '';
-  position: absolute;
-  bottom: 10px;
-  left: 6px;
-  width: 7px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(200, 100, 80, 0.2);
-  box-shadow: 12px 0 0 rgba(200, 100, 80, 0.2);
-  z-index: 6;
-}
-
-.angel-eyes {
-  position: absolute;
-  top: 14px;
-  left: 8px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #3A2012;
-  box-shadow: 11px 0 0 #3A2012;
-  z-index: 7;
-}
-
-/* Pescoço */
-.angel-neck {
-  width: 10px;
-  height: 8px;
-  background: linear-gradient(180deg, #F2D9B8 0%, #E8C89A 100%);
-  margin: 0 auto -2px;
-  border-radius: 0 0 3px 3px;
-  z-index: 4;
-  position: relative;
-}
-
-/* Asas GRANDES e majestosas — usando pseudo-elements em wrapper */
-.angel-wings-wrapper {
-  position: relative;
-  width: 110px;
-  height: 100px;
-  margin-top: -70px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Asa esquerda — grande, curvada para cima */
-.angel-wings-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 52px;
-  height: 85px;
-  background:
-    radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.98) 0%,
-      rgba(225, 240, 232, 0.85) 40%,
-      rgba(184, 212, 202, 0.5) 75%,
-      transparent 100%);
-  border-radius: 80% 15% 35% 65% / 75% 20% 80% 25%;
-  border: 1px solid rgba(91, 168, 157, 0.22);
-  box-shadow:
-    inset 3px 3px 10px rgba(255, 255, 255, 0.9),
-    0 4px 15px rgba(91, 168, 157, 0.15),
-    2px 0 8px rgba(201, 168, 76, 0.1);
-  transform-origin: right 80%;
-  animation: angel-wing-l 2.5s ease-in-out infinite alternate;
-}
-
-/* Asa direita */
-.angel-wings-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 52px;
-  height: 85px;
-  background:
-    radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.98) 0%,
-      rgba(225, 240, 232, 0.85) 40%,
-      rgba(184, 212, 202, 0.5) 75%,
-      transparent 100%);
-  border-radius: 15% 80% 65% 35% / 20% 75% 25% 80%;
-  border: 1px solid rgba(91, 168, 157, 0.22);
-  box-shadow:
-    inset -3px 3px 10px rgba(255, 255, 255, 0.9),
-    0 4px 15px rgba(91, 168, 157, 0.15),
-    -2px 0 8px rgba(201, 168, 76, 0.1);
-  transform-origin: left 80%;
-  animation: angel-wing-r 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes angel-wing-l {
-  0% {
-    transform: rotate(-5deg) scaleX(1);
-  }
-
-  100% {
-    transform: rotate(5deg) scaleX(0.88);
-  }
-}
-
-@keyframes angel-wing-r {
-  0% {
-    transform: rotate(5deg) scaleX(1);
-  }
-
-  100% {
-    transform: rotate(-5deg) scaleX(0.88);
-  }
-}
-
-/* Manto/robe — corpo principal do anjo */
-.angel-robe {
-  width: 38px;
-  height: 65px;
-  position: relative;
-  z-index: 3;
-  margin-top: -4px;
-}
-
-/* Robe shape — evasê, largo na base */
-.angel-robe::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 28px;
-  height: 65px;
-  background: linear-gradient(180deg,
-      rgba(220, 238, 230, 0.92) 0%,
-      rgba(184, 212, 202, 0.85) 40%,
-      rgba(140, 190, 170, 0.75) 100%);
-  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
-  border: 1px solid rgba(91, 168, 157, 0.2);
-  box-shadow: inset 0 5px 15px rgba(255, 255, 255, 0.5), 0 5px 15px rgba(44, 74, 62, 0.1);
-}
-
-/* Faixa dourada no meio do manto */
-.angel-robe::after {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 50px;
-  background: linear-gradient(180deg, rgba(201, 168, 76, 0.5) 0%, rgba(201, 168, 76, 0.1) 100%);
-  border-radius: 1px;
-}
-
-/* Glória — círculo de luz ao redor do corpo */
-.angel-glory {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-      rgba(255, 245, 200, 0.2) 0%,
-      rgba(201, 168, 76, 0.06) 50%,
-      transparent 70%);
-  animation: glory-pulse 4s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes glory-pulse {
-  0% {
-    opacity: 0.5;
-    transform: translateX(-50%) scale(1);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.15);
-  }
-}
-
-/* Partículas ao redor dos querubins */
-.cherub-sparkle {
-  position: absolute;
-  border-radius: 50%;
-  animation: cherub-sparkle-float 3s ease-in-out infinite;
-}
-
-.cherub-sparkle:nth-child(1) {
-  width: 4px;
-  height: 4px;
-  top: 10px;
-  left: -10px;
-  background: rgba(201, 168, 76, 0.8);
-  animation-delay: 0s;
-}
-
-.cherub-sparkle:nth-child(2) {
-  width: 3px;
-  height: 3px;
-  top: 25px;
-  right: -8px;
-  background: rgba(201, 168, 76, 0.7);
-  animation-delay: 0.9s;
-}
-
-.cherub-sparkle:nth-child(3) {
-  width: 3px;
-  height: 3px;
-  top: -4px;
-  left: 45%;
-  background: rgba(91, 168, 157, 0.9);
-  animation-delay: 1.8s;
-}
-
-.cherub-sparkle:nth-child(4) {
-  width: 2px;
-  height: 2px;
-  top: 40px;
-  left: 20%;
-  background: rgba(255, 230, 100, 0.9);
-  animation-delay: 0.5s;
-}
-
-@keyframes cherub-sparkle-float {
-
-  0%,
-  100% {
-    opacity: 0.15;
-    transform: scale(0.8) translateY(0);
+    transform: translateY(0) rotate(-2deg);
   }
 
   50% {
-    opacity: 1;
-    transform: scale(1.4) translateY(-6px);
+    transform: translateY(-20px) rotate(2deg);
   }
 }
 
-/* Responsividade */
-@media (max-width: 600px) {
-  .cherub {
+/* Posições e tamanhos individuais */
+.cherub-1 {
+  width: 70px;
+  top: 12%;
+  left: 15%;
+  animation-duration: 9s;
+}
+
+.cherub-2 {
+  width: 60px;
+  top: 25%;
+  right: 12%;
+  transform: scaleX(-1);
+  /* Espelha a imagem */
+  animation-duration: 12s;
+  animation-delay: -3s;
+}
+
+.cherub-3 {
+  width: 55px;
+  top: 65%;
+  left: 10%;
+  animation-duration: 11s;
+  animation-delay: -1.5s;
+}
+
+.cherub-4 {
+  width: 80px;
+  top: 70%;
+  right: 16%;
+  transform: scaleX(-1);
+  /* Espelha a imagem */
+  animation-duration: 10s;
+  animation-delay: -5s;
+}
+
+.cherub-5 {
+  width: 45px;
+  top: 40%;
+  left: 22%;
+  animation-duration: 13s;
+  animation-delay: -7s;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 900px) {
+  .hero-cherub {
+    opacity: 0.4;
+  }
+
+  .cherub-1 {
+    left: 5%;
+  }
+
+  .cherub-2 {
+    right: 3%;
+  }
+
+  .cherub-3 {
     display: none;
   }
 
-  .candelabra {
-    transform: scale(0.7);
-    bottom: 200px;
-  }
-}
-
-@media (max-width: 768px) {
-  .cherub.cherub-left {
-    left: 1%;
+  /* Esconde alguns para não poluir */
+  .cherub-4 {
+    right: 8%;
+    top: 75%;
+    width: 65px;
   }
 
-  .cherub.cherub-right {
-    right: 1%;
-  }
-
-  .candelabra.left-candelabra {
-    left: calc(50% - 160px);
-  }
-
-  .candelabra.right-candelabra {
-    right: calc(50% - 160px);
+  .cherub-5 {
+    display: none;
   }
 }
 
