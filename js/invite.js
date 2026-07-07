@@ -1,8 +1,8 @@
-// ── COUNTDOWN ────────────────────────────────────────────
+// ── COUNTDOWN ──────────────────────────────────────────────
 function updateCountdown() {
   const target = new Date('2026-11-07T15:00:00');
-  const now = new Date();
-  const diff = target - now;
+  const now    = new Date();
+  const diff   = target - now;
   if (diff <= 0) {
     ['days','hours','minutes','seconds'].forEach(id => {
       const el = document.getElementById(id);
@@ -18,58 +18,36 @@ function updateCountdown() {
     const el = document.getElementById(id);
     if (el) el.textContent = String(v).padStart(pad, '0');
   };
-  set('days', d, 3); set('hours', h, 2);
-  set('minutes', m, 2); set('seconds', s, 2);
+  set('days', d, 3);
+  set('hours', h, 2);
+  set('minutes', m, 2);
+  set('seconds', s, 2);
 }
 
-// ── HORIZONTAL BOOK ───────────────────────────────────────
+// ── HORIZONTAL BOOK ────────────────────────────────────────
 function initHorizontalBook() {
   const wrapper = document.querySelector('.app-wrapper');
   if (!wrapper) return;
 
-  const pages = Array.from(wrapper.querySelectorAll('section'));
-  pages.forEach((page, i) => {
-    page.classList.add('horizontal-page');
-    if (i === 0) page.classList.add('active-page');
-    else page.classList.add('next-page');
-  });
-
+  const pages = Array.from(wrapper.querySelectorAll('section.horizontal-page'));
   let currentPage = 0;
-
-  // Inject controls
-  const controls = document.createElement('div');
-  controls.className = 'book-controls';
-  controls.innerHTML = `
-    <button id="prev-page" class="book-btn" disabled title="Anterior">
-      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>
-    <button id="next-page" class="book-btn" title="Próxima">
-      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>`;
-  document.body.appendChild(controls);
-
-  const btnPrev = document.getElementById('prev-page');
-  const btnNext = document.getElementById('next-page');
 
   function goTo(index) {
     if (index < 0 || index >= pages.length) return;
     pages.forEach((p, i) => {
       p.classList.remove('active-page', 'flipped', 'next-page');
-      if (i === index) p.classList.add('active-page');
-      else if (i < index) p.classList.add('flipped');
-      else p.classList.add('next-page');
+      if (i === index)      p.classList.add('active-page');
+      else if (i < index)  p.classList.add('flipped');
+      else                  p.classList.add('next-page');
     });
     pages[index].scrollTop = 0;
     currentPage = index;
-    btnPrev.disabled = currentPage === 0;
-    btnNext.disabled = currentPage === pages.length - 1;
-
-    // Trigger fade-ins on new page
     triggerFades(pages[index]);
   }
 
-  btnNext.addEventListener('click', () => { if (currentPage < pages.length - 1) goTo(currentPage + 1); });
-  btnPrev.addEventListener('click', () => { if (currentPage > 0) goTo(currentPage - 1); });
+  // Hero chevron button → go to page 2
+  const heroNext = document.getElementById('hero-next-btn');
+  if (heroNext) heroNext.addEventListener('click', () => goTo(1));
 
   // Touch swipe
   let tx = 0;
@@ -80,7 +58,7 @@ function initHorizontalBook() {
     else if (diff > 50 && currentPage > 0) goTo(currentPage - 1);
   }, { passive: true });
 
-  // Mouse wheel
+  // Mouse wheel navigation (only at scroll edges)
   let scrolling = false;
   window.addEventListener('wheel', e => {
     if (scrolling) return;
@@ -88,11 +66,11 @@ function initHorizontalBook() {
     if (!ap) return;
     if (e.deltaY > 0) {
       if (Math.ceil(ap.scrollTop + ap.clientHeight) >= ap.scrollHeight - 5 && currentPage < pages.length - 1) {
-        scrolling = true; goTo(currentPage + 1); setTimeout(() => scrolling = false, 1200);
+        scrolling = true; goTo(currentPage + 1); setTimeout(() => scrolling = false, 1300);
       }
     } else {
       if (ap.scrollTop <= 5 && currentPage > 0) {
-        scrolling = true; goTo(currentPage - 1); setTimeout(() => scrolling = false, 1200);
+        scrolling = true; goTo(currentPage - 1); setTimeout(() => scrolling = false, 1300);
       }
     }
   }, { passive: false });
@@ -100,41 +78,35 @@ function initHorizontalBook() {
   goTo(0);
 }
 
-// ── FADE-IN OBSERVER ──────────────────────────────────────
+// ── FADE-IN OBSERVER ───────────────────────────────────────
 function triggerFades(container) {
   const els = (container || document).querySelectorAll('.fade-in:not(.visible)');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.1, root: container });
   els.forEach(el => obs.observe(el));
 }
 
-// ── RSVP ──────────────────────────────────────────────────
+// ── RSVP ───────────────────────────────────────────────────
 function handleRsvp() {
   const form = document.getElementById('rsvp-form-inner');
-  const msg = document.getElementById('rsvp-message');
+  const msg  = document.getElementById('rsvp-message');
   if (!form || !msg) return;
   form.style.display = 'none';
-  msg.style.display = 'block';
-  msg.innerHTML = '🕊️ <strong>Presença confirmada!</strong><br><br>Estamos muito felizes em ter você conosco neste dia especial.<br><br>'
-    + '<a href="gifts/lista_presentes.html" style="display:inline-block;margin-top:8px;padding:11px 24px;background:#2D4A3E;color:#F5EDE0;font-family:Montserrat,sans-serif;font-size:9px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;border-radius:4px;">🎁 Ver Lista de Presentes</a>';
+  msg.style.display  = 'block';
+  msg.innerHTML = '🕊️ <strong>Presença confirmada!</strong><br><br>'
+    + 'Estamos muito felizes em ter você conosco neste dia especial.<br><br>'
+    + '<a href="gifts/lista_presentes.html" style="display:inline-block;margin-top:8px;padding:11px 24px;'
+    + 'background:#2D4A3E;color:#F5EDE0;font-family:Montserrat,sans-serif;font-size:9px;font-weight:700;'
+    + 'letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;border-radius:4px;">🎁 Ver Lista de Presentes</a>';
 }
 
-function handleDecline() {
-  const form = document.getElementById('rsvp-form-inner');
-  const msg = document.getElementById('rsvp-message');
-  if (!form || !msg) return;
-  form.style.display = 'none';
-  msg.style.display = 'block';
-  msg.innerHTML = 'Sentiremos muito a sua falta. Obrigado pelo carinho! 💛';
-}
-
-// ── INIT ──────────────────────────────────────────────────
+// ── INIT ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Guest name
+  // Guest name from URL
   const urlParams = new URLSearchParams(window.location.search);
   const guestName = urlParams.get('name');
   if (guestName) {
@@ -160,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bgm.play().catch(() => {});
     }
     initHorizontalBook();
-    triggerFades(document.querySelector('.active-page'));
   }
 
   if (introVideo) {
@@ -190,9 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   } else {
-    // No video — init book directly
     initHorizontalBook();
-    triggerFades(document.querySelector('.active-page'));
   }
 
   if (skipBtn) skipBtn.addEventListener('click', hideVideo);
@@ -200,19 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Music toggle
   if (musicBtn && bgm) {
     let playing = false;
-    bgm.addEventListener('play', () => { playing = true; musicBtn.textContent = '♬'; });
+    bgm.addEventListener('play',  () => { playing = true;  musicBtn.textContent = '♬'; });
+    bgm.addEventListener('pause', () => { playing = false; musicBtn.textContent = '♪'; });
     musicBtn.addEventListener('click', () => {
-      if (playing) { bgm.pause(); musicBtn.textContent = '♪'; }
-      else { bgm.play().catch(() => {}); musicBtn.textContent = '♬'; }
-      playing = !playing;
+      if (playing) bgm.pause();
+      else bgm.play().catch(() => {});
     });
   }
-
-  // Children toggle
-  document.querySelectorAll('[name="children"]').forEach(r => {
-    r.addEventListener('change', () => {
-      const d = document.getElementById('children-details');
-      if (d) d.classList.toggle('visible', r.value === 'yes' && r.checked);
-    });
-  });
 });
