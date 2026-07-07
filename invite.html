@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evellyn &amp; Guilherme — Convite de Casamento</title>
-  <meta name="description" content="Convite digital do casamento de Evellyn e Guilherme — 07 de novembro de 2026, Belo Jardim - PE">
+  <meta name="description"
+    content="Convite digital do casamento de Evellyn e Guilherme — 07 de novembro de 2026, Belo Jardim - PE">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/invite.css">
 </head>
+
 <body>
 
   <!-- ═══ VIDEO OVERLAY ═══ -->
@@ -18,6 +23,18 @@
     </video>
     <button id="skip-video-btn">Pular Vídeo</button>
   </div>
+
+  <!-- ═══ TRANSITION SCREEN ═══ -->
+  <div id="video-transition">
+    <div class="vt-overlay"></div>
+    <div class="vt-content">
+      <span class="vt-ornament">✦</span>
+      <p class="vt-phrase" id="vt-phrase"></p>
+      <div class="vt-divider"></div>
+      <button id="vt-enter-btn">Abrir Convite</button>
+    </div>
+  </div>
+  <audio id="typewriter-sfx" src="audio/audio_escrita.mpeg" preload="auto"></audio>
 
   <!-- Music -->
   <button id="music-btn" title="Pausar/Tocar música">♪</button>
@@ -36,36 +53,43 @@
       <!-- Left: dark blurry botanical silhouette (CSS pseudo-element + SVG) -->
       <div class="hero-leaf-left" aria-hidden="true">
         <svg viewBox="0 0 260 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M130,500 Q90,410 110,330 Q130,250 95,170 Q70,110 100,40" stroke="#4A5E42" stroke-width="3" fill="none"/>
-          <ellipse cx="95" cy="440" rx="28" ry="58" fill="#4A5E42" opacity="0.55" transform="rotate(28 95 440)"/>
-          <ellipse cx="72" cy="365" rx="30" ry="64" fill="#3D5236" opacity="0.5" transform="rotate(42 72 365)"/>
-          <ellipse cx="105" cy="290" rx="26" ry="55" fill="#4A5E42" opacity="0.45" transform="rotate(18 105 290)"/>
-          <ellipse cx="78" cy="215" rx="28" ry="60" fill="#3D5236" opacity="0.4" transform="rotate(32 78 215)"/>
-          <ellipse cx="100" cy="145" rx="24" ry="50" fill="#4A5E42" opacity="0.35" transform="rotate(12 100 145)"/>
-          <ellipse cx="82" cy="82"  rx="20" ry="42" fill="#3D5236" opacity="0.3" transform="rotate(6 82 82)"/>
+          <path d="M130,500 Q90,410 110,330 Q130,250 95,170 Q70,110 100,40" stroke="#4A5E42" stroke-width="3"
+            fill="none" />
+          <ellipse cx="95" cy="440" rx="28" ry="58" fill="#4A5E42" opacity="0.55" transform="rotate(28 95 440)" />
+          <ellipse cx="72" cy="365" rx="30" ry="64" fill="#3D5236" opacity="0.5" transform="rotate(42 72 365)" />
+          <ellipse cx="105" cy="290" rx="26" ry="55" fill="#4A5E42" opacity="0.45" transform="rotate(18 105 290)" />
+          <ellipse cx="78" cy="215" rx="28" ry="60" fill="#3D5236" opacity="0.4" transform="rotate(32 78 215)" />
+          <ellipse cx="100" cy="145" rx="24" ry="50" fill="#4A5E42" opacity="0.35" transform="rotate(12 100 145)" />
+          <ellipse cx="82" cy="82" rx="20" ry="42" fill="#3D5236" opacity="0.3" transform="rotate(6 82 82)" />
           <!-- Extra overlapping leaves for depth -->
-          <ellipse cx="118" cy="400" rx="22" ry="48" fill="#5A7050" opacity="0.35" transform="rotate(-15 118 400)"/>
-          <ellipse cx="60"  cy="320" rx="18" ry="40" fill="#4A5E42" opacity="0.3" transform="rotate(50 60 320)"/>
+          <ellipse cx="118" cy="400" rx="22" ry="48" fill="#5A7050" opacity="0.35" transform="rotate(-15 118 400)" />
+          <ellipse cx="60" cy="320" rx="18" ry="40" fill="#4A5E42" opacity="0.3" transform="rotate(50 60 320)" />
         </svg>
       </div>
 
       <!-- Right: gold line-art botanical leaf -->
       <div class="hero-leaf-right" aria-hidden="true">
         <svg viewBox="0 0 200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M100,410 Q80,340 90,270 Q102,200 78,130 Q62,78 85,28" stroke="#C9A84C" stroke-width="1.3" fill="none" opacity="0.75"/>
+          <path d="M100,410 Q80,340 90,270 Q102,200 78,130 Q62,78 85,28" stroke="#C9A84C" stroke-width="1.3" fill="none"
+            opacity="0.75" />
           <!-- Large right leaf -->
-          <path d="M100,350 Q148,308 162,248 Q174,195 150,155 Q138,130 120,136 Q102,142 98,175 Q94,210 100,255 Q106,298 100,350Z" stroke="#C9A84C" stroke-width="1.1" fill="none" opacity="0.6"/>
+          <path
+            d="M100,350 Q148,308 162,248 Q174,195 150,155 Q138,130 120,136 Q102,142 98,175 Q94,210 100,255 Q106,298 100,350Z"
+            stroke="#C9A84C" stroke-width="1.1" fill="none" opacity="0.6" />
           <!-- Medium right leaf -->
-          <path d="M100,275 Q135,248 148,212 Q160,178 146,150 Q134,126 118,132 Q104,138 100,165 Q97,192 100,220Z" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M100,275 Q135,248 148,212 Q160,178 146,150 Q134,126 118,132 Q104,138 100,165 Q97,192 100,220Z"
+            stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.5" />
           <!-- Upper right leaf -->
-          <path d="M100,215 Q128,192 140,162 Q150,134 138,112 Q128,93 114,100 Q101,107 99,133 Q97,158 100,182Z" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.45"/>
+          <path d="M100,215 Q128,192 140,162 Q150,134 138,112 Q128,93 114,100 Q101,107 99,133 Q97,158 100,182Z"
+            stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.45" />
           <!-- Left leaf big -->
-          <path d="M100,380 Q60,345 50,298 Q40,252 58,213 Q72,178 90,188 Q106,198 104,235 Q102,272 100,308Z" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M100,380 Q60,345 50,298 Q40,252 58,213 Q72,178 90,188 Q106,198 104,235 Q102,272 100,308Z"
+            stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.5" />
           <!-- Small veins -->
-          <path d="M100,310 Q125,295 135,272" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.4"/>
-          <path d="M100,365 Q76,348 68,324" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.4"/>
-          <path d="M100,250 Q122,235 132,215" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.38"/>
-          <path d="M100,195 Q118,182 126,162" stroke="#C9A84C" stroke-width="0.55" fill="none" opacity="0.35"/>
+          <path d="M100,310 Q125,295 135,272" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.4" />
+          <path d="M100,365 Q76,348 68,324" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.4" />
+          <path d="M100,250 Q122,235 132,215" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.38" />
+          <path d="M100,195 Q118,182 126,162" stroke="#C9A84C" stroke-width="0.55" fill="none" opacity="0.35" />
         </svg>
       </div>
 
@@ -98,37 +122,48 @@
         <div class="invite-countdown">
           <p class="cntd-label">Contagem Regressiva</p>
           <svg class="cntd-ornament" viewBox="0 0 90 28" fill="none">
-            <path d="M45 14 Q36 4 22 7 Q10 10 13 19 Q16 25 26 22 Q36 19 45 14Z" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.8"/>
-            <path d="M45 14 Q54 4 68 7 Q80 10 77 19 Q74 25 64 22 Q54 19 45 14Z" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.8"/>
-            <line x1="10" y1="14" x2="0" y2="14" stroke="#C9A84C" stroke-width="0.7" opacity="0.5"/>
-            <line x1="80" y1="14" x2="90" y2="14" stroke="#C9A84C" stroke-width="0.7" opacity="0.5"/>
+            <path d="M45 14 Q36 4 22 7 Q10 10 13 19 Q16 25 26 22 Q36 19 45 14Z" stroke="#C9A84C" stroke-width="1"
+              fill="none" opacity="0.8" />
+            <path d="M45 14 Q54 4 68 7 Q80 10 77 19 Q74 25 64 22 Q54 19 45 14Z" stroke="#C9A84C" stroke-width="1"
+              fill="none" opacity="0.8" />
+            <line x1="10" y1="14" x2="0" y2="14" stroke="#C9A84C" stroke-width="0.7" opacity="0.5" />
+            <line x1="80" y1="14" x2="90" y2="14" stroke="#C9A84C" stroke-width="0.7" opacity="0.5" />
           </svg>
           <h2 class="cntd-title">Para o <em>Grande Dia</em> <span class="cntd-heart">♡</span></h2>
           <div class="countdown-grid">
             <div class="cntd-box">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)" stroke-width="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)"
+                stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
               <span class="cntd-num" id="days">000</span>
               <span class="cntd-unit">Dias</span>
             </div>
             <div class="cntd-box">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)"
+                stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
               </svg>
               <span class="cntd-num" id="hours">00</span>
               <span class="cntd-unit">Horas</span>
             </div>
             <div class="cntd-box">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)" stroke-width="1.5">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)"
+                stroke-width="1.5">
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
               <span class="cntd-num" id="minutes">00</span>
               <span class="cntd-unit">Minutos</span>
             </div>
             <div class="cntd-box">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)" stroke-width="1.5">
-                <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,168,76,0.65)"
+                stroke-width="1.5">
+                <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z" />
               </svg>
               <span class="cntd-num" id="seconds">00</span>
               <span class="cntd-unit">Segundos</span>
@@ -146,16 +181,21 @@
               <div class="invite-tag-ornament">
                 <span class="orn-line-sm"></span>
                 <svg width="22" height="12" viewBox="0 0 44 20" fill="none">
-                  <path d="M22 10 Q17 3 10 5 Q3 8 5 14 Q7 18 13 16 Q18 14 22 10Z" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.75"/>
-                  <path d="M22 10 Q27 3 34 5 Q41 8 39 14 Q37 18 31 16 Q26 14 22 10Z" stroke="#C9A84C" stroke-width="0.9" fill="none" opacity="0.75"/>
+                  <path d="M22 10 Q17 3 10 5 Q3 8 5 14 Q7 18 13 16 Q18 14 22 10Z" stroke="#C9A84C" stroke-width="0.9"
+                    fill="none" opacity="0.75" />
+                  <path d="M22 10 Q27 3 34 5 Q41 8 39 14 Q37 18 31 16 Q26 14 22 10Z" stroke="#C9A84C" stroke-width="0.9"
+                    fill="none" opacity="0.75" />
                 </svg>
                 <span class="orn-line-sm"></span>
               </div>
               <h2 class="invite-h2">Nosso Convite Especial</h2>
               <p class="invite-names-cursive">Evellyn &amp; Guilherme</p>
-              <p class="invite-text-p">Convidamos você para celebrar conosco este momento tão especial em nossas vidas.</p>
-              <p class="invite-text-p">Será uma honra imensa ter a sua presença em nossa cerimônia de casamento, onde uniremos nossas vidas diante de Deus e de nossos queridos familiares e amigos.</p>
-              <p class="invite-text-p">Sua presença é o maior presente que poderíamos receber. Venha compartilhar conosco esse dia de alegria, de fé e de esperança eterna.</p>
+              <p class="invite-text-p">Convidamos você para celebrar conosco este momento tão especial em nossas vidas.
+              </p>
+              <p class="invite-text-p">Será uma honra imensa ter a sua presença em nossa cerimônia de casamento, onde
+                uniremos nossas vidas diante de Deus e de nossos queridos familiares e amigos.</p>
+              <p class="invite-text-p">Sua presença é o maior presente que poderíamos receber. Venha compartilhar
+                conosco esse dia de alegria, de fé e de esperança eterna.</p>
             </div>
             <div class="invite-img-col">
               <div class="invite-blob-img">
@@ -167,22 +207,37 @@
           <!-- Details cards -->
           <div class="invite-details fade-in" style="transition-delay:0.15s;">
             <div class="detail-card">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
               <p class="detail-label">Data</p>
               <p class="detail-value">07 de novembro<br>de 2026 — Sábado</p>
             </div>
             <div class="detail-card">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
               <p class="detail-label">Horário</p>
               <p class="detail-value">15h cerimônia<br>16h recepção</p>
             </div>
             <div class="detail-card">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
               <p class="detail-label">Local</p>
-              <p class="detail-value"><a href="https://www.instagram.com/paraiso__particular/" target="_blank" style="color:inherit;text-decoration:none;">Paraíso Particular<br>Belo Jardim — PE</a></p>
+              <p class="detail-value"><a href="https://www.instagram.com/paraiso__particular/" target="_blank"
+                  style="color:inherit;text-decoration:none;">Paraíso Particular<br>Belo Jardim — PE</a></p>
             </div>
             <div class="detail-card">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5">
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
               <p class="detail-label">Traje</p>
               <p class="detail-value">Social<br>Leve seu sorriso!</p>
             </div>
@@ -202,17 +257,18 @@
             <!-- Bottom leaf decoration -->
             <div class="quote-leaf-left" aria-hidden="true">
               <svg viewBox="0 0 80 160" fill="none">
-                <path d="M40,155 Q28,120 34,88 Q40,56 24,22" stroke="#8FBC8F" stroke-width="1" fill="none" opacity="0.5"/>
-                <ellipse cx="28" cy="132" rx="7" ry="15" fill="#8FBC8F" opacity="0.25" transform="rotate(25 28 132)"/>
-                <ellipse cx="22" cy="105" rx="8" ry="17" fill="#6B9E86" opacity="0.22" transform="rotate(38 22 105)"/>
-                <ellipse cx="30" cy="78"  rx="6" ry="13" fill="#8FBC8F" opacity="0.2"  transform="rotate(15 30 78)"/>
+                <path d="M40,155 Q28,120 34,88 Q40,56 24,22" stroke="#8FBC8F" stroke-width="1" fill="none"
+                  opacity="0.5" />
+                <ellipse cx="28" cy="132" rx="7" ry="15" fill="#8FBC8F" opacity="0.25" transform="rotate(25 28 132)" />
+                <ellipse cx="22" cy="105" rx="8" ry="17" fill="#6B9E86" opacity="0.22" transform="rotate(38 22 105)" />
+                <ellipse cx="30" cy="78" rx="6" ry="13" fill="#8FBC8F" opacity="0.2" transform="rotate(15 30 78)" />
               </svg>
             </div>
             <span class="quote-mark">❝❝</span>
             <p class="quote-text">
               <em>O amor é paciente, o amor é bondoso.<br>
-              Não inveja, não se vangloria, não se orgulha.<br>
-              Tudo sofre, tudo crê, tudo espera, tudo suporta.</em>
+                Não inveja, não se vangloria, não se orgulha.<br>
+                Tudo sofre, tudo crê, tudo espera, tudo suporta.</em>
             </p>
             <cite class="quote-ref">— 1 Coríntios 13:4-7</cite>
           </div>
@@ -232,4 +288,5 @@
 
   <script src="js/invite.js"></script>
 </body>
+
 </html>

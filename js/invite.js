@@ -115,17 +115,81 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Video overlay
-  const videoOverlay = document.getElementById('video-overlay');
-  const introVideo   = document.getElementById('intro-video');
-  const skipBtn      = document.getElementById('skip-video-btn');
-  const musicBtn     = document.getElementById('music-btn');
-  const bgm          = document.getElementById('bgm');
+  const videoOverlay   = document.getElementById('video-overlay');
+  const introVideo     = document.getElementById('intro-video');
+  const skipBtn        = document.getElementById('skip-video-btn');
+  const musicBtn       = document.getElementById('music-btn');
+  const bgm            = document.getElementById('bgm');
+  const videoTransition = document.getElementById('video-transition');
+  const vtEnterBtn     = document.getElementById('vt-enter-btn');
 
-  function hideVideo() {
+  function showTransition() {
+    // Esconde o vídeo
     if (videoOverlay) {
       videoOverlay.classList.add('hidden');
       setTimeout(() => videoOverlay.style.display = 'none', 1000);
     }
+    // Exibe a tela de transição
+    if (videoTransition) {
+      videoTransition.classList.add('visible');
+      // Inicia o efeito typewriter após a tela aparecer
+      setTimeout(startTypewriter, 900);
+    }
+  }
+
+  function startTypewriter() {
+    const phraseEl    = document.getElementById('vt-phrase');
+    const dividerEl   = document.querySelector('.vt-divider');
+    const enterBtn    = document.getElementById('vt-enter-btn');
+    const sfx         = document.getElementById('typewriter-sfx');
+    const fullText    = 'Avance para descobrir os detalhes do início do nosso para sempre';
+    let   index       = 0;
+
+    if (!phraseEl) return;
+    phraseEl.textContent = '';
+
+    // Configura o áudio para loop suave
+    if (sfx) {
+      sfx.volume = 0.55;
+      sfx.loop   = true;
+      sfx.currentTime = 0;
+      sfx.play().catch(() => {});
+    }
+
+    function typeNext() {
+      if (index < fullText.length) {
+        phraseEl.textContent += fullText[index];
+        index++;
+        // Velocidade variável: pausa maior em espaços e vírgulas
+        const ch    = fullText[index - 1];
+        const delay = ch === ' ' ? 60 :
+                      ch === ',' ? 200 :
+                      40 + Math.random() * 35;
+        setTimeout(typeNext, delay);
+      } else {
+        // Digitação concluída
+        if (sfx) { sfx.pause(); sfx.currentTime = 0; }
+        phraseEl.classList.add('typing-done');
+        // Revela divisor e botão
+        setTimeout(() => {
+          if (dividerEl) dividerEl.classList.add('show');
+          setTimeout(() => {
+            if (enterBtn) enterBtn.classList.add('show');
+          }, 400);
+        }, 300);
+      }
+    }
+    typeNext();
+  }
+
+  function hideVideo() {
+    // Esconde a tela de transição
+    if (videoTransition) {
+      videoTransition.classList.remove('visible');
+      videoTransition.classList.add('hidden');
+      setTimeout(() => videoTransition.style.display = 'none', 1200);
+    }
+    // Inicia a música e o convite
     if (musicBtn && bgm) {
       musicBtn.classList.add('visible');
       bgm.volume = 0.45;
@@ -137,14 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (introVideo) {
     introVideo.addEventListener('ended', () => {
       if (skipBtn) skipBtn.style.display = 'none';
-      const overlay = document.createElement('div');
-      overlay.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10002;cursor:pointer;background:rgba(0,0,0,0.12);';
-      const btn = document.createElement('span');
-      btn.textContent = 'Toque para acessar o convite';
-      btn.style.cssText = 'padding:14px 28px;border:1px solid rgba(255,255,255,0.55);border-radius:30px;font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);';
-      overlay.appendChild(btn);
-      overlay.addEventListener('click', hideVideo);
-      videoOverlay.appendChild(overlay);
+      showTransition();
     });
     introVideo.addEventListener('error', hideVideo);
 
@@ -164,7 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initHorizontalBook();
   }
 
-  if (skipBtn) skipBtn.addEventListener('click', hideVideo);
+  if (skipBtn) skipBtn.addEventListener('click', showTransition);
+  if (vtEnterBtn) vtEnterBtn.addEventListener('click', hideVideo);
+
 
   // Music toggle
   if (musicBtn && bgm) {
