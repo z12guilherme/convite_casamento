@@ -1,10 +1,10 @@
 // ── COUNTDOWN ──────────────────────────────────────────────
 function updateCountdown() {
   const target = new Date('2026-11-07T15:00:00');
-  const now    = new Date();
-  const diff   = target - now;
+  const now = new Date();
+  const diff = target - now;
   if (diff <= 0) {
-    ['days','hours','minutes','seconds'].forEach(id => {
+    ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.textContent = '00';
     });
@@ -36,9 +36,9 @@ function initHorizontalBook() {
     if (index < 0 || index >= pages.length) return;
     pages.forEach((p, i) => {
       p.classList.remove('active-page', 'flipped', 'next-page');
-      if (i === index)      p.classList.add('active-page');
-      else if (i < index)  p.classList.add('flipped');
-      else                  p.classList.add('next-page');
+      if (i === index) p.classList.add('active-page');
+      else if (i < index) p.classList.add('flipped');
+      else p.classList.add('next-page');
     });
     pages[index].scrollTop = 0;
     currentPage = index;
@@ -90,10 +90,10 @@ function triggerFades(container) {
 // ── RSVP ───────────────────────────────────────────────────
 function handleRsvp() {
   const form = document.getElementById('rsvp-form-inner');
-  const msg  = document.getElementById('rsvp-message');
+  const msg = document.getElementById('rsvp-message');
   if (!form || !msg) return;
   form.style.display = 'none';
-  msg.style.display  = 'block';
+  msg.style.display = 'block';
   msg.innerHTML = '🕊️ <strong>Presença confirmada!</strong><br><br>'
     + 'Estamos muito felizes em ter você conosco neste dia especial.<br><br>'
     + '<a href="gifts/lista_presentes.html" style="display:inline-block;margin-top:8px;padding:11px 24px;'
@@ -112,16 +112,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (guestName) {
     const el = document.getElementById('guest-greeting');
     if (el) el.textContent = `para ${guestName}`;
+
+    const cursiveEl = document.getElementById('invite-guest-name-cursive');
+    if (cursiveEl) cursiveEl.textContent = guestName;
   }
 
   // Video overlay
-  const videoOverlay   = document.getElementById('video-overlay');
-  const introVideo     = document.getElementById('intro-video');
-  const skipBtn        = document.getElementById('skip-video-btn');
-  const musicBtn       = document.getElementById('music-btn');
-  const bgm            = document.getElementById('bgm');
+  const videoOverlay = document.getElementById('video-overlay');
+  const introVideo = document.getElementById('intro-video');
+  const skipBtn = document.getElementById('skip-video-btn');
+  const musicBtn = document.getElementById('music-btn');
+  const bgm = document.getElementById('bgm');
   const videoTransition = document.getElementById('video-transition');
-  const vtEnterBtn     = document.getElementById('vt-enter-btn');
+  const vtEnterBtn = document.getElementById('vt-enter-btn');
 
   function showTransition() {
     // Esconde o vídeo
@@ -138,12 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTypewriter() {
-    const phraseEl    = document.getElementById('vt-phrase');
-    const dividerEl   = document.querySelector('.vt-divider');
-    const enterBtn    = document.getElementById('vt-enter-btn');
-    const sfx         = document.getElementById('typewriter-sfx');
-    const fullText    = 'Avance para descobrir os detalhes do início do nosso para sempre';
-    let   index       = 0;
+    const phraseEl = document.getElementById('vt-phrase');
+    const dividerEl = document.querySelector('.vt-divider');
+    const enterBtn = document.getElementById('vt-enter-btn');
+    const sfx = document.getElementById('typewriter-sfx');
+    const fullText = 'Avance para descobrir os detalhes do início do nosso para sempre';
+    let index = 0;
 
     if (!phraseEl) return;
     phraseEl.textContent = '';
@@ -151,9 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configura o áudio para loop suave
     if (sfx) {
       sfx.volume = 0.55;
-      sfx.loop   = true;
+      sfx.loop = true;
       sfx.currentTime = 0;
-      sfx.play().catch(() => {});
+      sfx.play().catch(() => { });
     }
 
     function typeNext() {
@@ -161,10 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
         phraseEl.textContent += fullText[index];
         index++;
         // Velocidade variável: pausa maior em espaços e vírgulas
-        const ch    = fullText[index - 1];
+        const ch = fullText[index - 1];
         const delay = ch === ' ' ? 60 :
-                      ch === ',' ? 200 :
-                      40 + Math.random() * 35;
+          ch === ',' ? 200 :
+            40 + Math.random() * 35;
         setTimeout(typeNext, delay);
       } else {
         // Digitação concluída
@@ -193,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (musicBtn && bgm) {
       musicBtn.classList.add('visible');
       bgm.volume = 0.45;
-      bgm.play().catch(() => {});
+      bgm.play().catch(() => { });
     }
     initHorizontalBook();
   }
@@ -228,11 +231,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Music toggle
   if (musicBtn && bgm) {
     let playing = false;
-    bgm.addEventListener('play',  () => { playing = true;  musicBtn.textContent = '♬'; });
+    bgm.addEventListener('play', () => { playing = true; musicBtn.textContent = '♬'; });
     bgm.addEventListener('pause', () => { playing = false; musicBtn.textContent = '♪'; });
     musicBtn.addEventListener('click', () => {
       if (playing) bgm.pause();
-      else bgm.play().catch(() => {});
+      else bgm.play().catch(() => { });
     });
   }
 });
