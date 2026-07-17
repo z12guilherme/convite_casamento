@@ -27,7 +27,7 @@
   </thead>
   <tbody id="gifts-table-body"></tbody>
 </table>
-<script src="../js/config.js"></script>
+<script src="../../js/config.js"></script>
 <script>
   async function loadAllGifts() {
     const { data, error } = await supabase.from('gifts').select('*');

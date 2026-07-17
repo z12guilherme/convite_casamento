@@ -55,7 +55,7 @@
 
         // Verifica o tipo de registro (por default, se não tiver role, é convidado)
         const isPadrinho = c.role === 'padrinho';
-        const pageName = isPadrinho ? 'invite_padrinhos.html' : 'invite.html';
+        const pageName = isPadrinho ? 'pages/invite_padrinhos.html' : 'pages/invite.html';
 
         // Constrói a URL completa do convite
         const currentUrl = new URL(window.location.href);

@@ -67,7 +67,7 @@ for linha in sheet.iter_rows(min_row=2, values_only=True):
     print(f"  -> Gerando para: {nome}")
 
     # --- Gera um QR Code personalizado para cada convidado ---
-    url_personalizada = f"{URL_BASE_DO_SITE}/invite.html?name={quote(nome)}"
+    url_personalizada = f"{URL_BASE_DO_SITE}/pages/invite.html?name={quote(nome)}"
     qr_img = qrcode.make(url_personalizada)
     
     qr_img_bytes = io.BytesIO()
