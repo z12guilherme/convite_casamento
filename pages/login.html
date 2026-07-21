@@ -194,7 +194,7 @@
     // Se já estiver logado, redireciona automaticamente para o dashboard
     window.addEventListener('DOMContentLoaded', async () => {
         const { data: { session } } = await supabaseClient.auth.getSession();
-        if (session) window.location.href = 'index.html';
+        if (session) window.location.href = '../index.html';
     });
 
     document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -219,7 +219,7 @@
         } else {
             showToast('Login realizado com sucesso! Redirecionando...', 'success');
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             }, 1000);
         }
     });
