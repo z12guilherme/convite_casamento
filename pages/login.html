@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <!-- Scripts do Supabase e Utilitários -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js"></script>
-<script src="js/utils.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/utils.js"></script>
 <style>
     :root {
         --c-primary: #3D7A6C;       /* Verde sofisticado */
@@ -194,7 +194,7 @@
     // Se já estiver logado, redireciona automaticamente para o dashboard
     window.addEventListener('DOMContentLoaded', async () => {
         const { data: { session } } = await supabaseClient.auth.getSession();
-        if (session) window.location.href = 'index.html';
+        if (session) window.location.href = '../index.html';
     });
 
     document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -219,7 +219,7 @@
         } else {
             showToast('Login realizado com sucesso! Redirecionando...', 'success');
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             }, 1000);
         }
     });

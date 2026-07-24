@@ -15,26 +15,30 @@ let config = { ...defaultConfig };
 
 // Countdown
 function updateCountdown() {
-  const weddingDate = new Date('November 7, 2026 00:00:00').getTime();
-  const now = new Date().getTime();
-  const distance = weddingDate - now;
-
-  if (distance > 0) {
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
-
-    if (daysEl) daysEl.textContent = days.toString().padStart(3, '0');
-    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
-    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
-    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+  const target = new Date('2026-11-07T15:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '00';
+    });
+    return;
   }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  if (daysEl) daysEl.textContent = String(d).padStart(3, '0');
+  if (hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
+  if (minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
+  if (secondsEl) secondsEl.textContent = String(s).padStart(2, '0');
 }
 
 // Update UI based on config
@@ -106,58 +110,6 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// RSVP Logic
-async function handleRsvp(status) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const name = urlParams.get('name');
-  if (!name) return showToast('Nome do convidado não identificado na URL.', 'error');
-
-  const updateData = { status };
-
-  if (status === 'Confirmado') {
-    const bringingChildren = document.querySelector('input[name="bringing_children"]:checked')?.value === 'yes';
-    updateData.bringing_children = bringingChildren;
-    if (bringingChildren) {
-      updateData.children_count = parseInt(document.getElementById('children_count').value) || 0;
-      updateData.children_ages = document.getElementById('children_ages').value;
-    }
-  }
-
-  const { error } = await supabaseClient.from('guests').update(updateData).eq('name', name);
-
-  if (error) {
-    showToast('Erro ao confirmar: ' + error.message, 'error');
-  } else {
-    const formContainer = document.getElementById('rsvp-form-container');
-    const messageContainer = document.getElementById('rsvp-message');
-
-    if (formContainer) formContainer.style.display = 'none';
-    if (messageContainer) {
-      messageContainer.innerHTML = status === 'Confirmado'
-        ? '<span style="color: var(--primary-action)">Presença confirmada! Obrigado! 🎉</span>'
-        : 'Obrigado por responder. Sentiremos sua falta.';
-      messageContainer.style.display = 'block';
-
-      // Trigger Confetti if confirmed
-      if (status === 'Confirmado' && window.confetti) {
-        window.confetti({
-          particleCount: 150,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      }
-
-      // Show gift list link if confirmed
-      const giftContainer = document.getElementById('gift-list-container');
-      const giftLink = document.getElementById('gift-list-link');
-      if (status === 'Confirmado') {
-        if (giftContainer) giftContainer.style.display = 'block';
-        if (giftLink) giftLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(name)}`;
-      }
-    }
-  }
-}
-
 // === Lógica do Livro Horizontal (Injetada dinamicamente) ===
 function initHorizontalBook() {
   const wrapper = document.querySelector('.app-wrapper');
@@ -178,7 +130,7 @@ function initHorizontalBook() {
     page.classList.remove('vertical-page'); // Limpa caso tenha ficado no HTML
     page.classList.add('horizontal-page');
 
-    // Remove a classe de animação antiga para não conflitar com a virada do livro e fazer os elementos "sumirem"
+    // Remove a classe de animação antiga para não conflitar com a virada do livro
     page.classList.remove('fade-in-section', 'visible');
 
     if (index === 0) page.classList.add('active-page');
@@ -199,6 +151,19 @@ function initHorizontalBook() {
   });
 
   let currentPage = 0;
+
+  function goTo(index) {
+    if (index < 0 || index >= pages.length) return;
+    pages.forEach((p, i) => {
+      p.classList.remove('active-page', 'flipped', 'next-page');
+      if (i === index) p.classList.add('active-page');
+      else if (i < index) p.classList.add('flipped');
+      else p.classList.add('next-page');
+    });
+    pages[index].scrollTop = 0;
+    currentPage = index;
+    triggerFades(pages[index]);
+  }
 
   // Cria dinamicamente os controles de navegação na tela
   const controls = document.createElement('div');
@@ -225,6 +190,7 @@ function initHorizontalBook() {
     });
     btnPrev.disabled = currentPage === 0;
     btnNext.disabled = currentPage === pages.length - 1;
+    triggerFades(pages[currentPage]);
   }
 
   btnNext.addEventListener('click', () => {
@@ -244,12 +210,10 @@ function initHorizontalBook() {
 
     const threshold = 50; // Quão longo tem que ser o deslize
     if (touchEndX < touchStartX - threshold) {
-      // Arrastou para a esquerda (Avança a página)
       if (currentPage < pages.length - 1) {
         currentPage++; pages[currentPage].scrollTop = 0; updateBook();
       }
     } else if (touchEndX > touchStartX + threshold) {
-      // Arrastou para a direita (Volta a página)
       if (currentPage > 0) {
         currentPage--; pages[currentPage].scrollTop = 0; updateBook();
       }
@@ -264,12 +228,10 @@ function initHorizontalBook() {
     if (!activePage) return;
 
     if (e.deltaY > 0) {
-      // Para baixo
       if (Math.ceil(activePage.scrollTop + activePage.clientHeight) >= activePage.scrollHeight - 5 && currentPage < pages.length - 1) {
         isScrolling = true; currentPage++; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 1200);
       }
     } else if (e.deltaY < 0) {
-      // Para cima
       if (activePage.scrollTop <= 5 && currentPage > 0) {
         isScrolling = true; currentPage--; pages[currentPage].scrollTop = 0; updateBook(); setTimeout(() => isScrolling = false, 1200);
       }
@@ -280,7 +242,31 @@ function initHorizontalBook() {
   updateBook();
 }
 
-// Initialize
+// ── FADE-IN OBSERVER ───────────────────────────────────────
+function triggerFades(container) {
+  const els = (container || document).querySelectorAll('.fade-in:not(.visible)');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, root: container });
+  els.forEach(el => obs.observe(el));
+}
+
+// ── RSVP ───────────────────────────────────────────────────
+function handleRsvp() {
+  const form = document.getElementById('rsvp-form-inner');
+  const msg = document.getElementById('rsvp-message');
+  if (!form || !msg) return;
+  form.style.display = 'none';
+  msg.style.display = 'block';
+  const nameParam = new URLSearchParams(window.location.search).get('name') || '';
+  msg.innerHTML = '🕊️ <strong>Presença confirmada!</strong><br><br>'
+    + 'Estamos muito felizes em ter você conosco neste dia especial.<br><br>'
+    + `<a href="gifts/lista_presentes.html?name=${encodeURIComponent(nameParam)}" style="display:inline-block;margin-top:8px;padding:11px 24px;`
+    + 'background:#2D4A3E;color:#F5EDE0;font-family:Montserrat,sans-serif;font-size:9px;font-weight:700;'
+    + 'letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;border-radius:4px;">🎁 Ver Lista de Presentes</a>';
+}
+
+// ── INIT ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -292,46 +278,109 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const guestName = urlParams.get('name');
   if (guestName) {
-    const greetingEl = document.getElementById('guest-greeting');
-    if (greetingEl) greetingEl.textContent = `para ${guestName}`;
-    const greetingIntroEl = document.getElementById('guest-greeting-intro');
-    if (greetingIntroEl) greetingIntroEl.textContent = `para ${guestName}`;
+    const el = document.getElementById('guest-greeting');
+    if (el) el.textContent = `para ${guestName}`;
+
+    const cursiveEl = document.getElementById('invite-guest-name-cursive');
+    if (cursiveEl) cursiveEl.textContent = guestName;
+
     const giftLink = document.getElementById('gift-list-link');
     if (giftLink) giftLink.href = `gifts/lista_presentes.html?name=${encodeURIComponent(guestName)}`;
   }
 
-  // Intro & Music Logic
-  const introOverlay = document.getElementById('intro');
-  const enterBtn = document.getElementById('enter-invite-btn');
-  const music = document.getElementById('bgm');
+  // Video overlay
+  const videoOverlay = document.getElementById('video-overlay');
+  const introVideo = document.getElementById('intro-video');
+  const skipBtn = document.getElementById('skip-video-btn');
   const musicBtn = document.getElementById('music-btn');
+  const bgm = document.getElementById('bgm');
+  const videoTransition = document.getElementById('video-transition');
+  const vtEnterBtn = document.getElementById('vt-enter-btn');
 
-  if (enterBtn) {
-    enterBtn.addEventListener('click', () => {
-      // Hide overlay
-      if (introOverlay) {
-        introOverlay.classList.add('hidden');
-        setTimeout(() => introOverlay.remove(), 1000); // Remove do DOM após transição
-      }
+  function showTransition() {
+    if (videoOverlay) {
+      videoOverlay.classList.add('hidden');
+      setTimeout(() => videoOverlay.style.display = 'none', 1000);
+    }
+    if (videoTransition) {
+      videoTransition.classList.add('visible');
+      setTimeout(startTypewriter, 900);
+    }
+  }
 
-      // Play music
-      if (music) {
-        music.volume = 0.5;
-        music.play().catch(e => console.log("Autoplay prevented:", e));
-        if (musicBtn) musicBtn.classList.remove('hidden');
+  function startTypewriter() {
+    const phraseEl = document.getElementById('vt-phrase');
+    const dividerEl = document.querySelector('.vt-divider');
+    const enterBtn = document.getElementById('vt-enter-btn');
+    const sfx = document.getElementById('typewriter-sfx');
+    const fullText = 'Avance para descobrir os detalhes do início do nosso para sempre';
+    let index = 0;
+
+    if (!phraseEl) return;
+    phraseEl.textContent = '';
+
+    if (sfx) {
+      sfx.volume = 0.55;
+      sfx.loop = true;
+      sfx.currentTime = 0;
+      sfx.play().catch(() => { });
+    }
+
+    function typeNext() {
+      if (index < fullText.length) {
+        phraseEl.textContent += fullText[index];
+        index++;
+        const ch = fullText[index - 1];
+        const delay = ch === ' ' ? 60 :
+          ch === ',' ? 200 :
+            40 + Math.random() * 35;
+        setTimeout(typeNext, delay);
+      } else {
+        if (sfx) { sfx.pause(); sfx.currentTime = 0; }
+        phraseEl.classList.add('typing-done');
+        setTimeout(() => {
+          if (dividerEl) dividerEl.classList.add('show');
+          setTimeout(() => {
+            if (enterBtn) enterBtn.classList.add('show');
+          }, 400);
+        }, 300);
       }
+    }
+    typeNext();
+  }
+
+  function hideVideo() {
+    if (videoTransition) {
+      videoTransition.classList.remove('visible');
+      videoTransition.classList.add('hidden');
+      setTimeout(() => videoTransition.style.display = 'none', 1200);
+    }
+    if (musicBtn && bgm) {
+      musicBtn.classList.add('visible');
+      bgm.volume = 0.45;
+      bgm.play().catch(() => { });
+    }
+    initHorizontalBook();
+  }
+
+  if (introVideo) {
+    introVideo.addEventListener('ended', () => {
+      if (skipBtn) skipBtn.style.display = 'none';
+      showTransition();
     });
   }
 
-  if (musicBtn && music) {
+  if (skipBtn) skipBtn.addEventListener('click', showTransition);
+  if (vtEnterBtn) vtEnterBtn.addEventListener('click', hideVideo);
+
+  // Music toggle
+  if (musicBtn && bgm) {
+    let playing = false;
+    bgm.addEventListener('play', () => { playing = true; musicBtn.textContent = '♬'; });
+    bgm.addEventListener('pause', () => { playing = false; musicBtn.textContent = '♪'; });
     musicBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        musicBtn.textContent = '🔊';
-      } else {
-        music.pause();
-        musicBtn.textContent = '🔇';
-      }
+      if (playing) bgm.pause();
+      else bgm.play().catch(() => { });
     });
   }
 });
