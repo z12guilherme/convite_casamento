@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard de Presentes - Guilherme & Evellyn</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -416,6 +417,67 @@
     .confirm-modal-btn.cancel:hover {
       background: rgba(61, 122, 108, 0.05);
     }
+
+    /* Dropzone Upload Styling */
+    .dropzone {
+      width: 100%;
+      border: 2px dashed rgba(61, 122, 108, 0.4);
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dropzone:hover, .dropzone.drag-over {
+      border-color: var(--c-primary);
+      background: rgba(61, 122, 108, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(61, 122, 108, 0.15);
+    }
+
+    .dropzone-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .dropzone-icon {
+      font-size: 2.2rem;
+      color: var(--c-primary);
+    }
+
+    .dropzone-text {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--c-text);
+    }
+
+    .browse-text {
+      color: var(--c-primary);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .file-name-preview {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--c-gold);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .image-preview-thumb {
+      max-height: 90px;
+      border-radius: 8px;
+      margin-top: 8px;
+      border: 1px solid var(--c-gold);
+      object-fit: cover;
+    }
   </style>
 </head>
 
@@ -505,8 +567,18 @@
       <input type="text" id="gift-name" placeholder="Nome do presente" required />
       <input type="text" id="gift-link" placeholder="URL do produto (opcional)" />
       <input type="number" id="gift-price" step="0.01" placeholder="Valor (R$) - Opcional" />
-      <input type="file" id="gift-image" accept="image/*" required />
-      <button type="submit">Adicionar Presente</button>
+      
+      <div id="gift-image-dropzone" class="dropzone">
+        <input type="file" id="gift-image" accept="image/*" required style="display:none;" />
+        <div class="dropzone-content">
+          <i class="bi bi-cloud-arrow-up dropzone-icon"></i>
+          <p class="dropzone-text">Arraste e solte a imagem aqui ou <span class="browse-text">clique para selecionar</span></p>
+          <span id="file-name-preview" class="file-name-preview"></span>
+          <img id="image-preview" class="image-preview-thumb" style="display:none;" alt="Pré-visualização" />
+        </div>
+      </div>
+
+      <button type="submit" style="width: 100%; margin-top: 10px;">Adicionar Presente</button>
     </form>
   </div>
 

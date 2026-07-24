@@ -133,10 +133,50 @@
     showToast(info.replace(/\n/g, '<br>'), 'info');
   }
 
+  function setupExcelDropzone() {
+    const dropzone = document.getElementById('excel-dropzone');
+    const fileInput = document.getElementById('xlsx_file');
+    const previewText = document.getElementById('excel-file-preview');
+
+    if (!dropzone || !fileInput) return;
+
+    dropzone.addEventListener('click', () => fileInput.click());
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add('drag-over');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('drag-over');
+      }, false);
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files && files.length > 0) {
+        fileInput.files = files;
+        if (previewText) previewText.textContent = `📊 ${files[0].name}`;
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0 && previewText) {
+        previewText.textContent = `📊 ${fileInput.files[0].name}`;
+      }
+    });
+  }
+
   window.addEventListener('DOMContentLoaded', ()=>{
     atualizarListaConvidados();
-    // Opcionalmente podemos registrar botões caso precisem de hooks globais, 
-    // mas com os onclick inline do index.html isso já funciona diretamente.
+    setupExcelDropzone();
   });
 
   window.adicionarConvidado = adicionarConvidado;

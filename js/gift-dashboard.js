@@ -275,14 +275,85 @@ addGiftForm.onsubmit = async (e) => {
         if (error) return showToast('Erro ao adicionar: ' + error.message, 'error');
         showToast(`"${name}" adicionado com sucesso! 🎁`, 'success');
         addGiftForm.reset();
+        resetDropzonePreview();
         loadGifts();
     };
     reader.readAsDataURL(file);
 };
+
+// ─── Drag & Drop Upload ──────────────────────────────────────────────────────
+function resetDropzonePreview() {
+    const previewText = document.getElementById('file-name-preview');
+    const imagePreview = document.getElementById('image-preview');
+    if (previewText) previewText.textContent = '';
+    if (imagePreview) {
+        imagePreview.src = '';
+        imagePreview.style.display = 'none';
+    }
+}
+
+function setupDropzone() {
+    const dropzone = document.getElementById('gift-image-dropzone');
+    const fileInput = document.getElementById('gift-image');
+    const previewText = document.getElementById('file-name-preview');
+    const imagePreview = document.getElementById('image-preview');
+
+    if (!dropzone || !fileInput) return;
+
+    dropzone.addEventListener('click', (e) => {
+        fileInput.click();
+    });
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add('drag-over');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove('drag-over');
+        }, false);
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+            fileInput.files = files;
+            handleFileSelect(files[0]);
+        }
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            handleFileSelect(fileInput.files[0]);
+        }
+    });
+
+    function handleFileSelect(file) {
+        if (previewText) previewText.textContent = `📷 ${file.name}`;
+        if (imagePreview && file.type.startsWith('image/')) {
+            const r = new FileReader();
+            r.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            r.readAsDataURL(file);
+        }
+    }
+}
 
 // ─── Realtime ────────────────────────────────────────────────────────────────
 supabaseClient.channel('public:gifts')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'gifts' }, () => loadGifts())
     .subscribe();
 
-window.addEventListener('DOMContentLoaded', loadGifts);
+window.addEventListener('DOMContentLoaded', () => {
+    loadGifts();
+    setupDropzone();
+});
