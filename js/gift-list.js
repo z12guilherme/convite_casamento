@@ -123,44 +123,30 @@
                 const btn = document.createElement('button');
                 btn.className = 'confirm-btn';
 
-                // Lógica de Cotas vs Presente Único
+                // Lógica de Presente Único (sem cotas)
                 let isFullyTaken = false;
                 let totalContributed = 0;
 
-                // Calcula total arrecadado se houver contribuições CONFIRMADAS
                 if (gift.contributions && Array.isArray(gift.contributions)) {
                     totalContributed = gift.contributions
                         .filter(c => c.status === 'confirmed')
                         .reduce((acc, curr) => acc + (curr.amount || 0), 0);
                 }
 
-                // Verifica se está completo (seja por taken_by antigo ou preço atingido)
                 if (gift.taken_by || (gift.price && totalContributed >= gift.price)) {
                     isFullyTaken = true;
                 }
 
-                // Renderiza Barra de Progresso se tiver preço
-                if (gift.price && !isFullyTaken) {
-                    const progressContainer = document.createElement('div');
-                    progressContainer.style.cssText = "padding: 0 20px 10px; width: 100%;";
-
-                    const percent = Math.min(100, (totalContributed / gift.price) * 100);
-                    const remaining = gift.price - totalContributed;
-
-                    progressContainer.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:5px; color:var(--c-text-light);">
-                            <span>Arrecadado: R$ ${totalContributed.toFixed(2)}</span>
-                            <span>Meta: ${formatCurrency(gift.price)}</span>
-                        </div>
-                        <div style="background:#e0e0e0; border-radius:10px; height:8px; width:100%; overflow:hidden;">
-                            <div style="background: linear-gradient(90deg, var(--c-gold), var(--c-gold-dark)); width:${percent}%; height:100%; transition: width 0.5s ease;"></div>
-                        </div>
-                        <div style="text-align:center; font-size:0.85rem; margin-top:5px; color:var(--c-primary);">
-                            Falta: <strong>R$ ${remaining.toFixed(2)}</strong>
+                // Exibição do valor do presente no card
+                if (gift.price) {
+                    const priceContainer = document.createElement('div');
+                    priceContainer.style.cssText = "padding: 5px 20px 10px; width: 100%; text-align: center;";
+                    priceContainer.innerHTML = `
+                        <div style="font-size:0.95rem; font-weight: 600; color:var(--c-primary);">
+                            Valor: ${formatCurrency(gift.price)}
                         </div>
                     `;
-                    innerContent.insertBefore(progressContainer, innerContent.lastChild); // Insere antes do botão (que ainda não foi adicionado no DOM, então append no innerContent funciona melhor depois)
-                    innerContent.appendChild(progressContainer);
+                    innerContent.appendChild(priceContainer);
                 }
 
                 if (isFullyTaken) {
@@ -170,7 +156,7 @@
                     btn.style.cursor = 'not-allowed';
                     btn.style.background = 'linear-gradient(45deg, #6c757d, #495057)';
                 } else {
-                    btn.textContent = 'Contribuir (Pix) 💸';
+                    btn.innerHTML = `<i class="bi bi-gift-fill me-2"></i> Presentear 🎁`;
                     btn.onclick = () => openContributionModal(gift);
                 }
                 innerContent.appendChild(btn);
@@ -186,32 +172,23 @@
 
     function openContributionModal(gift) {
         currentGift = gift;
-        const totalContributed = (gift.contributions || [])
-            .filter(c => c.status === 'confirmed')
-            .reduce((acc, c) => acc + (c.amount || 0), 0);
-        const remaining = gift.price ? gift.price - totalContributed : 0;
-        const percent = gift.price ? Math.min(100, (totalContributed / gift.price) * 100) : 0;
 
         modalGiftName.textContent = gift.name;
         modalGiftPrice.textContent = gift.price ? formatCurrency(gift.price) : 'Valor Livre';
-        modalContributedAmount.textContent = formatCurrency(totalContributed);
-        modalRemainingAmount.textContent = formatCurrency(remaining);
-        modalProgressFill.style.width = `${percent}%`;
         modalPixKey.textContent = PIX_KEY;
 
         if (gift.price) {
-            contributionAmountInput.value = remaining.toFixed(2);
-            contributionAmountInput.max = remaining.toFixed(2);
+            contributionAmountInput.value = gift.price.toFixed(2);
+            contributionAmountInput.readOnly = true;
         } else {
             contributionAmountInput.value = "100.00";
-            contributionAmountInput.removeAttribute('max');
+            contributionAmountInput.readOnly = false;
         }
 
         contributionAmountInput.placeholder = "0,00";
 
         pixPaymentArea.style.display = 'none';
-        // Esconde a barra de progresso se o item não tem meta definida ou se já foi totalmente pago
-        modalProgressBar.style.display = (gift.price && remaining > 0.01) ? 'block' : 'none';
+        modalProgressBar.style.display = 'none';
 
         modal.classList.add('show');
     }
@@ -221,12 +198,11 @@
         currentGift = null;
         currentTxId = null;
         pixPaymentArea.style.display = 'none';
-        // Restaura os sub-painéis do PIX para o estado inicial
         if (pixQrArea) pixQrArea.style.display = 'block';
         if (pixConfirmedArea) pixConfirmedArea.style.display = 'none';
         confirmContributionBtn.disabled = false;
         confirmContributionBtn.style.display = 'inline-block';
-        confirmContributionBtn.textContent = 'Confirmar Contribuição';
+        confirmContributionBtn.textContent = 'Gerar QR Code PIX 🎁';
     }
 
     async function handleConfirmContribution() {

@@ -57,11 +57,10 @@
         const isPadrinho = c.role === 'padrinho';
         const pageName = isPadrinho ? 'invite_padrinhos.html' : 'invite.html';
 
-        // Constrói a URL completa do convite
+        // Constrói a URL completa do convite sem gerar barras duplas
         const currentUrl = new URL(window.location.href);
-        currentUrl.pathname = currentUrl.pathname.replace(/[^/]*$/, pageName); 
-        currentUrl.search = `?name=${encodeURIComponent(c.name)}`;
-        const inviteUrl = currentUrl.href;
+        const dirPath = currentUrl.pathname.substring(0, currentUrl.pathname.lastIndexOf('/') + 1);
+        const inviteUrl = `${currentUrl.origin}${dirPath}${pageName}?name=${encodeURIComponent(c.name)}`;
 
         li.innerHTML = `
           <div class="guest-info">

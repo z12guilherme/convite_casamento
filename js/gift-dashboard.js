@@ -15,19 +15,14 @@ function createAvailableRow(gift) {
 
     let priceInfo = '';
     if (gift.price !== null && gift.price !== undefined) {
-        const pct = Math.min(100, (confirmedTotal / gift.price) * 100).toFixed(0);
-        const color = confirmedTotal >= gift.price ? 'color:#3D7A6C; font-weight:bold;' : 'color:#999;';
         priceInfo = `
-            <div style="font-size:0.82rem; margin-top:5px; ${color}">
-                Meta Fixa: ${fmt(gift.price)} | Confirmado: ${fmt(confirmedTotal)}
-            </div>
-            <div style="background:#eee; border-radius:6px; height:5px; margin-top:4px; overflow:hidden;">
-                <div style="background:#3D7A6C; width:${pct}%; height:100%; transition:width .4s;"></div>
+            <div style="font-size:0.82rem; margin-top:5px; color:#3D7A6C; font-weight:600;">
+                Valor: ${fmt(gift.price)}
             </div>`;
     } else {
         priceInfo = `
             <div style="font-size:0.82rem; margin-top:5px; color:#999; font-style: italic;">
-                Contribuição Livre (Sem meta fixa)
+                Valor Livre
             </div>`;
     }
 
@@ -187,7 +182,7 @@ window.rejectContribution = async (giftId, txId, idx) => {
 
 // ─── Ações das tabelas principais ────────────────────────────────────────────
 window.releaseGift = async (giftId, name) => {
-    const ok = await showConfirm(`Deseja liberar "<strong>${name}</strong>"? Ele voltará para disponíveis e as cotas confirmadas serão zeradas.`);
+    const ok = await showConfirm(`Deseja liberar "<strong>${name}</strong>"? Ele voltará para a lista de disponíveis.`);
     if (!ok) return;
     const { error } = await supabaseClient.from('gifts')
         .update({ taken_by: null, confirmed_at: null, contributions: [] }).eq('id', giftId);

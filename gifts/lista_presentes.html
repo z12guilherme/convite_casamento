@@ -83,8 +83,8 @@
                     </div>
                     <div class="instruction-step">
                         <div class="step-number">02</div>
-                        <h5>Contribua</h5>
-                        <p>Clique em contribuir. Você pode dar o valor total ou apenas uma cota.</p>
+                        <h5>Presenteie</h5>
+                        <p>Clique em presentear para realizar o Pix no valor total do item escolhido.</p>
                     </div>
                     <div class="instruction-step">
                         <div class="step-number">03</div>
@@ -177,39 +177,30 @@
         </div>
     </footer>
 
-    <!-- Modal de Contribuição Pix -->
+    <!-- Modal de Presente Pix -->
     <div id="contributionModal" class="contribution-modal-overlay">
         <div class="contribution-modal-content">
             <div class="modal-header">
                 <h3 id="modalGiftName">Presente Escolhido</h3>
-                <p>Valor total: <strong id="modalGiftPrice">R$ 0,00</strong></p>
-            </div>
-            <div id="modalProgressBar" class="progress-container-modal">
-                <div
-                    style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:5px; color:var(--c-text-dark);">
-                    <span>Arrecadado: <strong id="modalContributedAmount">R$ 0,00</strong></span>
-                    <span>Falta: <strong id="modalRemainingAmount">R$ 0,00</strong></span>
-                </div>
-                <div class="progress-bar-elegant">
-                    <div id="modalProgressFill" class="progress-fill-elegant" style="width:0%;"></div>
-                </div>
+                <p style="font-size: 1.15rem; color: var(--c-primary); margin-top: 6px;">
+                    Valor do presente: <strong id="modalGiftPrice">R$ 0,00</strong>
+                </p>
             </div>
 
-            <div class="fixed-values-grid mb-3">
-                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(50)">R$ 50</button>
-                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(100)">R$ 100</button>
-                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(200)">R$ 200</button>
-                <button type="button" class="fixed-value-btn" onclick="setContributionAmount(500)">R$ 500</button>
+            <!-- Ocultado elemento de progresso de cotas -->
+            <div id="modalProgressBar" class="progress-container-modal" style="display:none;">
+                <span id="modalContributedAmount" style="display:none;"></span>
+                <span id="modalRemainingAmount" style="display:none;"></span>
+                <div id="modalProgressFill" style="display:none;"></div>
             </div>
 
-            <div class="amount-input-group">
-                <label for="contributionAmount">R$</label>
+            <div class="amount-input-group" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <label for="contributionAmount" style="font-weight: 600;">Valor (R$):</label>
                 <input type="number" id="contributionAmount" class="amount-input" step="0.01" min="0.01"
-                    placeholder="0,00">
+                    placeholder="0,00" readonly style="background: rgba(61,122,108,0.06); font-weight: bold; border-radius: 8px; padding: 6px 12px; max-width: 150px; text-align: center;">
             </div>
-            <p class="pix-key-info" style="font-size: 0.9rem; color: var(--c-text-light);">
-                Para confirmar sua contribuição, faça um PIX para a chave abaixo. Após o Pix, clique em "Confirmar
-                Contribuição".
+            <p class="pix-key-info" style="font-size: 0.9rem; color: var(--c-text-light); margin-top: 15px;">
+                Para presentear o casal com este item completo, faça o PIX no valor indicado e confirme abaixo.
             </p>
             <div class="pix-key-display">
                 Chave Pix: <strong id="modalPixKey">Carregando...</strong>
@@ -252,14 +243,14 @@
                     </div>
                     <h4 style="color: var(--c-primary); margin-bottom: 8px;">Pagamento registrado! 💚</h4>
                     <p style="font-size: 0.9rem; color: var(--c-text-light); line-height: 1.5;">
-                        Obrigado! Sua contribuição foi enviada para confirmação.<br>
+                        Obrigado! Seu presente foi enviado para confirmação.<br>
                         O casal irá verificar e confirmar o recebimento em breve.
                     </p>
                 </div>
             </div>
 
             <div class="modal-actions">
-                <button id="confirmContributionBtn" class="modal-btn modal-btn-confirm">Confirmar Contribuição</button>
+                <button id="confirmContributionBtn" class="modal-btn modal-btn-confirm">Gerar QR Code PIX 🎁</button>
                 <button id="cancelContributionBtn" class="modal-btn modal-btn-cancel">Cancelar</button>
             </div>
         </div>
